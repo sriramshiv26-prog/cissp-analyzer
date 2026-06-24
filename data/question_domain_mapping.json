@@ -1,0 +1,622 @@
+{
+  "9": {
+    "domain": 1,
+    "topic": "Governance",
+    "subtopic": "Organizational Governance"
+  },
+  "12": {
+    "domain": 1,
+    "topic": "Information Security Standards",
+    "subtopic": "Standards & Compliance"
+  },
+  "15": {
+    "domain": 1,
+    "topic": "Technology Management",
+    "subtopic": "Technology Management"
+  },
+  "19": {
+    "domain": 1,
+    "topic": "Security Policies",
+    "subtopic": "Policy Development"
+  },
+  "23": {
+    "domain": 1,
+    "topic": "Principles of Security",
+    "subtopic": "Security Principles"
+  },
+  "25": {
+    "domain": 1,
+    "topic": "Backup/Recovery",
+    "subtopic": "BCP Requirements"
+  },
+  "26": {
+    "domain": 1,
+    "topic": "Disaster Recovery",
+    "subtopic": "DRP Requirements"
+  },
+  "65": {
+    "domain": 1,
+    "topic": "Privacy/Compliance",
+    "subtopic": "Privacy Compliance"
+  },
+  "78": {
+    "domain": 1,
+    "topic": "Business Continuity",
+    "subtopic": "BCP Planning"
+  },
+  "79": {
+    "domain": 1,
+    "topic": "Legal/Regulatory",
+    "subtopic": "Regulatory Requirements"
+  },
+  "82": {
+    "domain": 1,
+    "topic": "Risk Analysis",
+    "subtopic": "Risk Analysis"
+  },
+  "91": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management"
+  },
+  "96": {
+    "domain": 1,
+    "topic": "Risk Assessment",
+    "subtopic": "Risk Assessment Methods"
+  },
+  "98": {
+    "domain": 1,
+    "topic": "Ethics/Compliance",
+    "subtopic": "Professional Ethics"
+  },
+  "107": {
+    "domain": 1,
+    "topic": "Business Continuity",
+    "subtopic": "BCP Documentation"
+  },
+  "109": {
+    "domain": 1,
+    "topic": "Disaster Recovery Testing",
+    "subtopic": "DRP Testing"
+  },
+  "115": {
+    "domain": 1,
+    "topic": "Disaster Recovery",
+    "subtopic": "Recovery Strategies"
+  },
+  "120": {
+    "domain": 1,
+    "topic": "Disaster Recovery",
+    "subtopic": "DRP Implementation"
+  },
+  "119": {
+    "domain": 1,
+    "topic": "Privacy Regulation",
+    "subtopic": "Privacy Laws"
+  },
+  "6": {
+    "domain": 2,
+    "topic": "Privacy/Data Protection",
+    "subtopic": "Data Protection"
+  },
+  "10": {
+    "domain": 2,
+    "topic": "Privacy/Data Protection",
+    "subtopic": "Privacy Requirements"
+  },
+  "13": {
+    "domain": 2,
+    "topic": "Data Protection",
+    "subtopic": "Data Protection Methods"
+  },
+  "17": {
+    "domain": 2,
+    "topic": "Data Sanitization",
+    "subtopic": "Data Destruction"
+  },
+  "20": {
+    "domain": 2,
+    "topic": "Database Security",
+    "subtopic": "Database Protection"
+  },
+  "21": {
+    "domain": 2,
+    "topic": "Data Protection",
+    "subtopic": "Data Handling"
+  },
+  "37": {
+    "domain": 2,
+    "topic": "Data Management",
+    "subtopic": "Data Lifecycle"
+  },
+  "51": {
+    "domain": 2,
+    "topic": "Data Management",
+    "subtopic": "Data Ownership"
+  },
+  "73": {
+    "domain": 2,
+    "topic": "Classification",
+    "subtopic": "Data Classification"
+  },
+  "76": {
+    "domain": 2,
+    "topic": "Data Destruction",
+    "subtopic": "Data Destruction Process"
+  },
+  "22": {
+    "domain": 3,
+    "topic": "Physical Security",
+    "subtopic": "Physical Controls"
+  },
+  "36": {
+    "domain": 3,
+    "topic": "Threat Modeling",
+    "subtopic": "STRIDE Analysis"
+  },
+  "38": {
+    "domain": 3,
+    "topic": "Cryptography",
+    "subtopic": "Cryptographic Methods"
+  },
+  "41": {
+    "domain": 3,
+    "topic": "System Architecture",
+    "subtopic": "Secure Architecture"
+  },
+  "42": {
+    "domain": 3,
+    "topic": "Storage Technology",
+    "subtopic": "Storage Security"
+  },
+  "44": {
+    "domain": 3,
+    "topic": "Storage Technology",
+    "subtopic": "Storage Methods"
+  },
+  "64": {
+    "domain": 3,
+    "topic": "Fire Suppression",
+    "subtopic": "Fire Suppression Systems"
+  },
+  "70": {
+    "domain": 3,
+    "topic": "Common Criteria",
+    "subtopic": "Common Criteria Evaluation"
+  },
+  "77": {
+    "domain": 3,
+    "topic": "Cryptography Goals",
+    "subtopic": "Cryptographic Goals"
+  },
+  "83": {
+    "domain": 3,
+    "topic": "System Architecture",
+    "subtopic": "System Design"
+  },
+  "90": {
+    "domain": 3,
+    "topic": "Cryptography",
+    "subtopic": "Encryption Algorithms"
+  },
+  "92": {
+    "domain": 3,
+    "topic": "Certificate Management",
+    "subtopic": "Digital Certificates"
+  },
+  "100": {
+    "domain": 3,
+    "topic": "Security Models",
+    "subtopic": "Security Models"
+  },
+  "117": {
+    "domain": 3,
+    "topic": "Cryptography",
+    "subtopic": "Cryptographic Protocols"
+  },
+  "122": {
+    "domain": 3,
+    "topic": "Cryptography",
+    "subtopic": "Encryption Methods"
+  },
+  "2": {
+    "domain": 4,
+    "topic": "Network Security",
+    "subtopic": "Network Threats"
+  },
+  "8": {
+    "domain": 4,
+    "topic": "Network Protocols",
+    "subtopic": "Protocol Security"
+  },
+  "11": {
+    "domain": 4,
+    "topic": "Network Protocols",
+    "subtopic": "Network Protocol Details"
+  },
+  "27": {
+    "domain": 4,
+    "topic": "Infrastructure",
+    "subtopic": "Network Infrastructure"
+  },
+  "29": {
+    "domain": 4,
+    "topic": "Network Protocols",
+    "subtopic": "Protocol Selection"
+  },
+  "39": {
+    "domain": 4,
+    "topic": "Network Security",
+    "subtopic": "Network Defense"
+  },
+  "45": {
+    "domain": 4,
+    "topic": "Email Security",
+    "subtopic": "Email Protection"
+  },
+  "47": {
+    "domain": 4,
+    "topic": "Communications",
+    "subtopic": "Secure Communications"
+  },
+  "48": {
+    "domain": 4,
+    "topic": "Network Infrastructure",
+    "subtopic": "Network Architecture"
+  },
+  "50": {
+    "domain": 4,
+    "topic": "Web Security",
+    "subtopic": "Web Application Security"
+  },
+  "53": {
+    "domain": 4,
+    "topic": "Cloud Services",
+    "subtopic": "Cloud Security"
+  },
+  "54": {
+    "domain": 4,
+    "topic": "VoIP Security",
+    "subtopic": "VoIP Protection"
+  },
+  "56": {
+    "domain": 4,
+    "topic": "Encryption Protocols",
+    "subtopic": "Encryption Standards"
+  },
+  "63": {
+    "domain": 4,
+    "topic": "Mobile Technology",
+    "subtopic": "Mobile Security"
+  },
+  "75": {
+    "domain": 4,
+    "topic": "Wireless Security",
+    "subtopic": "Wireless Networks"
+  },
+  "80": {
+    "domain": 4,
+    "topic": "Network Access Control",
+    "subtopic": "NAC Systems"
+  },
+  "85": {
+    "domain": 4,
+    "topic": "Network Cabling",
+    "subtopic": "Physical Network"
+  },
+  "94": {
+    "domain": 4,
+    "topic": "TCP/IP Protocols",
+    "subtopic": "TCP/IP Stack"
+  },
+  "97": {
+    "domain": 4,
+    "topic": "OSI Model",
+    "subtopic": "OSI Layers"
+  },
+  "101": {
+    "domain": 4,
+    "topic": "Network Access",
+    "subtopic": "Network Segmentation"
+  },
+  "103": {
+    "domain": 4,
+    "topic": "Network Protocols",
+    "subtopic": "Protocol Analysis"
+  },
+  "104": {
+    "domain": 4,
+    "topic": "Mobile Security",
+    "subtopic": "Mobile Device Security"
+  },
+  "105": {
+    "domain": 4,
+    "topic": "Mobile Security",
+    "subtopic": "Mobile Apps"
+  },
+  "106": {
+    "domain": 4,
+    "topic": "Mobile Device Management",
+    "subtopic": "MDM Solutions"
+  },
+  "110": {
+    "domain": 4,
+    "topic": "Network Issues",
+    "subtopic": "Network Troubleshooting"
+  },
+  "116": {
+    "domain": 4,
+    "topic": "Network Architecture",
+    "subtopic": "Network Design"
+  },
+  "118": {
+    "domain": 4,
+    "topic": "Network Protocols",
+    "subtopic": "Protocol Comparison"
+  },
+  "121": {
+    "domain": 4,
+    "topic": "OSI Model",
+    "subtopic": "OSI Reference"
+  },
+  "124": {
+    "domain": 4,
+    "topic": "Email Encryption",
+    "subtopic": "Email Encryption Methods"
+  },
+  "1": {
+    "domain": 5,
+    "topic": "Access Control",
+    "subtopic": "Access Control Models"
+  },
+  "3": {
+    "domain": 5,
+    "topic": "Biometrics",
+    "subtopic": "Biometric Methods"
+  },
+  "4": {
+    "domain": 5,
+    "topic": "Biometrics",
+    "subtopic": "FAR/FRR Analysis"
+  },
+  "5": {
+    "domain": 5,
+    "topic": "Biometrics",
+    "subtopic": "Biometric Implementation"
+  },
+  "28": {
+    "domain": 5,
+    "topic": "Access Control",
+    "subtopic": "Access Control Systems"
+  },
+  "46": {
+    "domain": 5,
+    "topic": "Access Control",
+    "subtopic": "Access Rules"
+  },
+  "52": {
+    "domain": 5,
+    "topic": "Access Control",
+    "subtopic": "Access Control Policies"
+  },
+  "55": {
+    "domain": 5,
+    "topic": "Access Control Principles",
+    "subtopic": "Least Privilege"
+  },
+  "57": {
+    "domain": 5,
+    "topic": "Authentication Protocols",
+    "subtopic": "Auth Mechanisms"
+  },
+  "58": {
+    "domain": 5,
+    "topic": "Kerberos",
+    "subtopic": "Kerberos Authentication"
+  },
+  "59": {
+    "domain": 5,
+    "topic": "Kerberos",
+    "subtopic": "Kerberos Ticket Granting"
+  },
+  "60": {
+    "domain": 5,
+    "topic": "Kerberos",
+    "subtopic": "Kerberos Mutual Auth"
+  },
+  "61": {
+    "domain": 5,
+    "topic": "Kerberos",
+    "subtopic": "Kerberos Realms"
+  },
+  "62": {
+    "domain": 5,
+    "topic": "Authentication",
+    "subtopic": "Authentication Methods"
+  },
+  "67": {
+    "domain": 5,
+    "topic": "Authentication Factors",
+    "subtopic": "Multi-Factor Auth"
+  },
+  "81": {
+    "domain": 5,
+    "topic": "Access Control Principles",
+    "subtopic": "Separation of Duties"
+  },
+  "95": {
+    "domain": 5,
+    "topic": "LDAP",
+    "subtopic": "LDAP Directory"
+  },
+  "125": {
+    "domain": 5,
+    "topic": "Linux Permissions",
+    "subtopic": "File Permissions"
+  },
+  "18": {
+    "domain": 6,
+    "topic": "Vulnerability Analysis",
+    "subtopic": "Vuln Analysis"
+  },
+  "43": {
+    "domain": 6,
+    "topic": "Attacks",
+    "subtopic": "Attack Types"
+  },
+  "66": {
+    "domain": 6,
+    "topic": "Code Review",
+    "subtopic": "Source Code Review"
+  },
+  "69": {
+    "domain": 6,
+    "topic": "Security Testing",
+    "subtopic": "Security Test Methods"
+  },
+  "71": {
+    "domain": 6,
+    "topic": "Network Scanning",
+    "subtopic": "Network Scanning Tools"
+  },
+  "72": {
+    "domain": 6,
+    "topic": "Vulnerability Assessment",
+    "subtopic": "Vuln Assessment"
+  },
+  "93": {
+    "domain": 6,
+    "topic": "Code Analysis",
+    "subtopic": "Code Analysis Tools"
+  },
+  "111": {
+    "domain": 6,
+    "topic": "Code Review",
+    "subtopic": "Code Inspection"
+  },
+  "112": {
+    "domain": 6,
+    "topic": "Web Application Security",
+    "subtopic": "Web App Testing"
+  },
+  "16": {
+    "domain": 7,
+    "topic": "Log Management",
+    "subtopic": "Log Handling"
+  },
+  "24": {
+    "domain": 7,
+    "topic": "Investigations",
+    "subtopic": "Investigation Process"
+  },
+  "31": {
+    "domain": 7,
+    "topic": "Backup Strategy",
+    "subtopic": "Backup Types"
+  },
+  "32": {
+    "domain": 7,
+    "topic": "Backup Strategy",
+    "subtopic": "Backup Strategies"
+  },
+  "33": {
+    "domain": 7,
+    "topic": "Backup Strategy",
+    "subtopic": "Backup Rotation"
+  },
+  "34": {
+    "domain": 7,
+    "topic": "Backup Strategy",
+    "subtopic": "Backup 3-2-1 Rule"
+  },
+  "35": {
+    "domain": 7,
+    "topic": "Backup Strategy",
+    "subtopic": "Recovery Sites"
+  },
+  "40": {
+    "domain": 7,
+    "topic": "Logging/Monitoring",
+    "subtopic": "Log Monitoring"
+  },
+  "49": {
+    "domain": 7,
+    "topic": "Forensics",
+    "subtopic": "Digital Forensics"
+  },
+  "68": {
+    "domain": 7,
+    "topic": "System Ownership",
+    "subtopic": "System Responsibility"
+  },
+  "74": {
+    "domain": 7,
+    "topic": "Recovery",
+    "subtopic": "Recovery Procedures"
+  },
+  "84": {
+    "domain": 7,
+    "topic": "Log Analysis",
+    "subtopic": "Log Analysis Process"
+  },
+  "86": {
+    "domain": 7,
+    "topic": "Change Management",
+    "subtopic": "Change Control"
+  },
+  "87": {
+    "domain": 7,
+    "topic": "Change Management",
+    "subtopic": "Change Process"
+  },
+  "88": {
+    "domain": 7,
+    "topic": "Change Management",
+    "subtopic": "Change Approval"
+  },
+  "89": {
+    "domain": 7,
+    "topic": "Change Management",
+    "subtopic": "Change Documentation"
+  },
+  "102": {
+    "domain": 7,
+    "topic": "Monitoring",
+    "subtopic": "Continuous Monitoring"
+  },
+  "108": {
+    "domain": 7,
+    "topic": "Assurance",
+    "subtopic": "System Assurance"
+  },
+  "7": {
+    "domain": 8,
+    "topic": "Software Development",
+    "subtopic": "SDLC Models"
+  },
+  "14": {
+    "domain": 8,
+    "topic": "Software Testing",
+    "subtopic": "Testing Types"
+  },
+  "30": {
+    "domain": 8,
+    "topic": "Programming",
+    "subtopic": "Programming Fundamentals"
+  },
+  "99": {
+    "domain": 8,
+    "topic": "SDLC",
+    "subtopic": "SDLC Phases"
+  },
+  "113": {
+    "domain": 8,
+    "topic": "Programming Languages",
+    "subtopic": "Language Security"
+  },
+  "123": {
+    "domain": 8,
+    "topic": "Software Architecture",
+    "subtopic": "Software Design"
+  }
+}
