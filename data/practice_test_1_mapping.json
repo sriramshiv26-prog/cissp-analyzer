@@ -1,0 +1,858 @@
+{
+  "1": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "2": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "3": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Exception",
+    "exam_trick": "NOT"
+  },
+  "4": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "5": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "6": {
+    "domain": 2,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "7": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "8": {
+    "domain": 4,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "10": {
+    "domain": 4,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "11": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Scenario",
+    "exam_trick": "FIRST"
+  },
+  "12": {
+    "domain": 2,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Exception",
+    "exam_trick": "NOT"
+  },
+  "13": {
+    "domain": 7,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Application",
+    "exam_trick": "BEST"
+  },
+  "14": {
+    "domain": 4,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Exception",
+    "exam_trick": "MOST|BEST|NOT|EXCEPT"
+  },
+  "15": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Exception",
+    "exam_trick": "NOT"
+  },
+  "16": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "17": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "18": {
+    "domain": 2,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Exception",
+    "exam_trick": "NOT"
+  },
+  "19": {
+    "domain": 4,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "21": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "22": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Exception",
+    "exam_trick": "NOT"
+  },
+  "23": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "24": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Scenario",
+    "exam_trick": "MOST"
+  },
+  "25": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "26": {
+    "domain": 8,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Scenario",
+    "exam_trick": "None"
+  },
+  "27": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Exception",
+    "exam_trick": "NOT"
+  },
+  "28": {
+    "domain": 2,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Application",
+    "exam_trick": "BEST"
+  },
+  "29": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "31": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "32": {
+    "domain": 2,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "33": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "34": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "35": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "37": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "39": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "40": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "41": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "42": {
+    "domain": 5,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "44": {
+    "domain": 5,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "45": {
+    "domain": 3,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "46": {
+    "domain": 3,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "47": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Exception",
+    "exam_trick": "NOT"
+  },
+  "48": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "49": {
+    "domain": 2,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "51": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "52": {
+    "domain": 4,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "53": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "54": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "56": {
+    "domain": 2,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "57": {
+    "domain": 2,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "58": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "59": {
+    "domain": 2,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "61": {
+    "domain": 5,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "62": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Exception",
+    "exam_trick": "NOT"
+  },
+  "63": {
+    "domain": 8,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Exception",
+    "exam_trick": "NOT"
+  },
+  "65": {
+    "domain": 6,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "66": {
+    "domain": 7,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "67": {
+    "domain": 5,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "69": {
+    "domain": 5,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "BEST"
+  },
+  "70": {
+    "domain": 3,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Scenario",
+    "exam_trick": "None"
+  },
+  "71": {
+    "domain": 8,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "73": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Exception",
+    "exam_trick": "NOT"
+  },
+  "74": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "75": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "76": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "78": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Exception",
+    "exam_trick": "BEST|NOT"
+  },
+  "79": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Exception",
+    "exam_trick": "NOT"
+  },
+  "80": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "81": {
+    "domain": 7,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "83": {
+    "domain": 5,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "84": {
+    "domain": 7,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "85": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "86": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "87": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "88": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "89": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "90": {
+    "domain": 2,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "91": {
+    "domain": 6,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": "BEST"
+  },
+  "92": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "93": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "94": {
+    "domain": 3,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Exception",
+    "exam_trick": "NOT"
+  },
+  "95": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "97": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "98": {
+    "domain": 4,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Scenario",
+    "exam_trick": "MOST"
+  },
+  "99": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Exception",
+    "exam_trick": "NOT"
+  },
+  "101": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "102": {
+    "domain": 4,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "103": {
+    "domain": 5,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "104": {
+    "domain": 6,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "105": {
+    "domain": 5,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Scenario",
+    "exam_trick": "None"
+  },
+  "106": {
+    "domain": 2,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "107": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Exception",
+    "exam_trick": "BEST|NOT"
+  },
+  "108": {
+    "domain": 2,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "109": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Exception",
+    "exam_trick": "NOT"
+  },
+  "110": {
+    "domain": 2,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "112": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Scenario",
+    "exam_trick": "None"
+  },
+  "113": {
+    "domain": 8,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "114": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Exception",
+    "exam_trick": "NOT"
+  },
+  "115": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "BEST"
+  },
+  "116": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "117": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "118": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Exception",
+    "exam_trick": "NOT"
+  },
+  "119": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "120": {
+    "domain": 1,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "121": {
+    "domain": 2,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Exception",
+    "exam_trick": "NOT"
+  },
+  "122": {
+    "domain": 3,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "123": {
+    "domain": 3,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Medium",
+    "question_type": "Exception",
+    "exam_trick": "NOT"
+  },
+  "125": {
+    "domain": 8,
+    "topic": "Practice Test Topic",
+    "subtopic": "Practice Test Subtopic",
+    "difficulty": "Hard",
+    "question_type": "Application",
+    "exam_trick": "None"
+  }
+}
