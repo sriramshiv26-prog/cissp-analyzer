@@ -332,39 +332,135 @@ class IndividualReportGenerator:
             ws.column_dimensions[chr(64 + col)].width = 18
 
     def _create_study_plan(self, wb: Workbook, perf: StudentPerformance):
-        """Sheet 7: Personalized Study Plan"""
+        """Sheet 7: Detailed Personalized Study Plan"""
         ws = wb.create_sheet('Study Plan', 6)
 
         ws['A1'] = f'PERSONALIZED STUDY PLAN - {perf.student_name}'
-        ws['A1'].font = Font(bold=True, size=11)
+        ws['A1'].font = Font(bold=True, size=12, color='FFFFFF')
+        ws['A1'].fill = PatternFill(start_color='001F4E78', end_color='001F4E78', fill_type='solid')
 
         gap = max(0, 70 - perf.score_percentage)
-        ws['A2'] = f'Target: Reach 70% in 1-2 weeks | Study: 5-6 hrs/week'
+        ws['A2'] = f'Current Score: {perf.score_percentage:.1f}% | Gap to Pass: {gap:.1f}% | Target: 70%'
+        ws['A3'] = f'Recommended Study: 8-10 hours/week | Timeline: 2-3 weeks'
 
-        # Headers
-        headers = ['Week', 'Topic/Task', 'Hours', 'Details']
+        # Get weak domains and topics
+        weak_domains = self._get_weak_domains_with_scores(perf)
+        weak_topics = self._get_weakest_topics_detailed(perf, 5)
+
+        # Section 1: Priority Domains
+        ws['A5'] = 'PRIORITY STUDY DOMAINS'
+        ws['A5'].font = Font(bold=True, color='FFFFFF')
+        ws['A5'].fill = PatternFill(start_color='001F4E78', end_color='001F4E78', fill_type='solid')
+
+        row = 6
+        headers = ['Priority', 'Domain', 'Current Score', 'Target', 'Study Hours']
         for col_idx, header in enumerate(headers, 1):
-            cell = ws.cell(row=4, column=col_idx)
+            cell = ws.cell(row=row, column=col_idx)
             cell.value = header
             cell.font = Font(bold=True, color='FFFFFF')
-            cell.fill = PatternFill(start_color=self.COLOR_HEADER, end_color=self.COLOR_HEADER, fill_type='solid')
+            cell.fill = PatternFill(start_color='001F4E78', end_color='001F4E78', fill_type='solid')
 
-        row = 5
-        weak_areas = self._get_weakest_topics(perf, 3)
-        for idx, (area, percentage) in enumerate(weak_areas, 1):
-            ws.cell(row=row, column=1).value = f'Week {idx}'
-            ws.cell(row=row, column=2).value = f'Master {area}'
-            ws.cell(row=row, column=3).value = f'{3 - idx:.1f}h'
-            ws.cell(row=row, column=4).value = f'Focus on weak areas, practice questions'
+        row = 7
+        for idx, (domain_id, score) in enumerate(weak_domains[:3], 1):
+            domain_name = self.domain_names.get(domain_id, f'Domain {domain_id}')
+            hours = 3 - (idx - 1)
+            ws.cell(row=row, column=1).value = f'#{idx}'
+            ws.cell(row=row, column=2).value = domain_name
+            ws.cell(row=row, column=3).value = f'{score:.1f}%'
+            ws.cell(row=row, column=4).value = '70%'
+            ws.cell(row=row, column=5).value = f'{hours}h/week'
+
+            fill = self.COLOR_WRONG if score < 50 else self.COLOR_NEUTRAL
+            for col in range(1, 6):
+                ws.cell(row=row, column=col).fill = PatternFill(start_color=fill, end_color=fill, fill_type='solid')
             row += 1
 
-        ws.cell(row=row, column=1).value = 'During Week 2'
-        ws.cell(row=row, column=2).value = 'Full Practice Exam'
-        ws.cell(row=row, column=3).value = '4h'
-        ws.cell(row=row, column=4).value = 'Take full 125-question exam'
+        # Section 2: Critical Topics to Study
+        ws['A11'] = 'CRITICAL TOPICS TO MASTER'
+        ws['A11'].font = Font(bold=True, color='FFFFFF')
+        ws['A11'].fill = PatternFill(start_color='001F4E78', end_color='001F4E78', fill_type='solid')
 
-        for col in range(1, 5):
-            ws.column_dimensions[chr(64 + col)].width = 25
+        row = 12
+        headers = ['Topic', 'Your Score', 'Questions', 'Study Strategy']
+        for col_idx, header in enumerate(headers, 1):
+            cell = ws.cell(row=row, column=col_idx)
+            cell.value = header
+            cell.font = Font(bold=True, color='FFFFFF')
+            cell.fill = PatternFill(start_color='001F4E78', end_color='001F4E78', fill_type='solid')
+
+        row = 13
+        for topic, score in weak_topics[:5]:
+            ws.cell(row=row, column=1).value = topic
+            ws.cell(row=row, column=2).value = f'{score:.1f}%'
+            ws.cell(row=row, column=3).value = f'Review wrong answers'
+            ws.cell(row=row, column=4).value = f'Watch 1-2 videos + solve 10 practice questions'
+
+            fill = self.COLOR_WRONG if score < 50 else self.COLOR_NEUTRAL
+            for col in range(1, 5):
+                ws.cell(row=row, column=col).fill = PatternFill(start_color=fill, end_color=fill, fill_type='solid')
+
+            ws.row_dimensions[row].height = 25
+            row += 1
+
+        # Section 3: Weekly Breakdown
+        ws['A19'] = 'WEEK-BY-WEEK STUDY PLAN'
+        ws['A19'].font = Font(bold=True, color='FFFFFF')
+        ws['A19'].fill = PatternFill(start_color='001F4E78', end_color='001F4E78', fill_type='solid')
+
+        row = 20
+        headers = ['Week', 'Primary Focus', 'Daily Goal', 'Hours', 'Milestones']
+        for col_idx, header in enumerate(headers, 1):
+            cell = ws.cell(row=row, column=col_idx)
+            cell.value = header
+            cell.font = Font(bold=True, color='FFFFFF')
+            cell.fill = PatternFill(start_color='001F4E78', end_color='001F4E78', fill_type='solid')
+
+        week_plans = [
+            ('Week 1', weak_domains[0][0] if weak_domains else 1, 'Study 1 domain, solve 20 practice questions', '8h', 'Review all wrong answers'),
+            ('Week 2', weak_domains[1][0] if len(weak_domains) > 1 else 2, 'Study 2nd domain, take practice test', '8h', 'Score > 50%'),
+            ('Week 3', 'Mixed Review', 'Practice exam simulation with time limit', '6h', 'Score > 65%'),
+        ]
+
+        row = 21
+        for week, domain_id, goal, hours, milestone in week_plans:
+            ws.cell(row=row, column=1).value = week
+            domain_name = self.domain_names.get(domain_id, f'Domain {domain_id}')
+            ws.cell(row=row, column=2).value = domain_name
+            ws.cell(row=row, column=3).value = goal
+            ws.cell(row=row, column=4).value = hours
+            ws.cell(row=row, column=5).value = milestone
+
+            for col in range(1, 6):
+                ws.cell(row=row, column=col).fill = PatternFill(start_color=self.COLOR_NEUTRAL, end_color=self.COLOR_NEUTRAL, fill_type='solid')
+
+            ws.row_dimensions[row].height = 25
+            row += 1
+
+        # Section 4: Exam Trick Strategy
+        ws[f'A{row + 1}'] = 'EXAM TRICK KEYWORDS - COMMON MISTAKES'
+        ws[f'A{row + 1}'].font = Font(bold=True, color='FFFFFF')
+        ws[f'A{row + 1}'].fill = PatternFill(start_color='001F4E78', end_color='001F4E78', fill_type='solid')
+
+        row += 2
+        tricks = [
+            ('NOT / EXCEPT', 'Look for negation - what is FALSE or NOT true'),
+            ('BEST / MOST / FIRST', 'Requires ranking - usually multiple correct, pick the best'),
+            ('Multiple Keywords', 'Most difficult - requires careful reading of ALL options'),
+        ]
+
+        for trick, strategy in tricks:
+            ws.cell(row=row, column=1).value = trick
+            ws.cell(row=row, column=2).value = strategy
+            ws.cell(row=row, column=1).font = Font(bold=True)
+            ws.row_dimensions[row].height = 20
+            row += 1
+
+        # Set column widths
+        ws.column_dimensions['A'].width = 28
+        ws.column_dimensions['B'].width = 32
+        ws.column_dimensions['C'].width = 20
+        ws.column_dimensions['D'].width = 28
+        ws.column_dimensions['E'].width = 28
 
     def _get_weak_domains(self, perf: StudentPerformance) -> list:
         """Get list of weak domains (< 70%)"""
@@ -380,6 +476,23 @@ class IndividualReportGenerator:
         topics = []
         for topic, data in perf.by_topic.items():
             topics.append((topic, data['percentage']))
+        topics.sort(key=lambda x: x[1])
+        return topics[:limit]
+
+    def _get_weak_domains_with_scores(self, perf: StudentPerformance) -> list:
+        """Get all domains with scores, sorted by performance (weakest first)"""
+        domains = []
+        for domain_id, data in perf.by_domain.items():
+            domains.append((domain_id, data['percentage']))
+        domains.sort(key=lambda x: x[1])
+        return domains
+
+    def _get_weakest_topics_detailed(self, perf: StudentPerformance, limit: int = 5) -> list:
+        """Get weakest topics with performance details"""
+        topics = []
+        for topic, data in perf.by_topic.items():
+            if data.get('total', 0) > 0:
+                topics.append((topic, data['percentage']))
         topics.sort(key=lambda x: x[1])
         return topics[:limit]
 
