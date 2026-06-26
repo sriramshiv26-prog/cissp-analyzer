@@ -57,7 +57,7 @@ def test_generate_report(generator, sample_performance, tmp_path):
 
 
 def test_report_has_multiple_sheets(generator, sample_performance, tmp_path):
-    """Test that report has all required sheets"""
+    """Test that report has all required sheets (7-sheet format)"""
     import openpyxl
     output_file = tmp_path / "test_report.xlsx"
     generator.generate(sample_performance, str(output_file))
@@ -68,17 +68,19 @@ def test_report_has_multiple_sheets(generator, sample_performance, tmp_path):
     required_sheets = [
         'Performance Summary',
         'Q&A Breakdown',
-        'By Difficulty',
         'By Question Type',
         'By Exam Tricks',
-        'By Domain'
+        'By Domain',
+        'By Difficulty',
+        'Study Plan'
     ]
+    assert len(required_sheets) == 7, "Should have 7 sheets"
     for sheet in required_sheets:
         assert sheet in sheet_names, f"Missing sheet: {sheet}"
 
 
 def test_report_contains_student_name(generator, sample_performance, tmp_path):
-    """Test that report contains student name"""
+    """Test that report contains student name (in A2 of Performance Summary)"""
     import openpyxl
     output_file = tmp_path / "test_report.xlsx"
     generator.generate(sample_performance, str(output_file))
@@ -86,5 +88,6 @@ def test_report_contains_student_name(generator, sample_performance, tmp_path):
     wb = openpyxl.load_workbook(str(output_file))
     ws = wb['Performance Summary']
 
-    assert ws['A1'].value is not None
-    assert "Test Student" in ws['A1'].value
+    # Student name is now in A2 (title is in A1)
+    assert ws['A1'].value == 'CISSP PERSONAL PERFORMANCE REPORT'
+    assert ws['A2'].value == 'Test Student'
