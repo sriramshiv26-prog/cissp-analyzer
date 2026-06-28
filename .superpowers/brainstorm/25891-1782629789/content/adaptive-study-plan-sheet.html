@@ -1,0 +1,127 @@
+<h2>Section 2: Adaptive Study Plan Sheet & Momentum Algorithm</h2>
+
+<div class="section">
+<h3>🧠 Momentum-Based Recommendation Algorithm</h3>
+<p class="subtitle">Weighs weakness + improvement trajectory to prioritize study focus</p>
+
+<div class="mockup">
+<div class="mockup-header">Algorithm: Calculate Priority Score Per Domain</div>
+<div class="mockup-body" style="font-family: monospace; font-size: 0.9em; line-height: 1.8;">
+FOR each domain:<br>
+&nbsp;&nbsp;current_accuracy = exam-3 accuracy %<br>
+&nbsp;&nbsp;previous_accuracy = exam-2 accuracy % (if exists)<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;momentum = (current - previous) if history else 0<br>
+&nbsp;&nbsp;weakness = 100 - current<br>
+&nbsp;&nbsp;priority_score = weakness + (momentum × 2)<br>
+&nbsp;&nbsp;<br>
+SORT domains by priority_score descending<br>
+RECOMMEND top 2-3 domains for focused study
+</div>
+</div>
+
+<h3>📊 Worked Example (Real Student Data)</h3>
+
+<table style="width: 100%; border-collapse: collapse; margin: 1.5em 0; font-size: 0.95em;">
+<tr style="background: #f5f5f5; border-bottom: 2px solid #ccc;">
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>Domain</strong></td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>Exam 2</strong></td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>Exam 3 (Latest)</strong></td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>Weakness</strong></td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>Momentum</strong></td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>Priority</strong></td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>Rank</strong></td>
+</tr>
+
+<tr style="border-bottom: 1px solid #ddd; background: #fff5f5;">
+<td style="padding: 0.7em; border: 1px solid #ddd;">Identity &amp; Access Mgmt</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">45%</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">50%</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">50</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">+5</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>60</strong></td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>🥇 #1</strong></td>
+</tr>
+
+<tr style="border-bottom: 1px solid #ddd; background: #fff9e6;">
+<td style="padding: 0.7em; border: 1px solid #ddd;">Software Development Security</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">55%</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">58%</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">42</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">+3</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>48</strong></td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>🥈 #2</strong></td>
+</tr>
+
+<tr style="border-bottom: 1px solid #ddd; background: #f0f8ff;">
+<td style="padding: 0.7em; border: 1px solid #ddd;">Security Architecture</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">72%</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">75%</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">25</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">+3</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>31</strong></td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>🥉 #5</strong></td>
+</tr>
+
+<tr style="border-bottom: 1px solid #ddd; background: #f5fff5;">
+<td style="padding: 0.7em; border: 1px solid #ddd;">Cryptography</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">80%</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">78%</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">22</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>-2</strong> 📉</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>18</strong></td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>#8</strong></td>
+</tr>
+</table>
+
+<p style="margin-top: 1em; font-size: 0.9em; padding: 0.7em; background: #f0f8ff; border-left: 3px solid #0066cc;">
+<strong>💡 Key insight:</strong> Cryptography dropped 80% → 78% but still ranks #8 because weakness (22) is low.
+Identity &amp; Access ranks #1 because it has both high weakness (50) AND positive momentum (+5).
+</p>
+
+<h3>📋 Adaptive Study Plan Sheet Layout</h3>
+
+<div class="mockup">
+<div class="mockup-header">Tab: Adaptive Study Plan</div>
+<div class="mockup-body" style="font-size: 0.9em; line-height: 1.6;">
+<p><strong style="font-size: 1.05em;">Your Personalized Study Focus (Based on Exam 3)</strong></p>
+
+<p style="margin: 1em 0 0.5em 0;"><strong>🎯 Priority 1: Identity &amp; Access Management</strong></p>
+<p style="font-size: 0.9em; margin: 0 0 0.5em 0;">Current: 50% | Previous: 45% (+5% momentum) | Study need: High</p>
+<p style="font-size: 0.9em; margin: 0 0 0.5em 0;"><strong>Focus areas:</strong></p>
+<p style="font-size: 0.85em; margin: 0 0 0 1em;">• Authentication mechanisms (Kerberos, SAML, OAuth)<br>
+• OAuth weaknesses in scenario questions<br>
+• NOT keyword trick patterns<br>
+• Wrong questions: #12, #25, #47, #88, #101</p>
+
+<p style="margin: 1.5em 0 0.5em 0;"><strong>🎯 Priority 2: Software Development Security</strong></p>
+<p style="font-size: 0.9em; margin: 0 0 0.5em 0;">Current: 58% | Previous: 55% (+3% momentum) | Study need: Medium-High</p>
+<p style="font-size: 0.9em; margin: 0 0 0.5em 0;"><strong>Focus areas:</strong></p>
+<p style="font-size: 0.85em; margin: 0 0 0 1em;">• SDLC phases and security integration<br>
+• Secure coding practices<br>
+• Application assessment methods<br>
+• Wrong questions: #34, #56, #73</p>
+
+<p style="margin: 1.5em 0 0.5em 0;"><strong>📊 For reference: Strengths to maintain</strong></p>
+<p style="font-size: 0.9em; margin: 0 0 0 0;">Cryptography (78%), Security Architecture (75%) — Keep practicing to avoid regression</p>
+</div>
+</div>
+
+<h3>🎓 Study Plan Details (Drillable Sections)</h3>
+<p style="font-size: 0.9em; margin-bottom: 0.5em;"><strong>Each priority has expandable sections:</strong></p>
+<ul style="font-size: 0.9em;">
+<li><strong>Subtopic Breakdown:</strong> Which specific topics need work (e.g., OAuth vs Kerberos)</li>
+<li><strong>By Difficulty:</strong> Focus on Medium/Hard questions first</li>
+<li><strong>By Question Type:</strong> If weak in Scenario questions, practice those patterns</li>
+<li><strong>Pattern Analysis:</strong> "You struggle with trick questions using NOT keyword"</li>
+<li><strong>Wrong Question IDs:</strong> Hyperlinks to detailed Q&amp;A breakdown (Sheet 2)</li>
+</ul>
+
+<h3>👥 For First-Time Students (No History)</h3>
+<p style="font-size: 0.9em; background: #f9f9f9; padding: 0.7em; border-left: 3px solid #999;">
+<strong>Fallback:</strong> Use pure weakness ranking (momentum = 0)<br>
+<strong>Message:</strong> "This is your starting point. Focus on weakest domains first."<br>
+<strong>Same sheet structure,</strong> just simpler recommendations
+</p>
+
+</div>

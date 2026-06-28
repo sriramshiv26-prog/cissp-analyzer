@@ -1,1002 +1,994 @@
 {
   "1": {
-    "domain": 5,
-    "topic": "Access Control",
-    "subtopic": "Access Control Models",
+    "domain": 1,
+    "topic": "General",
+    "subtopic": "General",
     "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "question_type": "Scenario",
+    "exam_trick": "BEST"
   },
   "2": {
     "domain": 4,
-    "topic": "Network Security",
-    "subtopic": "Network Threats",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "topic": "Network Protocols",
+    "subtopic": "Network Protocols",
+    "difficulty": "Hard",
+    "question_type": "Scenario",
+    "exam_trick": null
   },
   "3": {
-    "domain": 5,
-    "topic": "Biometrics",
-    "subtopic": "Biometric Methods",
+    "domain": 1,
+    "topic": "PKI",
+    "subtopic": "PKI",
     "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "question_type": "Exception",
+    "exam_trick": "NOT"
   },
   "4": {
-    "domain": 5,
-    "topic": "Biometrics",
-    "subtopic": "FAR/FRR Analysis",
-    "difficulty": "Easy",
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": null
   },
   "5": {
-    "domain": 5,
-    "topic": "Biometrics",
-    "subtopic": "Biometric Implementation",
-    "difficulty": "Medium",
-    "question_type": "Exception",
-    "exam_trick": "NOT"
+    "domain": 4,
+    "topic": "Network Protocols",
+    "subtopic": "Network Protocols",
+    "difficulty": "Easy",
+    "question_type": "Sequence",
+    "exam_trick": null
   },
   "6": {
-    "domain": 2,
-    "topic": "Privacy/Data Protection",
-    "subtopic": "Data Protection",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "domain": 4,
+    "topic": "PKI",
+    "subtopic": "PKI",
+    "difficulty": "Hard",
+    "question_type": "Scenario",
+    "exam_trick": null
   },
   "7": {
-    "domain": 8,
-    "topic": "Software Development",
-    "subtopic": "SDLC Models",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "8": {
-    "domain": 4,
-    "topic": "Network Protocols",
-    "subtopic": "Protocol Security",
+    "domain": 5,
+    "topic": "Access Control",
+    "subtopic": "Access Control",
     "difficulty": "Easy",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": null
+  },
+  "8": {
+    "domain": 2,
+    "topic": "Data Classification",
+    "subtopic": "Data Classification",
+    "difficulty": "Easy",
+    "question_type": "Exception",
+    "exam_trick": "NOT"
   },
   "9": {
-    "domain": 1,
-    "topic": "Governance",
-    "subtopic": "Organizational Governance",
+    "domain": 2,
+    "topic": "General",
+    "subtopic": "General",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "10": {
+    "domain": 6,
+    "topic": "Security Testing",
+    "subtopic": "Security Testing",
+    "difficulty": "Medium",
+    "question_type": "Scenario",
+    "exam_trick": null
+  },
+  "11": {
+    "domain": 7,
+    "topic": "PKI",
+    "subtopic": "PKI",
     "difficulty": "Medium",
     "question_type": "Exception",
     "exam_trick": "NOT"
   },
-  "10": {
-    "domain": 2,
-    "topic": "Privacy/Data Protection",
-    "subtopic": "Privacy Requirements",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "11": {
+  "12": {
     "domain": 4,
     "topic": "Network Protocols",
-    "subtopic": "Network Protocol Details",
+    "subtopic": "Network Protocols",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "12": {
-    "domain": 1,
-    "topic": "Information Security Standards",
-    "subtopic": "Standards & Compliance",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": null
   },
   "13": {
-    "domain": 2,
-    "topic": "Data Protection",
-    "subtopic": "Data Protection Methods",
+    "domain": 5,
+    "topic": "Authentication",
+    "subtopic": "Authentication",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": null
   },
   "14": {
-    "domain": 8,
-    "topic": "Software Testing",
-    "subtopic": "Testing Types",
+    "domain": 7,
+    "topic": "Forensics",
+    "subtopic": "Forensics",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": "BEST"
   },
   "15": {
     "domain": 1,
-    "topic": "Technology Management",
-    "subtopic": "Technology Management",
+    "topic": "PKI",
+    "subtopic": "PKI",
     "difficulty": "Medium",
-    "question_type": "Exception",
-    "exam_trick": "NOT"
+    "question_type": "Scenario",
+    "exam_trick": null
   },
   "16": {
-    "domain": 7,
-    "topic": "Log Management",
-    "subtopic": "Log Handling",
+    "domain": 4,
+    "topic": "PKI",
+    "subtopic": "PKI",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "BEST"
+    "exam_trick": null
   },
   "17": {
-    "domain": 2,
-    "topic": "Data Sanitization",
-    "subtopic": "Data Destruction",
+    "domain": 1,
+    "topic": "PKI",
+    "subtopic": "PKI",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": null
   },
   "18": {
-    "domain": 6,
-    "topic": "Vulnerability Analysis",
-    "subtopic": "Vuln Analysis",
+    "domain": 1,
+    "topic": "PKI",
+    "subtopic": "PKI",
     "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "question_type": "Scenario",
+    "exam_trick": null
   },
   "19": {
     "domain": 1,
-    "topic": "Security Policies",
-    "subtopic": "Policy Development",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "topic": "Business Continuity",
+    "subtopic": "Business Continuity",
+    "difficulty": "Easy",
+    "question_type": "Scenario",
+    "exam_trick": null
   },
   "20": {
-    "domain": 2,
-    "topic": "Database Security",
-    "subtopic": "Database Protection",
+    "domain": 1,
+    "topic": "Disaster Recovery",
+    "subtopic": "Disaster Recovery",
     "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "question_type": "Scenario",
+    "exam_trick": "FIRST"
   },
   "21": {
-    "domain": 2,
-    "topic": "Data Protection",
-    "subtopic": "Data Handling",
+    "domain": 7,
+    "topic": "Logging & Monitoring",
+    "subtopic": "Logging & Monitoring",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "BEST"
+    "exam_trick": null
   },
   "22": {
-    "domain": 3,
-    "topic": "Physical Security",
-    "subtopic": "Physical Controls",
+    "domain": 1,
+    "topic": "PKI",
+    "subtopic": "PKI",
     "difficulty": "Easy",
     "question_type": "Application",
-    "exam_trick": "BEST"
+    "exam_trick": null
   },
   "23": {
     "domain": 1,
-    "topic": "Principles of Security",
-    "subtopic": "Security Principles",
-    "difficulty": "Medium",
-    "question_type": "Exception",
-    "exam_trick": "NOT"
-  },
-  "24": {
-    "domain": 7,
-    "topic": "Investigations",
-    "subtopic": "Investigation Process",
+    "topic": "Network Architecture",
+    "subtopic": "Network Architecture",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": null
+  },
+  "24": {
+    "domain": 5,
+    "topic": "Authentication",
+    "subtopic": "Authentication",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": null
   },
   "25": {
     "domain": 1,
-    "topic": "Backup/Recovery",
-    "subtopic": "BCP Requirements",
+    "topic": "General",
+    "subtopic": "General",
     "difficulty": "Medium",
-    "question_type": "Exception",
-    "exam_trick": "NOT"
+    "question_type": "Application",
+    "exam_trick": null
   },
   "26": {
     "domain": 1,
-    "topic": "Disaster Recovery",
-    "subtopic": "DRP Requirements",
+    "topic": "General",
+    "subtopic": "General",
     "difficulty": "Medium",
-    "question_type": "Exception",
-    "exam_trick": "NOT"
+    "question_type": "Application",
+    "exam_trick": null
   },
   "27": {
     "domain": 4,
-    "topic": "Infrastructure",
-    "subtopic": "Network Infrastructure",
+    "topic": "Network Architecture",
+    "subtopic": "Network Architecture",
     "difficulty": "Easy",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": null
   },
   "28": {
-    "domain": 5,
-    "topic": "Access Control",
-    "subtopic": "Access Control Systems",
+    "domain": 1,
+    "topic": "PKI",
+    "subtopic": "PKI",
     "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "question_type": "Sequence",
+    "exam_trick": null
   },
   "29": {
-    "domain": 4,
-    "topic": "Network Protocols",
-    "subtopic": "Protocol Selection",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "FIRST"
+    "domain": 1,
+    "topic": "PKI",
+    "subtopic": "PKI",
+    "difficulty": "Hard",
+    "question_type": "Sequence",
+    "exam_trick": "MOST"
   },
   "30": {
-    "domain": 8,
-    "topic": "Programming",
-    "subtopic": "Programming Fundamentals",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "FIRST"
-  },
-  "31": {
-    "domain": 7,
-    "topic": "Backup Strategy",
-    "subtopic": "Backup Types",
+    "domain": 1,
+    "topic": "General",
+    "subtopic": "General",
     "difficulty": "Easy",
     "question_type": "Application",
-    "exam_trick": "FIRST"
+    "exam_trick": null
+  },
+  "31": {
+    "domain": 1,
+    "topic": "Logging & Monitoring",
+    "subtopic": "Logging & Monitoring",
+    "difficulty": "Hard",
+    "question_type": "Scenario",
+    "exam_trick": null
   },
   "32": {
-    "domain": 7,
-    "topic": "Backup Strategy",
-    "subtopic": "Backup Strategies",
+    "domain": 4,
+    "topic": "PKI",
+    "subtopic": "PKI",
     "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "question_type": "Scenario",
+    "exam_trick": null
   },
   "33": {
-    "domain": 7,
-    "topic": "Backup Strategy",
-    "subtopic": "Backup Rotation",
+    "domain": 1,
+    "topic": "General",
+    "subtopic": "General",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": "FIRST"
   },
   "34": {
     "domain": 7,
-    "topic": "Backup Strategy",
-    "subtopic": "Backup 3-2-1 Rule",
-    "difficulty": "Medium",
+    "topic": "Forensics",
+    "subtopic": "Forensics",
+    "difficulty": "Easy",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": "MOST"
   },
   "35": {
-    "domain": 7,
-    "topic": "Backup Strategy",
-    "subtopic": "Recovery Sites",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "domain": 1,
+    "topic": "Governance",
+    "subtopic": "Governance",
+    "difficulty": "Hard",
+    "question_type": "Scenario",
+    "exam_trick": "BEST"
   },
   "36": {
-    "domain": 3,
-    "topic": "Threat Modeling",
-    "subtopic": "STRIDE Analysis",
+    "domain": 4,
+    "topic": "Email Security",
+    "subtopic": "Email Security",
     "difficulty": "Medium",
-    "question_type": "Application",
+    "question_type": "Scenario",
     "exam_trick": "BEST"
   },
   "37": {
-    "domain": 2,
-    "topic": "Data Management",
-    "subtopic": "Data Lifecycle",
-    "difficulty": "Medium",
+    "domain": 1,
+    "topic": "PKI",
+    "subtopic": "PKI",
+    "difficulty": "Easy",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": null
   },
   "38": {
-    "domain": 3,
-    "topic": "Cryptography",
-    "subtopic": "Cryptographic Methods",
+    "domain": 6,
+    "topic": "Threat Modeling",
+    "subtopic": "Threat Modeling",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": null
   },
   "39": {
-    "domain": 4,
-    "topic": "Network Security",
-    "subtopic": "Network Defense",
-    "difficulty": "Medium",
-    "question_type": "Exception",
-    "exam_trick": "MOST|NOT"
-  },
-  "40": {
-    "domain": 7,
-    "topic": "Logging/Monitoring",
-    "subtopic": "Log Monitoring",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "41": {
-    "domain": 3,
-    "topic": "System Architecture",
-    "subtopic": "Secure Architecture",
+    "domain": 2,
+    "topic": "Data Protection",
+    "subtopic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Exception",
     "exam_trick": "NOT"
   },
-  "42": {
-    "domain": 3,
-    "topic": "Storage Technology",
-    "subtopic": "Storage Security",
-    "difficulty": "Easy",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "43": {
-    "domain": 6,
-    "topic": "Attacks",
-    "subtopic": "Attack Types",
+  "40": {
+    "domain": 1,
+    "topic": "Disaster Recovery",
+    "subtopic": "Disaster Recovery",
     "difficulty": "Medium",
     "question_type": "Exception",
+    "exam_trick": "NOT"
+  },
+  "41": {
+    "domain": 1,
+    "topic": "Logging & Monitoring",
+    "subtopic": "Logging & Monitoring",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "42": {
+    "domain": 1,
+    "topic": "Business Continuity",
+    "subtopic": "Business Continuity",
+    "difficulty": "Hard",
+    "question_type": "Scenario",
     "exam_trick": "NOT"
   },
   "44": {
     "domain": 3,
-    "topic": "Storage Technology",
-    "subtopic": "Storage Methods",
-    "difficulty": "Easy",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "topic": "PKI",
+    "subtopic": "PKI",
+    "difficulty": "Hard",
+    "question_type": "Scenario",
+    "exam_trick": "BEST"
   },
   "45": {
-    "domain": 4,
-    "topic": "Email Security",
-    "subtopic": "Email Protection",
+    "domain": 2,
+    "topic": "Data Classification",
+    "subtopic": "Data Classification",
     "difficulty": "Medium",
-    "question_type": "Exception",
-    "exam_trick": "NOT"
+    "question_type": "Scenario",
+    "exam_trick": null
   },
   "46": {
-    "domain": 5,
-    "topic": "Access Control",
-    "subtopic": "Access Rules",
+    "domain": 3,
+    "topic": "PKI",
+    "subtopic": "PKI",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "BEST|ONLY"
+    "exam_trick": null
   },
   "47": {
-    "domain": 4,
-    "topic": "Communications",
-    "subtopic": "Secure Communications",
+    "domain": 3,
+    "topic": "PKI",
+    "subtopic": "PKI",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": null
   },
   "48": {
-    "domain": 4,
-    "topic": "Network Infrastructure",
-    "subtopic": "Network Architecture",
+    "domain": 3,
+    "topic": "PKI",
+    "subtopic": "PKI",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": null
   },
   "49": {
-    "domain": 7,
-    "topic": "Forensics",
-    "subtopic": "Digital Forensics",
-    "difficulty": "Hard",
-    "question_type": "Exception",
-    "exam_trick": "NOT"
+    "domain": 1,
+    "topic": "General",
+    "subtopic": "General",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": null
   },
   "50": {
     "domain": 4,
-    "topic": "Web Security",
-    "subtopic": "Web Application Security",
+    "topic": "PKI",
+    "subtopic": "PKI",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "BEST"
+    "exam_trick": null
   },
   "51": {
-    "domain": 2,
-    "topic": "Data Management",
-    "subtopic": "Data Ownership",
+    "domain": 1,
+    "topic": "General",
+    "subtopic": "General",
     "difficulty": "Medium",
-    "question_type": "Scenario",
-    "exam_trick": "None"
+    "question_type": "Application",
+    "exam_trick": null
   },
   "52": {
-    "domain": 5,
-    "topic": "Access Control",
-    "subtopic": "Access Control Policies",
-    "difficulty": "Medium",
+    "domain": 1,
+    "topic": "General",
+    "subtopic": "General",
+    "difficulty": "Easy",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": null
   },
   "53": {
-    "domain": 4,
-    "topic": "Cloud Services",
-    "subtopic": "Cloud Security",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "domain": 6,
+    "topic": "Governance",
+    "subtopic": "Governance",
+    "difficulty": "Hard",
+    "question_type": "Scenario",
+    "exam_trick": "BEST"
   },
   "54": {
     "domain": 4,
-    "topic": "VoIP Security",
-    "subtopic": "VoIP Protection",
-    "difficulty": "Medium",
+    "topic": "Network Protocols",
+    "subtopic": "Network Protocols",
+    "difficulty": "Easy",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": null
   },
   "55": {
-    "domain": 5,
-    "topic": "Access Control Principles",
-    "subtopic": "Least Privilege",
+    "domain": 1,
+    "topic": "Wireless Security",
+    "subtopic": "Wireless Security",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": null
   },
   "56": {
-    "domain": 4,
-    "topic": "Encryption Protocols",
-    "subtopic": "Encryption Standards",
+    "domain": 5,
+    "topic": "PKI",
+    "subtopic": "PKI",
     "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "question_type": "Scenario",
+    "exam_trick": null
   },
   "57": {
-    "domain": 5,
-    "topic": "Authentication Protocols",
-    "subtopic": "Auth Mechanisms",
+    "domain": 4,
+    "topic": "PKI",
+    "subtopic": "PKI",
     "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "question_type": "Scenario",
+    "exam_trick": null
   },
   "58": {
-    "domain": 5,
-    "topic": "Kerberos",
-    "subtopic": "Kerberos Authentication",
+    "domain": 3,
+    "topic": "PKI",
+    "subtopic": "PKI",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": null
   },
   "59": {
-    "domain": 5,
-    "topic": "Kerberos",
-    "subtopic": "Kerberos Ticket Granting",
-    "difficulty": "Easy",
-    "question_type": "Sequence",
-    "exam_trick": "None"
+    "domain": 1,
+    "topic": "Disaster Recovery",
+    "subtopic": "Disaster Recovery",
+    "difficulty": "Medium",
+    "question_type": "Scenario",
+    "exam_trick": "FIRST"
   },
   "60": {
-    "domain": 5,
-    "topic": "Kerberos",
-    "subtopic": "Kerberos Mutual Auth",
+    "domain": 1,
+    "topic": "General",
+    "subtopic": "General",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": null
   },
   "61": {
-    "domain": 5,
-    "topic": "Kerberos",
-    "subtopic": "Kerberos Realms",
-    "difficulty": "Easy",
+    "domain": 7,
+    "topic": "Governance",
+    "subtopic": "Governance",
+    "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": null
   },
   "62": {
-    "domain": 5,
-    "topic": "Authentication",
-    "subtopic": "Authentication Methods",
+    "domain": 1,
+    "topic": "General",
+    "subtopic": "General",
     "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "question_type": "Scenario",
+    "exam_trick": null
   },
   "63": {
-    "domain": 4,
-    "topic": "Mobile Technology",
-    "subtopic": "Mobile Security",
-    "difficulty": "Easy",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "domain": 5,
+    "topic": "Biometrics",
+    "subtopic": "Biometrics",
+    "difficulty": "Medium",
+    "question_type": "Scenario",
+    "exam_trick": "BEST"
   },
   "64": {
-    "domain": 3,
-    "topic": "Fire Suppression",
-    "subtopic": "Fire Suppression Systems",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "domain": 4,
+    "topic": "Network Protocols",
+    "subtopic": "Network Protocols",
+    "difficulty": "Hard",
+    "question_type": "Scenario",
+    "exam_trick": null
   },
   "65": {
-    "domain": 1,
-    "topic": "Privacy/Compliance",
-    "subtopic": "Privacy Compliance",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "domain": 8,
+    "topic": "Code Review",
+    "subtopic": "Code Review",
+    "difficulty": "Easy",
+    "question_type": "Exception",
+    "exam_trick": "NOT"
   },
   "66": {
     "domain": 6,
-    "topic": "Code Review",
-    "subtopic": "Source Code Review",
+    "topic": "General",
+    "subtopic": "General",
     "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "67": {
+    "domain": 4,
+    "topic": "Network Protocols",
+    "subtopic": "Network Protocols",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "68": {
+    "domain": 2,
+    "topic": "Incident Response",
+    "subtopic": "Incident Response",
+    "difficulty": "Medium",
     "question_type": "Application",
     "exam_trick": "BEST"
   },
-  "67": {
-    "domain": 5,
-    "topic": "Authentication Factors",
-    "subtopic": "Multi-Factor Auth",
-    "difficulty": "Easy",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "68": {
-    "domain": 7,
-    "topic": "System Ownership",
-    "subtopic": "System Responsibility",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
   "69": {
-    "domain": 6,
-    "topic": "Security Testing",
-    "subtopic": "Security Test Methods",
+    "domain": 1,
+    "topic": "Incident Management",
+    "subtopic": "Incident Management",
     "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "question_type": "Exception",
+    "exam_trick": "NOT"
   },
   "70": {
-    "domain": 3,
-    "topic": "Common Criteria",
-    "subtopic": "Common Criteria Evaluation",
+    "domain": 1,
+    "topic": "Business Continuity",
+    "subtopic": "Business Continuity",
     "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "question_type": "Exception",
+    "exam_trick": "NOT"
   },
   "71": {
     "domain": 6,
-    "topic": "Network Scanning",
-    "subtopic": "Network Scanning Tools",
+    "topic": "Security Testing",
+    "subtopic": "Security Testing",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": "NOT"
   },
   "72": {
-    "domain": 6,
-    "topic": "Vulnerability Assessment",
-    "subtopic": "Vuln Assessment",
-    "difficulty": "Easy",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "73": {
-    "domain": 2,
-    "topic": "Classification",
-    "subtopic": "Data Classification",
-    "difficulty": "Easy",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "74": {
-    "domain": 7,
-    "topic": "Recovery",
-    "subtopic": "Recovery Procedures",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "75": {
-    "domain": 4,
-    "topic": "Wireless Security",
-    "subtopic": "Wireless Networks",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "76": {
-    "domain": 2,
-    "topic": "Data Destruction",
-    "subtopic": "Data Destruction Process",
-    "difficulty": "Easy",
-    "question_type": "Application",
-    "exam_trick": "BEST"
-  },
-  "77": {
-    "domain": 3,
-    "topic": "Cryptography Goals",
-    "subtopic": "Cryptographic Goals",
-    "difficulty": "Medium",
-    "question_type": "Exception",
-    "exam_trick": "NOT"
-  },
-  "78": {
-    "domain": 1,
-    "topic": "Business Continuity",
-    "subtopic": "BCP Planning",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "79": {
-    "domain": 1,
-    "topic": "Legal/Regulatory",
-    "subtopic": "Regulatory Requirements",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "80": {
-    "domain": 4,
-    "topic": "Network Access Control",
-    "subtopic": "NAC Systems",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "81": {
-    "domain": 5,
-    "topic": "Access Control Principles",
-    "subtopic": "Separation of Duties",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "82": {
-    "domain": 1,
-    "topic": "Risk Analysis",
-    "subtopic": "Risk Analysis",
-    "difficulty": "Medium",
-    "question_type": "Scenario",
-    "exam_trick": "None"
-  },
-  "83": {
-    "domain": 3,
-    "topic": "System Architecture",
-    "subtopic": "System Design",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "84": {
-    "domain": 7,
-    "topic": "Log Analysis",
-    "subtopic": "Log Analysis Process",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "85": {
-    "domain": 4,
-    "topic": "Network Cabling",
-    "subtopic": "Physical Network",
-    "difficulty": "Medium",
-    "question_type": "Exception",
-    "exam_trick": "NOT"
-  },
-  "86": {
-    "domain": 7,
-    "topic": "Change Management",
-    "subtopic": "Change Control",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "87": {
-    "domain": 7,
-    "topic": "Change Management",
-    "subtopic": "Change Process",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "88": {
-    "domain": 7,
-    "topic": "Change Management",
-    "subtopic": "Change Approval",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "89": {
-    "domain": 7,
-    "topic": "Change Management",
-    "subtopic": "Change Documentation",
-    "difficulty": "Medium",
-    "question_type": "Exception",
-    "exam_trick": "NOT"
-  },
-  "90": {
-    "domain": 3,
-    "topic": "Cryptography",
-    "subtopic": "Encryption Algorithms",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "91": {
     "domain": 1,
     "topic": "Risk Management",
     "subtopic": "Risk Management",
-    "difficulty": "Easy",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "92": {
-    "domain": 3,
-    "topic": "Certificate Management",
-    "subtopic": "Digital Certificates",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": null
   },
-  "93": {
-    "domain": 6,
-    "topic": "Code Analysis",
-    "subtopic": "Code Analysis Tools",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "94": {
-    "domain": 4,
-    "topic": "TCP/IP Protocols",
-    "subtopic": "TCP/IP Stack",
-    "difficulty": "Easy",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "95": {
-    "domain": 5,
-    "topic": "LDAP",
-    "subtopic": "LDAP Directory",
-    "difficulty": "Easy",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "96": {
+  "73": {
     "domain": 1,
-    "topic": "Risk Assessment",
-    "subtopic": "Risk Assessment Methods",
+    "topic": "PKI",
+    "subtopic": "PKI",
     "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "97": {
-    "domain": 4,
-    "topic": "OSI Model",
-    "subtopic": "OSI Layers",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "98": {
-    "domain": 1,
-    "topic": "Ethics/Compliance",
-    "subtopic": "Professional Ethics",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "99": {
-    "domain": 8,
-    "topic": "SDLC",
-    "subtopic": "SDLC Phases",
-    "difficulty": "Easy",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "100": {
-    "domain": 3,
-    "topic": "Security Models",
-    "subtopic": "Security Models",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "101": {
-    "domain": 4,
-    "topic": "Network Access",
-    "subtopic": "Network Segmentation",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "102": {
-    "domain": 7,
-    "topic": "Monitoring",
-    "subtopic": "Continuous Monitoring",
-    "difficulty": "Easy",
     "question_type": "Exception",
     "exam_trick": "NOT"
   },
-  "103": {
+  "74": {
+    "domain": 1,
+    "topic": "Identity Management",
+    "subtopic": "Identity Management",
+    "difficulty": "Hard",
+    "question_type": "Scenario",
+    "exam_trick": "NOT"
+  },
+  "75": {
+    "domain": 8,
+    "topic": "Code Review",
+    "subtopic": "Code Review",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "76": {
     "domain": 4,
     "topic": "Network Protocols",
-    "subtopic": "Protocol Analysis",
+    "subtopic": "Network Protocols",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "77": {
+    "domain": 6,
+    "topic": "PKI",
+    "subtopic": "PKI",
+    "difficulty": "Medium",
+    "question_type": "Scenario",
+    "exam_trick": null
+  },
+  "78": {
+    "domain": 1,
+    "topic": "PKI",
+    "subtopic": "PKI",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "79": {
+    "domain": 7,
+    "topic": "Data Handling",
+    "subtopic": "Data Handling",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "80": {
+    "domain": 1,
+    "topic": "PKI",
+    "subtopic": "PKI",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "81": {
+    "domain": 4,
+    "topic": "Network Protocols",
+    "subtopic": "Network Protocols",
+    "difficulty": "Hard",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "82": {
+    "domain": 8,
+    "topic": "Code Review",
+    "subtopic": "Code Review",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "83": {
+    "domain": 1,
+    "topic": "Audit",
+    "subtopic": "Audit",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "84": {
+    "domain": 4,
+    "topic": "Network Protocols",
+    "subtopic": "Network Protocols",
+    "difficulty": "Medium",
+    "question_type": "Scenario",
+    "exam_trick": null
+  },
+  "85": {
+    "domain": 1,
+    "topic": "Incident Management",
+    "subtopic": "Incident Management",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "86": {
+    "domain": 1,
+    "topic": "Incident Management",
+    "subtopic": "Incident Management",
     "difficulty": "Medium",
     "question_type": "Sequence",
-    "exam_trick": "None"
+    "exam_trick": "FIRST"
   },
-  "104": {
-    "domain": 4,
-    "topic": "Mobile Security",
-    "subtopic": "Mobile Device Security",
+  "87": {
+    "domain": 1,
+    "topic": "Incident Management",
+    "subtopic": "Incident Management",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "88": {
+    "domain": 3,
+    "topic": "Cryptography",
+    "subtopic": "Cryptography",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": null
   },
-  "105": {
-    "domain": 4,
-    "topic": "Mobile Security",
-    "subtopic": "Mobile Apps",
+  "89": {
+    "domain": 6,
+    "topic": "Security Testing",
+    "subtopic": "Security Testing",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": "BEST"
   },
-  "106": {
+  "90": {
+    "domain": 1,
+    "topic": "Incident Management",
+    "subtopic": "Incident Management",
+    "difficulty": "Medium",
+    "question_type": "Sequence",
+    "exam_trick": null
+  },
+  "91": {
+    "domain": 1,
+    "topic": "General",
+    "subtopic": "General",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "92": {
+    "domain": 1,
+    "topic": "Disaster Recovery",
+    "subtopic": "Disaster Recovery",
+    "difficulty": "Medium",
+    "question_type": "Scenario",
+    "exam_trick": null
+  },
+  "93": {
+    "domain": 1,
+    "topic": "Incident Management",
+    "subtopic": "Incident Management",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "94": {
+    "domain": 6,
+    "topic": "Penetration Testing",
+    "subtopic": "Penetration Testing",
+    "difficulty": "Medium",
+    "question_type": "Exception",
+    "exam_trick": "NOT"
+  },
+  "95": {
+    "domain": 1,
+    "topic": "Security Testing",
+    "subtopic": "Security Testing",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "96": {
     "domain": 4,
-    "topic": "Mobile Device Management",
-    "subtopic": "MDM Solutions",
+    "topic": "Network Protocols",
+    "subtopic": "Network Protocols",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "97": {
+    "domain": 1,
+    "topic": "PKI",
+    "subtopic": "PKI",
+    "difficulty": "Easy",
+    "question_type": "Sequence",
+    "exam_trick": "FIRST"
+  },
+  "98": {
+    "domain": 7,
+    "topic": "General",
+    "subtopic": "General",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "99": {
+    "domain": 4,
+    "topic": "Network Protocols",
+    "subtopic": "Network Protocols",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "100": {
+    "domain": 2,
+    "topic": "Data Protection",
+    "subtopic": "Data Protection",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "101": {
+    "domain": 1,
+    "topic": "Network Security",
+    "subtopic": "Network Security",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "102": {
+    "domain": 1,
+    "topic": "PKI",
+    "subtopic": "PKI",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "103": {
+    "domain": 5,
+    "topic": "Biometrics",
+    "subtopic": "Biometrics",
     "difficulty": "Medium",
     "question_type": "Application",
     "exam_trick": "MOST"
   },
-  "107": {
+  "104": {
     "domain": 1,
-    "topic": "Business Continuity",
-    "subtopic": "BCP Documentation",
+    "topic": "General",
+    "subtopic": "General",
     "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "question_type": "Scenario",
+    "exam_trick": "NOT"
+  },
+  "105": {
+    "domain": 3,
+    "topic": "Cryptography",
+    "subtopic": "Cryptography",
+    "difficulty": "Medium",
+    "question_type": "Sequence",
+    "exam_trick": null
+  },
+  "106": {
+    "domain": 1,
+    "topic": "General",
+    "subtopic": "General",
+    "difficulty": "Medium",
+    "question_type": "Exception",
+    "exam_trick": "NOT"
+  },
+  "107": {
+    "domain": 4,
+    "topic": "Email Security",
+    "subtopic": "Email Security",
+    "difficulty": "Medium",
+    "question_type": "Scenario",
+    "exam_trick": "BEST"
   },
   "108": {
-    "domain": 7,
-    "topic": "Assurance",
-    "subtopic": "System Assurance",
+    "domain": 6,
+    "topic": "Incident Response",
+    "subtopic": "Incident Response",
     "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "BEST"
+    "question_type": "Sequence",
+    "exam_trick": null
   },
   "109": {
     "domain": 1,
-    "topic": "Disaster Recovery Testing",
-    "subtopic": "DRP Testing",
-    "difficulty": "Medium",
-    "question_type": "Sequence",
-    "exam_trick": "None"
+    "topic": "Governance",
+    "subtopic": "Governance",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": null
   },
   "110": {
-    "domain": 4,
-    "topic": "Network Issues",
-    "subtopic": "Network Troubleshooting",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "PRIMARY"
+    "domain": 1,
+    "topic": "General",
+    "subtopic": "General",
+    "difficulty": "Easy",
+    "question_type": "Scenario",
+    "exam_trick": null
   },
   "111": {
-    "domain": 6,
-    "topic": "Code Review",
-    "subtopic": "Code Inspection",
+    "domain": 1,
+    "topic": "Incident Management",
+    "subtopic": "Incident Management",
     "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "question_type": "Sequence",
+    "exam_trick": null
   },
   "112": {
-    "domain": 6,
-    "topic": "Web Application Security",
-    "subtopic": "Web App Testing",
+    "domain": 4,
+    "topic": "Email Security",
+    "subtopic": "Email Security",
     "difficulty": "Medium",
-    "question_type": "Exception",
+    "question_type": "Scenario",
     "exam_trick": "NOT"
   },
   "113": {
-    "domain": 8,
-    "topic": "Programming Languages",
-    "subtopic": "Language Security",
-    "difficulty": "Easy",
-    "question_type": "Exception",
+    "domain": 1,
+    "topic": "General",
+    "subtopic": "General",
+    "difficulty": "Hard",
+    "question_type": "Scenario",
     "exam_trick": "NOT"
   },
   "114": {
-    "domain": 2,
-    "topic": "Data Lifecycle",
-    "subtopic": "Records Retention & Compliance",
-    "difficulty": "Medium",
-    "question_type": "Scenario",
-    "exam_trick": "None"
-  },
-  "115": {
     "domain": 1,
-    "topic": "Disaster Recovery",
-    "subtopic": "Recovery Strategies",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "116": {
-    "domain": 4,
-    "topic": "Network Architecture",
-    "subtopic": "Network Design",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "117": {
-    "domain": 3,
-    "topic": "Cryptography",
-    "subtopic": "Cryptographic Protocols",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "None"
-  },
-  "118": {
-    "domain": 4,
-    "topic": "Network Protocols",
-    "subtopic": "Protocol Comparison",
-    "difficulty": "Medium",
-    "question_type": "Application",
-    "exam_trick": "ONLY"
-  },
-  "119": {
-    "domain": 1,
-    "topic": "Privacy Regulation",
-    "subtopic": "Privacy Laws",
+    "topic": "PKI",
+    "subtopic": "PKI",
     "difficulty": "Medium",
     "question_type": "Exception",
     "exam_trick": "NOT"
+  },
+  "115": {
+    "domain": 2,
+    "topic": "General",
+    "subtopic": "General",
+    "difficulty": "Medium",
+    "question_type": "Exception",
+    "exam_trick": "NOT"
+  },
+  "116": {
+    "domain": 2,
+    "topic": "General",
+    "subtopic": "General",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "117": {
+    "domain": 8,
+    "topic": "PKI",
+    "subtopic": "PKI",
+    "difficulty": "Hard",
+    "question_type": "Scenario",
+    "exam_trick": "NOT"
+  },
+  "118": {
+    "domain": 2,
+    "topic": "Data Protection",
+    "subtopic": "Data Protection",
+    "difficulty": "Easy",
+    "question_type": "Application",
+    "exam_trick": null
+  },
+  "119": {
+    "domain": 5,
+    "topic": "Cryptography",
+    "subtopic": "Cryptography",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": null
   },
   "120": {
     "domain": 1,
-    "topic": "Disaster Recovery",
-    "subtopic": "DRP Implementation",
+    "topic": "Vulnerability Assessment",
+    "subtopic": "Vulnerability Assessment",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": null
   },
   "121": {
-    "domain": 4,
-    "topic": "OSI Model",
-    "subtopic": "OSI Reference",
-    "difficulty": "Easy",
+    "domain": 6,
+    "topic": "General",
+    "subtopic": "General",
+    "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": "MOST"
   },
   "122": {
-    "domain": 3,
-    "topic": "Cryptography",
-    "subtopic": "Encryption Methods",
+    "domain": 5,
+    "topic": "Audit",
+    "subtopic": "Audit",
     "difficulty": "Medium",
-    "question_type": "Exception",
-    "exam_trick": "NOT"
+    "question_type": "Application",
+    "exam_trick": null
   },
   "123": {
-    "domain": 8,
-    "topic": "Software Architecture",
-    "subtopic": "Software Design",
+    "domain": 1,
+    "topic": "Incident Management",
+    "subtopic": "Incident Management",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": null
   },
   "124": {
-    "domain": 4,
-    "topic": "Email Encryption",
-    "subtopic": "Email Encryption Methods",
-    "difficulty": "Easy",
-    "question_type": "Application",
-    "exam_trick": "None"
+    "domain": 8,
+    "topic": "PKI",
+    "subtopic": "PKI",
+    "difficulty": "Hard",
+    "question_type": "Sequence",
+    "exam_trick": "FIRST"
   },
   "125": {
-    "domain": 5,
-    "topic": "Linux Permissions",
-    "subtopic": "File Permissions",
+    "domain": 1,
+    "topic": "General",
+    "subtopic": "General",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": "None"
+    "exam_trick": null
   }
 }

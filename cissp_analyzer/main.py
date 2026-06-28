@@ -43,9 +43,10 @@ class CISSPAnalyzer:
         pdf_parser = PDFParser(exam_pdf)
         questions = pdf_parser.extract_questions()
 
-        # Step 2: Get answer key
-        answer_key = self._extract_answer_key_from_pdf(pdf_parser)
-        self.analysis_engine.set_answer_key(answer_key)
+        # Step 2: Get answer key (only extract from PDF if not already set)
+        if not self.analysis_engine.answer_key:
+            answer_key = self._extract_answer_key_from_pdf(pdf_parser)
+            self.analysis_engine.set_answer_key(answer_key)
 
         # Step 3: Parse student answers
         print("Parsing student answers...")

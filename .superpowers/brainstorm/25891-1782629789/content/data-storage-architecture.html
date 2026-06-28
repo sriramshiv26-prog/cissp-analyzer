@@ -1,0 +1,56 @@
+<h2>Where Should Historical Exam Data Live?</h2>
+<p class="subtitle">This is the foundation for scaling to 10+ exams per student</p>
+
+<div class="options">
+  <div class="option" data-choice="file-based" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>File-Based Storage</h3>
+      <p style="font-size: 0.9em;"><strong>Store</strong>: JSON/Excel files in project directory</p>
+      <p style="font-size: 0.85em;">✓ Simple, no DB setup</p>
+      <p style="font-size: 0.85em;">✓ Version control friendly (git)</p>
+      <p style="font-size: 0.85em;">✗ Poor query performance (10+ exams = slow)</p>
+      <p style="font-size: 0.85em;">✗ Concurrent access issues (multiple students)</p>
+      <p style="font-size: 0.85em;">✗ Hard to aggregate class-level analytics</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="db-psql" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>PostgreSQL (Relational)</h3>
+      <p style="font-size: 0.9em;"><strong>Store</strong>: Exam history in existing Cyber Sierra DB</p>
+      <p style="font-size: 0.85em;">✓ Fast queries (indexed on student + domain)</p>
+      <p style="font-size: 0.85em;">✓ ACID guarantees (data integrity)</p>
+      <p style="font-size: 0.85em;">✓ Easy aggregations (class analytics)</p>
+      <p style="font-size: 0.85em;">✗ Requires schema design + migrations</p>
+      <p style="font-size: 0.85em;">✗ Tighter coupling to Cyber Sierra</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="hybrid" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Hybrid (Excel + Cache)</h3>
+      <p style="font-size: 0.9em;"><strong>Store</strong>: Excel files + in-memory cache during analysis</p>
+      <p style="font-size: 0.85em;">✓ Standalone (works without Cyber Sierra)</p>
+      <p style="font-size: 0.85em;">✓ User-friendly (drag-drop Excel files)</p>
+      <p style="font-size: 0.85em;">✓ Still version-controllable</p>
+      <p style="font-size: 0.85em;">✗ Cache expires on restart</p>
+      <p style="font-size: 0.85em;">✗ Still has file-based query limits</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="mongodb" onclick="toggleSelect(this)">
+    <div class="letter">D</div>
+    <div class="content">
+      <h3>MongoDB (Document)</h3>
+      <p style="font-size: 0.9em;"><strong>Store</strong>: Exam history in Second Brain DB</p>
+      <p style="font-size: 0.85em;">✓ Flexible schema (variable question counts)</p>
+      <p style="font-size: 0.85em;">✓ Fast document queries</p>
+      <p style="font-size: 0.85em;">✓ JSON-native (matches our data structure)</p>
+      <p style="font-size: 0.85em;">✗ Requires Second Brain integration</p>
+      <p style="font-size: 0.85em;">✗ Extra deployment dependency</p>
+    </div>
+  </div>
+</div>

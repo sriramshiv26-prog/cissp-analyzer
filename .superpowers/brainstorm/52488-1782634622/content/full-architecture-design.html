@@ -1,0 +1,113 @@
+<h2>Adaptive Recommendations System - Full Architecture</h2>
+<p class="subtitle">Local, scalable, simple. Max 5-10 exams per student.</p>
+
+<div class="section">
+<h3>📁 Data Storage & Organization</h3>
+<div class="mockup">
+<div class="mockup-header">File Structure</div>
+<div class="mockup-body" style="font-family: monospace; font-size: 0.9em; line-height: 1.6;">
+cissp-analyzer/<br>
+├── students/<br>
+│   ├── Sri/<br>
+│   │   ├── Mock1_Jun26_Sri.xlsx (input)<br>
+│   │   ├── exam-1_analysis.json (metadata)<br>
+│   │   ├── exam-1_performance.json (5D data)<br>
+│   │   ├── Mock2_Jun28_Sri.xlsx<br>
+│   │   ├── exam-2_analysis.json<br>
+│   │   ├── exam-2_performance.json<br>
+│   │   └── ... (max 10 exams)<br>
+│   └── Sam/<br>
+│       └── ... (same structure)<br>
+├── reports/<br>
+│   ├── Sri_progress_report.xlsx (8 sheets)<br>
+│   └── Sam_progress_report.xlsx<br>
+└── class_reports/<br>
+    ├── class_overview.xlsx<br>
+    └── class_analytics.xlsx
+</div>
+</div>
+
+<h3>📊 Report Structure (8 Sheets)</h3>
+<table style="width: 100%; border-collapse: collapse; margin: 1em 0;">
+<tr style="background: #f5f5f5; border-bottom: 2px solid #ccc;">
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>Sheet</strong></td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>Purpose</strong></td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>Data</strong></td>
+</tr>
+<tr style="border-bottom: 1px solid #ddd;">
+<td style="padding: 0.7em; border: 1px solid #ddd;">1. Summary</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">Quick overview of latest exam</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">Overall %, by domain, trends</td>
+</tr>
+<tr style="border-bottom: 1px solid #ddd;">
+<td style="padding: 0.7em; border: 1px solid #ddd;">2-6. Existing</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">Current 5 sheets (Q&A, Difficulty, Type, Trick, Domain)</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">Breakdown by dimension</td>
+</tr>
+<tr style="border-bottom: 1px solid #ddd; background: #fffacd;">
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>7. Progress Over Time</strong></td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>NEW: Historical trends</strong></td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>All 3 dimensions (A+B+C) with drill-down</strong></td>
+</tr>
+<tr style="background: #e6f3ff;">
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>8. Adaptive Study Plan</strong></td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>NEW: AI recommendations</strong></td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>Momentum-based focus areas</strong></td>
+</tr>
+</table>
+
+<h3>🔄 Data Flow (End-to-End)</h3>
+<div style="background: #f9f9f9; padding: 1em; border-radius: 4px; margin: 1em 0;">
+<p><strong>Step 1: Input</strong><br>
+User: "Enter student name?" → "Sri"<br>
+Tool scans: students/Sri/ folder → finds 2 previous exams<br>
+Loads: exam-1_performance.json, exam-2_performance.json
+</p>
+
+<p><strong>Step 2: Parse Current Exam</strong><br>
+Reads: Mock3_Jul1_Sri.xlsx<br>
+Extracts: 125 questions, right/wrong per student<br>
+Calculates: 5-dimensional performance (domain, topic, difficulty, type, trick)
+</p>
+
+<p><strong>Step 3: Merge with History</strong><br>
+Compares: Current exam (exam-3) vs exam-1, exam-2<br>
+Detects: Trends, improvements, regressions per dimension
+</p>
+
+<p><strong>Step 4: Generate Recommendations</strong><br>
+Algorithm (Momentum-Based):<br>
+&nbsp;&nbsp;For each domain:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;momentum = (current - previous) if history exists else 0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;weakness = 100 - current<br>
+&nbsp;&nbsp;&nbsp;&nbsp;priority = weakness + (momentum × 2)<br>
+&nbsp;&nbsp;Rank domains by priority<br>
+&nbsp;&nbsp;Drill down to subtopics + patterns
+</p>
+
+<p><strong>Step 5: Generate Reports</strong><br>
+Creates: Sri_progress_report.xlsx (8 sheets)<br>
+Stores: exam-3_performance.json for next run
+</p>
+</div>
+
+<h3>👥 Teacher Class Reports (Additional Sheets)</h3>
+<table style="width: 100%; border-collapse: collapse; margin: 1em 0;">
+<tr style="background: #f5f5f5; border-bottom: 2px solid #ccc;">
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>Sheet</strong></td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>Data</strong></td>
+</tr>
+<tr style="border-bottom: 1px solid #ddd;">
+<td style="padding: 0.7em; border: 1px solid #ddd;">Class Overview</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">All students' latest scores, class average, rankings</td>
+</tr>
+<tr style="border-bottom: 1px solid #ddd;">
+<td style="padding: 0.7em; border: 1px solid #ddd;">Weakness Analysis</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">Which domains/topics are hardest for the class</td>
+</tr>
+<tr style="border-bottom: 1px solid #ddd;">
+<td style="padding: 0.7em; border: 1px solid #ddd;">Student Comparisons</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">Side-by-side progress trends (Sri vs Sam vs class avg)</td>
+</tr>
+</table>
+</div>

@@ -1,0 +1,125 @@
+<h2>Section 1: Data Schema & Progress Over Time Sheet</h2>
+
+<div class="section">
+<h3>🗄️ What Gets Stored (exam-N_performance.json)</h3>
+<p class="subtitle">Minimal schema needed to calculate trends</p>
+
+<div class="mockup">
+<div class="mockup-header">Example: exam-2_performance.json</div>
+<div class="mockup-body" style="font-family: monospace; font-size: 0.85em; line-height: 1.5; overflow-x: auto;">
+{<br>
+&nbsp;&nbsp;"exam_number": 2,<br>
+&nbsp;&nbsp;"date": "2026-06-28",<br>
+&nbsp;&nbsp;"student_name": "Sri",<br>
+&nbsp;&nbsp;"total_questions": 125,<br>
+&nbsp;&nbsp;"total_correct": 85,<br>
+&nbsp;&nbsp;"overall_accuracy": 0.68,<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;"by_domain": {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"Security & Risk Management": {"correct": 12, "total": 16, "accuracy": 0.75},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"Asset Security": {"correct": 10, "total": 14, "accuracy": 0.71},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;... (8 domains total)<br>
+&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;"by_difficulty": {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"Easy": {"correct": 30, "total": 40, "accuracy": 0.75},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"Medium": {"correct": 35, "total": 50, "accuracy": 0.70},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"Hard": {"correct": 20, "total": 35, "accuracy": 0.57}<br>
+&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;"by_question_type": {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"Application": {"correct": 28, "total": 40, "accuracy": 0.70},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"Scenario": {"correct": 30, "total": 50, "accuracy": 0.60},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"Knowledge": {"correct": 27, "total": 35, "accuracy": 0.77}<br>
+&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;"wrong_question_ids": [3, 7, 12, 25, ...] (for detailed review)<br>
+}
+</div>
+</div>
+
+<h3>📈 Progress Over Time Sheet Structure</h3>
+<p class="subtitle">Student scrolls through 3 dimensions + drill-down</p>
+
+<table style="width: 100%; border-collapse: collapse; margin: 1.5em 0;">
+<tr style="background: #f5f5f5; border-bottom: 2px solid #ccc;">
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>Section</strong></td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>Visualization</strong></td>
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>Data Shown</strong></td>
+</tr>
+
+<tr style="border-bottom: 1px solid #ddd; background: #fff9e6;">
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>A. Domain Accuracy Over Time</strong></td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">Line chart (one line per domain)</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">Example:<br>
+Security Arch: 65% → 72% → 75%<br>
+Asset Sec: 70% → 71% → 68% ⚠️<br>
+(8 domains total)</td>
+</tr>
+
+<tr style="border-bottom: 1px solid #ddd; background: #f0f8ff;">
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>B. Difficulty Progression</strong></td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">Grouped bar chart (Easy, Medium, Hard)</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">Example:<br>
+Easy: 75% → 78% → 80% ✓<br>
+Medium: 65% → 68% → 70%<br>
+Hard: 40% → 45% → 50%</td>
+</tr>
+
+<tr style="border-bottom: 1px solid #ddd; background: #f5fff5;">
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>C. Question Type Mastery</strong></td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">Line chart (one line per type)</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">Example:<br>
+Application: 70% → 72% → 74%<br>
+Scenario: 50% → 55% → 60%<br>
+Knowledge: 80% → 82% → 85%</td>
+</tr>
+
+<tr style="background: #fff5f5;">
+<td style="padding: 0.7em; border: 1px solid #ddd;"><strong>Drill-Down (Row Click)</strong></td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">Subtopic-level detail sheet</td>
+<td style="padding: 0.7em; border: 1px solid #ddd;">Click "Security Arch" →<br>
+Shows: Kerberos, SAML, OAuth<br>
+with accuracies per exam</td>
+</tr>
+</table>
+
+<h3>🎯 Drill-Down Example (Hidden Tab)</h3>
+<p style="font-size: 0.9em; margin-bottom: 0.5em;"><strong>If student clicks on "Security & Risk Management" domain:</strong></p>
+<div class="mockup">
+<div class="mockup-header">Security & Risk Management - Subtopic Trends</div>
+<div class="mockup-body" style="font-size: 0.9em;">
+<table style="width: 100%; border-collapse: collapse;">
+<tr style="background: #f5f5f5;">
+<td style="padding: 0.5em; border: 1px solid #ddd;">Subtopic</td>
+<td style="padding: 0.5em; border: 1px solid #ddd;">Exam 1</td>
+<td style="padding: 0.5em; border: 1px solid #ddd;">Exam 2</td>
+<td style="padding: 0.5em; border: 1px solid #ddd;">Exam 3</td>
+<td style="padding: 0.5em; border: 1px solid #ddd;">Trend</td>
+</tr>
+<tr>
+<td style="padding: 0.5em; border: 1px solid #ddd;">Kerberos</td>
+<td style="padding: 0.5em; border: 1px solid #ddd;">50%</td>
+<td style="padding: 0.5em; border: 1px solid #ddd;">60%</td>
+<td style="padding: 0.5em; border: 1px solid #ddd;">75%</td>
+<td style="padding: 0.5em; border: 1px solid #ddd;">📈 +25%</td>
+</tr>
+<tr style="background: #fff0f0;">
+<td style="padding: 0.5em; border: 1px solid #ddd;">SAML</td>
+<td style="padding: 0.5em; border: 1px solid #ddd;">65%</td>
+<td style="padding: 0.5em; border: 1px solid #ddd;">68%</td>
+<td style="padding: 0.5em; border: 1px solid #ddd;">70%</td>
+<td style="padding: 0.5em; border: 1px solid #ddd;">📈 +5%</td>
+</tr>
+<tr style="background: #fff5f5;">
+<td style="padding: 0.5em; border: 1px solid #ddd;">OAuth</td>
+<td style="padding: 0.5em; border: 1px solid #ddd;">40%</td>
+<td style="padding: 0.5em; border: 1px solid #ddd;">45%</td>
+<td style="padding: 0.5em; border: 1px solid #ddd;">48%</td>
+<td style="padding: 0.5em; border: 1px solid #ddd;">📈 +8% (slow)</td>
+</tr>
+</table>
+</div>
+</div>
+
+</div>

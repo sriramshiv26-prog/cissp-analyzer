@@ -1,0 +1,858 @@
+{
+  "1": {
+    "domain": 1,
+    "topic": "Information Security Standards",
+    "subtopic": "Information Security Standards",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "2": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "3": {
+    "domain": 7,
+    "topic": "Forensics",
+    "subtopic": "Forensics",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "4": {
+    "domain": 3,
+    "topic": "Physical Security",
+    "subtopic": "Physical Security",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "5": {
+    "domain": 5,
+    "topic": "Kerberos",
+    "subtopic": "Kerberos",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "6": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "7": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "8": {
+    "domain": 4,
+    "topic": "Network Infrastructure",
+    "subtopic": "Network Infrastructure",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "10": {
+    "domain": 4,
+    "topic": "Wireless Security",
+    "subtopic": "Wireless Security",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "11": {
+    "domain": 5,
+    "topic": "Access Control",
+    "subtopic": "Access Control",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "12": {
+    "domain": 3,
+    "topic": "Cryptography",
+    "subtopic": "Cryptography",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "13": {
+    "domain": 1,
+    "topic": "Information Security Standards",
+    "subtopic": "Information Security Standards",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "14": {
+    "domain": 4,
+    "topic": "Wireless Security",
+    "subtopic": "Wireless Security",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "15": {
+    "domain": 4,
+    "topic": "Attacks",
+    "subtopic": "Attacks",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "16": {
+    "domain": 5,
+    "topic": "Access Control",
+    "subtopic": "Access Control",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "17": {
+    "domain": 4,
+    "topic": "Attacks",
+    "subtopic": "Attacks",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "18": {
+    "domain": 3,
+    "topic": "Database Security",
+    "subtopic": "Database Security",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "19": {
+    "domain": 1,
+    "topic": "Information Security Standards",
+    "subtopic": "Information Security Standards",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "21": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "22": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "23": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "24": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "25": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "26": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "27": {
+    "domain": 1,
+    "topic": "Information Security Standards",
+    "subtopic": "Information Security Standards",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "28": {
+    "domain": 3,
+    "topic": "Database Security",
+    "subtopic": "Database Security",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "29": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "31": {
+    "domain": 3,
+    "topic": "Cryptography",
+    "subtopic": "Cryptography",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "32": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "33": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "34": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "35": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "37": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "39": {
+    "domain": 4,
+    "topic": "Attacks",
+    "subtopic": "Attacks",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "40": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "41": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "42": {
+    "domain": 5,
+    "topic": "Authentication",
+    "subtopic": "Authentication",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "44": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "45": {
+    "domain": 5,
+    "topic": "Access Control",
+    "subtopic": "Access Control",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "46": {
+    "domain": 4,
+    "topic": "Attacks",
+    "subtopic": "Attacks",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "47": {
+    "domain": 5,
+    "topic": "Biometrics",
+    "subtopic": "Biometrics",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "48": {
+    "domain": 5,
+    "topic": "Access Control",
+    "subtopic": "Access Control",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "49": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "51": {
+    "domain": 5,
+    "topic": "Access Control",
+    "subtopic": "Access Control",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "52": {
+    "domain": 4,
+    "topic": "Network Protocols",
+    "subtopic": "Network Protocols",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "53": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "54": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "56": {
+    "domain": 3,
+    "topic": "Storage Technology",
+    "subtopic": "Storage Technology",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "57": {
+    "domain": 4,
+    "topic": "Network Protocols",
+    "subtopic": "Network Protocols",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "58": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "59": {
+    "domain": 7,
+    "topic": "Monitoring",
+    "subtopic": "Monitoring",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "61": {
+    "domain": 5,
+    "topic": "Access Control",
+    "subtopic": "Access Control",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "62": {
+    "domain": 1,
+    "topic": "Business Continuity",
+    "subtopic": "Business Continuity",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "63": {
+    "domain": 8,
+    "topic": "Software Development",
+    "subtopic": "Software Development",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "65": {
+    "domain": 6,
+    "topic": "Vulnerability Assessment",
+    "subtopic": "Vulnerability Assessment",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "66": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "67": {
+    "domain": 5,
+    "topic": "Authentication",
+    "subtopic": "Authentication",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "69": {
+    "domain": 5,
+    "topic": "Authentication",
+    "subtopic": "Authentication",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "70": {
+    "domain": 5,
+    "topic": "Access Control",
+    "subtopic": "Access Control",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "71": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "73": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "74": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "75": {
+    "domain": 1,
+    "topic": "Business Continuity",
+    "subtopic": "Business Continuity",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "76": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "78": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "79": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "80": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "81": {
+    "domain": 1,
+    "topic": "Information Security Standards",
+    "subtopic": "Information Security Standards",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "83": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "84": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "85": {
+    "domain": 3,
+    "topic": "System Architecture",
+    "subtopic": "System Architecture",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "86": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "87": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "88": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "89": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "90": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "91": {
+    "domain": 6,
+    "topic": "Vulnerability Assessment",
+    "subtopic": "Vulnerability Assessment",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "92": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "93": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "94": {
+    "domain": 5,
+    "topic": "Access Control",
+    "subtopic": "Access Control",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "95": {
+    "domain": 3,
+    "topic": "Storage Technology",
+    "subtopic": "Storage Technology",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "97": {
+    "domain": 1,
+    "topic": "Business Continuity",
+    "subtopic": "Business Continuity",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "98": {
+    "domain": 4,
+    "topic": "Network Infrastructure",
+    "subtopic": "Network Infrastructure",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "99": {
+    "domain": 4,
+    "topic": "Network Infrastructure",
+    "subtopic": "Network Infrastructure",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "101": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "102": {
+    "domain": 4,
+    "topic": "Network Security",
+    "subtopic": "Network Security",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "103": {
+    "domain": 5,
+    "topic": "Authentication",
+    "subtopic": "Authentication",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "104": {
+    "domain": 4,
+    "topic": "Network Security",
+    "subtopic": "Network Security",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "105": {
+    "domain": 5,
+    "topic": "Access Control",
+    "subtopic": "Access Control",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "106": {
+    "domain": 3,
+    "topic": "System Architecture",
+    "subtopic": "System Architecture",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "107": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "108": {
+    "domain": 3,
+    "topic": "Database Security",
+    "subtopic": "Database Security",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "109": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "110": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "112": {
+    "domain": 4,
+    "topic": "Attacks",
+    "subtopic": "Attacks",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "113": {
+    "domain": 1,
+    "topic": "Information Security Standards",
+    "subtopic": "Information Security Standards",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "114": {
+    "domain": 8,
+    "topic": "Code Review",
+    "subtopic": "Code Review",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "115": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "116": {
+    "domain": 5,
+    "topic": "Access Control",
+    "subtopic": "Access Control",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "117": {
+    "domain": 5,
+    "topic": "Access Control",
+    "subtopic": "Access Control",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "118": {
+    "domain": 4,
+    "topic": "Attacks",
+    "subtopic": "Attacks",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "119": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "120": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "121": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "122": {
+    "domain": 3,
+    "topic": "System Architecture",
+    "subtopic": "System Architecture",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "123": {
+    "domain": 3,
+    "topic": "Cryptography",
+    "subtopic": "Cryptography",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  },
+  "125": {
+    "domain": 1,
+    "topic": "Risk Management",
+    "subtopic": "Risk Management",
+    "difficulty": "Medium",
+    "question_type": "Application",
+    "exam_trick": "None"
+  }
+}

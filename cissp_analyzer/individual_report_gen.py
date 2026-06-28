@@ -122,11 +122,6 @@ class IndividualReportGenerator:
         ws['A13'].alignment = Alignment(wrap_text=True)
         ws.row_dimensions[13].height = 30
 
-        # Study plan header
-        ws['A15'] = 'STUDY PLAN'
-        ws['A15'].font = Font(bold=True, color='FFFFFF')
-        ws['A15'].fill = PatternFill(start_color='001F4E78', end_color='001F4E78', fill_type='solid')
-
         ws.column_dimensions['A'].width = 25
         ws.column_dimensions['B'].width = 25
 
@@ -225,7 +220,7 @@ class IndividualReportGenerator:
             cell.fill = PatternFill(start_color=self.COLOR_HEADER, end_color=self.COLOR_HEADER, fill_type='solid')
 
         row = 4
-        for trick, data in sorted(perf.by_exam_trick.items()):
+        for trick, data in sorted(perf.by_exam_trick.items(), key=lambda x: (x[0] is None, x[0])):
             pct = data['percentage']
             fill_color = self._get_status_color(pct)
             status = self._get_status_text(pct)
