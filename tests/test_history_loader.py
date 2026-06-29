@@ -102,3 +102,23 @@ def test_load_previous_exams_enforces_max_limit(capsys):
             saved_data = json.load(f)
         assert saved_data["exam_number"] == 11
         assert saved_data["overall_accuracy"] == 0.72
+
+
+def test_create_student_folder_creates_directory():
+    """Verify create_student_folder creates directory and returns correct path"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        loader = HistoryLoader(tmpdir)
+
+        # Folder should not exist initially
+        student_path = Path(tmpdir) / "NewStudent"
+        assert not student_path.exists()
+
+        # Create folder
+        result_path = loader.create_student_folder("NewStudent")
+
+        # Verify folder was created
+        assert student_path.exists()
+        assert student_path.is_dir()
+
+        # Verify returned path is correct
+        assert result_path == student_path
