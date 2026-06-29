@@ -64,7 +64,41 @@ def test_load_previous_exams_multiple_exams():
         assert [r["overall_accuracy"] for r in result] == [0.65, 0.70, 0.75]
 
 
-def test_load_previous_exams_enforces_max_limit():
+def test_load_previous_exams_enforces_max_limit(capsys):
     """Verify max 10 exams, warn on excess"""
-    # This will be tested after warnings are added in Task 2
-    pass
+    with tempfile.TemporaryDirectory() as tmpdir:
+        student_dir = Path(tmpdir) / "MaxLimitStudent"
+        student_dir.mkdir()
+
+        # Create 10 existing exam files
+        for exam_num in range(1, 11):
+            exam_data = {
+                "exam_number": exam_num,
+                "date": f"2026-06-{10+exam_num}",
+                "overall_accuracy": 0.50 + (exam_num * 0.02)
+            }
+            with open(student_dir / f"exam-{exam_num}_performance.json", "w") as f:
+                json.dump(exam_data, f)
+
+        loader = HistoryLoader(tmpdir)
+
+        # Save exam 11 (exceeds max limit)
+        exam_11_data = {
+            "exam_number": 11,
+            "date": "2026-07-01",
+            "overall_accuracy": 0.72
+        }
+        saved_path = loader.save_exam_performance("MaxLimitStudent", 11, exam_11_data)
+
+        # Verify warning was printed
+        captured = capsys.readouterr()
+        assert "Warning" in captured.out
+        assert "MaxLimitStudent" in captured.out
+        assert "10 exams" in captured.out
+
+        # Verify exam 11 was still saved despite warning (not a hard block)
+        assert saved_path.exists()
+        with open(saved_path, 'r') as f:
+            saved_data = json.load(f)
+        assert saved_data["exam_number"] == 11
+        assert saved_data["overall_accuracy"] == 0.72
