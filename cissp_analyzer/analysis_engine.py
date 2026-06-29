@@ -1,5 +1,6 @@
-from typing import List, Dict
+from typing import List, Dict, Optional
 from collections import defaultdict
+from datetime import date
 from cissp_analyzer.models import StudentAnswer, StudentPerformance
 from cissp_analyzer.domain_mapper import DomainMapper
 
@@ -10,6 +11,7 @@ class AnalysisEngine:
     def __init__(self, domain_mapper: DomainMapper):
         self.mapper = domain_mapper
         self.answer_key = {}
+        self.student_results = {}  # Store results for each student
 
     def set_answer_key(self, answer_key: Dict[int, str]):
         """Set the correct answer for each question"""
@@ -69,7 +71,7 @@ class AnalysisEngine:
         by_question_type_pct = self._calculate_percentages(by_question_type)
         by_exam_trick_pct = self._calculate_percentages(by_exam_trick)
 
-        return StudentPerformance(
+        performance = StudentPerformance(
             student_name=student_name,
             total_questions=len(answers),
             correct_count=correct_count,
@@ -82,6 +84,18 @@ class AnalysisEngine:
             by_exam_trick=by_exam_trick_pct,
             wrong_question_ids=wrong_question_ids
         )
+
+        # Store results for later export
+        self.student_results[student_name] = {
+            "performance": performance,
+            "answers": answers,
+            "by_domain": by_domain_pct,
+            "by_difficulty": by_difficulty_pct,
+            "by_question_type": by_question_type_pct,
+            "wrong_question_ids": wrong_question_ids
+        }
+
+        return performance
 
     def _calculate_percentages(self, dimension_dict: Dict) -> Dict:
         """Convert correct/wrong counts to percentages"""
@@ -98,3 +112,72 @@ class AnalysisEngine:
                 'percentage': round(pct, 1)
             }
         return result
+
+    def export_student_performance(self, student_name: str, exam_number: int,
+                                   exam_date: Optional[str] = None) -> Dict:
+        """
+        Export analyzed performance data in format for historical tracking.
+
+        Args:
+            student_name: Name of student
+            exam_number: Which exam (1, 2, 3, ...)
+            exam_date: Optional date (defaults to today if provided, else None)
+
+        Returns:
+            Dict matching exam-N_performance.json schema
+        """
+        results = self.student_results.get(student_name, {})
+        performance = results.get("performance")
+
+        if not performance:
+            return {}
+
+        # Extract data from stored performance
+        by_domain = results.get("by_domain", {})
+        by_difficulty = results.get("by_difficulty", {})
+        by_question_type = results.get("by_question_type", {})
+        wrong_question_ids = results.get("wrong_question_ids", [])
+
+        # Convert percentage dict format to accuracy dict format
+        domain_with_accuracy = {}
+        for domain_name, stats in by_domain.items():
+            domain_with_accuracy[domain_name] = {
+                "correct": stats.get('correct', 0),
+                "total": stats.get('total', 0),
+                "accuracy": stats.get('percentage', 0) / 100 if stats.get('percentage') is not None else 0
+            }
+
+        difficulty_with_accuracy = {}
+        for difficulty_name, stats in by_difficulty.items():
+            difficulty_with_accuracy[difficulty_name] = {
+                "correct": stats.get('correct', 0),
+                "total": stats.get('total', 0),
+                "accuracy": stats.get('percentage', 0) / 100 if stats.get('percentage') is not None else 0
+            }
+
+        question_type_with_accuracy = {}
+        for qtype_name, stats in by_question_type.items():
+            question_type_with_accuracy[qtype_name] = {
+                "correct": stats.get('correct', 0),
+                "total": stats.get('total', 0),
+                "accuracy": stats.get('percentage', 0) / 100 if stats.get('percentage') is not None else 0
+            }
+
+        # Build return dict
+        export_data = {
+            "exam_number": exam_number,
+            "student_name": student_name,
+            "total_questions": performance.total_questions,
+            "total_correct": performance.correct_count,
+            "overall_accuracy": performance.score_percentage,
+            "by_domain": domain_with_accuracy,
+            "by_difficulty": difficulty_with_accuracy,
+            "by_question_type": question_type_with_accuracy,
+            "wrong_question_ids": wrong_question_ids
+        }
+
+        # Add exam_date if provided
+        if exam_date is not None:
+            export_data["exam_date"] = exam_date
+
+        return export_data
