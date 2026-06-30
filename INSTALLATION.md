@@ -1,263 +1,168 @@
-# Installation Guide
-
-Complete step-by-step setup for **Windows**, **Mac**, or **Linux**.
-
----
+# CISSP Analyzer - Installation Guide
 
 ## Prerequisites
 
-- **Python 3.11 or higher** (download from https://www.python.org/downloads/)
-- **Git** (to clone the repository)
-- **Internet connection** (to download dependencies)
+Before installing CISSP Analyzer, ensure you have:
+- **Python 3.9 or higher** ([download](https://www.python.org/downloads/))
+- **pip** (included with Python)
+- **git** (optional, for cloning the repository)
+
+### Verify Prerequisites
+
+```bash
+# Check Python version
+python3 --version
+
+# Check pip
+pip3 --version
+```
+
+Both should return version information without errors.
 
 ---
 
-## Installation Steps (All Platforms)
+## Installation Methods
 
-### Step 1: Clone the Repository
+### Method 1: Automated Installation (Recommended)
 
-```bash
-git clone https://github.com/yourusername/cissp-analyzer.git
-cd cissp-analyzer
-```
-
-### Step 2: Create Virtual Environment (Optional but Recommended)
-
-**Why?** Keeps dependencies isolated from your system Python.
-
-#### Mac / Linux:
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
-
-#### Windows (Command Prompt):
-```bash
-python -m venv venv
-venv\Scripts\activate
-```
-
-#### Windows (PowerShell):
-```bash
-python -m venv venv
-venv\Scripts\Activate.ps1
-```
-
-### Step 3: Install Dependencies
+The easiest way to install CISSP Analyzer with all dependencies.
 
 ```bash
-pip install -r requirements.txt
+# Make install script executable
+chmod +x install.sh
+
+# Run the installer
+./install.sh
 ```
 
-### Step 4: Verify Installation
-
-```bash
-pytest -v
-```
-
-Expected output:
-```
-=============================== test session starts =======================================
-collected 29 items
-
-tests/test_analysis_engine.py::test_evaluate_answers_senthil PASSED               [  3%]
-...
-================================ 26 passed, 3 skipped ===================================
-```
-
-✅ **Installation successful!** You're ready to use CISSP Analyzer.
+The script will:
+- ✓ Verify Python 3.9+ is installed
+- ✓ Upgrade pip to the latest version
+- ✓ Optionally create a virtual environment
+- ✓ Install all required dependencies
+- ✓ Install CISSP Analyzer package
+- ✓ Verify the installation
 
 ---
 
-## Platform-Specific Setup
+### Method 2: Manual Installation
 
-### macOS
+If you prefer manual control over the installation process:
 
-**Requirements:** Python 3.11+, Homebrew (optional)
+#### Step 1: Create Virtual Environment (Recommended)
 
 ```bash
-# Using Homebrew (optional, if not already installed)
-brew install python@3.11
-
-# Clone and setup
-git clone https://github.com/yourusername/cissp-analyzer.git
-cd cissp-analyzer
-
 # Create virtual environment
 python3 -m venv venv
+
+# Activate it
+# On macOS/Linux:
 source venv/bin/activate
 
-# Install dependencies
-pip install -r requirements.txt
-
-# Verify
-pytest -v
-```
-
-### Windows
-
-**Requirements:** Python 3.11+
-
-```bash
-# Download Python from https://www.python.org/downloads/
-# Make sure to check "Add Python to PATH" during installation
-
-# Open Command Prompt or PowerShell
-cd your-download-folder
-
-# Clone repository
-git clone https://github.com/yourusername/cissp-analyzer.git
-cd cissp-analyzer
-
-# Create virtual environment
-python -m venv venv
-
-# Activate virtual environment
-# On Command Prompt:
+# On Windows:
 venv\Scripts\activate
-# OR on PowerShell:
-venv\Scripts\Activate.ps1
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Verify
-pytest -v
 ```
 
-**Troubleshooting Windows:**
-- If `python` command not found, try `python3`
-- If PowerShell scripts disabled: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
-
-### Linux (Ubuntu/Debian)
-
-**Requirements:** Python 3.11+
+#### Step 2: Install Dependencies
 
 ```bash
-# Install Python and pip (if not already installed)
-sudo apt-get update
-sudo apt-get install python3.11 python3.11-venv python3-pip
-
-# Clone repository
-git clone https://github.com/yourusername/cissp-analyzer.git
-cd cissp-analyzer
-
-# Create virtual environment
-python3.11 -m venv venv
-source venv/bin/activate
-
-# Install dependencies
+# Install from requirements.txt
 pip install -r requirements.txt
 
-# Verify
-pytest -v
+# Or install specific packages
+pip install openpyxl pandas pypdf
 ```
 
-### Linux (Fedora/RHEL)
+#### Step 3: Install CISSP Analyzer
 
 ```bash
-# Install Python
-sudo dnf install python3.11 python3.11-devel
+# Install in development mode (recommended for development)
+pip install -e .
 
-# Clone repository
-git clone https://github.com/yourusername/cissp-analyzer.git
-cd cissp-analyzer
+# Or with development dependencies
+pip install -e ".[dev]"
 
-# Create virtual environment
-python3.11 -m venv venv
-source venv/bin/activate
+# Or standard installation
+pip install .
+```
 
-# Install dependencies
-pip install -r requirements.txt
+---
 
-# Verify
-pytest -v
+### Method 3: Using setup.py
+
+```bash
+# Install directly
+python3 -m pip install -e .
+
+# With all development tools
+python3 -m pip install -e ".[dev]"
 ```
 
 ---
 
 ## Verify Installation
 
-Run this command to confirm everything works:
+### Quick Verification
 
 ```bash
-python3 -c "
-from cissp_analyzer.domain_mapper import DomainMapper
-from cissp_analyzer.analysis_engine import AnalysisEngine
-mapper = DomainMapper('data/question_domain_mapping.json')
-engine = AnalysisEngine(mapper)
-print('✓ Installation successful!')
-"
+python3 -c "from cissp_analyzer import CISSPAnalyzer; print('✓ CISSP Analyzer installed successfully')"
 ```
 
-Expected output:
+### Detailed Status Report
+
+```bash
+# View dependency status
+python3 -m cissp_analyzer.dependency_checker
+
+# Or in Python:
+from cissp_analyzer.dependency_checker import print_dependency_status
+print_dependency_status()
 ```
-✓ Installation successful!
+
+### Run Tests
+
+```bash
+# Run all tests
+pytest tests/ -v
+
+# Run specific test file
+pytest tests/test_trend_calculator.py -v
+
+# Run with coverage report
+pytest tests/ --cov=cissp_analyzer
 ```
 
 ---
 
 ## Troubleshooting
 
-### Problem: "ModuleNotFoundError: No module named 'pandas'"
+### Issue: "Python 3.9 or higher required"
 
-**Solution:** Reinstall dependencies
-```bash
-pip install -r requirements.txt --force-reinstall
-```
+Install latest Python from https://www.python.org/downloads/
 
-### Problem: "Python command not found"
+### Issue: "pip command not found"
 
-**Solution:** Check your Python version
-```bash
-python3 --version  # or python --version
-```
+Use `pip3 install` or `python3 -m pip install`
 
-If neither works, install Python 3.11+:
-- **Mac:** `brew install python@3.11`
-- **Windows:** Download from https://www.python.org/downloads/
-- **Linux:** `sudo apt-get install python3.11`
+### Issue: Virtual environment conflicts
 
-### Problem: "pytest command not found"
+Create a fresh virtual environment and reinstall dependencies
 
-**Solution:** Install it manually
-```bash
-pip install pytest
-```
+### Issue: "ModuleNotFoundError: No module named 'openpyxl'"
 
-### Problem: Virtual environment not activating (Windows)
-
-**Solution:** If PowerShell gives execution policy error:
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-venv\Scripts\Activate.ps1
-```
-
-### Problem: Permission denied on macOS/Linux
-
-**Solution:** Add execute permission
-```bash
-chmod +x run.py
-```
+Run: `pip install -r requirements.txt`
 
 ---
 
 ## Next Steps
 
-Once installation is complete:
+After installation, run the interactive setup wizard:
 
-1. **Read** [QUICKSTART.md](QUICKSTART.md) to learn how to run the program
-2. **Prepare** your exam PDF and student answer Excel file
-3. **Generate** your first report!
+```bash
+python3 setup.py
+```
 
----
+This will guide you through configuring your exam analysis.
 
-## Need Help?
-
-- Check the [README.md](README.md) for overview
-- Review test files in `tests/` for usage examples
-- Open an issue on GitHub with your problem
-
----
-
-**Happy analyzing!**
+**Version:** 1.0.0  
+**Last Updated:** 2026-07-01
