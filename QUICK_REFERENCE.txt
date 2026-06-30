@@ -1,0 +1,145 @@
+================================================================================
+CISSP ANALYZER - QUICK REFERENCE CARD
+================================================================================
+
+ONCE (Installation):
+  pip install -r requirements.txt
+
+EVERY TIME (Analysis):
+  python3 analyze.py
+
+THEN ANSWER QUESTIONS:
+  1. Which exam? (1, 2, 3...)
+  2. Exam PDF location?
+  3. Answer key? (optional - press Enter to skip)
+  4. Student name? (repeat for each student)
+  5. Student answer file?
+  6. Where to save reports? (default: outputs)
+
+DONE! Reports generated automatically.
+
+================================================================================
+
+FILE STRUCTURE:
+
+Exam PDF:          /path/to/mock1.pdf
+Student Answers:   /path/to/student_answers.xlsx
+Answer Key:        /path/to/answer_key.json (optional)
+Output Directory:  outputs/ (created automatically)
+
+================================================================================
+
+OUTPUT FILES:
+
+✓ CISSP_Individual_Report_[StudentName].xlsx
+✓ CISSP_Class_Analysis.xlsx
+
+================================================================================
+
+EXCEL FILE FORMAT:
+
+Question | StudentName1 | StudentName2 | StudentName3
+---------|--------------|--------------|---------------
+1        | A            | B            | A
+2        | C            | A            | B
+3        | A            | C            | C
+
+(Question column required. Student names as column headers.)
+
+================================================================================
+
+ANSWER KEY FORMAT (JSON):
+
+{
+  "1": "A",
+  "2": "B",
+  "3": "C",
+  "4": "D",
+  ...
+}
+
+Optional - leave out if you want auto-extract from PDF
+
+================================================================================
+
+TROUBLESHOOTING:
+
+Problem: "File not found"
+Solution: Use full path. Mac/Linux example: /Users/name/exams/mock1.pdf
+
+Problem: "ModuleNotFoundError"
+Solution: Run: pip install -r requirements.txt
+
+Problem: "Excel column 'Question' not found"
+Solution: Make sure first column is named "Question"
+
+Problem: "Permission denied"
+Solution: Make sure files are readable. On Mac/Linux: chmod +r filename.xlsx
+
+================================================================================
+
+EXAMPLES:
+
+Example 1: Single student
+  Exam: 1
+  PDF: /Users/name/exam.pdf
+  Key: (press Enter)
+  Student: John
+  File: /Users/name/john.xlsx
+  Output: reports
+  ✓ Done!
+
+Example 2: Multiple students
+  Exam: 2
+  PDF: /Users/name/mock2.pdf
+  Key: /Users/name/answer_key.json
+  Student: Alice
+  File: /Users/name/alice.xlsx
+  Student: Bob
+  File: /Users/name/bob.xlsx
+  Student: (press Enter)
+  Output: output
+  ✓ Done!
+
+================================================================================
+
+DOCUMENTATION:
+
+START_HERE.md       - Getting started (2 min read)
+USAGE.md            - Examples and scenarios
+INSTALLATION.md     - Setup and troubleshooting
+README.md           - Complete documentation
+
+================================================================================
+
+WHAT YOU GET:
+
+Per Student:
+  ✓ Overall performance score
+  ✓ Performance by domain
+  ✓ Performance by difficulty
+  ✓ Performance by question type
+  ✓ Personalized study plan
+  ✓ Adaptive recommendations
+
+For Class:
+  ✓ Class average score
+  ✓ Class performance by domain
+  ✓ Strengths and weaknesses
+  ✓ Performance summary
+
+All in easy-to-read Excel format.
+
+================================================================================
+
+REMEMBER:
+
+✓ 2 commands total
+✓ No config files
+✓ No complex syntax
+✓ Just answer questions
+✓ Get reports
+
+That's it!
+
+================================================================================
