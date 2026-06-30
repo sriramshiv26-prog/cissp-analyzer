@@ -112,6 +112,62 @@ Open the Excel file in:
 
 ---
 
+## Historical Exam Tracking (NEW)
+
+Track student progress across multiple exams and get adaptive study recommendations.
+
+### First Exam (Baseline)
+```bash
+python3 run.py "exam.pdf" "answers.xlsx" "Student Name" "outputs/"
+```
+
+Output:
+```
+outputs/Mock1_2026-06-28_StudentName.xlsx  ← Named with date & student
+```
+
+### Second Exam (Progress Tracking)
+```bash
+python3 run.py "exam.pdf" "answers2.xlsx" "Student Name" "outputs/"
+```
+
+The tool automatically detects prior exams and adds:
+- **Sheet 7:** Progress Over Time (trends in domains, difficulty levels, question types)
+- **Sheet 8:** Adaptive Study Plan (momentum-based recommendations)
+
+Output:
+```
+outputs/Mock2_2026-06-28_StudentName.xlsx  ← Shows progress vs Mock1
+```
+
+### Filename Convention
+All reports follow this pattern:
+```
+Mock[N]_[YYYY-MM-DD]_[StudentName].xlsx
+```
+
+Where:
+- `N` = exam sequence (Mock1, Mock2, Mock3, etc.)
+- `YYYY-MM-DD` = analysis date
+- `StudentName` = student name (spaces converted to underscores)
+
+### New Report Sheets (Exams 2+)
+
+| Sheet | Content |
+|---|---|
+| **Sheet 7:** Progress Over Time | Trend charts showing performance across exams: domains improving/declining, difficulty level progression, question type mastery |
+| **Sheet 8:** Adaptive Study Plan | Momentum-based recommendations: focus areas with highest ROI based on trend analysis, not just raw weaknesses |
+
+### How It Works
+
+The adaptive recommendation engine:
+1. Compares exam-to-exam performance
+2. Calculates momentum (improving vs declining topics)
+3. Identifies "quick wins" (topics improving but still weak)
+4. Recommends 3-week focused study plan with daily time allocation
+
+---
+
 ## Multiple Students
 
 Analyze 3 students at once:
