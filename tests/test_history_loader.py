@@ -1,6 +1,7 @@
 import json
 import tempfile
 from pathlib import Path
+import pytest
 from cissp_analyzer.history_loader import HistoryLoader
 
 
@@ -64,7 +65,7 @@ def test_load_previous_exams_multiple_exams():
         assert [r["overall_accuracy"] for r in result] == [0.65, 0.70, 0.75]
 
 
-def test_load_previous_exams_enforces_max_limit(capsys):
+def test_load_previous_exams_enforces_max_limit(caplog):
     """Verify max 10 exams, warn on excess"""
     with tempfile.TemporaryDirectory() as tmpdir:
         student_dir = Path(tmpdir) / "MaxLimitStudent"
@@ -90,11 +91,9 @@ def test_load_previous_exams_enforces_max_limit(capsys):
         }
         saved_path = loader.save_exam_performance("MaxLimitStudent", 11, exam_11_data)
 
-        # Verify warning was printed
-        captured = capsys.readouterr()
-        assert "Warning" in captured.out
-        assert "MaxLimitStudent" in captured.out
-        assert "10 exams" in captured.out
+        # Verify warning was logged
+        assert any("MaxLimitStudent" in record.message and "10 exams" in record.message
+                   for record in caplog.records if record.levelname == "WARNING")
 
         # Verify exam 11 was still saved despite warning (not a hard block)
         assert saved_path.exists()
@@ -122,3 +121,48 @@ def test_create_student_folder_creates_directory():
 
         # Verify returned path is correct
         assert result_path == student_path
+
+
+def test_path_traversal_protection_create_student_folder():
+    """Verify path traversal sequences are blocked in create_student_folder"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        loader = HistoryLoader(tmpdir)
+
+        # These should raise ValueError
+        traversal_attempts = [
+            "../../../etc",
+            "../../secret",
+            "student/../../secret",
+            "../secret",
+            "..\\..\\secret",  # Windows path traversal
+        ]
+
+        for traversal_attempt in traversal_attempts:
+            with pytest.raises(ValueError, match="path traversal"):
+                loader.create_student_folder(traversal_attempt)
+
+
+def test_path_traversal_protection_save_exam_performance():
+    """Verify path traversal sequences are blocked in save_exam_performance"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        loader = HistoryLoader(tmpdir)
+
+        # Test data
+        exam_data = {
+            "exam_number": 1,
+            "date": "2026-06-26",
+            "overall_accuracy": 0.65,
+        }
+
+        # These should raise ValueError
+        traversal_attempts = [
+            "../../../etc",
+            "../../secret",
+            "student/../../secret",
+            "../secret",
+            "..\\..\\secret",  # Windows path traversal
+        ]
+
+        for traversal_attempt in traversal_attempts:
+            with pytest.raises(ValueError, match="path traversal"):
+                loader.save_exam_performance(traversal_attempt, 1, exam_data)

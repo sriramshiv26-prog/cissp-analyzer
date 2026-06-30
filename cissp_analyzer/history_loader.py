@@ -67,18 +67,35 @@ class HistoryLoader:
 
         Returns:
             Path to saved file
+
+        Raises:
+            ValueError: If student_name contains path traversal sequences
         """
+        # Validate path doesn't contain traversal sequences (prevent path traversal)
+        if ".." in student_name or student_name.startswith("/"):
+            raise ValueError(
+                f"Invalid student name '{student_name}': cannot contain path traversal sequences"
+            )
+
         student_path = self.students_dir / student_name
+
+        # Additional check: ensure resolved path is within base directory
+        try:
+            student_path.resolve().relative_to(self.students_dir.resolve())
+        except ValueError:
+            raise ValueError(
+                f"Invalid student name '{student_name}': cannot contain path traversal sequences"
+            )
+
         student_path.mkdir(parents=True, exist_ok=True)
 
         # Check max limit
         existing_exams = len(list(student_path.glob("exam-*_performance.json")))
         if existing_exams >= MAX_EXAMS_PER_STUDENT:
-            print(
-                f"Warning: Student {student_name} has {existing_exams} "
-                f"exams (max {MAX_EXAMS_PER_STUDENT})."
+            logger.warning(
+                f"Student {student_name} has {existing_exams} exams (max {MAX_EXAMS_PER_STUDENT}). "
+                f"Consider archiving older exams."
             )
-            print("   Consider archiving older exams.")
 
         output_file = student_path / f"exam-{exam_number}_performance.json"
 
@@ -88,7 +105,32 @@ class HistoryLoader:
         return output_file
 
     def create_student_folder(self, student_name: str) -> Path:
-        """Create student folder if it doesn't exist"""
+        """Create student folder if it doesn't exist.
+
+        Args:
+            student_name: Name of the student
+
+        Returns:
+            Path to the created student folder
+
+        Raises:
+            ValueError: If student_name contains path traversal sequences
+        """
+        # Validate path doesn't contain traversal sequences (prevent path traversal)
+        if ".." in student_name or student_name.startswith("/"):
+            raise ValueError(
+                f"Invalid student name '{student_name}': cannot contain path traversal sequences"
+            )
+
         student_path = self.students_dir / student_name
+
+        # Additional check: ensure resolved path is within base directory
+        try:
+            student_path.resolve().relative_to(self.students_dir.resolve())
+        except ValueError:
+            raise ValueError(
+                f"Invalid student name '{student_name}': cannot contain path traversal sequences"
+            )
+
         student_path.mkdir(parents=True, exist_ok=True)
         return student_path

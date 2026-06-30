@@ -5,18 +5,18 @@ from typing import Optional
 class FilenameParser:
     """Parser for extracting student name and exam info from standardized filenames.
 
-    Expected filename pattern: Mock[N]_[Date]_[StudentName].xlsx
+    Expected filename pattern: Mock[N]_[Date]_[StudentName].xlsx (case-insensitive)
     Examples:
         - Mock1_Jun26_Sri.xlsx -> student: "Sri", exam: 1
-        - Mock2_Jun28_Sam.xlsx -> student: "Sam", exam: 2
+        - MOCK2_JUN28_SAM.xlsx -> student: "Sam", exam: 2 (case-insensitive)
         - Mock10_Aug15_Bob.xlsx -> student: "Bob", exam: 10
     """
 
-    # Regex pattern: Mock(digits)_date(alphanumeric)_name(alphanumeric+spaces).xlsx
+    # Case-insensitive regex pattern
     PATTERN = r"Mock(\d+)_([A-Za-z0-9]+)_([A-Za-z0-9\s]+)\.xlsx"
 
     def extract_student_name(self, filename: str) -> Optional[str]:
-        """Extract student name from filename.
+        """Extract student name from filename (case-insensitive).
 
         Args:
             filename: The filename to parse
@@ -24,13 +24,13 @@ class FilenameParser:
         Returns:
             Student name if pattern matches, None otherwise
         """
-        match = re.match(self.PATTERN, filename)
+        match = re.match(self.PATTERN, filename, re.IGNORECASE)
         if match:
             return match.group(3).strip()
         return None
 
     def extract_exam_number(self, filename: str) -> Optional[int]:
-        """Extract exam number from filename.
+        """Extract exam number from filename (case-insensitive).
 
         Args:
             filename: The filename to parse
@@ -38,13 +38,13 @@ class FilenameParser:
         Returns:
             Exam number as int if pattern matches, None otherwise
         """
-        match = re.match(self.PATTERN, filename)
+        match = re.match(self.PATTERN, filename, re.IGNORECASE)
         if match:
             return int(match.group(1))
         return None
 
     def extract_date(self, filename: str) -> Optional[str]:
-        """Extract date from filename.
+        """Extract date from filename (case-insensitive).
 
         Args:
             filename: The filename to parse
@@ -52,13 +52,13 @@ class FilenameParser:
         Returns:
             Date string if pattern matches, None otherwise
         """
-        match = re.match(self.PATTERN, filename)
+        match = re.match(self.PATTERN, filename, re.IGNORECASE)
         if match:
             return match.group(2)
         return None
 
     def matches_pattern(self, filename: str) -> bool:
-        """Check if filename matches the expected pattern.
+        """Check if filename matches the expected pattern (case-insensitive).
 
         Args:
             filename: The filename to validate
@@ -66,7 +66,7 @@ class FilenameParser:
         Returns:
             True if filename matches pattern, False otherwise
         """
-        return bool(re.match(self.PATTERN, filename))
+        return bool(re.match(self.PATTERN, filename, re.IGNORECASE))
 
     @staticmethod
     def normalize_student_name(name: str) -> str:

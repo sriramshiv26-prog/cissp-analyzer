@@ -103,3 +103,51 @@ class TestFilenameParser:
         # Test whitespace stripping
         assert FilenameParser.normalize_student_name(" Sri ") == "sri"
         assert FilenameParser.normalize_student_name("  Bob  ") == "bob"
+
+    def test_extract_student_name_case_insensitive(self):
+        """Test case-insensitive parsing of student names"""
+        parser = FilenameParser()
+
+        # Uppercase MOCK prefix
+        assert parser.extract_student_name("MOCK1_JUN26_SRI.xlsx") == "SRI"
+
+        # Lowercase MOCK prefix
+        assert parser.extract_student_name("mock1_jun26_sri.xlsx") == "sri"
+
+        # Mixed case MOCK prefix
+        assert parser.extract_student_name("Mock1_JuN26_Sri.xlsx") == "Sri"
+
+        # All uppercase components
+        assert parser.extract_student_name("MOCK2_AUG15_ALICE.xlsx") == "ALICE"
+
+        # All lowercase components
+        assert parser.extract_student_name("mock2_aug15_alice.xlsx") == "alice"
+
+        # Mixed case entire filename
+        assert parser.extract_student_name("Mock3_AuG20_BoB.xlsx") == "BoB"
+
+    def test_extract_exam_number_case_insensitive(self):
+        """Test case-insensitive exam number extraction"""
+        parser = FilenameParser()
+
+        # All uppercase
+        assert parser.extract_exam_number("MOCK5_AUG15_ALICE.xlsx") == 5
+
+        # All lowercase
+        assert parser.extract_exam_number("mock5_aug15_alice.xlsx") == 5
+
+        # Mixed case
+        assert parser.extract_exam_number("Mock5_AuG15_Alice.xlsx") == 5
+
+    def test_extract_date_case_insensitive(self):
+        """Test case-insensitive date extraction"""
+        parser = FilenameParser()
+
+        # All uppercase
+        assert parser.extract_date("MOCK1_AUG15_ALICE.xlsx") == "AUG15"
+
+        # All lowercase
+        assert parser.extract_date("mock1_aug15_alice.xlsx") == "aug15"
+
+        # Mixed case
+        assert parser.extract_date("Mock1_AuG15_Alice.xlsx") == "AuG15"
