@@ -109,3 +109,74 @@ class TrendCalculator:
             Float: current - previous (positive = improving, negative = declining)
         """
         return current_accuracy - previous_accuracy
+
+    def calculate_priority_score(self, current_accuracy: float,
+                                previous_accuracy: float = None) -> float:
+        """
+        Calculate domain priority score for study recommendations.
+
+        Formula: priority_score = weakness + (momentum × 2)
+
+        Args:
+            current_accuracy: Current exam accuracy (0-1)
+            previous_accuracy: Previous exam accuracy (0-1), or None if first exam
+
+        Returns:
+            Priority score (higher = more important to study)
+        """
+        # weakness: how far from 100%
+        weakness = (1 - current_accuracy) * 100
+
+        # momentum: improvement/regression trend
+        if previous_accuracy is None:
+            momentum = 0
+        else:
+            momentum = (current_accuracy - previous_accuracy) * 100
+
+        # priority = weakness + (momentum × 2)
+        priority = weakness + (momentum * 2)
+
+        return priority
+
+    def rank_domains_by_priority(self, current_exam: Dict,
+                                previous_exam: Dict = None) -> List[Dict]:
+        """
+        Rank domains by priority score (weakness + momentum).
+
+        Returns list of dicts with: domain, current_accuracy, previous_accuracy,
+        momentum, priority_score, and rank (position in sorted list).
+        """
+        domains = []
+
+        # Extract current exam domains
+        current_by_domain = current_exam.get("by_domain", {})
+        previous_by_domain = previous_exam.get("by_domain", {}) if previous_exam else {}
+
+        for domain, metrics in current_by_domain.items():
+            current_acc = metrics.get("accuracy", 0.0)
+            previous_acc = previous_by_domain.get(domain, {}).get("accuracy", None)
+
+            # Calculate momentum
+            if previous_acc is None:
+                momentum = 0
+            else:
+                momentum = (current_acc - previous_acc) * 100
+
+            priority_score = self.calculate_priority_score(current_acc, previous_acc)
+
+            domains.append({
+                "domain": domain,
+                "current_accuracy": current_acc,
+                "previous_accuracy": previous_acc,
+                "momentum": momentum,
+                "priority_score": priority_score
+            })
+
+        # Sort by priority score descending (highest priority first)
+        domains.sort(key=lambda x: x["priority_score"], reverse=True)
+
+        # Add rank field (1-indexed position in sorted list)
+        for idx, domain_dict in enumerate(domains, start=1):
+            domain_dict["rank"] = idx
+
+        return domains

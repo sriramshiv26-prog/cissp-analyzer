@@ -176,3 +176,83 @@ def test_get_momentum_score(calculator):
     # No momentum
     score = calculator.get_momentum_score(0.70, 0.70)
     assert abs(score - 0.0) < 1e-9
+
+
+def test_calculate_priority_score_with_momentum(calculator):
+    """Test priority score calculation with momentum (weakness + momentum × 2)"""
+    # Case 1: High weakness + positive momentum (improving)
+    # weakness = (1 - 0.60) * 100 = 40
+    # momentum = (0.60 - 0.50) * 100 = 10
+    # priority = 40 + (10 * 2) = 60
+    score = calculator.calculate_priority_score(0.60, 0.50)
+    assert abs(score - 60.0) < 1e-9
+
+    # Case 2: Low weakness + negative momentum (declining)
+    # weakness = (1 - 0.85) * 100 = 15
+    # momentum = (0.85 - 0.95) * 100 = -10
+    # priority = 15 + (-10 * 2) = -5
+    score = calculator.calculate_priority_score(0.85, 0.95)
+    assert abs(score - (-5.0)) < 1e-9
+
+    # Case 3: No history (first exam)
+    # weakness = (1 - 0.70) * 100 = 30
+    # momentum = 0 (no previous)
+    # priority = 30 + (0 * 2) = 30
+    score = calculator.calculate_priority_score(0.70, None)
+    assert abs(score - 30.0) < 1e-9
+
+
+def test_rank_domains_by_priority(calculator):
+    """Test ranking domains by priority score (weakness + momentum)"""
+    current_exam = {
+        "by_domain": {
+            "Security & Risk Management": {"accuracy": 0.60},
+            "Asset Security": {"accuracy": 0.85},
+            "Communication & Network Security": {"accuracy": 0.70}
+        }
+    }
+
+    previous_exam = {
+        "by_domain": {
+            "Security & Risk Management": {"accuracy": 0.50},
+            "Asset Security": {"accuracy": 0.95},
+            "Communication & Network Security": {"accuracy": 0.65}
+        }
+    }
+
+    ranked = calculator.rank_domains_by_priority(current_exam, previous_exam)
+
+    # Verify structure
+    assert isinstance(ranked, list)
+    assert len(ranked) == 3
+
+    # Verify all domains are present
+    domain_names = [item["domain"] for item in ranked]
+    assert "Security & Risk Management" in domain_names
+    assert "Asset Security" in domain_names
+    assert "Communication & Network Security" in domain_names
+
+    # Verify scores are calculated correctly and include all required fields
+    # Security & Risk Management: weakness=40, momentum=10, priority=60 (RANK 1 - HIGHEST)
+    # Communication & Network Security: weakness=30, momentum=5, priority=40 (RANK 2 - MIDDLE)
+    # Asset Security: weakness=15, momentum=-10, priority=-5 (RANK 3 - LOWEST)
+    assert ranked[0]["domain"] == "Security & Risk Management"
+    assert abs(ranked[0]["current_accuracy"] - 0.60) < 1e-9
+    assert abs(ranked[0]["previous_accuracy"] - 0.50) < 1e-9
+    assert abs(ranked[0]["momentum"] - 10.0) < 1e-9
+    assert abs(ranked[0]["priority_score"] - 60.0) < 1e-9
+    assert ranked[0]["rank"] == 1
+
+    assert ranked[1]["domain"] == "Communication & Network Security"
+    assert abs(ranked[1]["current_accuracy"] - 0.70) < 1e-9
+    assert abs(ranked[1]["previous_accuracy"] - 0.65) < 1e-9
+    assert abs(ranked[1]["momentum"] - 5.0) < 1e-9
+    assert abs(ranked[1]["priority_score"] - 40.0) < 1e-9
+    assert ranked[1]["rank"] == 2
+
+    assert ranked[2]["domain"] == "Asset Security"
+    assert abs(ranked[2]["current_accuracy"] - 0.85) < 1e-9
+    assert abs(ranked[2]["previous_accuracy"] - 0.95) < 1e-9
+    assert abs(ranked[2]["momentum"] - (-10.0)) < 1e-9
+    assert abs(ranked[2]["priority_score"] - (-5.0)) < 1e-9
+    assert ranked[2]["rank"] == 3
