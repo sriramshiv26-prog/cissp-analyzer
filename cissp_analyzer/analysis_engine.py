@@ -130,7 +130,7 @@ class AnalysisEngine:
         performance = results.get("performance")
 
         if not performance:
-            return {}
+            raise ValueError(f"No performance data found for student: {student_name}")
 
         # Extract data from stored performance
         by_domain = results.get("by_domain", {})
@@ -144,7 +144,7 @@ class AnalysisEngine:
             domain_with_accuracy[domain_name] = {
                 "correct": stats.get('correct', 0),
                 "total": stats.get('total', 0),
-                "accuracy": stats.get('percentage', 0) / 100 if stats.get('percentage') is not None else 0
+                "accuracy": stats.get('percentage', 0) / 100
             }
 
         difficulty_with_accuracy = {}
@@ -152,7 +152,7 @@ class AnalysisEngine:
             difficulty_with_accuracy[difficulty_name] = {
                 "correct": stats.get('correct', 0),
                 "total": stats.get('total', 0),
-                "accuracy": stats.get('percentage', 0) / 100 if stats.get('percentage') is not None else 0
+                "accuracy": stats.get('percentage', 0) / 100
             }
 
         question_type_with_accuracy = {}
@@ -160,7 +160,7 @@ class AnalysisEngine:
             question_type_with_accuracy[qtype_name] = {
                 "correct": stats.get('correct', 0),
                 "total": stats.get('total', 0),
-                "accuracy": stats.get('percentage', 0) / 100 if stats.get('percentage') is not None else 0
+                "accuracy": stats.get('percentage', 0) / 100
             }
 
         # Build return dict
