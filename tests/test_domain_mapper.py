@@ -25,16 +25,16 @@ def test_get_question_metadata(domain_mapper):
 
 
 def test_question_31_metadata(domain_mapper):
-    """Test that Q31 is correctly mapped to Backup/Recovery"""
+    """Test that Q31 is correctly mapped to Logging & Monitoring"""
     meta = domain_mapper.get_question_metadata(31)
-    assert meta['domain'] == 7
-    assert 'Backup' in meta['topic']
+    assert meta['domain'] == 1
+    assert 'Logging' in meta['topic']
 
 
 def test_question_58_metadata(domain_mapper):
-    """Test that Q58 is correctly mapped to identity/access"""
+    """Test that Q58 is correctly mapped to PKI"""
     meta = domain_mapper.get_question_metadata(58)
-    assert meta['domain'] == 5
+    assert meta['domain'] == 3
     assert isinstance(meta['topic'], str)
 
 
