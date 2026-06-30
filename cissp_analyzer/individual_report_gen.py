@@ -1,10 +1,13 @@
 from pathlib import Path
+from typing import Optional, List, Dict
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 from cissp_analyzer.models import StudentPerformance
 from cissp_analyzer.domain_mapper import DomainMapper
 from cissp_analyzer.analysis_engine import AnalysisEngine
+from cissp_analyzer.progress_sheet_generator import ProgressSheetGenerator
+from cissp_analyzer.adaptive_plan_generator import AdaptivePlanGenerator
 
 
 class IndividualReportGenerator:
@@ -32,8 +35,8 @@ class IndividualReportGenerator:
             8: 'Software Development Security'
         }
 
-    def generate(self, performance: StudentPerformance, output_file: str):
-        """Generate comprehensive 7-sheet professional report"""
+    def generate(self, performance: StudentPerformance, output_file: str, historical_exams: Optional[List[Dict]] = None):
+        """Generate comprehensive 8-sheet professional report with optional historical data"""
         wb = Workbook()
         wb.remove(wb.active)
 
@@ -44,6 +47,12 @@ class IndividualReportGenerator:
         self._create_by_domain(wb, performance)
         self._create_by_difficulty(wb, performance)
         self._create_study_plan(wb, performance)
+
+        # Sheet 7: Progress Over Time (with historical data if available)
+        self._create_progress_sheet(wb, performance, historical_exams)
+
+        # Sheet 8: Adaptive Study Plan
+        self._create_adaptive_plan_sheet(wb, performance, historical_exams)
 
         wb.save(output_file)
 
@@ -456,6 +465,132 @@ class IndividualReportGenerator:
         ws.column_dimensions['C'].width = 20
         ws.column_dimensions['D'].width = 28
         ws.column_dimensions['E'].width = 28
+
+    def _create_progress_sheet(self, wb: Workbook, performance: StudentPerformance, historical_exams: Optional[List[Dict]]):
+        """Sheet 7: Progress Over Time with trend analysis"""
+        if historical_exams and len(historical_exams) > 0:
+            # Convert performance data and historical data to exam dicts for ProgressSheetGenerator
+            exams = historical_exams.copy()
+
+            # Add current exam to the list
+            current_exam_dict = self._extract_current_exam_data(performance)
+            exams.append(current_exam_dict)
+
+            # Generate progress sheet using ProgressSheetGenerator
+            generator = ProgressSheetGenerator()
+            progress_ws = generator.generate_sheet(exams)
+
+            # Copy the generated worksheet to the workbook by copying its data
+            ws = wb.create_sheet('Progress Over Time', 7)
+            for row in progress_ws.iter_rows():
+                for cell in row:
+                    target_cell = ws[cell.coordinate]
+                    target_cell.value = cell.value
+                    if cell.has_style:
+                        target_cell.font = Font(
+                            name=cell.font.name,
+                            size=cell.font.size,
+                            bold=cell.font.bold,
+                            italic=cell.font.italic,
+                            color=cell.font.color
+                        )
+                        target_cell.fill = PatternFill(
+                            fill_type=cell.fill.fill_type,
+                            start_color=cell.fill.start_color,
+                            end_color=cell.fill.end_color
+                        )
+                        target_cell.alignment = Alignment(
+                            horizontal=cell.alignment.horizontal,
+                            vertical=cell.alignment.vertical,
+                            wrap_text=cell.alignment.wrap_text
+                        )
+                        target_cell.number_format = cell.number_format
+
+            # Copy column widths
+            for col_letter in progress_ws.column_dimensions:
+                ws.column_dimensions[col_letter].width = progress_ws.column_dimensions[col_letter].width
+
+            # Copy row heights
+            for row_num in progress_ws.row_dimensions:
+                ws.row_dimensions[row_num].height = progress_ws.row_dimensions[row_num].height
+        else:
+            # Create placeholder sheet if no history available
+            ws = wb.create_sheet('Progress Over Time', 7)
+            ws['A1'] = 'PROGRESS OVER TIME'
+            ws['A1'].font = Font(bold=True, size=12, color='FFFFFF')
+            ws['A1'].fill = PatternFill(start_color='001F4E78', end_color='001F4E78', fill_type='solid')
+
+            ws['A3'] = 'Only 1 exam taken so far'
+            ws['A4'] = 'Historical data will appear here once you take additional practice exams.'
+            ws['A4'].alignment = Alignment(wrap_text=True)
+            ws.row_dimensions[4].height = 30
+
+            ws.column_dimensions['A'].width = 50
+
+    def _create_adaptive_plan_sheet(self, wb: Workbook, performance: StudentPerformance, historical_exams: Optional[List[Dict]]):
+        """Sheet 8: Adaptive Study Plan with momentum-based recommendations"""
+        # Extract current exam data
+        current_exam = self._extract_current_exam_data(performance)
+
+        # Get previous exam if available
+        previous_exam = None
+        if historical_exams and len(historical_exams) > 0:
+            previous_exam = historical_exams[-1]
+
+        # Generate adaptive plan using AdaptivePlanGenerator
+        generator = AdaptivePlanGenerator()
+        adaptive_ws = generator.generate_sheet(current_exam, previous_exam)
+
+        # Copy the generated worksheet to the workbook by copying its data
+        ws = wb.create_sheet('Adaptive Study Plan', 8)
+        for row in adaptive_ws.iter_rows():
+            for cell in row:
+                target_cell = ws[cell.coordinate]
+                target_cell.value = cell.value
+                if cell.has_style:
+                    target_cell.font = Font(
+                        name=cell.font.name,
+                        size=cell.font.size,
+                        bold=cell.font.bold,
+                        italic=cell.font.italic,
+                        color=cell.font.color
+                    )
+                    target_cell.fill = PatternFill(
+                        fill_type=cell.fill.fill_type,
+                        start_color=cell.fill.start_color,
+                        end_color=cell.fill.end_color
+                    )
+                    target_cell.alignment = Alignment(
+                        horizontal=cell.alignment.horizontal,
+                        vertical=cell.alignment.vertical,
+                        wrap_text=cell.alignment.wrap_text
+                    )
+                    target_cell.number_format = cell.number_format
+
+        # Copy column widths
+        for col_letter in adaptive_ws.column_dimensions:
+            ws.column_dimensions[col_letter].width = adaptive_ws.column_dimensions[col_letter].width
+
+        # Copy row heights
+        for row_num in adaptive_ws.row_dimensions:
+            ws.row_dimensions[row_num].height = adaptive_ws.row_dimensions[row_num].height
+
+    def _extract_current_exam_data(self, performance: StudentPerformance) -> Dict:
+        """Extract current exam performance data as dictionary for generators"""
+        exam_dict = {
+            'exam_name': f'{performance.student_name} - Current Exam',
+            'by_domain': performance.by_domain,
+            'by_difficulty': performance.by_difficulty,
+            'by_question_type': performance.by_question_type,
+            'score_percentage': performance.score_percentage,
+            'correct_count': performance.correct_count,
+            'total_questions': performance.total_questions,
+            'student_name': performance.student_name,
+            'by_topic': performance.by_topic,
+            'by_exam_trick': performance.by_exam_trick,
+            'wrong_question_ids': performance.wrong_question_ids,
+        }
+        return exam_dict
 
     def _get_weak_domains(self, perf: StudentPerformance) -> list:
         """Get list of weak domains (< 70%)"""
