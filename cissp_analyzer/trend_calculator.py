@@ -4,6 +4,17 @@ from typing import List, Dict
 class TrendCalculator:
     """Calculate performance trends across multiple exams"""
 
+    # Threshold for classifying trends as improving/declining (5% change = 0.05)
+    TREND_THRESHOLD = 0.05
+
+    def __init__(self, trend_threshold: float = 0.05):
+        """Initialize TrendCalculator with configurable threshold.
+
+        Args:
+            trend_threshold: Minimum change (0-1) to classify as improving/declining. Default 0.05 (5%).
+        """
+        self.TREND_THRESHOLD = trend_threshold
+
     def calculate_domain_trends(self, exams: List[Dict]) -> Dict[str, List[float]]:
         """
         Calculate domain accuracy trends across multiple exams.
@@ -74,9 +85,9 @@ class TrendCalculator:
         """
         Detect the direction of a trend based on first and last values.
 
-        Logic:
-        - improving: (last - first) > 0.05
-        - declining: (last - first) < -0.05
+        A trend is classified as:
+        - improving: change >= TREND_THRESHOLD (default 5%)
+        - declining: change <= -TREND_THRESHOLD (default -5%)
         - stable: otherwise
 
         Args:
@@ -90,9 +101,9 @@ class TrendCalculator:
 
         diff = trend[-1] - trend[0]
 
-        if diff > 0.05:
+        if diff >= self.TREND_THRESHOLD:
             return "improving"
-        elif diff < -0.05:
+        elif diff <= -self.TREND_THRESHOLD:
             return "declining"
         else:
             return "stable"
@@ -117,6 +128,9 @@ class TrendCalculator:
 
         Formula: priority_score = weakness + (momentum × 2)
 
+        Note: Results are rounded to 10 decimal places to avoid floating-point precision issues.
+        Scores should be compared with small epsilon tolerance (1e-9) rather than exact equality.
+
         Args:
             current_accuracy: Current exam accuracy (0-1)
             previous_accuracy: Previous exam accuracy (0-1), or None if first exam
@@ -125,18 +139,19 @@ class TrendCalculator:
             Priority score (higher = more important to study)
         """
         # weakness: how far from 100%
-        weakness = (1 - current_accuracy) * 100
+        weakness = (1.0 - current_accuracy) * 100.0
 
         # momentum: improvement/regression trend
         if previous_accuracy is None:
-            momentum = 0
+            momentum = 0.0
         else:
-            momentum = (current_accuracy - previous_accuracy) * 100
+            momentum = (current_accuracy - previous_accuracy) * 100.0
 
         # priority = weakness + (momentum × 2)
-        priority = weakness + (momentum * 2)
+        priority = weakness + (momentum * 2.0)
 
-        return priority
+        # Round to avoid floating-point precision issues
+        return round(priority, 10)
 
     def rank_domains_by_priority(self, current_exam: Dict,
                                 previous_exam: Dict = None) -> List[Dict]:

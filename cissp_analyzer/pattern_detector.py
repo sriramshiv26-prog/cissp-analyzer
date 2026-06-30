@@ -38,6 +38,9 @@ class PatternDetector:
             - weakness_by_type: Dict of accuracy by question_type
             - weakness_by_trick: Dict of accuracy by exam_trick
             - insight: Human-readable insight string
+
+        Raises:
+            ValueError: If wrong_question_ids contains out-of-bounds indices
         """
         if not questions:
             return {
@@ -52,7 +55,16 @@ class PatternDetector:
                 "insight": "No data available"
             }
 
+        # Validate all indices are in bounds
         total = len(questions)
+        valid_indices = set(range(total))
+        invalid_indices = [idx for idx in wrong_question_ids if idx not in valid_indices]
+
+        if invalid_indices:
+            raise ValueError(
+                f"Invalid question indices {invalid_indices} for {total} questions in topic '{topic}'"
+            )
+
         correct = total - len(wrong_question_ids)
         accuracy = correct / total if total > 0 else 0.0
 

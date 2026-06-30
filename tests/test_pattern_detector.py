@@ -39,7 +39,8 @@ def test_detect_all_wrong_pattern(detector, sample_questions):
     """Test detection of 'all wrong' pattern for Kerberos subtopic"""
     # Create performance data: student got Kerberos questions wrong (q1, q2, q3)
     questions = [sample_questions[i] for i in [1, 2, 3]]
-    wrong_question_ids = [1, 2, 3]
+    # wrong_question_ids uses array indices [0, 1, 2] for questions at positions 0, 1, 2
+    wrong_question_ids = [0, 1, 2]
 
     # Call detect_topic_pattern for Kerberos
     result = detector.detect_topic_pattern(questions, wrong_question_ids, "Kerberos")
@@ -110,3 +111,16 @@ def test_detect_trick_keyword_pattern(detector, sample_questions):
 
     # Insight should mention NOT keyword as issue
     assert "NOT" in result["insight"]
+
+
+def test_invalid_question_indices_raise_error(detector, sample_questions):
+    """Test that out-of-bounds indices raise ValueError"""
+    questions = [sample_questions[i] for i in [1, 2, 3]]
+
+    # Index 999 is out of bounds (only 3 questions at indices 0-2)
+    with pytest.raises(ValueError, match="Invalid question indices"):
+        detector.detect_topic_pattern(questions, [999], "Kerberos")
+
+    # Mix of valid and invalid indices
+    with pytest.raises(ValueError, match="Invalid question indices"):
+        detector.detect_topic_pattern(questions, [0, 1, 999], "Kerberos")

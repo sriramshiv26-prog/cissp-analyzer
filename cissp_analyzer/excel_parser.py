@@ -59,23 +59,42 @@ class ExcelParser:
         Expected formats:
         - Single answers: "A", "B", "C", "D"
         - Multi-part: "1-A, 2-B, 3-C", "1A2B3C", "A,B,C", "1B2C3A4D"
+
+        Raises:
+            FileNotFoundError: If Excel file doesn't exist
+            ValueError: If required columns missing or data format invalid
+            IOError: If Excel file is corrupted
         """
-        if not Path(excel_file).exists():
+        file_path = Path(excel_file)
+        if not file_path.exists():
             raise FileNotFoundError(f"Excel file not found: {excel_file}")
 
-        df = pd.read_excel(excel_file)
+        try:
+            df = pd.read_excel(excel_file)
+        except Exception as e:
+            raise IOError(f"Failed to read Excel file '{excel_file}': {str(e)}")
+
         df.columns = df.columns.str.strip()
 
         # Verify required columns
         if 'Question' not in df.columns:
-            raise ValueError("Excel must have 'Question' column")
+            available = ', '.join(df.columns.tolist())
+            raise ValueError(f"Excel must have 'Question' column. Available columns: {available}")
 
         if student_name not in df.columns:
-            raise ValueError(f"Excel must have column for student '{student_name}'")
+            available = ', '.join(df.columns.tolist())
+            raise ValueError(f"Excel must have column for student '{student_name}'. Available columns: {available}")
+
+        if df.empty:
+            raise ValueError("Excel file is empty (no data rows)")
 
         answers = []
-        for _, row in df.iterrows():
-            q_number = int(row['Question'])
+        for row_idx, (_, row) in enumerate(df.iterrows(), start=2):
+            try:
+                q_number = int(row['Question'])
+            except (ValueError, TypeError) as e:
+                raise ValueError(f"Invalid question number in row {row_idx}: {row['Question']}. Expected integer.")
+
             raw_answer = row[student_name]
 
             # Normalize the answer
@@ -88,6 +107,9 @@ class ExcelParser:
                 is_correct=False  # Will be set by analysis engine
             )
             answers.append(answer)
+
+        if not answers:
+            raise ValueError(f"No valid answers found for student '{student_name}'")
 
         return sorted(answers, key=lambda x: x.question_number)
 

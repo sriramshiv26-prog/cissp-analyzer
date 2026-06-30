@@ -36,7 +36,19 @@ class IndividualReportGenerator:
         }
 
     def generate(self, performance: StudentPerformance, output_file: str, historical_exams: Optional[List[Dict]] = None):
-        """Generate comprehensive 8-sheet professional report with optional historical data"""
+        """Generate comprehensive 9-sheet professional report with optional historical data
+
+        Sheet Structure:
+        - Sheet 1 (Index 0): Performance Summary
+        - Sheet 2 (Index 1): Q&A Breakdown
+        - Sheet 3 (Index 2): By Question Type
+        - Sheet 4 (Index 3): By Exam Tricks
+        - Sheet 5 (Index 4): By Domain
+        - Sheet 6 (Index 5): By Difficulty
+        - Sheet 7 (Index 6): Study Plan
+        - Sheet 8 (Index 7): Progress Over Time
+        - Sheet 9 (Index 8): Adaptive Study Plan
+        """
         wb = Workbook()
         wb.remove(wb.active)
 
@@ -336,7 +348,7 @@ class IndividualReportGenerator:
             ws.column_dimensions[chr(64 + col)].width = 18
 
     def _create_study_plan(self, wb: Workbook, perf: StudentPerformance):
-        """Sheet 7: Detailed Personalized Study Plan"""
+        """Sheet 7 (Index 6): Detailed Personalized Study Plan"""
         ws = wb.create_sheet('Study Plan', 6)
 
         ws['A1'] = f'PERSONALIZED STUDY PLAN - {perf.student_name}'
@@ -467,7 +479,7 @@ class IndividualReportGenerator:
         ws.column_dimensions['E'].width = 28
 
     def _create_progress_sheet(self, wb: Workbook, performance: StudentPerformance, historical_exams: Optional[List[Dict]]):
-        """Sheet 7: Progress Over Time with trend analysis"""
+        """Sheet 8 (Index 7): Progress Over Time with trend analysis"""
         if historical_exams and len(historical_exams) > 0:
             # Convert performance data and historical data to exam dicts for ProgressSheetGenerator
             exams = historical_exams.copy()
@@ -528,7 +540,7 @@ class IndividualReportGenerator:
             ws.column_dimensions['A'].width = 50
 
     def _create_adaptive_plan_sheet(self, wb: Workbook, performance: StudentPerformance, historical_exams: Optional[List[Dict]]):
-        """Sheet 8: Adaptive Study Plan with momentum-based recommendations"""
+        """Sheet 9 (Index 8): Adaptive Study Plan with momentum-based recommendations"""
         # Extract current exam data
         current_exam = self._extract_current_exam_data(performance)
 
