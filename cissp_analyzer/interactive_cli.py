@@ -153,17 +153,18 @@ def get_exam_pdf() -> str:
 
 
 def get_answer_key() -> Optional[str]:
-    """Prompt for answer key file (optional).
+    """Prompt for answer key file or offer auto-extraction.
 
     Returns:
-        Path to answer key JSON, or None
+        Path to answer key JSON, or special marker "__AUTO_EXTRACT__" for auto-extraction, or None
     """
     print("\n" + Colors.header("-" * 70))
     print(Colors.header("STEP 2: ANSWER KEY (Optional)"))
     print(Colors.header("-" * 70))
     print("Do you have an answer key file? (JSON format)")
     print("Format: {'1': 'A', '2': 'B', ...}")
-    print("Leave blank to auto-extract from PDF")
+    print("OR: We can auto-extract answers from the exam PDF")
+    print("(Auto-extract also uses answer text to improve domain classification)")
 
     answer_key = prompt("Path to answer key (optional)", required=False)
 
@@ -173,13 +174,16 @@ def get_answer_key() -> Optional[str]:
             return answer_key
         else:
             print(Colors.warning(f"File not found: {answer_key}"))
-            if prompt_yes_no("Skip and auto-extract from PDF instead?", default=True):
-                return None
+            if prompt_yes_no("Try auto-extract instead?", default=True):
+                return "__AUTO_EXTRACT__"
             else:
                 return get_answer_key()
     else:
-        print(Colors.info("Will auto-extract answer key from PDF"))
-        return None
+        if prompt_yes_no("Auto-extract answers from PDF?", default=True):
+            return "__AUTO_EXTRACT__"
+        else:
+            print(Colors.info("Will proceed without answer key"))
+            return None
 
 
 def add_students() -> List[Dict[str, str]]:
@@ -273,7 +277,7 @@ def run_analysis(pdf: str, students: List[Dict], output: str, answer_key: Option
         pdf: Path to exam PDF
         students: List of students with their answer files
         output: Output directory
-        answer_key: Optional path to answer key JSON
+        answer_key: Optional path to answer key JSON, or "__AUTO_EXTRACT__" marker
     """
     print("\n" + Colors.header("=" * 70))
     print(Colors.header("RUNNING ANALYSIS"))
@@ -284,8 +288,75 @@ def run_analysis(pdf: str, students: List[Dict], output: str, answer_key: Option
         print("\n" + Colors.info("Initializing analyzer..."))
         analyzer = CISSPAnalyzer(mapping_file='data/question_domain_mapping.json')
 
-        # Load answer key if provided
-        if answer_key:
+        # Load or auto-extract answer key
+        if answer_key == "__AUTO_EXTRACT__":
+            print(Colors.info("Auto-extracting answers with domain context enhancement..."))
+            from cissp_analyzer.pdf_parser import PDFParser
+            from cissp_analyzer.answer_key_extractor import AnswerKeyExtractor
+
+            try:
+                # Extract with answer context
+                print(Colors.info("Analyzing question-answer pairs..."))
+                parser = PDFParser(pdf)
+
+                # Extract text from PDF
+                from pypdf import PdfReader
+                reader = PdfReader(pdf)
+                pdf_text = ""
+                for page in reader.pages:
+                    pdf_text += page.extract_text() + "\n"
+
+                # Use the static method for enhanced extraction
+                enhanced_context = PDFParser.extract_with_answer_context(pdf_text)
+
+                if enhanced_context:
+                    print(Colors.success(f"Extracted and analyzed {len(enhanced_context)} questions"))
+
+                    # Count domain hints from answer text
+                    domains_found = set()
+                    for q_num, context in enhanced_context.items():
+                        if context.get("suggested_domain"):
+                            domains_found.add(context["suggested_domain"])
+
+                    if domains_found:
+                        print(Colors.info(f"Domains identified: {', '.join(sorted(domains_found)[:3])}..."))
+
+                    # Save extracted answers (full text for reference)
+                    temp_key_path = Path(output) / ".answer_key_extracted.json"
+                    extractor = AnswerKeyExtractor()
+
+                    # Get answers from enhanced context
+                    answer_map = {}
+                    for q_num, context in enhanced_context.items():
+                        if context.get("answer_letter"):
+                            answer_map[q_num] = {
+                                "letter": context["answer_letter"],
+                                "text": context.get("answer_text", "")
+                            }
+
+                    # Save full version for reference
+                    if answer_map:
+                        extractor.answers = answer_map
+                        extractor.save_as_json(str(temp_key_path), include_text=True)
+                        print(Colors.success(f"Answer key saved to: {temp_key_path}"))
+
+                        # Extract letters only for analyzer
+                        letters_only = {q: data["letter"] for q, data in answer_map.items()}
+                        # Normalize to integers for analyzer
+                        normalized_key = {}
+                        for q_num, letter in letters_only.items():
+                            q_int = int(q_num) if isinstance(q_num, str) else q_num
+                            normalized_key[q_int] = letter
+
+                        analyzer.analysis_engine.set_answer_key(normalized_key)
+                else:
+                    print(Colors.warning("No answers found in PDF"))
+
+            except Exception as e:
+                print(Colors.warning(f"Auto-extraction failed: {str(e)}"))
+                print(Colors.info("Continuing analysis without answer key..."))
+
+        elif answer_key:
             print(Colors.info(f"Loading answer key from {answer_key}"))
             analyzer.set_answer_key_from_file(answer_key)
 
