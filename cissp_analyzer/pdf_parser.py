@@ -8,6 +8,11 @@ from typing import List, Dict, Optional, Any
 class PDFParser:
     """Extracts questions and answers from CISSP exam PDF"""
 
+    QUESTION_INDICATOR_WORDS = [
+        'what', 'which', 'how', 'why', 'when', 'where', 'who',
+        'describe', 'explain', 'place', 'list', 'match'
+    ]
+
     def __init__(self, pdf_path: str):
         self.pdf_path = Path(pdf_path)
         if not self.pdf_path.exists():
@@ -85,7 +90,7 @@ class PDFParser:
                 # Check if it looks like a real question
                 is_question = (
                     '?' in q_text or
-                    any(word in q_text.lower() for word in ['what', 'which', 'how', 'why', 'when', 'where', 'who', 'describe', 'explain', 'place', 'list', 'match']) or
+                    any(word in q_text.lower() for word in self.QUESTION_INDICATOR_WORDS) or
                     q_text.endswith('.') or
                     q_text.endswith('___') or
                     q_text.endswith(':')
@@ -138,7 +143,7 @@ class PDFParser:
         answer_extractor = AnswerKeyExtractor()
         try:
             answers = answer_extractor.extract_answers(pdf_text)
-        except Exception as e:
+        except (ValueError, KeyError) as e:
             logger.warning(f"Failed to extract answers: {e}")
             answers = {}
 
@@ -149,8 +154,8 @@ class PDFParser:
 
         for q_num, q_text in questions.items():
             answer_data = answers.get(q_num, {})
-            answer_letter = answer_data.get("letter") if isinstance(answer_data, dict) else None
-            answer_text = answer_data.get("text", "") if isinstance(answer_data, dict) else ""
+            answer_letter = answer_data.get("letter")
+            answer_text = answer_data.get("text", "")
 
             # Get answer-context-aware domain suggestion
             suggested_domain = None
