@@ -1,7 +1,8 @@
 import re
+import logging
 from pathlib import Path
 from pypdf import PdfReader
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Any
 
 
 class PDFParser:
@@ -101,3 +102,112 @@ class PDFParser:
                     })
 
         return sorted(questions, key=lambda x: x['number'])
+
+    @staticmethod
+    def extract_with_answer_context(pdf_text: str) -> Dict[str, Dict[str, Any]]:
+        """Extract questions with enhanced domain context from answer text.
+
+        Combines question extraction with answer key extraction and domain mapping
+        to provide intelligent domain classification for each question.
+
+        Args:
+            pdf_text: Full text extracted from PDF (or raw PDF text string)
+
+        Returns:
+            Dictionary mapping question number to enriched context:
+            {
+                "1": {
+                    "question": "What is X?",
+                    "answer_letter": "A",
+                    "answer_text": "Full answer explanation",
+                    "suggested_domain": "Domain Name"
+                },
+                ...
+            }
+        """
+        from cissp_analyzer.answer_key_extractor import AnswerKeyExtractor
+        from cissp_analyzer.answer_context_mapper import AnswerContextMapper
+
+        logger = logging.getLogger(__name__)
+
+        # Extract questions from text
+        logger.info("Extracting questions from PDF text...")
+        questions = PDFParser._extract_questions_from_text(pdf_text)
+
+        logger.info("Extracting answers from PDF text...")
+        answer_extractor = AnswerKeyExtractor()
+        try:
+            answers = answer_extractor.extract_answers(pdf_text)
+        except Exception as e:
+            logger.warning(f"Failed to extract answers: {e}")
+            answers = {}
+
+        # Map using answer context
+        logger.info("Mapping domains using answer context...")
+        mapper = AnswerContextMapper()
+        enhanced_context = {}
+
+        for q_num, q_text in questions.items():
+            answer_data = answers.get(q_num, {})
+            answer_letter = answer_data.get("letter") if isinstance(answer_data, dict) else None
+            answer_text = answer_data.get("text", "") if isinstance(answer_data, dict) else ""
+
+            # Get answer-context-aware domain suggestion
+            suggested_domain = None
+            if answer_text:
+                suggested_domain = mapper.map_with_context(q_text, answer_text)
+            elif q_text:
+                # Fallback to question-only if no answer text
+                suggested_domain = mapper.map_with_context(q_text, "")
+
+            enhanced_context[q_num] = {
+                "question": q_text,
+                "answer_letter": answer_letter,
+                "answer_text": answer_text,
+                "suggested_domain": suggested_domain
+            }
+
+        logger.info(f"Enhanced {len(enhanced_context)} questions with domain context")
+        return enhanced_context
+
+    @staticmethod
+    def _extract_questions_from_text(text: str) -> Dict[str, str]:
+        """Extract questions from text (not PDF file).
+
+        Simpler version that extracts question text only from raw text.
+
+        Args:
+            text: Raw text content
+
+        Returns:
+            Dictionary mapping question number to question text
+        """
+        questions = {}
+
+        # Look for pattern: "Question N: ..." or "N. ..." or "N) ..."
+        # First try explicit "Question N:" pattern - match until next Question or option pattern
+        pattern1 = r'Question\s+(\d+)\s*:\s*([^\n]+?)(?=\n\s*[A-D]\)|$)'
+        matches = re.finditer(pattern1, text, re.IGNORECASE | re.MULTILINE)
+
+        for match in matches:
+            q_num = match.group(1)
+            q_text = match.group(2).strip()
+            # Clean up multi-line questions
+            q_text = re.sub(r'\s+', ' ', q_text)
+            if q_text and len(q_text) > 5:
+                questions[q_num] = q_text
+
+        # If no "Question N:" pattern found, try "N. " or "N) " pattern
+        if not questions:
+            pattern2 = r'^(\d+)\)\s+(.+?)(?=^[A-D]\)|^\d+\)|$)'
+            matches = re.finditer(pattern2, text, re.MULTILINE | re.DOTALL)
+            for match in matches:
+                q_num = match.group(1)
+                q_text = match.group(2).strip()
+                # Extract only the question part (before options)
+                q_text = re.split(r'\n\s*[A-D]\)', q_text)[0].strip()
+                q_text = re.sub(r'\s+', ' ', q_text)
+                if q_text and len(q_text) > 5:
+                    questions[q_num] = q_text
+
+        return questions
