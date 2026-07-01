@@ -26,7 +26,7 @@ class TestAnswerContextMapper:
         # Should map to Cryptography domain based on both texts
         domain = mapper.map_with_context(question_text, answer_text)
 
-        assert domain == "Cryptography" or "Crypt" in domain
+        assert domain is not None and ("Cryptography" in domain or "Crypt" in domain)
 
     def test_map_access_control_question(self):
         """Test that answer context helps classify access control questions."""
@@ -37,7 +37,7 @@ class TestAnswerContextMapper:
 
         domain = mapper.map_with_context(question, answer)
 
-        assert "Access" in domain or "Control" in domain
+        assert domain is not None and ("Access" in domain or "Control" in domain)
 
     def test_map_with_question_only_fallback(self):
         """Test that empty answer text falls back to question-only mapping."""
