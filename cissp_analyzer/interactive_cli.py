@@ -310,7 +310,16 @@ def run_analysis(pdf: str, students: List[Dict], output: str, answer_key: Option
                 enhanced_context = PDFParser.extract_with_answer_context(pdf_text)
 
                 if enhanced_context:
-                    print(Colors.success(f"Extracted and analyzed {len(enhanced_context)} questions"))
+                    extracted_count = len(enhanced_context)
+                    print(Colors.success(f"Extracted and analyzed {extracted_count} questions"))
+
+                    # Warn if extraction seems incomplete (expecting at least 30 questions)
+                    if extracted_count < 30:
+                        print(Colors.warning(f"Only {extracted_count} questions found. Auto-extract may be incomplete."))
+                        if not prompt_yes_no("Continue with incomplete extraction?", default=False):
+                            print(Colors.info("Skipping auto-extract, continuing without answer key"))
+                            answer_key = None
+                            extracted_answers = {}
 
                     # Count domain hints from answer text
                     domains_found = set()
@@ -347,6 +356,11 @@ def run_analysis(pdf: str, students: List[Dict], output: str, answer_key: Option
                         for q_num, letter in letters_only.items():
                             q_int = int(q_num) if isinstance(q_num, str) else q_num
                             normalized_key[q_int] = letter
+
+                        # Validate normalized key
+                        for q_num, letter in normalized_key.items():
+                            assert isinstance(q_num, int), f"Question number must be int, got {type(q_num)}"
+                            assert letter in ["A", "B", "C", "D", "E"], f"Invalid answer letter: {letter}"
 
                         analyzer.analysis_engine.set_answer_key(normalized_key)
                 else:
