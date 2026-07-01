@@ -23,7 +23,7 @@ class AnswerKeyExtractor:
     # Valid answer letters
     VALID_ANSWERS = {"A", "B", "C", "D", "E"}
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize the AnswerKeyExtractor."""
         self.answers = {}
 

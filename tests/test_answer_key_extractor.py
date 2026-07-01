@@ -1,3 +1,4 @@
+import json
 import pytest
 from cissp_analyzer.answer_key_extractor import AnswerKeyExtractor
 
@@ -79,3 +80,40 @@ class TestAnswerKeyExtractor:
         assert extractor._is_valid_answer("A") is True
         assert extractor._is_valid_answer("E") is True
         assert extractor._is_valid_answer("F") is False
+
+    def test_extract_from_file_not_found(self):
+        """Test that missing file raises FileNotFoundError."""
+        extractor = AnswerKeyExtractor()
+        with pytest.raises(FileNotFoundError, match="PDF not found"):
+            extractor.extract_from_file("/nonexistent/path.pdf")
+
+    def test_save_empty_answers_raises_error(self):
+        """Test that saving with no answers raises ValueError."""
+        extractor = AnswerKeyExtractor()
+        with pytest.raises(ValueError, match="No answers to save"):
+            extractor.save_as_json("output.json")
+
+    def test_get_answer_letters_only(self):
+        """Test backward compatibility method returns letters only."""
+        extractor = AnswerKeyExtractor()
+        extractor.answers = {
+            "1": {"letter": "A", "text": "explanation"},
+            "2": {"letter": "B", "text": ""},
+        }
+        letters = extractor.get_answer_letters_only()
+
+        assert letters == {"1": "A", "2": "B"}
+        assert "text" not in str(letters)
+
+    def test_save_as_json_creates_file(self, tmp_path):
+        """Test that save_as_json creates JSON file with correct content."""
+        extractor = AnswerKeyExtractor()
+        extractor.answers = {"1": {"letter": "A", "text": "first answer"}}
+
+        output_file = tmp_path / "answers.json"
+        extractor.save_as_json(str(output_file), include_text=True)
+
+        assert output_file.exists()
+        with open(output_file) as f:
+            data = json.load(f)
+        assert data == {"1": {"letter": "A", "text": "first answer"}}
