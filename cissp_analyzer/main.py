@@ -45,10 +45,18 @@ class CISSPAnalyzer:
         pdf_parser = PDFParser(exam_pdf)
         questions = pdf_parser.extract_questions()
 
-        # Step 2: Get answer key (only extract from PDF if not already set)
+        # Step 2: Get answer key (try JSON file first, then PDF)
         if not self.analysis_engine.answer_key:
-            answer_key = self._extract_answer_key_from_pdf(pdf_parser)
-            self.analysis_engine.set_answer_key(answer_key)
+            # Try loading from answer key JSON file
+            answer_key_file = self._get_answer_key_file_path(exam_pdf)
+            if answer_key_file and Path(answer_key_file).exists():
+                print(f"Loading answer key from: {answer_key_file}")
+                self.set_answer_key_from_file(answer_key_file)
+            else:
+                # Fall back to extracting from PDF
+                print("No answer key file found, extracting from PDF...")
+                answer_key = self._extract_answer_key_from_pdf(pdf_parser)
+                self.analysis_engine.set_answer_key(answer_key)
 
         # Step 3: Parse student answers
         print("Parsing student answers...")
@@ -84,6 +92,13 @@ class CISSPAnalyzer:
             'students_analyzed': len(student_names),
             'cohort_performance': cohort_performance
         }
+
+    def _get_answer_key_file_path(self, exam_pdf: str) -> str:
+        """Construct answer key file path from exam PDF path"""
+        pdf_path = Path(exam_pdf)
+        # Convert "exams/dec25_week1.pdf" to "exams/dec25_week1_answer_key.json"
+        answer_key_path = pdf_path.parent / f"{pdf_path.stem}_answer_key.json"
+        return str(answer_key_path)
 
     def _extract_answer_key_from_pdf(self, pdf_parser: PDFParser) -> Dict[int, str]:
         """Extract the correct answer for each question (if provided in PDF)"""
@@ -155,10 +170,16 @@ class CISSPAnalyzer:
         pdf_parser = PDFParser(exam_pdf)
         questions = pdf_parser.extract_questions()
 
-        # Step 3: Get answer key (only extract from PDF if not already set)
+        # Step 3: Get answer key (try JSON file first, then PDF)
         if not self.analysis_engine.answer_key:
-            answer_key = self._extract_answer_key_from_pdf(pdf_parser)
-            self.analysis_engine.set_answer_key(answer_key)
+            answer_key_file = self._get_answer_key_file_path(exam_pdf)
+            if answer_key_file and Path(answer_key_file).exists():
+                print(f"  Loading answer key from: {answer_key_file}")
+                self.set_answer_key_from_file(answer_key_file)
+            else:
+                print("  No answer key file found, extracting from PDF...")
+                answer_key = self._extract_answer_key_from_pdf(pdf_parser)
+                self.analysis_engine.set_answer_key(answer_key)
 
         # Step 4: Parse student answers
         print("  Parsing student answers...")
