@@ -87,10 +87,10 @@ class BatchWorkflow:
         return True
 
     def step_3_validate_student_files(self) -> bool:
-        """Validate student answer files"""
-        self.log_step("Step 3", "START", "Validating student answer files")
+        """Validate and auto-fix student answer files"""
+        self.log_step("Step 3", "START", "Validating and auto-fixing student answer files")
 
-        from cissp_analyzer.data_quality_validator import validate_batch
+        from cissp_analyzer.data_quality_validator import validate_batch, AnswerSheetAutoFixer
         import json
 
         # Get batch info from roster
@@ -109,16 +109,58 @@ class BatchWorkflow:
         batch = roster["batches"][batch_key]
         self.log_step("  ", "INFO", f"Batch: {batch['name']} ({len(batch['students'])} students)")
 
-        # Validate files for each exam
+        # Validate and auto-fix files for each exam
         for exam in batch.get("exams", []):
             files = {}
             for student in batch["students"]:
                 if exam in student.get("files", {}):
-                    files[student["name"]] = student["files"][exam]
+                    file_path = student["files"][exam]
+
+                    # Auto-fix data quality issues
+                    success, fixed_path, fixes = AnswerSheetAutoFixer.fix_file(file_path, student["name"])
+                    if success and fixes:
+                        # Replace original with fixed version
+                        import shutil
+                        shutil.move(fixed_path, file_path)
+                        self.log_step("  ", "✓", f"{student['name']} ({exam}): {len(fixes)} auto-fix(es) applied")
+
+                    files[student["name"]] = file_path
 
             if files:
                 results = validate_batch(files, f"{self.batch_name.upper()} - {exam.upper()}")
                 self.log_step("  ", "INFO", f"Exam {exam}: {results['valid_files']}/{results['total_files']} valid")
+
+        return True
+
+    def step_3b_consolidate_answers(self) -> bool:
+        """Consolidate individual student files into batch files"""
+        self.log_step("Step 3b", "START", "Consolidating student answer files")
+
+        import subprocess
+        import json
+        from pathlib import Path
+
+        # Get batch info
+        with open("student_roster.json") as f:
+            roster = json.load(f)
+
+        batch_key = f"{self.batch_name}_batch" if not self.batch_name.endswith("_batch") else self.batch_name
+
+        batch = roster["batches"][batch_key]
+
+        # Consolidate each exam
+        for exam in batch.get("exams", []):
+            # Run consolidation script
+            result = subprocess.run(
+                ["python3", "consolidate_answers.py", "--batch", self.batch_name, "--exam", exam],
+                capture_output=True,
+                text=True
+            )
+
+            if result.returncode == 0:
+                self.log_step("  ", "✓", f"Consolidated {exam}: {batch_key}")
+            else:
+                self.log_step("  ", "⚠", f"Consolidation warning for {exam}")
 
         return True
 
@@ -190,6 +232,7 @@ class BatchWorkflow:
             ("Structure", self.step_1_verify_structure),
             ("Exam Validation", self.step_2_validate_exams),
             ("Student Files", self.step_3_validate_student_files),
+            ("Consolidation", self.step_3b_consolidate_answers),
             ("Analysis", self.step_4_run_analysis),
             ("Output", self.step_5_verify_outputs),
         ]
@@ -298,6 +341,8 @@ if __name__ == '__main__':
         workflow.step_1_verify_structure()
         workflow.step_2_validate_exams()
         workflow.step_3_validate_student_files()
+        workflow.step_3b_consolidate_answers()
     elif mode == 'analyze':
+        workflow.step_3b_consolidate_answers()
         workflow.step_4_run_analysis()
         workflow.step_5_verify_outputs()
