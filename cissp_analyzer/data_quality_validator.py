@@ -225,6 +225,128 @@ class AnswerSheetValidator:
             self.issues.append(issue)
 
 
+class AnswerSheetAutoFixer:
+    """Auto-corrects common data quality issues in answer sheets"""
+
+    VALID_ANSWERS = ['A', 'B', 'C', 'D', 'E']
+
+    @staticmethod
+    def fix_file(file_path: str, student_name: str = None) -> Tuple[bool, str, List[str]]:
+        """
+        Auto-fix common issues in an answer sheet file
+
+        Fixes:
+        - Column name normalization (Q.NO → Question, Answer options → Answer)
+        - Answer case normalization (lowercase → uppercase)
+        - Complex answer format (1b,2a,3c → 1-B,2-A,3-C)
+        - Extra whitespace removal
+
+        Returns:
+            Tuple of (success, output_file_path, list_of_fixes_applied)
+        """
+        fixes_applied = []
+        file_path = Path(file_path)
+
+        if not file_path.exists():
+            return False, "", ["File not found"]
+
+        try:
+            # Read file with openpyxl to preserve structure
+            wb = openpyxl.load_workbook(file_path)
+            ws = wb.active
+
+            # Get current headers
+            old_headers = [ws.cell(1, col).value for col in range(1, ws.max_column + 1)]
+
+            # Fix column headers
+            new_headers = []
+            for i, header in enumerate(old_headers, 1):
+                if header is None:
+                    continue
+
+                header_str = str(header).lower().strip()
+
+                # Fix Question column
+                if 'question' in header_str or 'q.no' in header_str or header_str == 'q':
+                    ws.cell(1, i).value = 'Question'
+                    new_headers.append('Question')
+                    if header != 'Question':
+                        fixes_applied.append(f"Column {i}: '{header}' → 'Question'")
+
+                # Fix Answer column
+                elif 'answer' in header_str or 'options' in header_str:
+                    ws.cell(1, i).value = student_name if student_name else 'Answer'
+                    new_headers.append(student_name if student_name else 'Answer')
+                    if header != (student_name if student_name else 'Answer'):
+                        fixes_applied.append(f"Column {i}: '{header}' → '{student_name if student_name else 'Answer'}'")
+                else:
+                    new_headers.append(header)
+
+            # Fix answer values (row 2 onwards)
+            answer_col = None
+            for i, header in enumerate(new_headers, 1):
+                if header in ['Answer', student_name]:
+                    answer_col = i
+                    break
+
+            if answer_col:
+                formatted_count = 0
+                for row in range(2, ws.max_row + 1):
+                    cell = ws.cell(row, answer_col)
+                    if cell.value is None:
+                        continue
+
+                    original_value = str(cell.value).strip()
+                    fixed_value = AnswerSheetAutoFixer._normalize_answer(original_value)
+
+                    if fixed_value != original_value:
+                        cell.value = fixed_value
+                        formatted_count += 1
+
+                if formatted_count > 0:
+                    fixes_applied.append(f"Normalized {formatted_count} answer values (case, spacing, hyphens)")
+
+            # Save corrected file
+            output_file = file_path.parent / f"{file_path.stem}_FIXED.xlsx"
+            wb.save(output_file)
+
+            return True, str(output_file), fixes_applied
+
+        except Exception as e:
+            return False, "", [f"Error fixing file: {str(e)}"]
+
+    @staticmethod
+    def _normalize_answer(value: str) -> str:
+        """Normalize a single answer value"""
+        value = str(value).strip()
+
+        # Check if it's a complex answer (matching or ordering)
+        # Pattern: "1b,2a,3c" or "1b, 2a, 3c" or "acbd" or "a,c,b,d"
+
+        if ',' in value:
+            # Format: "1b, 2a, 3c" → "1-B,2-A,3-C"
+            parts = [p.strip() for p in value.split(',')]
+            normalized_parts = []
+
+            for part in parts:
+                part = part.strip().upper()
+                # If part is like "1B" or "1b", convert to "1-B"
+                if len(part) == 2 and part[0].isdigit() and part[1].isalpha():
+                    part = f"{part[0]}-{part[1]}"
+                normalized_parts.append(part)
+
+            return ','.join(normalized_parts)
+
+        elif len(value) > 1 and value.isalpha():
+            # Format: "ACBD" or "acbd" (ordering) → "A,C,B,D"
+            normalized = ','.join(value.upper())
+            return normalized
+
+        else:
+            # Single answer: just uppercase
+            return value.upper()
+
+
 def validate_batch(batch_files: Dict[str, str], batch_name: str = "Batch") -> Dict:
     """
     Validate all files in a batch
