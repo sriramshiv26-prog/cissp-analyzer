@@ -17,7 +17,8 @@ This test suite validates code quality across the CISSP Analyzer project using:
 3. Linting (flake8)
    - Checks for style violations and potential issues
    - Checks: cissp_analyzer/, analyze.py, analyze_standalone.py
-   - Config: max-line-length=100, ignore E203 (whitespace before ':'), W503 (line break before operator)
+   - Config: max-line-length=100, ignore E203 (whitespace before ':'),
+             W503 (line break before operator)
    - Expected: Zero violations
 
 4. Import Consistency
@@ -45,8 +46,8 @@ Author: CISSP Analyzer Project
 Date: 2026-07-03
 """
 
-import sys
 import subprocess
+import shutil
 import py_compile
 from pathlib import Path
 from typing import List, Tuple
@@ -61,6 +62,8 @@ def is_tool_available(tool_name: str) -> bool:
     """
     Check if a tool is available in the system PATH.
 
+    Cross-platform compatible check using shutil.which().
+
     Args:
         tool_name: Name of the tool (e.g., 'mypy', 'black', 'flake8')
 
@@ -68,14 +71,8 @@ def is_tool_available(tool_name: str) -> bool:
         True if tool is available, False otherwise
     """
     try:
-        result = subprocess.run(
-            ["which", tool_name],
-            capture_output=True,
-            text=True,
-            timeout=5
-        )
-        return result.returncode == 0
-    except (subprocess.TimeoutExpired, FileNotFoundError):
+        return shutil.which(tool_name) is not None
+    except Exception:
         return False
 
 
@@ -192,7 +189,8 @@ class TestTypeChecking:
                     if line.strip():
                         warning_message += f"    {line}\n"
                 if len(item['output'].split('\n')) > 5:
-                    warning_message += f"    ... ({len(item['output'].split(chr(10)))} total issues)\n"
+                    total_issues = len(item['output'].split('\n'))
+                    warning_message += f"    ... ({total_issues} total issues)\n"
             # Print warning but don't fail - this is tracked for future refactoring
             print("\n" + warning_message)
 
