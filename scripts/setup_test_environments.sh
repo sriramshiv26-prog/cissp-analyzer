@@ -174,8 +174,9 @@ install_requirements() {
     # Use Python directly instead of sourcing activation script
     local pip_cmd="${venv_path}/bin/pip"
 
-    if ! $pip_cmd install -q -r "$REQUIREMENTS_FILE" 2>/dev/null; then
+    if ! $pip_cmd install -q -r "$REQUIREMENTS_FILE"; then
         print_error "Failed to install requirements for Python ${python_version}"
+        $pip_cmd install -r "$REQUIREMENTS_FILE" 2>&1 | head -20
         return 1
     fi
 
@@ -206,6 +207,7 @@ run_tests_in_venv() {
 }
 
 print_activation_instructions() {
+    local os=$1
     echo ""
     print_header "ENVIRONMENT ACTIVATION INSTRUCTIONS"
     echo ""
@@ -216,13 +218,21 @@ print_activation_instructions() {
         local venv_path="${TEST_ENVS_DIR}/venv-${version}"
         if [ -d "$venv_path" ]; then
             echo "  ${BLUE}Python ${version}:${NC}"
-            echo "    source ${venv_path}/bin/activate"
+            if [ "$os" = "windows" ]; then
+                echo "    ${venv_path}\Scripts\activate.bat"
+            else
+                echo "    source ${venv_path}/bin/activate"
+            fi
             echo ""
         fi
     done
 
     echo "To deactivate an environment, run:"
-    echo "    deactivate"
+    if [ "$os" = "windows" ]; then
+        echo "    deactivate.bat"
+    else
+        echo "    deactivate"
+    fi
     echo ""
 }
 
@@ -360,30 +370,34 @@ main() {
     done
 
     # Print activation instructions
-    print_activation_instructions
+    print_activation_instructions "$detected_os"
 
     # Print summary
     print_summary
 
     # Run tests (optional)
-    echo ""
-    read -p "Would you like to run tests in all environments? (y/n) " -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
+    if [ "$setup_count" -gt 0 ]; then
         echo ""
-        print_info "Running tests in all environments..."
-        local test_count=0
-        for version in "${available_versions[@]}"; do
-            local venv_path="${TEST_ENVS_DIR}/venv-${version}"
-            if [ -d "$venv_path" ]; then
-                echo ""
-                if run_tests_in_venv "$version"; then
-                    test_count=$((test_count + 1))
+        read -p "Would you like to run tests in all environments? (y/n) " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            echo ""
+            print_info "Running tests in all environments..."
+            local test_count=0
+            for version in "${available_versions[@]}"; do
+                local venv_path="${TEST_ENVS_DIR}/venv-${version}"
+                if [ -d "$venv_path" ]; then
+                    echo ""
+                    if run_tests_in_venv "$version"; then
+                        test_count=$((test_count + 1))
+                    fi
                 fi
-            fi
-        done
-        echo ""
-        print_success "Test run complete (${test_count}/${setup_count} environments tested)"
+            done
+            echo ""
+            print_success "Test run complete (${test_count}/${setup_count} environments tested)"
+        fi
+    else
+        print_warning "No environments were successfully set up; skipping test run"
     fi
 
     echo ""
@@ -395,5 +409,3 @@ main() {
 
 # Run main function
 main "$@"
-
-exit 0

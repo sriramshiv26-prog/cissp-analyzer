@@ -26,7 +26,6 @@ import subprocess
 import json
 from pathlib import Path
 from importlib import import_module
-from distutils.version import LooseVersion
 import importlib.util
 import pytest
 
@@ -80,8 +79,15 @@ class TestDependencyInstallation:
             import pandas
             version = pandas.__version__
             assert version, "pandas version not found"
-            parts = version.split(".")
-            major = int(parts[0])
+            try:
+                # Try to use packaging.version if available for robust parsing
+                from packaging import version as pkg_version
+                parsed = pkg_version.parse(version)
+                major = parsed.major
+            except ImportError:
+                # Fallback: split on first non-numeric character
+                parts = version.split(".")
+                major = int(parts[0])
             assert major >= 2, \
                 f"pandas version {version} is outdated (2.0.0+ required)"
         except ImportError:
@@ -106,8 +112,15 @@ class TestDependencyInstallation:
             import pytest
             version = pytest.__version__
             assert version, "pytest version not found"
-            parts = version.split(".")
-            major = int(parts[0])
+            try:
+                # Try to use packaging.version if available for robust parsing
+                from packaging import version as pkg_version
+                parsed = pkg_version.parse(version)
+                major = parsed.major
+            except ImportError:
+                # Fallback: split on first non-numeric character
+                parts = version.split(".")
+                major = int(parts[0])
             assert major >= 7, \
                 f"pytest version {version} is outdated (7.4.0+ required)"
         except ImportError:
@@ -312,8 +325,9 @@ class TestEntryPointsAccessible:
                 text=True,
                 timeout=5
             )
+            error_msg = result.stderr if result.stderr else result.stdout
             assert result.returncode == 0, \
-                f"analyze.py has syntax errors:\n{result.stderr}"
+                f"analyze.py has syntax errors:\n{error_msg}"
         except subprocess.TimeoutExpired:
             pytest.fail("analyze.py compilation timed out")
 
@@ -331,8 +345,9 @@ class TestEntryPointsAccessible:
                 text=True,
                 timeout=5
             )
+            error_msg = result.stderr if result.stderr else result.stdout
             assert result.returncode == 0, \
-                f"analyze_standalone.py has syntax errors:\n{result.stderr}"
+                f"analyze_standalone.py has syntax errors:\n{error_msg}"
         except subprocess.TimeoutExpired:
             pytest.fail("analyze_standalone.py compilation timed out")
 
@@ -381,59 +396,6 @@ class TestOptionalDependencies:
             pytest.skip("flake8 not installed (optional for development)")
 
 
-# ============================================================================
-# HELPER FUNCTIONS (for future expansion)
-# ============================================================================
-
-def get_python_version_string():
-    """Get formatted Python version string"""
-    return f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
-
-
-def check_package_version(package_name, minimum_version):
-    """
-    Check if a package is installed and meets minimum version requirement.
-
-    Args:
-        package_name: Name of the package (str)
-        minimum_version: Minimum required version as string (e.g., "3.10.0")
-
-    Returns:
-        tuple: (is_installed, installed_version, meets_requirement)
-    """
-    try:
-        module = import_module(package_name)
-        installed_version = getattr(module, "__version__", "unknown")
-
-        if installed_version == "unknown":
-            return True, installed_version, True
-
-        meets = LooseVersion(installed_version) >= LooseVersion(minimum_version)
-        return True, installed_version, meets
-    except ImportError:
-        return False, None, False
-
-
-def list_installed_packages():
-    """
-    List all installed packages and their versions.
-
-    Returns:
-        dict: Package names mapped to versions
-    """
-    try:
-        result = subprocess.run(
-            ["pip", "list", "--format=json"],
-            capture_output=True,
-            text=True,
-            timeout=30
-        )
-        if result.returncode == 0:
-            packages = json.loads(result.stdout)
-            return {pkg["name"]: pkg["version"] for pkg in packages}
-    except (subprocess.TimeoutExpired, FileNotFoundError, json.JSONDecodeError):
-        pass
-    return {}
 
 
 # ============================================================================
