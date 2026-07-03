@@ -106,6 +106,51 @@ def validate_file(filepath: str) -> bool:
     return Path(filepath).exists()
 
 
+def ask_analysis_type() -> str:
+    """Ask user if they want single exam or comparative analysis.
+
+    Returns:
+        "single" for ad-hoc single exam, "comparative" for history-based trending
+    """
+    print("\n" + Colors.header("=" * 70))
+    print(Colors.header("ANALYSIS TYPE SELECTION"))
+    print(Colors.header("=" * 70))
+
+    print("\nWhat type of analysis do you want?\n")
+    print("  [A] Single Exam (Ad-hoc / One-time)")
+    print("       • Analyze just this exam")
+    print("       • No history or trends")
+    print("       • Perfect for: practice tests, new students, quick analysis")
+    print()
+    print("  [B] Compare with Previous Exams (Trending)")
+    print("       • Show progress over time")
+    print("       • Compare to previous attempts")
+    print("       • Adaptive recommendations based on history")
+    print("       • Perfect for: tracking improvement, retakes, trend analysis")
+
+    while True:
+        choice = input("\n" + Colors.BOLD + "Choose [A/B]: " + Colors.END).strip().upper()
+        if choice in ['A', 'B']:
+            return "single" if choice == 'A' else "comparative"
+        print(Colors.error("Please enter A or B"))
+
+
+def check_student_history(student_name: str) -> bool:
+    """Check if student has previous exam history.
+
+    Args:
+        student_name: Name of student
+
+    Returns:
+        True if history exists, False otherwise
+    """
+    from cissp_analyzer.history_loader import HistoryLoader
+
+    history_loader = HistoryLoader()
+    previous_exams = history_loader.load_previous_exams(student_name)
+    return len(previous_exams) > 0
+
+
 def select_exam_number() -> int:
     """Ask user which exam number they're analyzing.
 
@@ -186,8 +231,11 @@ def get_answer_key() -> Optional[str]:
             return None
 
 
-def add_students() -> List[Dict[str, str]]:
+def add_students(analysis_type: str = "single") -> List[Dict[str, str]]:
     """Interactively add students and their answer files.
+
+    Args:
+        analysis_type: "single" or "comparative"
 
     Returns:
         List of dicts with 'name' and 'excel' keys
@@ -210,6 +258,21 @@ def add_students() -> List[Dict[str, str]]:
                 continue
             else:
                 break
+
+        # If comparative mode, check for student history
+        if analysis_type == "comparative":
+            has_history = check_student_history(student_name)
+
+            if not has_history:
+                print(Colors.warning(f"No previous exam history found for {student_name}"))
+                if not prompt_yes_no("Proceed with single exam analysis for this student?", default=True):
+                    print(Colors.info("Skipping this student"))
+                    continue
+            else:
+                from cissp_analyzer.history_loader import HistoryLoader
+                history_loader = HistoryLoader()
+                num_previous = len(history_loader.load_previous_exams(student_name))
+                print(Colors.success(f"Found {num_previous} previous exam(s) for {student_name}"))
 
         # Get student answer file
         while True:
@@ -247,7 +310,7 @@ def get_output_directory() -> str:
     return output_dir
 
 
-def display_summary(exam_num: int, pdf: str, students: List[Dict], output: str):
+def display_summary(exam_num: int, pdf: str, students: List[Dict], output: str, analysis_type: str = "single"):
     """Display configuration summary before running analysis.
 
     Args:
@@ -255,12 +318,16 @@ def display_summary(exam_num: int, pdf: str, students: List[Dict], output: str):
         pdf: Path to exam PDF
         students: List of students
         output: Output directory
+        analysis_type: "single" or "comparative"
     """
     print("\n" + Colors.header("=" * 70))
     print(Colors.header("CONFIGURATION SUMMARY"))
     print(Colors.header("=" * 70))
 
-    print(f"\n{Colors.BOLD}Exam:{Colors.END} Mock {exam_num}")
+    analysis_label = "Single Exam" if analysis_type == "single" else "Comparative (with History)"
+
+    print(f"\n{Colors.BOLD}Analysis Type:{Colors.END} {analysis_label}")
+    print(f"{Colors.BOLD}Exam:{Colors.END} Mock {exam_num}")
     print(f"{Colors.BOLD}PDF:{Colors.END} {pdf}")
     print(f"{Colors.BOLD}Students:{Colors.END} {len(students)}")
     for student in students:
@@ -270,7 +337,7 @@ def display_summary(exam_num: int, pdf: str, students: List[Dict], output: str):
     print("\n" + "=" * 70)
 
 
-def run_analysis(pdf: str, students: List[Dict], output: str, answer_key: Optional[str]):
+def run_analysis(pdf: str, students: List[Dict], output: str, answer_key: Optional[str], analysis_type: str = "single"):
     """Run the CISSP Analyzer on the provided data.
 
     Args:
@@ -278,6 +345,7 @@ def run_analysis(pdf: str, students: List[Dict], output: str, answer_key: Option
         students: List of students with their answer files
         output: Output directory
         answer_key: Optional path to answer key JSON, or "__AUTO_EXTRACT__" marker
+        analysis_type: "single" for ad-hoc, "comparative" for history-based
     """
     print("\n" + Colors.header("=" * 70))
     print(Colors.header("RUNNING ANALYSIS"))
@@ -377,26 +445,73 @@ def run_analysis(pdf: str, students: List[Dict], output: str, answer_key: Option
         # Extract student names
         student_names = [s['name'] for s in students]
 
-        # Run analysis
-        print(Colors.info(f"Analyzing {len(students)} student(s)..."))
-        result = analyzer.analyze(
-            exam_pdf=pdf,
-            answer_excel=students[0]['excel'],  # First student's file
-            student_names=student_names,
-            output_dir=output
-        )
+        # Run analysis based on type
+        if analysis_type == "comparative":
+            print(Colors.info(f"Analyzing {len(students)} student(s) with historical context..."))
+
+            # Import history loader for comparative mode
+            from cissp_analyzer.history_loader import HistoryLoader
+            history_loader = HistoryLoader()
+
+            all_reports = []
+            for student in students:
+                student_name = student['name']
+                print(f"\n{Colors.BOLD}Analyzing {student_name}...{Colors.END}")
+
+                # Check if student has history
+                previous_exams = history_loader.load_previous_exams(student_name)
+                if previous_exams:
+                    print(Colors.info(f"Found {len(previous_exams)} previous exam(s)"))
+
+                # Use history-aware analysis
+                try:
+                    result = analyzer.analyze_student_with_history(
+                        exam_pdf=pdf,
+                        answer_excel=student['excel'],
+                        student_name=student_name,
+                        students_dir="students"
+                    )
+
+                    all_reports.append(result['report_path'])
+                    print(Colors.success(f"Report saved: {result['report_path']}"))
+
+                    if result['previous_exams_count'] > 0:
+                        print(Colors.info(f"Report includes {result['previous_exams_count']} previous exam(s) for comparison"))
+
+                except Exception as e:
+                    print(Colors.error(f"Analysis failed for {student_name}: {str(e)}"))
+                    continue
+
+            result = {
+                'individual_reports': all_reports,
+                'students_analyzed': len(all_reports)
+            }
+        else:
+            # Single exam mode (ad-hoc)
+            print(Colors.info(f"Analyzing {len(students)} student(s) (single exam)..."))
+            result = analyzer.analyze(
+                exam_pdf=pdf,
+                answer_excel=students[0]['excel'],  # First student's file
+                student_names=student_names,
+                output_dir=output
+            )
 
         # Display results
         print("\n" + Colors.header("=" * 70))
         print(Colors.header("ANALYSIS COMPLETE!"))
         print(Colors.header("=" * 70))
 
-        print(f"\n{Colors.success('Individual reports:')}")
-        for report in result.get('individual_reports', []):
-            print(f"  • {report}")
+        if analysis_type == "comparative":
+            print(f"\n{Colors.success('Reports with historical trends:')}")
+            for report in result.get('individual_reports', []):
+                print(f"  • {report}")
+        else:
+            print(f"\n{Colors.success('Individual reports:')}")
+            for report in result.get('individual_reports', []):
+                print(f"  • {report}")
 
-        print(f"\n{Colors.success('Class report:')}")
-        print(f"  • {result.get('class_report', 'N/A')}")
+            print(f"\n{Colors.success('Class report:')}")
+            print(f"  • {result.get('class_report', 'N/A')}")
 
         print(f"\n{Colors.success('Students analyzed:')} {result.get('students_analyzed', 0)}")
 
@@ -419,6 +534,9 @@ def main():
         print(Colors.header("║" + " " * 15 + "CISSP ANALYZER - INTERACTIVE SETUP" + " " * 19 + "║"))
         print(Colors.header("╚" + "═" * 68 + "╝"))
 
+        # Step 0: Analysis type (NEW!)
+        analysis_type = ask_analysis_type()
+
         # Step 1: Exam selection
         exam_num = select_exam_number()
 
@@ -428,22 +546,22 @@ def main():
         # Step 3: Answer key
         answer_key = get_answer_key()
 
-        # Step 4: Add students
-        students = add_students()
+        # Step 4: Add students (pass analysis_type for history checking)
+        students = add_students(analysis_type)
 
         # Step 5: Output directory
         output_dir = get_output_directory()
 
-        # Display summary
-        display_summary(exam_num, exam_pdf, students, output_dir)
+        # Display summary (pass analysis_type)
+        display_summary(exam_num, exam_pdf, students, output_dir, analysis_type)
 
         # Confirm before running
         if not prompt_yes_no("Run analysis now?", default=True):
             print(Colors.info("Analysis cancelled"))
             sys.exit(0)
 
-        # Run analysis
-        run_analysis(exam_pdf, students, output_dir, answer_key)
+        # Run analysis (pass analysis_type)
+        run_analysis(exam_pdf, students, output_dir, answer_key, analysis_type)
 
     except KeyboardInterrupt:
         print("\n\n" + Colors.warning("Setup cancelled by user"))

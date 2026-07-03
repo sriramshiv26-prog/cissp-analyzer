@@ -98,7 +98,22 @@ def standalone_analysis():
     print("\n" + "="*80)
     print("STANDALONE ANALYSIS")
     print("="*80)
-    print()
+    print("""
+Two analysis modes for individual students:
+
+[A] Single Exam (Ad-hoc / One-time)
+    • Analyze just this exam
+    • Perfect for: practice tests, new students, quick analysis
+    • No history or trends needed
+
+[B] Compare with Previous Exams (Trending)
+    • Show progress over time
+    • Compare against previous attempts
+    • Adaptive recommendations based on history
+    • Perfect for: tracking improvement, retakes, trend analysis
+
+When you run the analysis, you'll be asked which mode you want.
+    """)
 
     import subprocess
     result = subprocess.run([sys.executable, "analyze_standalone.py"], capture_output=False, text=True)
