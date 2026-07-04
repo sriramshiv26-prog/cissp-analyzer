@@ -10,7 +10,7 @@ ABOUT SECTION DETAILS
 
 Description (in the little text box):
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-CISSP exam analyzer with 5-dimensional analysis and professional reports
+CISSP exam analyzer with dual-mode analysis (single exam & comparative with history), 5D performance tracking, adaptive recommendations, and professional Excel reports. Python 3.9-3.12 | macOS, Windows, Linux
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Website (optional):
@@ -21,11 +21,15 @@ Website (optional):
 Topics (add these):
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 cissp
-exam-analysis
+exam-analyzer
+educational-tool
+performance-analytics
+excel-reports
 python
 data-analysis
-excel
-reports
+adaptive-learning
+progress-tracking
+batch-analysis
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Include README checkbox: ☑️ CHECK THIS
