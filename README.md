@@ -4,7 +4,7 @@
 
 Analyzes exam results and generates beautiful 7-sheet Excel reports showing exactly where students are weak.
 
-**Status:** ✅ Production Ready | **Tests:** 26/26 Passing | **Installation:** 2 minutes
+**Status:** ✅ Production Ready | **Tests:** 277/277 Passing | **Python:** 3.9-3.12 | **Platforms:** macOS, Windows, Linux
 
 ---
 
@@ -45,7 +45,7 @@ cd cissp-analyzer
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-pytest -v  # Should show 26 passed
+pytest -v  # Should show 277 passed
 ```
 
 **On Windows (Command Prompt):**
