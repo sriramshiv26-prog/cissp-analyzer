@@ -1,0 +1,322 @@
+================================================================================
+CISSP ANALYZER - QUICK SETUP CARD (Print This!)
+================================================================================
+
+STEP 1: CREATE FOLDER STRUCTURE
+───────────────────────────────────────────────────────────────────────────────
+your_project/
+├── exams/                 (Put PDFs + answer keys here)
+├── answers/
+│   ├── batch_dec25/      (Multiple students per file)
+│   ├── batch_july26/
+│   └── standalone/       (Single student per file)
+├── students/             (Auto-created by tool)
+└── outputs/              (Results here)
+
+Quick command:
+mkdir -p exams answers/batch_dec25 answers/standalone students outputs/batch_dec25
+
+================================================================================
+STEP 2: PREPARE YOUR FILES
+───────────────────────────────────────────────────────────────────────────────
+
+FILE TYPE 1: Exam Questions (PDF)
+─────────────────────────────────
+Naming:  exam_1_week1.pdf
+Where:   exams/exam_1_week1.pdf
+Format:  Any PDF document with questions
+Size:    Any size
+
+FILE TYPE 2: Answer Key (JSON or CSV)
+─────────────────────────────────────
+Naming:  exam_1_week1_answer_key.json
+Where:   exams/exam_1_week1_answer_key.json
+Format:  JSON: {"1": {"letter": "A", "text": "..."}, ... }
+         CSV:  Question,Answer,Explanation
+              1,A,Explanation text...
+Size:    ~50-100 KB
+MUST MATCH PDF NAME! ✓
+
+FILE TYPE 3: Student Answers (Excel)
+────────────────────────────────────
+Naming (Batch):      exam_1_batch_dec25.xlsx
+Naming (Individual): alice_practice_exam1.xlsx
+Where (Batch):       answers/batch_dec25/exam_1_batch_dec25.xlsx
+Where (Individual):  answers/standalone/alice_practice_exam1.xlsx
+Format:  Excel columns: Question | Alice | Bob | Carol | David
+         Excel rows:    Q1 | A | B | A | C
+                        Q2 | B | C | B | D
+                        ...
+                        Q125 | A | B | C | D
+Size:    ~50-200 KB
+Must be: .xlsx format (not .xls or .csv)
+
+================================================================================
+STEP 3: FILE CHECKLIST
+───────────────────────────────────────────────────────────────────────────────
+
+BEFORE RUNNING ANALYSIS, CHECK:
+
+PDF & Answer Key:
+  [ ] PDF file: exams/exam_1_week1.pdf exists
+  [ ] Answer key: exams/exam_1_week1_answer_key.json exists
+  [ ] Names MATCH (except _answer_key suffix)
+  [ ] Answer key has 125 questions
+  [ ] Each answer: letter (A/B/C/D) + explanation
+
+Student Answers:
+  [ ] File exists: answers/batch_dec25/exam_1_batch_dec25.xlsx
+  [ ] Format: .xlsx (not .xls or .csv)
+  [ ] 126 rows: 1 header + 125 questions (Q1-Q125)
+  [ ] Column A: Question labels (Q1, Q2, ... Q125)
+  [ ] Column B+: Student names (Alice, Bob, Carol, ...)
+  [ ] Answers: Only A, B, C, D (case-insensitive)
+  [ ] Multi-part: 1-A,2-B,3-C,4-D format
+
+File Validation Commands:
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ # Check JSON is valid                                                       │
+│ python3 -c "import json; json.load(open('exams/exam_1_week1_answer_key.json')); print('✓ Valid')" │
+│                                                                             │
+│ # Check Excel rows                                                          │
+│ python3 << 'EOF'                                                            │
+│ import openpyxl                                                             │
+│ wb = openpyxl.load_workbook('answers/batch_dec25/exam_1_batch_dec25.xlsx') │
+│ ws = wb.active                                                              │
+│ print(f"Rows: {ws.max_row}, Columns: {ws.max_column}")                      │
+│ EOF                                                                         │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+================================================================================
+STEP 4: NAMING CONVENTIONS
+───────────────────────────────────────────────────────────────────────────────
+
+✓ GOOD NAMES:
+  exam_1_week1.pdf
+  exam_1_week1_answer_key.json
+  exam_1_batch_dec25.xlsx
+  alice_practice_exam1.xlsx
+
+✗ BAD NAMES:
+  Exam 1 Week 1.pdf          (spaces, capitals)
+  answer_key_1.json          (doesn't match PDF)
+  exam_1_answers.xlsx        (wrong pattern)
+  exam (1).pdf               (special characters)
+
+RULES:
+  • All lowercase
+  • Underscores only (no spaces, hyphens in middle)
+  • Include exam number (exam_1, exam_2, ...)
+  • Answer key MUST match PDF name
+  • Include batch name or student name
+
+================================================================================
+STEP 5: ANSWER FORMATS
+───────────────────────────────────────────────────────────────────────────────
+
+SINGLE ANSWER:
+  Input:  A
+  Tool:   Accepts as-is ✓
+
+MULTI-PART ANSWER (Multiple correct answers in order):
+  Input:  1-A,2-B,3-C,4-D    ← Best format
+  Also accepts:
+    A,B,C,D                    (auto-converts to 1-A,2-B,3-C,4-D)
+    1A2B3C4D                   (auto-converts)
+    1 - A, 2 - B, 3 - C, 4 - D (spaces auto-cleaned)
+    a,b,c,d                    (lowercase auto-uppercased)
+
+All formats work! Tool auto-normalizes to: 1-A,2-B,3-C,4-D
+
+================================================================================
+STEP 6: RUN ANALYSIS
+───────────────────────────────────────────────────────────────────────────────
+
+Command:
+  python3 analyze.py
+
+CLI Prompts:
+  1. Choose mode: 1 (Batch Analysis)
+  2. Select batch: batch_dec25
+  3. Enter exam number: 1
+  4. Enter PDF path: exams/exam_1_week1.pdf
+  5. Enter answer key path: exams/exam_1_week1_answer_key.json
+  6. Enter answer file: answers/batch_dec25/exam_1_batch_dec25.xlsx
+  7. Enter output directory: outputs/batch_dec25
+  8. Run analysis: yes
+
+WAIT: 30-60 seconds for analysis...
+
+================================================================================
+STEP 7: VIEW RESULTS
+───────────────────────────────────────────────────────────────────────────────
+
+Results folder:
+  outputs/batch_dec25/
+
+Generated files:
+  ├── CISSP_Class_Report_Dec25.xlsx          (Overall class stats)
+  ├── CISSP_Individual_Report_Alice.xlsx     (9 sheets per student)
+  ├── CISSP_Individual_Report_Bob.xlsx
+  └── CISSP_Individual_Report_Carol.xlsx
+
+Each report has 9 sheets:
+  1. Performance Summary      (Score, pass/fail, strengths)
+  2. Domain Breakdown         (By domain)
+  3. Topic Analysis           (By topic)
+  4. Difficulty Progression   (Easy/Medium/Hard)
+  5. Question Type Analysis   (Multiple choice/Complex)
+  6. Question Analysis        (Wrong questions)
+  7. Exam Trick Analysis      (Tricky vs normal)
+  8. Progress Over Time       (If comparative mode)
+  9. Recommendations          (Study plan)
+
+Auto-created history:
+  students/
+  ├── Alice/exam_1_performance.json
+  ├── Bob/exam_1_performance.json
+  └── Carol/exam_1_performance.json
+
+================================================================================
+STEP 8: TROUBLESHOOTING
+───────────────────────────────────────────────────────────────────────────────
+
+Problem: "PDF file not found"
+Solution: Check PDF path in step 5, verify file exists
+  ls exams/exam_1_week1.pdf
+
+Problem: "Cannot parse answer key"
+Solution: Check JSON syntax, ensure 125 questions
+  python3 -m json.tool exams/exam_1_week1_answer_key.json
+
+Problem: "Student scores showing 0%"
+Solution: Check answer format matches key, verify 125 rows
+  • Answer key has 125 questions? ✓
+  • Excel has 125 rows (Q1-Q125)? ✓
+  • Answers are A/B/C/D only? ✓
+  • Student name matches CLI input? ✓
+
+Problem: "Multi-part answers wrong"
+Solution: Use format: 1-A,2-B,3-C,4-D (with dashes and commas, no spaces)
+
+Problem: "File won't open"
+Solution: Check file format
+  • Answer key: Must be .json or .csv
+  • Student answers: Must be .xlsx
+  • Save Excel before running analysis
+
+See: NAMING_CONVENTIONS_AND_FORMATS.md (full guide)
+See: EXAMPLE_FILES_HOW_TO_USE.md (working examples)
+
+================================================================================
+COMPLETE EXAMPLE
+───────────────────────────────────────────────────────────────────────────────
+
+Setup for Dec-25 batch, Exam 1:
+
+1. Create folders:
+   mkdir -p exams answers/batch_dec25 students outputs/batch_dec25
+
+2. Place files:
+   exams/exam_1_week1.pdf                       (your exam PDF)
+   exams/exam_1_week1_answer_key.json           (125 answers in JSON)
+   answers/batch_dec25/exam_1_batch_dec25.xlsx  (student responses)
+
+3. Run:
+   python3 analyze.py
+   → Choose: 1
+   → Batch: batch_dec25
+   → Exam: exam_1_week1
+   → Key: exams/exam_1_week1_answer_key.json
+   → Answers: answers/batch_dec25/exam_1_batch_dec25.xlsx
+   → Output: outputs/batch_dec25
+
+4. View:
+   ls outputs/batch_dec25/
+   → CISSP_Class_Report_Dec25.xlsx
+   → CISSP_Individual_Report_Alice.xlsx
+   → CISSP_Individual_Report_Bob.xlsx
+   → ...
+
+Done! ✓
+
+================================================================================
+QUICK REFERENCE: FILE LOCATIONS
+───────────────────────────────────────────────────────────────────────────────
+
+Action                          File Location                   Format
+──────────────────────────────────────────────────────────────────────────────
+Store exam PDF                  exams/exam_1_week1.pdf          PDF
+Store answer key                exams/exam_1_week1_answer_key   JSON/CSV
+Store batch responses           answers/batch_dec25/exam_1_...  XLSX
+Store individual responses      answers/standalone/alice_...    XLSX
+View class reports              outputs/batch_dec25/...         XLSX
+View individual reports         outputs/batch_dec25/...         XLSX
+Auto-store history              students/[name]/exam_1_...      JSON
+View progress tracking          students/[name]/exam_1_...      JSON
+
+================================================================================
+KEY POINTS TO REMEMBER
+───────────────────────────────────────────────────────────────────────────────
+
+✓ Answer key MUST match PDF filename (except _answer_key suffix)
+✓ All files must be in correct folders
+✓ Student answer file must be .xlsx format
+✓ Must have exactly 125 questions (Q1-Q125)
+✓ Answers: only A, B, C, D
+✓ Student names must match between Excel and CLI
+✓ Multi-part answers: 1-A,2-B,3-C,4-D format
+✓ Always validate files before running analysis
+
+================================================================================
+DOWNLOAD EXAMPLE FILES
+───────────────────────────────────────────────────────────────────────────────
+
+From GitHub repository:
+
+EXAMPLE_answer_key.json        → 30 sample questions
+EXAMPLE_answer_key.csv         → Same as CSV
+EXAMPLE_student_answers.xlsx   → 4 students, 20 questions
+
+See: EXAMPLE_FILES_HOW_TO_USE.md (how to use and expand)
+
+================================================================================
+HELP & SUPPORT
+───────────────────────────────────────────────────────────────────────────────
+
+Documentation Files:
+  • FORMATS_AND_TEMPLATES_GUIDE.md        (Complete reference)
+  • NAMING_CONVENTIONS_AND_FORMATS.md     (Naming rules)
+  • EXAMPLE_FILES_HOW_TO_USE.md           (Working examples)
+  • TEMPLATE_student_answers.md           (Excel format guide)
+  • TEMPLATE_directory_structure.md       (Folder setup guide)
+  • README.md                             (General info)
+
+Example Files:
+  • EXAMPLE_answer_key.json               (30 sample questions)
+  • EXAMPLE_answer_key.csv                (CSV format)
+  • EXAMPLE_student_answers.xlsx          (4 students, 20 questions)
+
+Video Tutorials:
+  (Pending - see GitHub Issues for requests)
+
+GitHub Issues:
+  Report bugs or ask questions at:
+  https://github.com/sriramshiv26-prog/cissp-analyzer/issues
+
+================================================================================
+VERSION INFO
+───────────────────────────────────────────────────────────────────────────────
+
+CISSP Analyzer: v1.0.0
+Documentation: v1.0
+Last Updated: July 4, 2026
+Status: Production Ready
+
+Python: 3.9+ (3.9, 3.10, 3.11, 3.12)
+Platforms: macOS, Windows, Linux
+Tested: 277 automated test cases ✓
+
+================================================================================
+PRINT THIS CARD & KEEP IT HANDY! 📋
+================================================================================
