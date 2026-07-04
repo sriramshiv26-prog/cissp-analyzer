@@ -1,0 +1,122 @@
+{
+  "1": {
+    "letter": "A",
+    "text": "AES uses 128, 192, or 256-bit encryption with block size of 128 bits"
+  },
+  "2": {
+    "letter": "B",
+    "text": "Public key infrastructure enables digital certificates and signatures"
+  },
+  "3": {
+    "letter": "C",
+    "text": "Defense in depth uses multiple layers of security controls"
+  },
+  "4": {
+    "letter": "D",
+    "text": "Authentication, Authorization, Accounting are AAA framework components"
+  },
+  "5": {
+    "letter": "A",
+    "text": "Least privilege restricts access to minimum required permissions"
+  },
+  "6": {
+    "letter": "B",
+    "text": "Separation of duties distributes critical operations to prevent fraud"
+  },
+  "7": {
+    "letter": "C",
+    "text": "Risk assessment identifies, analyzes, and evaluates security threats"
+  },
+  "8": {
+    "letter": "D",
+    "text": "Incident response manages and responds to security incidents"
+  },
+  "9": {
+    "letter": "A",
+    "text": "Confidentiality ensures information is not disclosed to unauthorized parties"
+  },
+  "10": {
+    "letter": "B",
+    "text": "Integrity ensures data has not been modified by unauthorized parties"
+  },
+  "11": {
+    "letter": "C",
+    "text": "Availability ensures systems and data are accessible when needed"
+  },
+  "12": {
+    "letter": "D",
+    "text": "Accountability ensures users can be held responsible for their actions"
+  },
+  "13": {
+    "letter": "A",
+    "text": "Encryption is a primary control that uses cryptography to protect data"
+  },
+  "14": {
+    "letter": "B",
+    "text": "Access control limits who can use resources and how they use them"
+  },
+  "15": {
+    "letter": "C",
+    "text": "Auditing and logging track system activities for detection and investigation"
+  },
+  "16": {
+    "letter": "A",
+    "text": "Sample explanation for question 16"
+  },
+  "17": {
+    "letter": "B",
+    "text": "Sample explanation for question 17"
+  },
+  "18": {
+    "letter": "C",
+    "text": "Sample explanation for question 18"
+  },
+  "19": {
+    "letter": "D",
+    "text": "Sample explanation for question 19"
+  },
+  "20": {
+    "letter": "A",
+    "text": "Sample explanation for question 20"
+  },
+  "21": {
+    "letter": "B",
+    "text": "Sample explanation for question 21"
+  },
+  "22": {
+    "letter": "C",
+    "text": "Sample explanation for question 22"
+  },
+  "23": {
+    "letter": "D",
+    "text": "Sample explanation for question 23"
+  },
+  "24": {
+    "letter": "A",
+    "text": "Sample explanation for question 24"
+  },
+  "25": {
+    "letter": "B",
+    "text": "Sample explanation for question 25"
+  },
+  "26": {
+    "letter": "C",
+    "text": "Sample explanation for question 26"
+  },
+  "27": {
+    "letter": "D",
+    "text": "Sample explanation for question 27"
+  },
+  "28": {
+    "letter": "A",
+    "text": "Sample explanation for question 28"
+  },
+  "29": {
+    "letter": "B",
+    "text": "Sample explanation for question 29"
+  },
+  "30": {
+    "letter": "C",
+    "text": "Sample explanation for question 30"
+  }
+}

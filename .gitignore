@@ -48,6 +48,14 @@ output/
 *.xlsx
 *.pdf
 
+# EXCEPT: Allow example and template files
+!EXAMPLE_*.xlsx
+!EXAMPLE_*.csv
+!EXAMPLE_*.json
+!TEMPLATE_*.xlsx
+!TEMPLATE_*.json
+!TEMPLATE_*.pdf
+
 # Environment
 .env
 .env.local

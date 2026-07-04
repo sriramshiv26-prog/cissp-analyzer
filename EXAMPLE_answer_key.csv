@@ -1,0 +1,31 @@
+Question,Answer,Explanation
+1,A,"AES uses 128, 192, or 256-bit encryption with block size of 128 bits"
+2,B,Public key infrastructure enables digital certificates and signatures
+3,C,Defense in depth uses multiple layers of security controls
+4,D,"Authentication, Authorization, Accounting are AAA framework components"
+5,A,Least privilege restricts access to minimum required permissions
+6,B,Separation of duties distributes critical operations to prevent fraud
+7,C,"Risk assessment identifies, analyzes, and evaluates security threats"
+8,D,Incident response manages and responds to security incidents
+9,A,Confidentiality ensures information is not disclosed to unauthorized parties
+10,B,Integrity ensures data has not been modified by unauthorized parties
+11,C,Availability ensures systems and data are accessible when needed
+12,D,Accountability ensures users can be held responsible for their actions
+13,A,Encryption is a primary control that uses cryptography to protect data
+14,B,Access control limits who can use resources and how they use them
+15,C,Auditing and logging track system activities for detection and investigation
+16,A,Sample explanation for question 16
+17,B,Sample explanation for question 17
+18,C,Sample explanation for question 18
+19,D,Sample explanation for question 19
+20,A,Sample explanation for question 20
+21,B,Sample explanation for question 21
+22,C,Sample explanation for question 22
+23,D,Sample explanation for question 23
+24,A,Sample explanation for question 24
+25,B,Sample explanation for question 25
+26,C,Sample explanation for question 26
+27,D,Sample explanation for question 27
+28,A,Sample explanation for question 28
+29,B,Sample explanation for question 29
+30,C,Sample explanation for question 30
