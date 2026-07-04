@@ -48,6 +48,9 @@ def pytest_configure(config):
     config.addinivalue_line(
         "markers", "unit: mark test as unit test"
     )
+    config.addinivalue_line(
+        "markers", "performance: mark test as performance benchmark"
+    )
 
 
 # ============================================================================
