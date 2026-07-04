@@ -1,0 +1,38 @@
+{
+  "1": {
+    "letter": "A",
+    "text": "AES is a symmetric encryption algorithm that uses 128-bit, 192-bit, or 256-bit key sizes. It is the most widely used encryption standard."
+  },
+  "2": {
+    "letter": "B",
+    "text": "RSA is an asymmetric algorithm used for key exchange and digital signatures. It relies on the difficulty of factoring large numbers."
+  },
+  "3": {
+    "letter": "C",
+    "text": "Defense in depth is a security strategy that uses multiple layers of security controls to protect data and systems."
+  },
+  "4": {
+    "letter": "D",
+    "text": "A vulnerability is a weakness in a system that can be exploited by an attacker to gain unauthorized access or cause harm."
+  },
+  "5": {
+    "letter": "A",
+    "text": "The principle of least privilege restricts user access to only the minimum permissions required to perform their job functions."
+  },
+  "6": {
+    "letter": "B",
+    "text": "Separation of duties is a control that distributes critical operations among multiple individuals to prevent fraud and errors."
+  },
+  "7": {
+    "letter": "C",
+    "text": "Risk assessment is the process of identifying, analyzing, and evaluating security threats and vulnerabilities."
+  },
+  "8": {
+    "letter": "D",
+    "text": "Incident response is the process of managing and responding to security incidents and data breaches."
+  },
+  "125": {
+    "letter": "A",
+    "text": "Business continuity planning ensures that critical business functions can continue during and after a disaster."
+  }
+}
