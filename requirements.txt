@@ -2,7 +2,7 @@
 # Last updated: 2026-07-01
 
 # Excel file handling (required)
-openpyxl>=3.10.0
+openpyxl>=3.1.5
 
 # Data processing and analysis (required)
 pandas>=2.0.0
