@@ -6,7 +6,7 @@ from cissp_analyzer.models import StudentAnswer, StudentPerformance
 
 @pytest.fixture
 def mapper():
-    return DomainMapper(mapping_file='data/question_domain_mapping.json')
+    return DomainMapper(mapping_file="data/question_domain_mapping.json")
 
 
 @pytest.fixture
@@ -42,11 +42,11 @@ def test_performance_has_all_dimensions(engine):
     answers = [StudentAnswer("Test", 1, "A", False) for _ in range(125)]
     performance = engine.evaluate_student(answers, "Test")
 
-    assert hasattr(performance, 'by_domain')
-    assert hasattr(performance, 'by_topic')
-    assert hasattr(performance, 'by_difficulty')
-    assert hasattr(performance, 'by_question_type')
-    assert hasattr(performance, 'by_exam_trick')
+    assert hasattr(performance, "by_domain")
+    assert hasattr(performance, "by_topic")
+    assert hasattr(performance, "by_difficulty")
+    assert hasattr(performance, "by_question_type")
+    assert hasattr(performance, "by_exam_trick")
     assert isinstance(performance.by_domain, dict)
     assert isinstance(performance.by_topic, dict)
 

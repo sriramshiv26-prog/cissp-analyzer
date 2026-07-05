@@ -12,14 +12,21 @@ Validates answer Excel files before processing to catch:
 
 import pandas as pd
 from pathlib import Path
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Optional, Any
 import openpyxl
 
 
 class DataQualityIssue:
     """Represents a single data quality issue"""
 
-    def __init__(self, file_name: str, student_name: str, issue_type: str, details: str, severity: str = "WARNING"):
+    def __init__(
+        self,
+        file_name: str,
+        student_name: str,
+        issue_type: str,
+        details: str,
+        severity: str = "WARNING",
+    ):
         self.file_name = file_name
         self.student_name = student_name
         self.issue_type = issue_type
@@ -27,20 +34,24 @@ class DataQualityIssue:
         self.severity = severity  # WARNING, ERROR, INFO
 
     def __str__(self):
-        return f"[{self.severity}] {self.student_name} - {self.issue_type}: {self.details}"
+        return (
+            f"[{self.severity}] {self.student_name} - {self.issue_type}: {self.details}"
+        )
 
 
 class AnswerSheetValidator:
     """Validates student answer Excel files for data quality"""
 
     EXPECTED_QUESTIONS = 125
-    VALID_ANSWERS = ['A', 'B', 'C', 'D']
-    EXPECTED_COLUMNS = ['Question', 'Answer']
+    VALID_ANSWERS = ["A", "B", "C", "D"]
+    EXPECTED_COLUMNS = ["Question", "Answer"]
 
     def __init__(self):
         self.issues = []
 
-    def validate_file(self, file_path: str, student_name: str) -> Tuple[bool, List[DataQualityIssue]]:
+    def validate_file(
+        self, file_path: str, student_name: str
+    ) -> Tuple[bool, List[DataQualityIssue]]:
         """
         Validate a single answer sheet file
 
@@ -48,36 +59,46 @@ class AnswerSheetValidator:
             Tuple of (is_valid, list_of_issues)
         """
         self.issues = []
-        file_path = Path(file_path)
+        path_obj = Path(file_path)
 
-        if not file_path.exists():
-            issue = DataQualityIssue(file_path.name, student_name, "FILE_NOT_FOUND",
-                                   f"File does not exist: {file_path}", "ERROR")
+        if not path_obj.exists():
+            issue = DataQualityIssue(
+                path_obj.name,
+                student_name,
+                "FILE_NOT_FOUND",
+                f"File does not exist: {path_obj}",
+                "ERROR",
+            )
             self.issues.append(issue)
             return False, self.issues
 
         try:
-            df = pd.read_excel(file_path)
+            df = pd.read_excel(str(path_obj))
         except Exception as e:
-            issue = DataQualityIssue(file_path.name, student_name, "READ_ERROR",
-                                   f"Failed to read Excel file: {str(e)}", "ERROR")
+            issue = DataQualityIssue(
+                path_obj.name,
+                student_name,
+                "READ_ERROR",
+                f"Failed to read Excel file: {str(e)}",
+                "ERROR",
+            )
             self.issues.append(issue)
             return False, self.issues
 
         # Check structure
-        self._check_structure(file_path.name, student_name, df)
+        self._check_structure(path_obj.name, student_name, df)
 
         # Check row count
-        self._check_row_count(file_path.name, student_name, df)
+        self._check_row_count(path_obj.name, student_name, df)
 
         # Check for missing answers
-        self._check_missing_answers(file_path.name, student_name, df)
+        self._check_missing_answers(path_obj.name, student_name, df)
 
         # Check answer format
-        self._check_answer_format(file_path.name, student_name, df)
+        self._check_answer_format(path_obj.name, student_name, df)
 
         # Check for anomalies
-        self._check_anomalies(file_path.name, student_name, df)
+        self._check_anomalies(path_obj.name, student_name, df)
 
         # Return validity (no ERRORs = valid, but may have WARNINGs)
         has_errors = any(issue.severity == "ERROR" for issue in self.issues)
@@ -86,64 +107,91 @@ class AnswerSheetValidator:
     def _check_structure(self, file_name: str, student_name: str, df: pd.DataFrame):
         """Check if file has expected structure"""
         if df.empty:
-            issue = DataQualityIssue(file_name, student_name, "EMPTY_FILE",
-                                   "Excel file is empty", "ERROR")
+            issue = DataQualityIssue(
+                file_name, student_name, "EMPTY_FILE", "Excel file is empty", "ERROR"
+            )
             self.issues.append(issue)
             return
 
         # Check for Question column (with various naming conventions)
         question_col = None
         for col in df.columns:
-            if 'question' in col.lower():
+            if "question" in col.lower():
                 question_col = col
                 break
 
         if question_col is None:
             cols_str = ", ".join(df.columns.tolist())
-            issue = DataQualityIssue(file_name, student_name, "MISSING_QUESTION_COLUMN",
-                                   f"No 'Question' column found. Columns: {cols_str}", "ERROR")
+            issue = DataQualityIssue(
+                file_name,
+                student_name,
+                "MISSING_QUESTION_COLUMN",
+                f"No 'Question' column found. Columns: {cols_str}",
+                "ERROR",
+            )
             self.issues.append(issue)
 
         # Check for Answer column
         answer_col = None
         for col in df.columns:
-            if 'answer' in col.lower():
+            if "answer" in col.lower():
                 answer_col = col
                 break
 
         if answer_col is None and len(df.columns) < 2:
             cols_str = ", ".join(df.columns.tolist())
-            issue = DataQualityIssue(file_name, student_name, "MISSING_ANSWER_COLUMN",
-                                   f"No 'Answer' column found. Columns: {cols_str}", "ERROR")
+            issue = DataQualityIssue(
+                file_name,
+                student_name,
+                "MISSING_ANSWER_COLUMN",
+                f"No 'Answer' column found. Columns: {cols_str}",
+                "ERROR",
+            )
             self.issues.append(issue)
 
         # Warn about extra columns
         if len(df.columns) > 2:
-            issue = DataQualityIssue(file_name, student_name, "EXTRA_COLUMNS",
-                                   f"File has {len(df.columns)} columns instead of 2. "
-                                   f"Columns: {', '.join(df.columns.tolist())}", "WARNING")
+            col_names = ", ".join(df.columns.tolist())
+            issue = DataQualityIssue(
+                file_name,
+                student_name,
+                "EXTRA_COLUMNS",
+                f"File has {len(df.columns)} columns instead of 2. "
+                f"Columns: {col_names}",
+                "WARNING",
+            )
             self.issues.append(issue)
 
     def _check_row_count(self, file_name: str, student_name: str, df: pd.DataFrame):
         """Check if file has expected number of rows"""
         row_count = len(df)
         if row_count < self.EXPECTED_QUESTIONS:
-            issue = DataQualityIssue(file_name, student_name, "INCOMPLETE_DATA",
-                                   f"Only {row_count} answers found, expected {self.EXPECTED_QUESTIONS}",
-                                   "ERROR")
+            issue = DataQualityIssue(
+                file_name,
+                student_name,
+                "INCOMPLETE_DATA",
+                f"Only {row_count} answers found, expected {self.EXPECTED_QUESTIONS}",
+                "ERROR",
+            )
             self.issues.append(issue)
         elif row_count > self.EXPECTED_QUESTIONS:
-            issue = DataQualityIssue(file_name, student_name, "EXTRA_ROWS",
-                                   f"File has {row_count} rows instead of {self.EXPECTED_QUESTIONS}",
-                                   "WARNING")
+            issue = DataQualityIssue(
+                file_name,
+                student_name,
+                "EXTRA_ROWS",
+                f"File has {row_count} rows instead of {self.EXPECTED_QUESTIONS}",
+                "WARNING",
+            )
             self.issues.append(issue)
 
-    def _check_missing_answers(self, file_name: str, student_name: str, df: pd.DataFrame):
+    def _check_missing_answers(
+        self, file_name: str, student_name: str, df: pd.DataFrame
+    ):
         """Check for missing/NaN answers"""
         # Find answer column
         answer_col = None
         for col in df.columns:
-            if 'answer' in col.lower():
+            if "answer" in col.lower():
                 answer_col = col
                 break
 
@@ -155,9 +203,15 @@ class AnswerSheetValidator:
             missing_questions = df[df[answer_col].isna()].index.tolist()
             # Convert to 1-indexed question numbers
             missing_q_nums = [i + 1 for i in missing_questions]
-            issue = DataQualityIssue(file_name, student_name, "MISSING_ANSWERS",
-                                   f"{missing_count} missing answers at questions: {missing_q_nums[:10]}{'...' if len(missing_q_nums) > 10 else ''}",
-                                   "ERROR")
+            q_preview = missing_q_nums[:10]
+            q_more = "..." if len(missing_q_nums) > 10 else ""
+            issue = DataQualityIssue(
+                file_name,
+                student_name,
+                "MISSING_ANSWERS",
+                f"{missing_count} missing answers at questions: {q_preview}{q_more}",
+                "ERROR",
+            )
             self.issues.append(issue)
 
     def _check_answer_format(self, file_name: str, student_name: str, df: pd.DataFrame):
@@ -165,7 +219,7 @@ class AnswerSheetValidator:
         # Find answer column
         answer_col = None
         for col in df.columns:
-            if 'answer' in col.lower():
+            if "answer" in col.lower():
                 answer_col = col
                 break
 
@@ -186,9 +240,14 @@ class AnswerSheetValidator:
         if invalid_answers:
             sample = invalid_answers[:5]
             sample_str = ", ".join([f"Q{q}:{repr(ans)}" for q, ans in sample])
-            issue = DataQualityIssue(file_name, student_name, "INVALID_ANSWERS",
-                                   f"{len(invalid_answers)} invalid answer values: {sample_str}{'...' if len(invalid_answers) > 5 else ''}",
-                                   "WARNING")
+            more_str = "..." if len(invalid_answers) > 5 else ""
+            issue = DataQualityIssue(
+                file_name,
+                student_name,
+                "INVALID_ANSWERS",
+                f"{len(invalid_answers)} invalid answer values: {sample_str}{more_str}",
+                "WARNING",
+            )
             self.issues.append(issue)
 
     def _check_anomalies(self, file_name: str, student_name: str, df: pd.DataFrame):
@@ -196,7 +255,7 @@ class AnswerSheetValidator:
         # Find answer column
         answer_col = None
         for col in df.columns:
-            if 'answer' in col.lower():
+            if "answer" in col.lower():
                 answer_col = col
                 break
 
@@ -211,27 +270,36 @@ class AnswerSheetValidator:
             val_str = str(val).strip()
 
             # Check for multi-value entries (e.g., "1A,2B,3C" or "acbd")
-            if len(val_str) > 1 and ',' in val_str:
+            if len(val_str) > 1 and "," in val_str:
                 anomalies.append((idx + 1, val_str, "comma-separated"))
             elif len(val_str) > 1 and val_str.isalpha():
                 anomalies.append((idx + 1, val_str, "multiple letters"))
 
         if anomalies:
             sample = anomalies[:3]
-            sample_str = ", ".join([f"Q{q}:{repr(ans)}({typ})" for q, ans, typ in sample])
-            issue = DataQualityIssue(file_name, student_name, "ANOMALIES",
-                                   f"{len(anomalies)} anomalous values: {sample_str}{'...' if len(anomalies) > 3 else ''}",
-                                   "WARNING")
+            sample_str = ", ".join(
+                [f"Q{q}:{repr(ans)}({typ})" for q, ans, typ in sample]
+            )
+            more_str = "..." if len(anomalies) > 3 else ""
+            issue = DataQualityIssue(
+                file_name,
+                student_name,
+                "ANOMALIES",
+                f"{len(anomalies)} anomalous values: {sample_str}{more_str}",
+                "WARNING",
+            )
             self.issues.append(issue)
 
 
 class AnswerSheetAutoFixer:
     """Auto-corrects common data quality issues in answer sheets"""
 
-    VALID_ANSWERS = ['A', 'B', 'C', 'D', 'E']
+    VALID_ANSWERS = ["A", "B", "C", "D", "E"]
 
     @staticmethod
-    def fix_file(file_path: str, student_name: str = None) -> Tuple[bool, str, List[str]]:
+    def fix_file(
+        file_path: str, student_name: Optional[str] = None
+    ) -> Tuple[bool, str, List[str]]:
         """
         Auto-fix common issues in an answer sheet file
 
@@ -245,14 +313,14 @@ class AnswerSheetAutoFixer:
             Tuple of (success, output_file_path, list_of_fixes_applied)
         """
         fixes_applied = []
-        file_path = Path(file_path)
+        path_obj = Path(file_path)
 
-        if not file_path.exists():
+        if not path_obj.exists():
             return False, "", ["File not found"]
 
         try:
             # Read file with openpyxl to preserve structure
-            wb = openpyxl.load_workbook(file_path)
+            wb = openpyxl.load_workbook(str(path_obj))
             ws = wb.active
 
             # Get current headers
@@ -267,25 +335,32 @@ class AnswerSheetAutoFixer:
                 header_str = str(header).lower().strip()
 
                 # Fix Question column
-                if 'question' in header_str or 'q.no' in header_str or header_str == 'q':
-                    ws.cell(1, i).value = 'Question'
-                    new_headers.append('Question')
-                    if header != 'Question':
+                if (
+                    "question" in header_str
+                    or "q.no" in header_str
+                    or header_str == "q"
+                ):
+                    ws.cell(1, i).value = "Question"
+                    new_headers.append("Question")
+                    if header != "Question":
                         fixes_applied.append(f"Column {i}: '{header}' → 'Question'")
 
                 # Fix Answer column
-                elif 'answer' in header_str or 'options' in header_str:
-                    ws.cell(1, i).value = student_name if student_name else 'Answer'
-                    new_headers.append(student_name if student_name else 'Answer')
-                    if header != (student_name if student_name else 'Answer'):
-                        fixes_applied.append(f"Column {i}: '{header}' → '{student_name if student_name else 'Answer'}'")
+                elif "answer" in header_str or "options" in header_str:
+                    ws.cell(1, i).value = student_name if student_name else "Answer"
+                    new_headers.append(student_name if student_name else "Answer")
+                    new_name = student_name if student_name else "Answer"
+                    if header != new_name:
+                        fixes_applied.append(
+                            f"Column {i}: '{header}' → '{new_name}'"
+                        )
                 else:
                     new_headers.append(header)
 
             # Fix answer values (row 2 onwards)
             answer_col = None
             for i, header in enumerate(new_headers, 1):
-                if header in ['Answer', student_name]:
+                if header in ["Answer", student_name]:
                     answer_col = i
                     break
 
@@ -304,11 +379,13 @@ class AnswerSheetAutoFixer:
                         formatted_count += 1
 
                 if formatted_count > 0:
-                    fixes_applied.append(f"Normalized {formatted_count} answer values (case, spacing, hyphens)")
+                    fixes_applied.append(
+                        f"Normalized {formatted_count} answer values (case, spacing, hyphens)"
+                    )
 
             # Save corrected file
-            output_file = file_path.parent / f"{file_path.stem}_FIXED.xlsx"
-            wb.save(output_file)
+            output_file = path_obj.parent / f"{path_obj.stem}_FIXED.xlsx"
+            wb.save(str(output_file))
 
             return True, str(output_file), fixes_applied
 
@@ -323,9 +400,9 @@ class AnswerSheetAutoFixer:
         # Check if it's a complex answer (matching or ordering)
         # Pattern: "1b,2a,3c" or "1b, 2a, 3c" or "acbd" or "a,c,b,d"
 
-        if ',' in value:
+        if "," in value:
             # Format: "1b, 2a, 3c" → "1-B,2-A,3-C"
-            parts = [p.strip() for p in value.split(',')]
+            parts = [p.strip() for p in value.split(",")]
             normalized_parts = []
 
             for part in parts:
@@ -335,11 +412,11 @@ class AnswerSheetAutoFixer:
                     part = f"{part[0]}-{part[1]}"
                 normalized_parts.append(part)
 
-            return ','.join(normalized_parts)
+            return ",".join(normalized_parts)
 
         elif len(value) > 1 and value.isalpha():
             # Format: "ACBD" or "acbd" (ordering) → "A,C,B,D"
-            normalized = ','.join(value.upper())
+            normalized = ",".join(value.upper())
             return normalized
 
         else:
@@ -359,13 +436,13 @@ def validate_batch(batch_files: Dict[str, str], batch_name: str = "Batch") -> Di
         Dict with validation results
     """
     validator = AnswerSheetValidator()
-    results = {
+    results: Dict[str, Any] = {
         "batch": batch_name,
         "total_files": len(batch_files),
         "valid_files": 0,
         "files_with_errors": 0,
         "files_with_warnings": 0,
-        "details": {}
+        "details": {},
     }
 
     print(f"\n{'='*80}")
@@ -381,7 +458,7 @@ def validate_batch(batch_files: Dict[str, str], batch_name: str = "Batch") -> Di
         results["details"][student_name] = {
             "file": file_path,
             "valid": is_valid,
-            "issues": [str(issue) for issue in issues]
+            "issues": [str(issue) for issue in issues],
         }
 
         if is_valid and not has_warnings:

@@ -10,7 +10,9 @@ class Question:
     topic: str
     subtopic: str
     difficulty: str  # Easy, Medium, Hard
-    question_type: str  # Definition, Scenario, Comparison, Exception, Sequence, Managerial
+    question_type: (
+        str  # Definition, Scenario, Comparison, Exception, Sequence, Managerial
+    )
     exam_trick: str  # Negation, Superlative, Absolute, Scenario, Trap
 
 
@@ -18,7 +20,7 @@ class Question:
 class StudentAnswer:
     student_name: str
     question_number: int
-    selected_answer: str
+    selected_answer: Optional[str]
     is_correct: bool
 
 

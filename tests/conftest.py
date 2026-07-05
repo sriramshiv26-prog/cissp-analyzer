@@ -32,22 +32,16 @@ from pathlib import Path
 from typing import Dict, Any
 import pandas as pd
 
-
 # ============================================================================
 # Pytest Configuration
 # ============================================================================
 
+
 def pytest_configure(config):
     """Register custom pytest markers."""
-    config.addinivalue_line(
-        "markers", "functional: mark test as functional test"
-    )
-    config.addinivalue_line(
-        "markers", "integration: mark test as integration test"
-    )
-    config.addinivalue_line(
-        "markers", "unit: mark test as unit test"
-    )
+    config.addinivalue_line("markers", "functional: mark test as functional test")
+    config.addinivalue_line("markers", "integration: mark test as integration test")
+    config.addinivalue_line("markers", "unit: mark test as unit test")
     config.addinivalue_line(
         "markers", "performance: mark test as performance benchmark"
     )
@@ -56,6 +50,7 @@ def pytest_configure(config):
 # ============================================================================
 # FIXTURE: temp_test_dir
 # ============================================================================
+
 
 @pytest.fixture
 def temp_test_dir():
@@ -80,6 +75,7 @@ def temp_test_dir():
 
     # Cleanup: Remove all files and subdirectories
     import shutil
+
     if temp_dir.exists():
         shutil.rmtree(temp_dir)
 
@@ -87,6 +83,7 @@ def temp_test_dir():
 # ============================================================================
 # FIXTURE: sample_student_data
 # ============================================================================
+
 
 @pytest.fixture
 def sample_student_data() -> Dict[str, Dict[str, Any]]:
@@ -113,12 +110,32 @@ def sample_student_data() -> Dict[str, Dict[str, Any]]:
             "wrong": 18,
             "percentage": 85.6,
             "domain_breakdown": {
-                "Security & Risk Management": {"correct": 15, "total": 17, "percentage": 88.2},
+                "Security & Risk Management": {
+                    "correct": 15,
+                    "total": 17,
+                    "percentage": 88.2,
+                },
                 "Asset Security": {"correct": 14, "total": 17, "percentage": 82.4},
-                "Security Architecture & Engineering": {"correct": 17, "total": 18, "percentage": 94.4},
-                "Communication & Network Security": {"correct": 16, "total": 18, "percentage": 88.9},
-                "Identity & Access Management": {"correct": 16, "total": 18, "percentage": 88.9},
-                "Security Assessment & Testing": {"correct": 15, "total": 17, "percentage": 88.2},
+                "Security Architecture & Engineering": {
+                    "correct": 17,
+                    "total": 18,
+                    "percentage": 94.4,
+                },
+                "Communication & Network Security": {
+                    "correct": 16,
+                    "total": 18,
+                    "percentage": 88.9,
+                },
+                "Identity & Access Management": {
+                    "correct": 16,
+                    "total": 18,
+                    "percentage": 88.9,
+                },
+                "Security Assessment & Testing": {
+                    "correct": 15,
+                    "total": 17,
+                    "percentage": 88.2,
+                },
                 "Security Operations": {"correct": 14, "total": 18, "percentage": 77.8},
             },
             "difficulty_breakdown": {
@@ -133,12 +150,32 @@ def sample_student_data() -> Dict[str, Dict[str, Any]]:
             "wrong": 23,
             "percentage": 81.6,
             "domain_breakdown": {
-                "Security & Risk Management": {"correct": 14, "total": 17, "percentage": 82.4},
+                "Security & Risk Management": {
+                    "correct": 14,
+                    "total": 17,
+                    "percentage": 82.4,
+                },
                 "Asset Security": {"correct": 12, "total": 17, "percentage": 70.6},
-                "Security Architecture & Engineering": {"correct": 15, "total": 18, "percentage": 83.3},
-                "Communication & Network Security": {"correct": 15, "total": 18, "percentage": 83.3},
-                "Identity & Access Management": {"correct": 15, "total": 18, "percentage": 83.3},
-                "Security Assessment & Testing": {"correct": 14, "total": 17, "percentage": 82.4},
+                "Security Architecture & Engineering": {
+                    "correct": 15,
+                    "total": 18,
+                    "percentage": 83.3,
+                },
+                "Communication & Network Security": {
+                    "correct": 15,
+                    "total": 18,
+                    "percentage": 83.3,
+                },
+                "Identity & Access Management": {
+                    "correct": 15,
+                    "total": 18,
+                    "percentage": 83.3,
+                },
+                "Security Assessment & Testing": {
+                    "correct": 14,
+                    "total": 17,
+                    "percentage": 82.4,
+                },
                 "Security Operations": {"correct": 12, "total": 18, "percentage": 66.7},
             },
             "difficulty_breakdown": {
@@ -153,12 +190,32 @@ def sample_student_data() -> Dict[str, Dict[str, Any]]:
             "wrong": 28,
             "percentage": 77.6,
             "domain_breakdown": {
-                "Security & Risk Management": {"correct": 13, "total": 17, "percentage": 76.5},
+                "Security & Risk Management": {
+                    "correct": 13,
+                    "total": 17,
+                    "percentage": 76.5,
+                },
                 "Asset Security": {"correct": 11, "total": 17, "percentage": 64.7},
-                "Security Architecture & Engineering": {"correct": 14, "total": 18, "percentage": 77.8},
-                "Communication & Network Security": {"correct": 14, "total": 18, "percentage": 77.8},
-                "Identity & Access Management": {"correct": 14, "total": 18, "percentage": 77.8},
-                "Security Assessment & Testing": {"correct": 13, "total": 17, "percentage": 76.5},
+                "Security Architecture & Engineering": {
+                    "correct": 14,
+                    "total": 18,
+                    "percentage": 77.8,
+                },
+                "Communication & Network Security": {
+                    "correct": 14,
+                    "total": 18,
+                    "percentage": 77.8,
+                },
+                "Identity & Access Management": {
+                    "correct": 14,
+                    "total": 18,
+                    "percentage": 77.8,
+                },
+                "Security Assessment & Testing": {
+                    "correct": 13,
+                    "total": 17,
+                    "percentage": 76.5,
+                },
                 "Security Operations": {"correct": 12, "total": 18, "percentage": 66.7},
             },
             "difficulty_breakdown": {
@@ -173,6 +230,7 @@ def sample_student_data() -> Dict[str, Dict[str, Any]]:
 # ============================================================================
 # FIXTURE: sample_answer_key
 # ============================================================================
+
 
 @pytest.fixture
 def sample_answer_key() -> Dict[str, str]:
@@ -223,6 +281,7 @@ def sample_answer_key() -> Dict[str, str]:
 # FIXTURE: sample_excel_file
 # ============================================================================
 
+
 @pytest.fixture
 def sample_excel_file(temp_test_dir, sample_answer_key, sample_student_data):
     """
@@ -256,7 +315,26 @@ def sample_excel_file(temp_test_dir, sample_answer_key, sample_student_data):
     # TestStudent1: 107 correct out of 125
     student1_answers = []
     for q in range(1, 126):
-        if q in [3, 7, 15, 22, 34, 45, 56, 67, 78, 89, 95, 105, 110, 112, 115, 118, 120, 124]:
+        if q in [
+            3,
+            7,
+            15,
+            22,
+            34,
+            45,
+            56,
+            67,
+            78,
+            89,
+            95,
+            105,
+            110,
+            112,
+            115,
+            118,
+            120,
+            124,
+        ]:
             # Wrong answer (18 wrong total)
             correct = sample_answer_key[str(q)]
             wrong_answers = [a for a in "ABCD" if a != correct]
@@ -268,11 +346,37 @@ def sample_excel_file(temp_test_dir, sample_answer_key, sample_student_data):
     # TestStudent2: 102 correct out of 125
     student2_answers = []
     for q in range(1, 126):
-        if q in [5, 12, 23, 34, 45, 56, 67, 78, 89, 100, 111, 122, 10, 20, 30, 40, 50, 60, 70, 80, 90, 110, 120]:
+        if q in [
+            5,
+            12,
+            23,
+            34,
+            45,
+            56,
+            67,
+            78,
+            89,
+            100,
+            111,
+            122,
+            10,
+            20,
+            30,
+            40,
+            50,
+            60,
+            70,
+            80,
+            90,
+            110,
+            120,
+        ]:
             # Wrong answer (23 wrong total)
             correct = sample_answer_key[str(q)]
             wrong_answers = [a for a in "ABCD" if a != correct]
-            student2_answers.append(wrong_answers[1] if len(wrong_answers) > 1 else wrong_answers[0])
+            student2_answers.append(
+                wrong_answers[1] if len(wrong_answers) > 1 else wrong_answers[0]
+            )
         else:
             student2_answers.append(sample_answer_key[str(q)])
     data["TestStudent2"] = student2_answers
@@ -280,11 +384,41 @@ def sample_excel_file(temp_test_dir, sample_answer_key, sample_student_data):
     # TestStudent3: 97 correct out of 125
     student3_answers = []
     for q in range(1, 126):
-        if q in [2, 8, 16, 24, 32, 42, 52, 62, 72, 82, 92, 102, 112, 6, 11, 18, 28, 38, 48, 58, 68, 85, 96, 107, 119, 123, 125]:
+        if q in [
+            2,
+            8,
+            16,
+            24,
+            32,
+            42,
+            52,
+            62,
+            72,
+            82,
+            92,
+            102,
+            112,
+            6,
+            11,
+            18,
+            28,
+            38,
+            48,
+            58,
+            68,
+            85,
+            96,
+            107,
+            119,
+            123,
+            125,
+        ]:
             # Wrong answer (28 wrong total)
             correct = sample_answer_key[str(q)]
             wrong_answers = [a for a in "ABCD" if a != correct]
-            student3_answers.append(wrong_answers[2] if len(wrong_answers) > 2 else wrong_answers[0])
+            student3_answers.append(
+                wrong_answers[2] if len(wrong_answers) > 2 else wrong_answers[0]
+            )
         else:
             student3_answers.append(sample_answer_key[str(q)])
     data["TestStudent3"] = student3_answers
@@ -300,6 +434,7 @@ def sample_excel_file(temp_test_dir, sample_answer_key, sample_student_data):
 # ============================================================================
 # FIXTURE: sample_answer_key_file
 # ============================================================================
+
 
 @pytest.fixture
 def sample_answer_key_file(temp_test_dir, sample_answer_key):
@@ -325,7 +460,7 @@ def sample_answer_key_file(temp_test_dir, sample_answer_key):
     """
     answer_key_path = temp_test_dir / "answer_key.json"
 
-    with open(answer_key_path, 'w') as f:
+    with open(answer_key_path, "w") as f:
         json.dump(sample_answer_key, f, indent=2)
 
     return answer_key_path
@@ -334,6 +469,7 @@ def sample_answer_key_file(temp_test_dir, sample_answer_key):
 # ============================================================================
 # FIXTURE: sample_history_folder
 # ============================================================================
+
 
 @pytest.fixture
 def sample_history_folder(temp_test_dir):
@@ -380,18 +516,38 @@ def sample_history_folder(temp_test_dir):
         "correct": 82,
         "total": 125,
         "by_domain": {
-            "Security & Risk Management": {"correct": 10, "total": 17, "percentage": 58.8},
+            "Security & Risk Management": {
+                "correct": 10,
+                "total": 17,
+                "percentage": 58.8,
+            },
             "Asset Security": {"correct": 9, "total": 17, "percentage": 52.9},
-            "Security Architecture & Engineering": {"correct": 11, "total": 18, "percentage": 61.1},
-            "Communication & Network Security": {"correct": 11, "total": 18, "percentage": 61.1},
-            "Identity & Access Management": {"correct": 12, "total": 18, "percentage": 66.7},
-            "Security Assessment & Testing": {"correct": 12, "total": 17, "percentage": 70.6},
+            "Security Architecture & Engineering": {
+                "correct": 11,
+                "total": 18,
+                "percentage": 61.1,
+            },
+            "Communication & Network Security": {
+                "correct": 11,
+                "total": 18,
+                "percentage": 61.1,
+            },
+            "Identity & Access Management": {
+                "correct": 12,
+                "total": 18,
+                "percentage": 66.7,
+            },
+            "Security Assessment & Testing": {
+                "correct": 12,
+                "total": 17,
+                "percentage": 70.6,
+            },
             "Security Operations": {"correct": 11, "total": 18, "percentage": 61.1},
         },
     }
 
     history_file = student2_dir / "exam-1_performance.json"
-    with open(history_file, 'w') as f:
+    with open(history_file, "w") as f:
         json.dump(previous_exam_data, f, indent=2)
 
     return history_dir
@@ -400,6 +556,7 @@ def sample_history_folder(temp_test_dir):
 # ============================================================================
 # FIXTURE: output_dir
 # ============================================================================
+
 
 @pytest.fixture
 def output_dir(temp_test_dir):

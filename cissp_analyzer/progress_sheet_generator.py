@@ -29,7 +29,7 @@ class ProgressSheetGenerator:
         """
         wb = Workbook()
         ws = wb.active
-        ws.title = 'Progress Over Time'
+        ws.title = "Progress Over Time"
 
         current_row = 1
 
@@ -43,7 +43,7 @@ class ProgressSheetGenerator:
         current_row = self._add_question_type_section(ws, exams, current_row)
 
         # Set column widths for readability
-        ws.column_dimensions['A'].width = 35
+        ws.column_dimensions["A"].width = 35
         for i in range(2, len(exams) + 2):
             col_letter = chr(64 + i)  # Convert to column letter (B, C, D, etc.)
             ws.column_dimensions[col_letter].width = 15
@@ -53,35 +53,39 @@ class ProgressSheetGenerator:
     def _add_domain_section(self, ws, exams: List[Dict], start_row: int) -> int:
         """Add Section A: Domain Accuracy Over Time"""
         # Section header
-        ws[f'A{start_row}'] = 'A. Domain Accuracy Over Time'
-        ws[f'A{start_row}'].font = Font(bold=True, size=12)
+        ws[f"A{start_row}"] = "A. Domain Accuracy Over Time"
+        ws[f"A{start_row}"].font = Font(bold=True, size=12)
         row = start_row + 1
 
         # Get domain trends
         domain_trends = self.calculator.calculate_domain_trends(exams)
 
         # Column headers: Domain | Exam 1 | Exam 2 | ...
-        ws[f'A{row}'] = 'Domain'
-        ws[f'A{row}'].font = Font(bold=True)
-        ws[f'A{row}'].fill = PatternFill(start_color='D3D3D3', end_color='D3D3D3', fill_type='solid')
+        ws[f"A{row}"] = "Domain"
+        ws[f"A{row}"].font = Font(bold=True)
+        ws[f"A{row}"].fill = PatternFill(
+            start_color="D3D3D3", end_color="D3D3D3", fill_type="solid"
+        )
 
         for exam_idx, exam in enumerate(exams, start=1):
             col_letter = chr(64 + exam_idx + 1)  # B, C, D, etc.
-            exam_name = exam.get('exam_name', f'Exam {exam_idx}')
-            ws[f'{col_letter}{row}'] = exam_name
-            ws[f'{col_letter}{row}'].font = Font(bold=True)
-            ws[f'{col_letter}{row}'].fill = PatternFill(start_color='D3D3D3', end_color='D3D3D3', fill_type='solid')
-            ws[f'{col_letter}{row}'].alignment = Alignment(horizontal='center')
+            exam_name = exam.get("exam_name", f"Exam {exam_idx}")
+            ws[f"{col_letter}{row}"] = exam_name
+            ws[f"{col_letter}{row}"].font = Font(bold=True)
+            ws[f"{col_letter}{row}"].fill = PatternFill(
+                start_color="D3D3D3", end_color="D3D3D3", fill_type="solid"
+            )
+            ws[f"{col_letter}{row}"].alignment = Alignment(horizontal="center")
 
         row += 1
 
         # Data rows: one per domain
         for domain, accuracies in sorted(domain_trends.items()):
-            ws[f'A{row}'] = domain
+            ws[f"A{row}"] = domain
             for exam_idx, accuracy in enumerate(accuracies, start=1):
                 col_letter = chr(64 + exam_idx + 1)
-                ws[f'{col_letter}{row}'] = accuracy
-                ws[f'{col_letter}{row}'].number_format = '0%'
+                ws[f"{col_letter}{row}"] = accuracy
+                ws[f"{col_letter}{row}"].number_format = "0%"
             row += 1
 
         return row + 1
@@ -89,35 +93,39 @@ class ProgressSheetGenerator:
     def _add_difficulty_section(self, ws, exams: List[Dict], start_row: int) -> int:
         """Add Section B: Difficulty Progression"""
         # Section header
-        ws[f'A{start_row}'] = 'B. Difficulty Progression'
-        ws[f'A{start_row}'].font = Font(bold=True, size=12)
+        ws[f"A{start_row}"] = "B. Difficulty Progression"
+        ws[f"A{start_row}"].font = Font(bold=True, size=12)
         row = start_row + 1
 
         # Get difficulty trends
         difficulty_trends = self.calculator.calculate_difficulty_trends(exams)
 
         # Column headers: Difficulty | Exam 1 | Exam 2 | ...
-        ws[f'A{row}'] = 'Difficulty'
-        ws[f'A{row}'].font = Font(bold=True)
-        ws[f'A{row}'].fill = PatternFill(start_color='D3D3D3', end_color='D3D3D3', fill_type='solid')
+        ws[f"A{row}"] = "Difficulty"
+        ws[f"A{row}"].font = Font(bold=True)
+        ws[f"A{row}"].fill = PatternFill(
+            start_color="D3D3D3", end_color="D3D3D3", fill_type="solid"
+        )
 
         for exam_idx, exam in enumerate(exams, start=1):
             col_letter = chr(64 + exam_idx + 1)  # B, C, D, etc.
-            exam_name = exam.get('exam_name', f'Exam {exam_idx}')
-            ws[f'{col_letter}{row}'] = exam_name
-            ws[f'{col_letter}{row}'].font = Font(bold=True)
-            ws[f'{col_letter}{row}'].fill = PatternFill(start_color='D3D3D3', end_color='D3D3D3', fill_type='solid')
-            ws[f'{col_letter}{row}'].alignment = Alignment(horizontal='center')
+            exam_name = exam.get("exam_name", f"Exam {exam_idx}")
+            ws[f"{col_letter}{row}"] = exam_name
+            ws[f"{col_letter}{row}"].font = Font(bold=True)
+            ws[f"{col_letter}{row}"].fill = PatternFill(
+                start_color="D3D3D3", end_color="D3D3D3", fill_type="solid"
+            )
+            ws[f"{col_letter}{row}"].alignment = Alignment(horizontal="center")
 
         row += 1
 
         # Data rows: one per difficulty level
         for difficulty, accuracies in sorted(difficulty_trends.items()):
-            ws[f'A{row}'] = difficulty
+            ws[f"A{row}"] = difficulty
             for exam_idx, accuracy in enumerate(accuracies, start=1):
                 col_letter = chr(64 + exam_idx + 1)
-                ws[f'{col_letter}{row}'] = accuracy
-                ws[f'{col_letter}{row}'].number_format = '0%'
+                ws[f"{col_letter}{row}"] = accuracy
+                ws[f"{col_letter}{row}"].number_format = "0%"
             row += 1
 
         return row + 1
@@ -125,35 +133,39 @@ class ProgressSheetGenerator:
     def _add_question_type_section(self, ws, exams: List[Dict], start_row: int) -> int:
         """Add Section C: Question Type Mastery"""
         # Section header
-        ws[f'A{start_row}'] = 'C. Question Type Mastery'
-        ws[f'A{start_row}'].font = Font(bold=True, size=12)
+        ws[f"A{start_row}"] = "C. Question Type Mastery"
+        ws[f"A{start_row}"].font = Font(bold=True, size=12)
         row = start_row + 1
 
         # Get question type trends
         question_type_trends = self.calculator.calculate_question_type_trends(exams)
 
         # Column headers: Question Type | Exam 1 | Exam 2 | ...
-        ws[f'A{row}'] = 'Question Type'
-        ws[f'A{row}'].font = Font(bold=True)
-        ws[f'A{row}'].fill = PatternFill(start_color='D3D3D3', end_color='D3D3D3', fill_type='solid')
+        ws[f"A{row}"] = "Question Type"
+        ws[f"A{row}"].font = Font(bold=True)
+        ws[f"A{row}"].fill = PatternFill(
+            start_color="D3D3D3", end_color="D3D3D3", fill_type="solid"
+        )
 
         for exam_idx, exam in enumerate(exams, start=1):
             col_letter = chr(64 + exam_idx + 1)  # B, C, D, etc.
-            exam_name = exam.get('exam_name', f'Exam {exam_idx}')
-            ws[f'{col_letter}{row}'] = exam_name
-            ws[f'{col_letter}{row}'].font = Font(bold=True)
-            ws[f'{col_letter}{row}'].fill = PatternFill(start_color='D3D3D3', end_color='D3D3D3', fill_type='solid')
-            ws[f'{col_letter}{row}'].alignment = Alignment(horizontal='center')
+            exam_name = exam.get("exam_name", f"Exam {exam_idx}")
+            ws[f"{col_letter}{row}"] = exam_name
+            ws[f"{col_letter}{row}"].font = Font(bold=True)
+            ws[f"{col_letter}{row}"].fill = PatternFill(
+                start_color="D3D3D3", end_color="D3D3D3", fill_type="solid"
+            )
+            ws[f"{col_letter}{row}"].alignment = Alignment(horizontal="center")
 
         row += 1
 
         # Data rows: one per question type
         for question_type, accuracies in sorted(question_type_trends.items()):
-            ws[f'A{row}'] = question_type
+            ws[f"A{row}"] = question_type
             for exam_idx, accuracy in enumerate(accuracies, start=1):
                 col_letter = chr(64 + exam_idx + 1)
-                ws[f'{col_letter}{row}'] = accuracy
-                ws[f'{col_letter}{row}'].number_format = '0%'
+                ws[f"{col_letter}{row}"] = accuracy
+                ws[f"{col_letter}{row}"].number_format = "0%"
             row += 1
 
         return row + 1

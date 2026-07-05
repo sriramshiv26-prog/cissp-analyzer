@@ -33,15 +33,15 @@ from typing import Union, List, Optional
 import openpyxl
 import shutil
 
-
 # ============================================================================
 # UTILITY: validate_excel_report
 # ============================================================================
 
+
 def validate_excel_report(
     excel_path: Union[str, Path],
     expected_sheets: int = 9,
-    expected_sheet_names: Optional[List[str]] = None
+    expected_sheet_names: Optional[List[str]] = None,
 ) -> bool:
     """
     Validate Excel report structure and content.
@@ -92,16 +92,18 @@ def validate_excel_report(
 
     # Get actual sheet count
     sheet_count = len(workbook.sheetnames)
-    assert sheet_count == expected_sheets, \
-        f"Expected {expected_sheets} sheets, got {sheet_count}. " \
+    assert sheet_count == expected_sheets, (
+        f"Expected {expected_sheets} sheets, got {sheet_count}. "
         f"Sheets: {workbook.sheetnames}"
+    )
 
     # Verify expected sheet names exist (if provided)
     if expected_sheet_names:
         for sheet_name in expected_sheet_names:
-            assert sheet_name in workbook.sheetnames, \
-                f"Expected sheet '{sheet_name}' not found. " \
+            assert sheet_name in workbook.sheetnames, (
+                f"Expected sheet '{sheet_name}' not found. "
                 f"Available sheets: {workbook.sheetnames}"
+            )
 
     # Verify sheets are not empty
     for sheet_name in workbook.sheetnames:
@@ -119,9 +121,9 @@ def validate_excel_report(
 # UTILITY: validate_answer_key_json
 # ============================================================================
 
+
 def validate_answer_key_json(
-    json_path: Union[str, Path],
-    expected_count: int = 125
+    json_path: Union[str, Path], expected_count: int = 125
 ) -> bool:
     """
     Validate answer key JSON structure and content.
@@ -165,42 +167,39 @@ def validate_answer_key_json(
 
     # Load and validate JSON
     try:
-        with open(json_path, 'r') as f:
+        with open(json_path, "r") as f:
             data = json.load(f)
     except json.JSONDecodeError as e:
         raise json.JSONDecodeError(
-            f"Invalid JSON in {json_path}: {e.msg}",
-            e.doc,
-            e.pos
+            f"Invalid JSON in {json_path}: {e.msg}", e.doc, e.pos
         )
 
     # Validate structure
-    assert isinstance(data, dict), \
-        f"Expected dict, got {type(data).__name__}"
+    assert isinstance(data, dict), f"Expected dict, got {type(data).__name__}"
 
-    assert len(data) > 0, \
-        "Answer key is empty"
+    assert len(data) > 0, "Answer key is empty"
 
-    assert len(data) == expected_count, \
-        f"Expected {expected_count} questions, got {len(data)}"
+    assert (
+        len(data) == expected_count
+    ), f"Expected {expected_count} questions, got {len(data)}"
 
     # Validate question keys are numeric
     for key in data.keys():
         try:
             q_num = int(key)
-            assert 1 <= q_num <= expected_count, \
-                f"Question number {q_num} out of range (1-{expected_count})"
+            assert (
+                1 <= q_num <= expected_count
+            ), f"Question number {q_num} out of range (1-{expected_count})"
         except ValueError:
-            raise AssertionError(
-                f"Question key '{key}' is not numeric"
-            )
+            raise AssertionError(f"Question key '{key}' is not numeric")
 
     # Validate answer values are A, B, C, or D
-    valid_answers = {'A', 'B', 'C', 'D'}
+    valid_answers = {"A", "B", "C", "D"}
     for key, answer in data.items():
-        assert answer in valid_answers, \
-            f"Question {key}: Invalid answer '{answer}'. " \
+        assert answer in valid_answers, (
+            f"Question {key}: Invalid answer '{answer}'. "
             f"Must be one of {valid_answers}"
+        )
 
     return True
 
@@ -208,6 +207,7 @@ def validate_answer_key_json(
 # ============================================================================
 # UTILITY: validate_scores_not_zero
 # ============================================================================
+
 
 def validate_scores_not_zero(excel_path: Union[str, Path]) -> bool:
     """
@@ -256,8 +256,7 @@ def validate_scores_not_zero(excel_path: Union[str, Path]) -> bool:
     if not perf_sheet:
         perf_sheet = workbook[sheet_names[0]]  # Use first sheet as fallback
 
-    assert perf_sheet is not None, \
-        "No performance sheet found in workbook"
+    assert perf_sheet is not None, "No performance sheet found in workbook"
 
     # Look for percentage values in the sheet
     found_non_zero_score = False
@@ -280,10 +279,10 @@ def validate_scores_not_zero(excel_path: Union[str, Path]) -> bool:
 
             # Check if cell value is a percentage string (e.g., "85.6%")
             elif isinstance(cell.value, str):
-                if '%' in str(cell.value):
+                if "%" in str(cell.value):
                     found_any_percentage = True
                     try:
-                        percent_str = str(cell.value).replace('%', '').strip()
+                        percent_str = str(cell.value).replace("%", "").strip()
                         percent_val = float(percent_str)
                         if percent_val > 0:
                             found_non_zero_score = True
@@ -292,11 +291,9 @@ def validate_scores_not_zero(excel_path: Union[str, Path]) -> bool:
 
     workbook.close()
 
-    assert found_any_percentage, \
-        "No percentage values found in performance sheet"
+    assert found_any_percentage, "No percentage values found in performance sheet"
 
-    assert found_non_zero_score, \
-        "All scores are zero - report appears to have no data"
+    assert found_non_zero_score, "All scores are zero - report appears to have no data"
 
     return True
 
@@ -305,10 +302,8 @@ def validate_scores_not_zero(excel_path: Union[str, Path]) -> bool:
 # UTILITY: check_file_exists
 # ============================================================================
 
-def check_file_exists(
-    path: Union[str, Path],
-    file_type: str = "file"
-) -> bool:
+
+def check_file_exists(path: Union[str, Path], file_type: str = "file") -> bool:
     """
     Check if file or directory exists.
 
@@ -335,16 +330,13 @@ def check_file_exists(
     """
     path = Path(path)
 
-    assert path.exists(), \
-        f"Path does not exist: {path}"
+    assert path.exists(), f"Path does not exist: {path}"
 
     if file_type == "file":
-        assert path.is_file(), \
-            f"Expected file, but {path} is not a file"
+        assert path.is_file(), f"Expected file, but {path} is not a file"
 
     elif file_type == "dir":
-        assert path.is_dir(), \
-            f"Expected directory, but {path} is not a directory"
+        assert path.is_dir(), f"Expected directory, but {path} is not a directory"
 
     elif file_type == "any":
         # Just verify existence
@@ -352,8 +344,7 @@ def check_file_exists(
 
     else:
         raise ValueError(
-            f"Invalid file_type: {file_type}. "
-            f"Must be 'file', 'dir', or 'any'"
+            f"Invalid file_type: {file_type}. " f"Must be 'file', 'dir', or 'any'"
         )
 
     return True
@@ -362,6 +353,7 @@ def check_file_exists(
 # ============================================================================
 # UTILITY: cleanup_test_files
 # ============================================================================
+
 
 def cleanup_test_files(*paths: Union[str, Path]) -> None:
     """
@@ -406,10 +398,8 @@ def cleanup_test_files(*paths: Union[str, Path]) -> None:
 # UTILITY: get_sheet_data
 # ============================================================================
 
-def get_sheet_data(
-    excel_path: Union[str, Path],
-    sheet_name: str
-) -> list:
+
+def get_sheet_data(excel_path: Union[str, Path], sheet_name: str) -> list:
     """
     Extract data from Excel sheet.
 
@@ -459,6 +449,7 @@ def get_sheet_data(
 # ============================================================================
 # UTILITY: count_non_empty_rows
 # ============================================================================
+
 
 def count_non_empty_rows(excel_path: Union[str, Path], sheet_name: str) -> int:
     """

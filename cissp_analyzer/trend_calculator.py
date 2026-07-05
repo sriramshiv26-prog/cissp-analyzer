@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 
 class TrendCalculator:
@@ -11,7 +11,8 @@ class TrendCalculator:
         """Initialize TrendCalculator with configurable threshold.
 
         Args:
-            trend_threshold: Minimum change (0-1) to classify as improving/declining. Default 0.05 (5%).
+            trend_threshold: Min change to classify as improving/declining.
+                Default 0.05 (5%).
         """
         self.TREND_THRESHOLD = trend_threshold
 
@@ -25,7 +26,7 @@ class TrendCalculator:
         Returns:
             Dictionary mapping domain names to lists of accuracy scores across exams
         """
-        trends = {}
+        trends: Dict[str, List[float]] = {}
 
         for exam in exams:
             by_domain = exam.get("by_domain", {})
@@ -42,12 +43,12 @@ class TrendCalculator:
         Calculate difficulty level accuracy trends across multiple exams.
 
         Args:
-            exams: List of exam dictionaries, each containing "by_difficulty" key with difficulty accuracies
+            exams: List of exam dicts with "by_difficulty" key
 
         Returns:
-            Dictionary mapping difficulty levels to lists of accuracy scores across exams
+            Dict mapping difficulty levels to lists of accuracy scores
         """
-        trends = {}
+        trends: Dict[str, List[float]] = {}
 
         for exam in exams:
             by_difficulty = exam.get("by_difficulty", {})
@@ -59,17 +60,19 @@ class TrendCalculator:
 
         return trends
 
-    def calculate_question_type_trends(self, exams: List[Dict]) -> Dict[str, List[float]]:
+    def calculate_question_type_trends(
+        self, exams: List[Dict]
+    ) -> Dict[str, List[float]]:
         """
         Calculate question type accuracy trends across multiple exams.
 
         Args:
-            exams: List of exam dictionaries, each containing "by_question_type" key with question type accuracies
+            exams: List of exam dicts with "by_question_type" key
 
         Returns:
-            Dictionary mapping question types to lists of accuracy scores across exams
+            Dict mapping question types to lists of accuracy scores
         """
-        trends = {}
+        trends: Dict[str, List[float]] = {}
 
         for exam in exams:
             by_question_type = exam.get("by_question_type", {})
@@ -108,7 +111,9 @@ class TrendCalculator:
         else:
             return "stable"
 
-    def get_momentum_score(self, previous_accuracy: float, current_accuracy: float) -> float:
+    def get_momentum_score(
+        self, previous_accuracy: float, current_accuracy: float
+    ) -> float:
         """
         Calculate momentum score between two accuracy values.
 
@@ -121,8 +126,9 @@ class TrendCalculator:
         """
         return current_accuracy - previous_accuracy
 
-    def calculate_priority_score(self, current_accuracy: float,
-                                previous_accuracy: float = None) -> float:
+    def calculate_priority_score(
+        self, current_accuracy: float, previous_accuracy: Optional[float] = None
+    ) -> float:
         """
         Calculate domain priority score for study recommendations.
 
@@ -153,8 +159,9 @@ class TrendCalculator:
         # Round to avoid floating-point precision issues
         return round(priority, 10)
 
-    def rank_domains_by_priority(self, current_exam: Dict,
-                                previous_exam: Dict = None) -> List[Dict]:
+    def rank_domains_by_priority(
+        self, current_exam: Dict, previous_exam: Optional[Dict] = None
+    ) -> List[Dict]:
         """
         Rank domains by priority score (weakness + momentum).
 
@@ -179,13 +186,15 @@ class TrendCalculator:
 
             priority_score = self.calculate_priority_score(current_acc, previous_acc)
 
-            domains.append({
-                "domain": domain,
-                "current_accuracy": current_acc,
-                "previous_accuracy": previous_acc,
-                "momentum": momentum,
-                "priority_score": priority_score
-            })
+            domains.append(
+                {
+                    "domain": domain,
+                    "current_accuracy": current_acc,
+                    "previous_accuracy": previous_acc,
+                    "momentum": momentum,
+                    "priority_score": priority_score,
+                }
+            )
 
         # Sort by priority score descending (highest priority first)
         domains.sort(key=lambda x: x["priority_score"], reverse=True)

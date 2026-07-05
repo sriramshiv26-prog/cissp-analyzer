@@ -53,10 +53,10 @@ from pathlib import Path
 from typing import List, Tuple
 import pytest
 
-
 # ============================================================================
 # HELPERS: Tool Detection and Subprocess Utilities
 # ============================================================================
+
 
 def is_tool_available(tool_name: str) -> bool:
     """
@@ -76,7 +76,9 @@ def is_tool_available(tool_name: str) -> bool:
         return False
 
 
-def run_subprocess_command(command: List[str], timeout: int = 30) -> Tuple[int, str, str]:
+def run_subprocess_command(
+    command: List[str], timeout: int = 30
+) -> Tuple[int, str, str]:
     """
     Run a subprocess command safely with timeout.
 
@@ -92,18 +94,12 @@ def run_subprocess_command(command: List[str], timeout: int = 30) -> Tuple[int, 
     """
     try:
         result = subprocess.run(
-            command,
-            capture_output=True,
-            text=True,
-            timeout=timeout
+            command, capture_output=True, text=True, timeout=timeout
         )
         return result.returncode, result.stdout, result.stderr
     except subprocess.TimeoutExpired as e:
         raise subprocess.TimeoutExpired(
-            cmd=command,
-            timeout=timeout,
-            output=e.stdout,
-            stderr=e.stderr
+            cmd=command, timeout=timeout, output=e.stdout, stderr=e.stderr
         )
 
 
@@ -121,12 +117,13 @@ def get_project_root() -> Path:
 # CLASS: TestTypeChecking
 # ============================================================================
 
+
 class TestTypeChecking:
     """Tests for type hint validation using mypy"""
 
     @pytest.mark.skipif(
         not is_tool_available("mypy"),
-        reason="mypy not installed. Install with: pip install mypy"
+        reason="mypy not installed. Install with: pip install mypy",
     )
     def test_mypy_passes_on_critical_files(self):
         """
@@ -164,15 +161,16 @@ class TestTypeChecking:
         for file_path in existing_files:
             try:
                 return_code, stdout, stderr = run_subprocess_command(
-                    ["mypy", "--ignore-missing-imports", str(file_path)],
-                    timeout=30
+                    ["mypy", "--ignore-missing-imports", str(file_path)], timeout=30
                 )
 
                 if return_code != 0:
-                    type_issues.append({
-                        "file": str(file_path.relative_to(project_root)),
-                        "output": stdout + stderr
-                    })
+                    type_issues.append(
+                        {
+                            "file": str(file_path.relative_to(project_root)),
+                            "output": stdout + stderr,
+                        }
+                    )
             except subprocess.TimeoutExpired:
                 pytest.skip(f"mypy timeout on {file_path}")
             except Exception as e:
@@ -180,16 +178,18 @@ class TestTypeChecking:
 
         # Log results as warnings (not failures) since existing code may have issues
         if type_issues:
-            warning_message = "⚠️  mypy type checking issues detected (informational only):\n\n"
+            warning_message = (
+                "⚠️  mypy type checking issues detected (informational only):\n\n"
+            )
             for item in type_issues:
                 warning_message += f"  {item['file']}:\n"
                 # Show only first few lines of output to avoid cluttering
-                lines = item['output'].split('\n')[:5]
+                lines = item["output"].split("\n")[:5]
                 for line in lines:
                     if line.strip():
                         warning_message += f"    {line}\n"
-                if len(item['output'].split('\n')) > 5:
-                    total_issues = len(item['output'].split('\n'))
+                if len(item["output"].split("\n")) > 5:
+                    total_issues = len(item["output"].split("\n"))
                     warning_message += f"    ... ({total_issues} total issues)\n"
             # Print warning but don't fail - this is tracked for future refactoring
             print("\n" + warning_message)
@@ -199,12 +199,13 @@ class TestTypeChecking:
 # CLASS: TestCodeFormatting
 # ============================================================================
 
+
 class TestCodeFormatting:
     """Tests for code formatting validation using black"""
 
     @pytest.mark.skipif(
         not is_tool_available("black"),
-        reason="black not installed. Install with: pip install black"
+        reason="black not installed. Install with: pip install black",
     )
     def test_black_formatting_correct(self):
         """
@@ -229,15 +230,16 @@ class TestCodeFormatting:
         for directory in existing_dirs:
             try:
                 return_code, stdout, stderr = run_subprocess_command(
-                    ["black", "--check", str(directory)],
-                    timeout=10
+                    ["black", "--check", str(directory)], timeout=10
                 )
 
                 if return_code != 0:
-                    failed_dirs.append({
-                        "dir": str(directory.relative_to(project_root)),
-                        "output": stdout + stderr
-                    })
+                    failed_dirs.append(
+                        {
+                            "dir": str(directory.relative_to(project_root)),
+                            "output": stdout + stderr,
+                        }
+                    )
             except subprocess.TimeoutExpired:
                 pytest.fail(f"black timeout on {directory}")
             except Exception as e:
@@ -256,12 +258,13 @@ class TestCodeFormatting:
 # CLASS: TestLinting
 # ============================================================================
 
+
 class TestLinting:
     """Tests for linting validation using flake8"""
 
     @pytest.mark.skipif(
         not is_tool_available("flake8"),
-        reason="flake8 not installed. Install with: pip install flake8"
+        reason="flake8 not installed. Install with: pip install flake8",
     )
     def test_flake8_no_violations(self):
         """
@@ -297,20 +300,24 @@ class TestLinting:
                     "flake8",
                     *existing_paths,
                     "--max-line-length=100",
-                    "--extend-ignore=E203,W503"
+                    "--extend-ignore=E203,W503",
                 ],
-                timeout=30
+                timeout=30,
             )
 
             if return_code != 0:
                 # Log violations as warnings (not failures) since existing code may have issues
-                warning_message = "⚠️  flake8 linting issues detected (informational only):\n\n"
-                lines = stdout.split('\n')[:10]  # Show first 10 issues
+                warning_message = (
+                    "⚠️  flake8 linting issues detected (informational only):\n\n"
+                )
+                lines = stdout.split("\n")[:10]  # Show first 10 issues
                 for line in lines:
                     if line.strip():
                         warning_message += f"  {line}\n"
-                if len(stdout.split('\n')) > 10:
-                    warning_message += f"  ... ({len(stdout.split(chr(10)))} total issues)\n"
+                if len(stdout.split("\n")) > 10:
+                    warning_message += (
+                        f"  ... ({len(stdout.split(chr(10)))} total issues)\n"
+                    )
                 # Print warning but don't fail - this is tracked for future refactoring
                 print("\n" + warning_message)
 
@@ -323,6 +330,7 @@ class TestLinting:
 # ============================================================================
 # CLASS: TestImportConsistency
 # ============================================================================
+
 
 class TestImportConsistency:
     """Tests for import consistency and circular dependencies"""
@@ -357,7 +365,7 @@ class TestImportConsistency:
 
     @pytest.mark.skipif(
         not is_tool_available("pylint"),
-        reason="pylint not installed. Install with: pip install pylint"
+        reason="pylint not installed. Install with: pip install pylint",
     )
     def test_no_unused_imports_in_entry_points(self):
         """
@@ -390,17 +398,19 @@ class TestImportConsistency:
                         str(file_path),
                         "--disable=all",
                         "--enable=unused-import",
-                        "--exit-zero"
+                        "--exit-zero",
                     ],
-                    timeout=30
+                    timeout=30,
                 )
 
                 # Check for unused-import in output
                 if "unused-import" in stdout or "W0611" in stdout:
-                    failed_files.append({
-                        "file": str(file_path.relative_to(project_root)),
-                        "output": stdout
-                    })
+                    failed_files.append(
+                        {
+                            "file": str(file_path.relative_to(project_root)),
+                            "output": stdout,
+                        }
+                    )
             except subprocess.TimeoutExpired:
                 # Skip on timeout (pylint can be slow)
                 pytest.skip(f"pylint timeout on {file_path}")
@@ -418,6 +428,7 @@ class TestImportConsistency:
 # ============================================================================
 # CLASS: TestDeprecatedUsage
 # ============================================================================
+
 
 class TestDeprecatedUsage:
     """Tests for deprecated API usage and version compatibility"""
@@ -458,26 +469,30 @@ class TestDeprecatedUsage:
 
             for py_file in py_files:
                 try:
-                    with open(py_file, 'r', encoding='utf-8') as f:
+                    with open(py_file, "r", encoding="utf-8") as f:
                         content = f.read()
 
                     for pattern, message in deprecated_patterns.items():
                         if pattern in content:
                             # Count occurrences
                             count = content.count(pattern)
-                            violations.append({
-                                "file": str(py_file.relative_to(project_root)),
-                                "pattern": pattern,
-                                "message": message,
-                                "count": count
-                            })
+                            violations.append(
+                                {
+                                    "file": str(py_file.relative_to(project_root)),
+                                    "pattern": pattern,
+                                    "message": message,
+                                    "count": count,
+                                }
+                            )
 
                 except (UnicodeDecodeError, IOError):
                     # Skip files that can't be read
                     pass
 
         if violations:
-            warning_message = "⚠️  Deprecated pandas API usage found (informational):\n\n"
+            warning_message = (
+                "⚠️  Deprecated pandas API usage found (informational):\n\n"
+            )
             for v in violations:
                 warning_message += (
                     f"  {v['file']}: {v['count']} occurrence(s)\n"
@@ -507,7 +522,7 @@ class TestDeprecatedUsage:
             py_compile.compile(str(target_file), doraise=True)
 
             # Verify it has Python 3.9+ features (type hints, etc.)
-            with open(target_file, 'r', encoding='utf-8') as f:
+            with open(target_file, "r", encoding="utf-8") as f:
                 content = f.read()
 
             # Should have type hints (basic check)
@@ -526,6 +541,7 @@ class TestDeprecatedUsage:
 # ============================================================================
 # CLASS: TestCodeQualityIntegration
 # ============================================================================
+
 
 class TestCodeQualityIntegration:
     """Integration tests for overall code quality"""
@@ -553,10 +569,9 @@ class TestCodeQualityIntegration:
             try:
                 py_compile.compile(str(py_file), doraise=True)
             except py_compile.PyCompileError as e:
-                compilation_errors.append({
-                    "file": str(py_file.relative_to(project_root)),
-                    "error": str(e)
-                })
+                compilation_errors.append(
+                    {"file": str(py_file.relative_to(project_root)), "error": str(e)}
+                )
 
         if compilation_errors:
             error_message = "Syntax errors found in Python files:\n\n"
@@ -588,6 +603,4 @@ class TestCodeQualityIntegration:
             try:
                 py_compile.compile(str(py_file), doraise=True)
             except py_compile.PyCompileError as e:
-                pytest.fail(
-                    f"Syntax error in {py_file.name}: {e}"
-                )
+                pytest.fail(f"Syntax error in {py_file.name}: {e}")

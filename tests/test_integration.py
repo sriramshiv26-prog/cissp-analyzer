@@ -60,10 +60,10 @@ from cissp_analyzer.history_loader import HistoryLoader
 from cissp_analyzer.individual_report_gen import IndividualReportGenerator
 from cissp_analyzer.analysis_engine import AnalysisEngine
 
-
 # ============================================================================
 # TEST CLASS 1: Interactive CLI ↔ Main.py Integration
 # ============================================================================
+
 
 class TestInteractiveCliMainIntegration:
     """
@@ -72,7 +72,9 @@ class TestInteractiveCliMainIntegration:
     """
 
     @pytest.mark.integration
-    def test_user_input_flows_to_analyzer(self, temp_test_dir, sample_excel_file, sample_answer_key):
+    def test_user_input_flows_to_analyzer(
+        self, temp_test_dir, sample_excel_file, sample_answer_key
+    ):
         """
         Integration Test 1.1: User input flows through CLI to analyzer
 
@@ -92,31 +94,34 @@ class TestInteractiveCliMainIntegration:
 
         # Create answer key JSON
         answer_key_json = temp_test_dir / "mock_exam_answer_key.json"
-        with open(answer_key_json, 'w') as f:
+        with open(answer_key_json, "w") as f:
             json.dump(sample_answer_key, f)
 
         # Initialize analyzer
-        analyzer = CISSPAnalyzer(mapping_file='data/question_domain_mapping.json')
+        analyzer = CISSPAnalyzer(mapping_file="data/question_domain_mapping.json")
 
         # Mock the PDF parser and analysis engine to avoid file parsing complexity
-        with patch('cissp_analyzer.main.PDFParser') as mock_pdf_parser, \
-             patch('cissp_analyzer.main.ExcelParser') as mock_excel_parser, \
-             patch.object(analyzer, 'individual_gen') as mock_gen, \
-             patch.object(analyzer, 'class_gen') as mock_class_gen, \
-             patch.object(analyzer.analysis_engine, 'evaluate_student') as mock_eval:
+        with patch("cissp_analyzer.main.PDFParser") as mock_pdf_parser, patch(
+            "cissp_analyzer.main.ExcelParser"
+        ) as mock_excel_parser, patch.object(
+            analyzer, "individual_gen"
+        ) as mock_gen, patch.object(
+            analyzer, "class_gen"
+        ) as mock_class_gen, patch.object(
+            analyzer.analysis_engine, "evaluate_student"
+        ) as mock_eval:
 
             # Setup mocks
             mock_pdf_instance = MagicMock()
             mock_pdf_parser.return_value = mock_pdf_instance
             mock_pdf_instance.extract_questions.return_value = {
-                1: "Question 1", 2: "Question 2"
+                1: "Question 1",
+                2: "Question 2",
             }
 
             mock_excel_instance = MagicMock()
             mock_excel_parser.return_value = mock_excel_instance
-            mock_excel_instance.parse_answers.return_value = {
-                1: "A", 2: "B"
-            }
+            mock_excel_instance.parse_answers.return_value = {1: "A", 2: "B"}
 
             # Mock performance evaluation
             mock_eval.return_value = MagicMock(
@@ -128,7 +133,7 @@ class TestInteractiveCliMainIntegration:
                 by_question_type={},
                 by_topic={},
                 by_exam_trick={},
-                wrong_question_ids=[]
+                wrong_question_ids=[],
             )
 
             # Mock report generation
@@ -144,12 +149,12 @@ class TestInteractiveCliMainIntegration:
                 exam_pdf=str(exam_pdf),
                 answer_excel=str(sample_excel_file),
                 student_names=student_names,
-                output_dir=str(output_dir)
+                output_dir=str(output_dir),
             )
 
             # Verify: All parameters received correctly
-            assert result['students_analyzed'] == 1
-            assert len(result['individual_reports']) > 0
+            assert result["students_analyzed"] == 1
+            assert len(result["individual_reports"]) > 0
             mock_excel_parser.assert_called_once()
 
     def test_analysis_mode_parameter_passed(self, temp_test_dir):
@@ -165,16 +170,18 @@ class TestInteractiveCliMainIntegration:
         - Single mode calls analyze()
         - Comparative mode calls analyze_student_with_history()
         """
-        analyzer = CISSPAnalyzer(mapping_file='data/question_domain_mapping.json')
+        analyzer = CISSPAnalyzer(mapping_file="data/question_domain_mapping.json")
 
         # Mock analyze_student_with_history() to track calls
-        with patch.object(analyzer, 'analyze_student_with_history') as mock_history_analyze:
+        with patch.object(
+            analyzer, "analyze_student_with_history"
+        ) as mock_history_analyze:
             mock_history_analyze.return_value = {
-                'student_name': 'TestStudent1',
-                'exam_number': 2,
-                'report_path': '/output/report.xlsx',
-                'performance_data_path': '/output/perf.json',
-                'previous_exams_count': 1
+                "student_name": "TestStudent1",
+                "exam_number": 2,
+                "report_path": "/output/report.xlsx",
+                "performance_data_path": "/output/perf.json",
+                "previous_exams_count": 1,
             }
 
             # Simulate comparative mode selection
@@ -188,12 +195,12 @@ class TestInteractiveCliMainIntegration:
                 exam_pdf=str(exam_pdf),
                 answer_excel=str(answer_excel),
                 student_name="TestStudent1",
-                students_dir=str(temp_test_dir)
+                students_dir=str(temp_test_dir),
             )
 
             # Verify: Correct method was called with correct mode/parameters
-            assert result['student_name'] == 'TestStudent1'
-            assert result['exam_number'] == 2
+            assert result["student_name"] == "TestStudent1"
+            assert result["exam_number"] == 2
 
     def test_no_parameter_loss_in_chain(self, temp_test_dir, sample_answer_key):
         """
@@ -213,20 +220,26 @@ class TestInteractiveCliMainIntegration:
         exam_pdf.write_text("content")
 
         answer_excel = temp_test_dir / "Student Answers.xlsx"
-        df = pd.DataFrame({
-            "Question": [1, 2, 3],
-            "John O'Brien": ["A", "B", "C"],
-            "María García": ["B", "C", "D"]
-        })
+        df = pd.DataFrame(
+            {
+                "Question": [1, 2, 3],
+                "John O'Brien": ["A", "B", "C"],
+                "María García": ["B", "C", "D"],
+            }
+        )
         df.to_excel(answer_excel, index=False)
 
-        analyzer = CISSPAnalyzer(mapping_file='data/question_domain_mapping.json')
+        analyzer = CISSPAnalyzer(mapping_file="data/question_domain_mapping.json")
 
-        with patch('cissp_analyzer.main.PDFParser') as mock_pdf, \
-             patch('cissp_analyzer.main.ExcelParser') as mock_excel, \
-             patch.object(analyzer, 'individual_gen') as mock_gen, \
-             patch.object(analyzer, 'class_gen') as mock_class_gen, \
-             patch.object(analyzer.analysis_engine, 'evaluate_student') as mock_eval:
+        with patch("cissp_analyzer.main.PDFParser") as mock_pdf, patch(
+            "cissp_analyzer.main.ExcelParser"
+        ) as mock_excel, patch.object(
+            analyzer, "individual_gen"
+        ) as mock_gen, patch.object(
+            analyzer, "class_gen"
+        ) as mock_class_gen, patch.object(
+            analyzer.analysis_engine, "evaluate_student"
+        ) as mock_eval:
 
             mock_pdf.return_value.extract_questions.return_value = {}
             mock_excel.return_value.parse_answers.return_value = {1: "A"}
@@ -239,7 +252,7 @@ class TestInteractiveCliMainIntegration:
                 by_question_type={},
                 by_topic={},
                 by_exam_trick={},
-                wrong_question_ids=[]
+                wrong_question_ids=[],
             )
             mock_gen.generate = MagicMock()
             mock_class_gen.generate = MagicMock()
@@ -253,18 +266,19 @@ class TestInteractiveCliMainIntegration:
                 exam_pdf=str(exam_pdf),
                 answer_excel=str(answer_excel),
                 student_names=student_names,
-                output_dir=str(output_dir)
+                output_dir=str(output_dir),
             )
 
             # Verify: Names preserved exactly
-            reports = [r for r in result['individual_reports']]
+            reports = [r for r in result["individual_reports"]]
             assert len(reports) == 2
-            assert result['students_analyzed'] == 2
+            assert result["students_analyzed"] == 2
 
 
 # ============================================================================
 # TEST CLASS 2: History Loader ↔ Main.py Integration
 # ============================================================================
+
 
 class TestHistoryLoaderIntegration:
     """
@@ -290,16 +304,13 @@ class TestHistoryLoaderIntegration:
         student_dir = history_dir / "ExistingStudent"
         student_dir.mkdir(parents=True)
 
-        exam_data = {
-            "exam_number": 1,
-            "date": "2026-06-15",
-            "score_percentage": 75.0
-        }
+        exam_data = {"exam_number": 1, "date": "2026-06-15", "score_percentage": 75.0}
         (student_dir / "exam-1_performance.json").write_text(json.dumps(exam_data))
 
         # Test: check_student_history with existing student
         from cissp_analyzer.history_loader import HistoryLoader
-        with patch.object(HistoryLoader, 'load_previous_exams') as mock_load:
+
+        with patch.object(HistoryLoader, "load_previous_exams") as mock_load:
             mock_load.return_value = [exam_data]
 
             # Call the function
@@ -333,7 +344,7 @@ class TestHistoryLoaderIntegration:
             "date": "2026-06-15",
             "score_percentage": 70.5,
             "correct_count": 88,
-            "by_domain": {"Security & Risk Management": {"correct": 10, "total": 17}}
+            "by_domain": {"Security & Risk Management": {"correct": 10, "total": 17}},
         }
         (student_dir / "exam-1_performance.json").write_text(json.dumps(previous_exam))
 
@@ -342,13 +353,17 @@ class TestHistoryLoaderIntegration:
         exam_pdf.write_text("content")
 
         # Initialize analyzer
-        analyzer = CISSPAnalyzer(mapping_file='data/question_domain_mapping.json')
+        analyzer = CISSPAnalyzer(mapping_file="data/question_domain_mapping.json")
 
-        with patch('cissp_analyzer.main.PDFParser') as mock_pdf, \
-             patch('cissp_analyzer.main.ExcelParser') as mock_excel, \
-             patch.object(analyzer, 'individual_gen') as mock_gen, \
-             patch.object(analyzer, 'class_gen') as mock_class_gen, \
-             patch.object(analyzer.analysis_engine, 'evaluate_student') as mock_eval:
+        with patch("cissp_analyzer.main.PDFParser") as mock_pdf, patch(
+            "cissp_analyzer.main.ExcelParser"
+        ) as mock_excel, patch.object(
+            analyzer, "individual_gen"
+        ) as mock_gen, patch.object(
+            analyzer, "class_gen"
+        ) as mock_class_gen, patch.object(
+            analyzer.analysis_engine, "evaluate_student"
+        ) as mock_eval:
 
             # Setup mocks
             mock_pdf.return_value.extract_questions.return_value = {}
@@ -362,7 +377,7 @@ class TestHistoryLoaderIntegration:
                 by_question_type={},
                 by_topic={},
                 by_exam_trick={},
-                wrong_question_ids=[]
+                wrong_question_ids=[],
             )
             mock_gen.generate = MagicMock()
             mock_class_gen.generate = MagicMock()
@@ -372,12 +387,12 @@ class TestHistoryLoaderIntegration:
                 exam_pdf=str(exam_pdf),
                 answer_excel=str(sample_excel_file),
                 student_name="TestStudent1",
-                students_dir=str(history_dir)
+                students_dir=str(history_dir),
             )
 
             # Verify: History was loaded and used
-            assert result['exam_number'] == 2  # Second exam (1 previous + current)
-            assert result['previous_exams_count'] == 1
+            assert result["exam_number"] == 2  # Second exam (1 previous + current)
+            assert result["previous_exams_count"] == 1
 
     def test_no_history_fallback_works(self, temp_test_dir, sample_excel_file):
         """
@@ -397,13 +412,17 @@ class TestHistoryLoaderIntegration:
         exam_pdf = temp_test_dir / "exam.pdf"
         exam_pdf.write_text("content")
 
-        analyzer = CISSPAnalyzer(mapping_file='data/question_domain_mapping.json')
+        analyzer = CISSPAnalyzer(mapping_file="data/question_domain_mapping.json")
 
-        with patch('cissp_analyzer.main.PDFParser') as mock_pdf, \
-             patch('cissp_analyzer.main.ExcelParser') as mock_excel, \
-             patch.object(analyzer, 'individual_gen') as mock_gen, \
-             patch.object(analyzer, 'class_gen') as mock_class_gen, \
-             patch.object(analyzer.analysis_engine, 'evaluate_student') as mock_eval:
+        with patch("cissp_analyzer.main.PDFParser") as mock_pdf, patch(
+            "cissp_analyzer.main.ExcelParser"
+        ) as mock_excel, patch.object(
+            analyzer, "individual_gen"
+        ) as mock_gen, patch.object(
+            analyzer, "class_gen"
+        ) as mock_class_gen, patch.object(
+            analyzer.analysis_engine, "evaluate_student"
+        ) as mock_eval:
 
             mock_pdf.return_value.extract_questions.return_value = {}
             mock_excel.return_value.parse_answers.return_value = {1: "A"}
@@ -416,7 +435,7 @@ class TestHistoryLoaderIntegration:
                 by_question_type={},
                 by_topic={},
                 by_exam_trick={},
-                wrong_question_ids=[]
+                wrong_question_ids=[],
             )
             mock_gen.generate = MagicMock()
             mock_class_gen.generate = MagicMock()
@@ -425,17 +444,18 @@ class TestHistoryLoaderIntegration:
                 exam_pdf=str(exam_pdf),
                 answer_excel=str(sample_excel_file),
                 student_name="NewStudent",
-                students_dir=str(history_dir)
+                students_dir=str(history_dir),
             )
 
             # Verify: First exam (exam_number = 1)
-            assert result['exam_number'] == 1
-            assert result['previous_exams_count'] == 0
+            assert result["exam_number"] == 1
+            assert result["previous_exams_count"] == 0
 
 
 # ============================================================================
 # TEST CLASS 3: Report Generation Integration
 # ============================================================================
+
 
 class TestReportGenerationIntegration:
     """
@@ -464,7 +484,11 @@ class TestReportGenerationIntegration:
         performance.correct_count = 107
         performance.wrong_count = 18
         performance.by_domain = {
-            "Security & Risk Management": {"correct": 15, "total": 17, "percentage": 88.2}
+            "Security & Risk Management": {
+                "correct": 15,
+                "total": 17,
+                "percentage": 88.2,
+            }
         }
         performance.by_difficulty = {
             "Easy": {"correct": 28, "total": 30, "percentage": 93.3}
@@ -476,8 +500,7 @@ class TestReportGenerationIntegration:
 
         # Initialize report generator
         report_gen = IndividualReportGenerator(
-            domain_mapper=MagicMock(),
-            analysis_engine=MagicMock()
+            domain_mapper=MagicMock(), analysis_engine=MagicMock()
         )
 
         # Call generate in single mode (no historical_exams)
@@ -519,21 +542,18 @@ class TestReportGenerationIntegration:
 
         historical_exams = [
             {"exam_number": 1, "score_percentage": 70.5, "correct_count": 88},
-            {"exam_number": 2, "score_percentage": 76.8, "correct_count": 96}
+            {"exam_number": 2, "score_percentage": 76.8, "correct_count": 96},
         ]
 
         report_gen = IndividualReportGenerator(
-            domain_mapper=MagicMock(),
-            analysis_engine=MagicMock()
+            domain_mapper=MagicMock(), analysis_engine=MagicMock()
         )
 
         # Call generate with historical data
         # Verify method handles historical exams
         try:
             report_gen.generate(
-                performance,
-                str(output_file),
-                historical_exams=historical_exams
+                performance, str(output_file), historical_exams=historical_exams
             )
         except Exception:
             pass
@@ -561,26 +581,50 @@ class TestReportGenerationIntegration:
         performance.correct_count = 107
         performance.wrong_count = 18
         performance.by_domain = {
-            "Security & Risk Management": {"correct": 15, "total": 17, "percentage": 88.2},
-            "Asset Security": {"correct": 14, "total": 17, "percentage": 82.4}
+            "Security & Risk Management": {
+                "correct": 15,
+                "total": 17,
+                "percentage": 88.2,
+            },
+            "Asset Security": {"correct": 14, "total": 17, "percentage": 82.4},
         }
         performance.by_difficulty = {
             "Easy": {"correct": 28, "total": 30, "percentage": 93.3},
             "Medium": {"correct": 54, "total": 65, "percentage": 83.1},
-            "Hard": {"correct": 25, "total": 30, "percentage": 83.3}
+            "Hard": {"correct": 25, "total": 30, "percentage": 83.3},
         }
-        performance.by_question_type = {"Multiple Choice": {"correct": 107, "total": 125}}
+        performance.by_question_type = {
+            "Multiple Choice": {"correct": 107, "total": 125}
+        }
         performance.by_topic = {
             "Risk Assessment": {"correct": 10, "total": 12, "percentage": 83.3}
         }
         performance.by_exam_trick = {
             "Double Negative": {"correct": 5, "total": 6, "percentage": 83.3}
         }
-        performance.wrong_question_ids = [3, 7, 15, 22, 34, 45, 56, 67, 78, 89, 95, 105, 110, 112, 115, 118, 120, 124]
+        performance.wrong_question_ids = [
+            3,
+            7,
+            15,
+            22,
+            34,
+            45,
+            56,
+            67,
+            78,
+            89,
+            95,
+            105,
+            110,
+            112,
+            115,
+            118,
+            120,
+            124,
+        ]
 
         report_gen = IndividualReportGenerator(
-            domain_mapper=MagicMock(),
-            analysis_engine=MagicMock()
+            domain_mapper=MagicMock(), analysis_engine=MagicMock()
         )
 
         output_file = temp_test_dir / "full_report.xlsx"
@@ -597,6 +641,7 @@ class TestReportGenerationIntegration:
 # ============================================================================
 # TEST CLASS 4: Answer Key Auto-Loading Integration
 # ============================================================================
+
 
 class TestAnswerKeyAutoLoading:
     """
@@ -616,12 +661,15 @@ class TestAnswerKeyAutoLoading:
         - Correct conversion (stem preserved, suffix changed)
         - Directory preserved
         """
-        analyzer = CISSPAnalyzer(mapping_file='data/question_domain_mapping.json')
+        analyzer = CISSPAnalyzer(mapping_file="data/question_domain_mapping.json")
 
         # Test various PDF path formats
         test_cases = [
             ("exams/mock1.pdf", "exams/mock1_answer_key.json"),
-            ("/Users/name/exams/dec25_week1.pdf", "/Users/name/exams/dec25_week1_answer_key.json"),
+            (
+                "/Users/name/exams/dec25_week1.pdf",
+                "/Users/name/exams/dec25_week1_answer_key.json",
+            ),
             ("exam.pdf", "exam_answer_key.json"),
             ("/tmp/test_exam.pdf", "/tmp/test_exam_answer_key.json"),
         ]
@@ -649,22 +697,23 @@ class TestAnswerKeyAutoLoading:
         exam_pdf.write_text("exam content")
 
         answer_key_json = temp_test_dir / "mock_exam_answer_key.json"
-        with open(answer_key_json, 'w') as f:
+        with open(answer_key_json, "w") as f:
             json.dump(sample_answer_key, f)
 
         # Create student answer file
         answer_excel = temp_test_dir / "answers.xlsx"
-        df = pd.DataFrame({
-            "Question": list(range(1, 126)),
-            "TestStudent1": ["A"] * 125
-        })
+        df = pd.DataFrame(
+            {"Question": list(range(1, 126)), "TestStudent1": ["A"] * 125}
+        )
         df.to_excel(answer_excel, index=False)
 
-        analyzer = CISSPAnalyzer(mapping_file='data/question_domain_mapping.json')
+        analyzer = CISSPAnalyzer(mapping_file="data/question_domain_mapping.json")
 
-        with patch('cissp_analyzer.main.PDFParser') as mock_pdf, \
-             patch('cissp_analyzer.main.ExcelParser') as mock_excel, \
-             patch.object(analyzer, '_extract_answer_key_from_pdf') as mock_extract:
+        with patch("cissp_analyzer.main.PDFParser") as mock_pdf, patch(
+            "cissp_analyzer.main.ExcelParser"
+        ) as mock_excel, patch.object(
+            analyzer, "_extract_answer_key_from_pdf"
+        ) as mock_extract:
 
             mock_pdf.return_value.extract_questions.return_value = {}
             mock_excel.return_value.parse_answers.return_value = {1: "A"}
@@ -695,7 +744,7 @@ class TestAnswerKeyAutoLoading:
         exam_pdf.write_text("exam with answer key inside")
 
         # JSON doesn't exist (no answer_key.json file)
-        analyzer = CISSPAnalyzer(mapping_file='data/question_domain_mapping.json')
+        analyzer = CISSPAnalyzer(mapping_file="data/question_domain_mapping.json")
 
         # Path to JSON doesn't exist
         json_path = analyzer._get_answer_key_file_path(str(exam_pdf))
@@ -713,13 +762,16 @@ class TestAnswerKeyAutoLoading:
 # TEST CLASS 5: Complete Data Flow Pipeline
 # ============================================================================
 
+
 class TestCrossModuleDataFlow:
     """
     Test end-to-end data flow across all modules.
     Verifies: Data consistency, no loss, all calculations preserved
     """
 
-    def test_data_input_to_output_consistency(self, temp_test_dir, sample_excel_file, sample_answer_key):
+    def test_data_input_to_output_consistency(
+        self, temp_test_dir, sample_excel_file, sample_answer_key
+    ):
         """
         Integration Test 5.1: Data input preserved through full pipeline
 
@@ -735,13 +787,17 @@ class TestCrossModuleDataFlow:
         exam_pdf = temp_test_dir / "exam.pdf"
         exam_pdf.write_text("content")
 
-        analyzer = CISSPAnalyzer(mapping_file='data/question_domain_mapping.json')
+        analyzer = CISSPAnalyzer(mapping_file="data/question_domain_mapping.json")
 
-        with patch('cissp_analyzer.main.PDFParser') as mock_pdf, \
-             patch('cissp_analyzer.main.ExcelParser') as mock_excel, \
-             patch.object(analyzer, 'individual_gen') as mock_gen, \
-             patch.object(analyzer, 'class_gen') as mock_class_gen, \
-             patch.object(analyzer.analysis_engine, 'evaluate_student') as mock_eval:
+        with patch("cissp_analyzer.main.PDFParser") as mock_pdf, patch(
+            "cissp_analyzer.main.ExcelParser"
+        ) as mock_excel, patch.object(
+            analyzer, "individual_gen"
+        ) as mock_gen, patch.object(
+            analyzer, "class_gen"
+        ) as mock_class_gen, patch.object(
+            analyzer.analysis_engine, "evaluate_student"
+        ) as mock_eval:
 
             # Setup: 125 questions
             mock_pdf.return_value.extract_questions.return_value = {
@@ -760,7 +816,7 @@ class TestCrossModuleDataFlow:
                 by_question_type={},
                 by_topic={},
                 by_exam_trick={},
-                wrong_question_ids=[]
+                wrong_question_ids=[],
             )
             mock_gen.generate = MagicMock()
             mock_class_gen.generate = MagicMock()
@@ -770,13 +826,13 @@ class TestCrossModuleDataFlow:
                 exam_pdf=str(exam_pdf),
                 answer_excel=str(sample_excel_file),
                 student_names=["TestStudent1"],
-                output_dir=str(temp_test_dir / "output")
+                output_dir=str(temp_test_dir / "output"),
             )
 
             # Verify: Data consistency
-            assert result['students_analyzed'] == 1
-            assert len(result['cohort_performance']) == 1
-            assert result['cohort_performance'][0].score_percentage == 85.6
+            assert result["students_analyzed"] == 1
+            assert len(result["cohort_performance"]) == 1
+            assert result["cohort_performance"][0].score_percentage == 85.6
 
     def test_no_data_loss_in_pipeline(self, temp_test_dir, sample_excel_file):
         """
@@ -794,13 +850,17 @@ class TestCrossModuleDataFlow:
         exam_pdf = temp_test_dir / "exam.pdf"
         exam_pdf.write_text("content")
 
-        analyzer = CISSPAnalyzer(mapping_file='data/question_domain_mapping.json')
+        analyzer = CISSPAnalyzer(mapping_file="data/question_domain_mapping.json")
 
-        with patch('cissp_analyzer.main.PDFParser') as mock_pdf, \
-             patch('cissp_analyzer.main.ExcelParser') as mock_excel, \
-             patch.object(analyzer, 'individual_gen') as mock_gen, \
-             patch.object(analyzer, 'class_gen') as mock_class_gen, \
-             patch.object(analyzer.analysis_engine, 'evaluate_student') as mock_eval:
+        with patch("cissp_analyzer.main.PDFParser") as mock_pdf, patch(
+            "cissp_analyzer.main.ExcelParser"
+        ) as mock_excel, patch.object(
+            analyzer, "individual_gen"
+        ) as mock_gen, patch.object(
+            analyzer, "class_gen"
+        ) as mock_class_gen, patch.object(
+            analyzer.analysis_engine, "evaluate_student"
+        ) as mock_eval:
 
             # Setup: All questions present
             questions = {i: f"Q{i}" for i in range(1, 126)}
@@ -810,7 +870,9 @@ class TestCrossModuleDataFlow:
             def parse_answers_side_effect(excel_file, student_name):
                 return {i: "A" for i in range(1, 126)}
 
-            mock_excel.return_value.parse_answers.side_effect = parse_answers_side_effect
+            mock_excel.return_value.parse_answers.side_effect = (
+                parse_answers_side_effect
+            )
             mock_eval.return_value = MagicMock(
                 score_percentage=80.0,
                 correct_count=100,
@@ -820,7 +882,7 @@ class TestCrossModuleDataFlow:
                 by_question_type={},
                 by_topic={},
                 by_exam_trick={},
-                wrong_question_ids=[]
+                wrong_question_ids=[],
             )
             mock_gen.generate = MagicMock()
             mock_class_gen.generate = MagicMock()
@@ -829,14 +891,16 @@ class TestCrossModuleDataFlow:
                 exam_pdf=str(exam_pdf),
                 answer_excel=str(sample_excel_file),
                 student_names=["S1", "S2", "S3"],
-                output_dir=str(temp_test_dir / "output")
+                output_dir=str(temp_test_dir / "output"),
             )
 
             # Verify: No data loss
-            assert len(result['individual_reports']) == 3  # All 3 student reports
-            assert len(result['cohort_performance']) == 3  # All 3 performance records
+            assert len(result["individual_reports"]) == 3  # All 3 student reports
+            assert len(result["cohort_performance"]) == 3  # All 3 performance records
 
-    def test_all_calculations_preserved(self, temp_test_dir, sample_excel_file, sample_answer_key):
+    def test_all_calculations_preserved(
+        self, temp_test_dir, sample_excel_file, sample_answer_key
+    ):
         """
         Integration Test 5.3: All calculations preserved end-to-end
 
@@ -855,24 +919,30 @@ class TestCrossModuleDataFlow:
 
         # Create comprehensive expected data
         expected_performance = {
-            'score_percentage': 85.6,
-            'correct_count': 107,
-            'wrong_count': 18,
-            'by_domain': {
-                'Security & Risk Management': {'correct': 15, 'total': 17, 'percentage': 88.2}
+            "score_percentage": 85.6,
+            "correct_count": 107,
+            "wrong_count": 18,
+            "by_domain": {
+                "Security & Risk Management": {
+                    "correct": 15,
+                    "total": 17,
+                    "percentage": 88.2,
+                }
             },
-            'by_difficulty': {
-                'Easy': {'correct': 28, 'total': 30, 'percentage': 93.3}
-            }
+            "by_difficulty": {"Easy": {"correct": 28, "total": 30, "percentage": 93.3}},
         }
 
-        analyzer = CISSPAnalyzer(mapping_file='data/question_domain_mapping.json')
+        analyzer = CISSPAnalyzer(mapping_file="data/question_domain_mapping.json")
 
-        with patch('cissp_analyzer.main.PDFParser') as mock_pdf, \
-             patch('cissp_analyzer.main.ExcelParser') as mock_excel, \
-             patch.object(analyzer, 'individual_gen') as mock_gen, \
-             patch.object(analyzer, 'class_gen') as mock_class_gen, \
-             patch.object(analyzer.analysis_engine, 'evaluate_student') as mock_eval:
+        with patch("cissp_analyzer.main.PDFParser") as mock_pdf, patch(
+            "cissp_analyzer.main.ExcelParser"
+        ) as mock_excel, patch.object(
+            analyzer, "individual_gen"
+        ) as mock_gen, patch.object(
+            analyzer, "class_gen"
+        ) as mock_class_gen, patch.object(
+            analyzer.analysis_engine, "evaluate_student"
+        ) as mock_eval:
 
             mock_pdf.return_value.extract_questions.return_value = {}
             mock_excel.return_value.parse_answers.return_value = {1: "A"}
@@ -885,7 +955,7 @@ class TestCrossModuleDataFlow:
                 by_question_type={},
                 by_topic={},
                 by_exam_trick={},
-                wrong_question_ids=[]
+                wrong_question_ids=[],
             )
             mock_gen.generate = MagicMock()
             mock_class_gen.generate = MagicMock()
@@ -894,15 +964,17 @@ class TestCrossModuleDataFlow:
                 exam_pdf=str(exam_pdf),
                 answer_excel=str(sample_excel_file),
                 student_names=["TestStudent1"],
-                output_dir=str(temp_test_dir / "output")
+                output_dir=str(temp_test_dir / "output"),
             )
 
             # Verify: All calculations preserved
-            perf_data = result['cohort_performance'][0]
+            perf_data = result["cohort_performance"][0]
             assert perf_data.score_percentage == 85.6
-            assert result['students_analyzed'] == 1
+            assert result["students_analyzed"] == 1
 
-    def test_end_to_end_report_accuracy(self, temp_test_dir, sample_excel_file, sample_answer_key):
+    def test_end_to_end_report_accuracy(
+        self, temp_test_dir, sample_excel_file, sample_answer_key
+    ):
         """
         Integration Test 5.4: End-to-end accuracy from input to report
 
@@ -919,13 +991,17 @@ class TestCrossModuleDataFlow:
         exam_pdf.write_text("content")
         output_dir = temp_test_dir / "output"
 
-        analyzer = CISSPAnalyzer(mapping_file='data/question_domain_mapping.json')
+        analyzer = CISSPAnalyzer(mapping_file="data/question_domain_mapping.json")
 
-        with patch('cissp_analyzer.main.PDFParser') as mock_pdf, \
-             patch('cissp_analyzer.main.ExcelParser') as mock_excel, \
-             patch.object(analyzer, 'individual_gen') as mock_gen, \
-             patch.object(analyzer, 'class_gen') as mock_class_gen, \
-             patch.object(analyzer.analysis_engine, 'evaluate_student') as mock_eval:
+        with patch("cissp_analyzer.main.PDFParser") as mock_pdf, patch(
+            "cissp_analyzer.main.ExcelParser"
+        ) as mock_excel, patch.object(
+            analyzer, "individual_gen"
+        ) as mock_gen, patch.object(
+            analyzer, "class_gen"
+        ) as mock_class_gen, patch.object(
+            analyzer.analysis_engine, "evaluate_student"
+        ) as mock_eval:
 
             mock_pdf.return_value.extract_questions.return_value = {}
             mock_excel.return_value.parse_answers.return_value = {1: "A"}
@@ -938,7 +1014,7 @@ class TestCrossModuleDataFlow:
                 by_question_type={},
                 by_topic={},
                 by_exam_trick={},
-                wrong_question_ids=[]
+                wrong_question_ids=[],
             )
             mock_gen.generate = MagicMock()
             mock_class_gen.generate = MagicMock()
@@ -947,17 +1023,18 @@ class TestCrossModuleDataFlow:
                 exam_pdf=str(exam_pdf),
                 answer_excel=str(sample_excel_file),
                 student_names=["TestStudent1"],
-                output_dir=str(output_dir)
+                output_dir=str(output_dir),
             )
 
             # Verify: Report generation called
             mock_gen.generate.assert_called()
-            assert len(result['individual_reports']) > 0
+            assert len(result["individual_reports"]) > 0
 
 
 # ============================================================================
 # TEST CLASS 6: Error Propagation
 # ============================================================================
+
 
 class TestErrorPropagation:
     """
@@ -980,7 +1057,7 @@ class TestErrorPropagation:
         non_existent_pdf = temp_test_dir / "nonexistent.pdf"
         non_existent_excel = temp_test_dir / "nonexistent.xlsx"
 
-        analyzer = CISSPAnalyzer(mapping_file='data/question_domain_mapping.json')
+        analyzer = CISSPAnalyzer(mapping_file="data/question_domain_mapping.json")
 
         # Try to analyze with non-existent files
         with pytest.raises((FileNotFoundError, Exception)):
@@ -988,7 +1065,7 @@ class TestErrorPropagation:
                 exam_pdf=str(non_existent_pdf),
                 answer_excel=str(non_existent_excel),
                 student_names=["TestStudent"],
-                output_dir=str(temp_test_dir / "output")
+                output_dir=str(temp_test_dir / "output"),
             )
 
     def test_error_message_propagates_to_user(self, temp_test_dir):
@@ -1002,26 +1079,30 @@ class TestErrorPropagation:
         Verify:
         - Exception raised with descriptive message
         """
-        analyzer = CISSPAnalyzer(mapping_file='data/question_domain_mapping.json')
+        analyzer = CISSPAnalyzer(mapping_file="data/question_domain_mapping.json")
 
         exam_pdf = temp_test_dir / "exam.pdf"
         exam_pdf.write_text("content")
 
-        with patch('cissp_analyzer.main.PDFParser') as mock_pdf:
+        with patch("cissp_analyzer.main.PDFParser") as mock_pdf:
             mock_pdf.return_value.extract_questions.return_value = {}
 
-            with patch('cissp_analyzer.main.ExcelParser') as mock_excel:
-                mock_excel.return_value.parse_answers.side_effect = KeyError("Student not found")
+            with patch("cissp_analyzer.main.ExcelParser") as mock_excel:
+                mock_excel.return_value.parse_answers.side_effect = KeyError(
+                    "Student not found"
+                )
 
                 with pytest.raises((KeyError, Exception)):
                     analyzer.analyze(
                         exam_pdf=str(exam_pdf),
                         answer_excel="dummy.xlsx",
                         student_names=["NonExistentStudent"],
-                        output_dir=str(temp_test_dir / "output")
+                        output_dir=str(temp_test_dir / "output"),
                     )
 
-    def test_no_unhandled_exceptions_in_pipeline(self, temp_test_dir, sample_excel_file, sample_answer_key):
+    def test_no_unhandled_exceptions_in_pipeline(
+        self, temp_test_dir, sample_excel_file, sample_answer_key
+    ):
         """
         Integration Test 6.3: Pipeline completes without unhandled exceptions
 
@@ -1036,13 +1117,17 @@ class TestErrorPropagation:
         exam_pdf = temp_test_dir / "exam.pdf"
         exam_pdf.write_text("content")
 
-        analyzer = CISSPAnalyzer(mapping_file='data/question_domain_mapping.json')
+        analyzer = CISSPAnalyzer(mapping_file="data/question_domain_mapping.json")
 
-        with patch('cissp_analyzer.main.PDFParser') as mock_pdf, \
-             patch('cissp_analyzer.main.ExcelParser') as mock_excel, \
-             patch.object(analyzer, 'individual_gen') as mock_gen, \
-             patch.object(analyzer, 'class_gen') as mock_class_gen, \
-             patch.object(analyzer.analysis_engine, 'evaluate_student') as mock_eval:
+        with patch("cissp_analyzer.main.PDFParser") as mock_pdf, patch(
+            "cissp_analyzer.main.ExcelParser"
+        ) as mock_excel, patch.object(
+            analyzer, "individual_gen"
+        ) as mock_gen, patch.object(
+            analyzer, "class_gen"
+        ) as mock_class_gen, patch.object(
+            analyzer.analysis_engine, "evaluate_student"
+        ) as mock_eval:
 
             mock_pdf.return_value.extract_questions.return_value = {}
             mock_excel.return_value.parse_answers.return_value = {1: "A"}
@@ -1055,7 +1140,7 @@ class TestErrorPropagation:
                 by_question_type={},
                 by_topic={},
                 by_exam_trick={},
-                wrong_question_ids=[]
+                wrong_question_ids=[],
             )
             mock_gen.generate = MagicMock()
             mock_class_gen.generate = MagicMock()
@@ -1065,8 +1150,8 @@ class TestErrorPropagation:
                 exam_pdf=str(exam_pdf),
                 answer_excel=str(sample_excel_file),
                 student_names=["TestStudent1"],
-                output_dir=str(temp_test_dir / "output")
+                output_dir=str(temp_test_dir / "output"),
             )
 
             assert result is not None
-            assert result['students_analyzed'] > 0
+            assert result["students_analyzed"] > 0

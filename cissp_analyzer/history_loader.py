@@ -37,20 +37,16 @@ class HistoryLoader:
 
         for exam_file in exam_files:
             try:
-                with open(exam_file, 'r') as f:
+                with open(exam_file, "r") as f:
                     exam_data = json.load(f)
                     exams.append(exam_data)
             except IOError as e:
-                logger.warning(
-                    f"Failed to read exam file {exam_file}: {e}. Skipping."
-                )
+                logger.warning(f"Failed to read exam file {exam_file}: {e}. Skipping.")
             except json.JSONDecodeError as e:
-                logger.warning(
-                    f"Corrupted JSON in {exam_file}: {e}. Skipping."
-                )
+                logger.warning(f"Corrupted JSON in {exam_file}: {e}. Skipping.")
 
         # Sort by exam_number to handle exams 10+ correctly (not lexicographically)
-        exams.sort(key=lambda x: x.get('exam_number', 0))
+        exams.sort(key=lambda x: x.get("exam_number", 0))
 
         return exams
 
@@ -99,7 +95,7 @@ class HistoryLoader:
 
         output_file = student_path / f"exam-{exam_number}_performance.json"
 
-        with open(output_file, 'w') as f:
+        with open(output_file, "w") as f:
             json.dump(performance_data, f, indent=2)
 
         return output_file

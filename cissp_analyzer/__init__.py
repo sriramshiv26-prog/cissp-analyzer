@@ -23,6 +23,7 @@ __email__ = "sriramshiv26@gmail.com"
 # Check dependencies on import (non-blocking warnings for missing optional packages)
 try:
     from cissp_analyzer.dependency_checker import check_required_dependencies
+
     missing, version_issues = check_required_dependencies(verbose=False)
     if missing:
         raise ImportError(

@@ -20,13 +20,16 @@ def test_complete_workflow_three_exams():
                 "by_domain": {
                     "Security & Risk Management": {"accuracy": 0.55, "questions": 5},
                     "Asset Security": {"accuracy": 0.65, "questions": 5},
-                    "Security Architecture and Engineering": {"accuracy": 0.60, "questions": 5}
+                    "Security Architecture and Engineering": {
+                        "accuracy": 0.60,
+                        "questions": 5,
+                    },
                 },
                 "by_difficulty": {
                     "Easy": {"accuracy": 0.70, "questions": 3},
                     "Medium": {"accuracy": 0.60, "questions": 4},
-                    "Hard": {"accuracy": 0.50, "questions": 3}
-                }
+                    "Hard": {"accuracy": 0.50, "questions": 3},
+                },
             },
             {
                 "exam_number": 2,
@@ -36,13 +39,16 @@ def test_complete_workflow_three_exams():
                 "by_domain": {
                     "Security & Risk Management": {"accuracy": 0.60, "questions": 5},
                     "Asset Security": {"accuracy": 0.70, "questions": 5},
-                    "Security Architecture and Engineering": {"accuracy": 0.65, "questions": 5}
+                    "Security Architecture and Engineering": {
+                        "accuracy": 0.65,
+                        "questions": 5,
+                    },
                 },
                 "by_difficulty": {
                     "Easy": {"accuracy": 0.75, "questions": 3},
                     "Medium": {"accuracy": 0.65, "questions": 4},
-                    "Hard": {"accuracy": 0.55, "questions": 3}
-                }
+                    "Hard": {"accuracy": 0.55, "questions": 3},
+                },
             },
             {
                 "exam_number": 3,
@@ -52,14 +58,17 @@ def test_complete_workflow_three_exams():
                 "by_domain": {
                     "Security & Risk Management": {"accuracy": 0.70, "questions": 5},
                     "Asset Security": {"accuracy": 0.75, "questions": 5},
-                    "Security Architecture and Engineering": {"accuracy": 0.72, "questions": 5}
+                    "Security Architecture and Engineering": {
+                        "accuracy": 0.72,
+                        "questions": 5,
+                    },
                 },
                 "by_difficulty": {
                     "Easy": {"accuracy": 0.85, "questions": 3},
                     "Medium": {"accuracy": 0.72, "questions": 4},
-                    "Hard": {"accuracy": 0.65, "questions": 3}
-                }
-            }
+                    "Hard": {"accuracy": 0.65, "questions": 3},
+                },
+            },
         ]
 
         # Save each exam via loader.save_exam_performance()
@@ -82,11 +91,19 @@ def test_complete_workflow_three_exams():
 
         # Verify: exam numbers are correct (1, 2, 3)
         exam_numbers = [exam["exam_number"] for exam in history]
-        assert exam_numbers == [1, 2, 3], f"Expected exam numbers [1, 2, 3], got {exam_numbers}"
+        assert exam_numbers == [
+            1,
+            2,
+            3,
+        ], f"Expected exam numbers [1, 2, 3], got {exam_numbers}"
 
         # Verify: overall accuracy progression: 0.60 → 0.65 → 0.72
         accuracies = [exam["overall_accuracy"] for exam in history]
-        assert accuracies == [0.60, 0.65, 0.72], f"Expected progression [0.60, 0.65, 0.72], got {accuracies}"
+        assert accuracies == [
+            0.60,
+            0.65,
+            0.72,
+        ], f"Expected progression [0.60, 0.65, 0.72], got {accuracies}"
 
         # Verify: metadata preserved for each exam
         assert history[0]["date"] == "2026-06-20"
@@ -96,7 +113,10 @@ def test_complete_workflow_three_exams():
         # Verify: domain data preserved
         assert history[0]["by_domain"]["Security & Risk Management"]["accuracy"] == 0.55
         assert history[1]["by_domain"]["Asset Security"]["accuracy"] == 0.70
-        assert history[2]["by_domain"]["Security Architecture and Engineering"]["accuracy"] == 0.72
+        assert (
+            history[2]["by_domain"]["Security Architecture and Engineering"]["accuracy"]
+            == 0.72
+        )
 
         # Verify: difficulty data preserved
         assert history[0]["by_difficulty"]["Easy"]["accuracy"] == 0.70
@@ -115,7 +135,7 @@ def test_multi_exam_workflow_with_sorting():
             exam_data = {
                 "exam_number": exam_num,
                 "date": f"2026-06-{20+exam_num}",
-                "overall_accuracy": 0.60 + (exam_num * 0.02)
+                "overall_accuracy": 0.60 + (exam_num * 0.02),
             }
             loader.save_exam_performance("Bob", exam_num, exam_data)
 
@@ -124,7 +144,13 @@ def test_multi_exam_workflow_with_sorting():
 
         assert len(history) == 5
         exam_numbers = [exam["exam_number"] for exam in history]
-        assert exam_numbers == [1, 2, 3, 4, 5], f"Expected sorted [1, 2, 3, 4, 5], got {exam_numbers}"
+        assert exam_numbers == [
+            1,
+            2,
+            3,
+            4,
+            5,
+        ], f"Expected sorted [1, 2, 3, 4, 5], got {exam_numbers}"
 
 
 def test_multi_exam_performance_improvement_tracking():
@@ -141,13 +167,13 @@ def test_multi_exam_performance_improvement_tracking():
                 "by_domain": {
                     "Security & Risk Management": {
                         "accuracy": 0.48 + (exam_num * 0.10),
-                        "questions": 10
+                        "questions": 10,
                     },
                     "Asset Security": {
                         "accuracy": 0.52 + (exam_num * 0.07),
-                        "questions": 10
-                    }
-                }
+                        "questions": 10,
+                    },
+                },
             }
             loader.save_exam_performance("Charlie", exam_num, exam_data)
 
@@ -159,7 +185,9 @@ def test_multi_exam_performance_improvement_tracking():
         expected_overall = [0.58, 0.66, 0.74, 0.82]
         assert len(overall_accuracies) == len(expected_overall)
         for actual, expected in zip(overall_accuracies, expected_overall):
-            assert abs(actual - expected) < 0.0001, f"Expected ~{expected}, got {actual}"
+            assert (
+                abs(actual - expected) < 0.0001
+            ), f"Expected ~{expected}, got {actual}"
 
         # Verify improvement in first domain
         domain_accuracies = [
@@ -169,12 +197,15 @@ def test_multi_exam_performance_improvement_tracking():
         expected_domain = [0.58, 0.68, 0.78, 0.88]
         assert len(domain_accuracies) == len(expected_domain)
         for actual, expected in zip(domain_accuracies, expected_domain):
-            assert abs(actual - expected) < 0.0001, f"Expected ~{expected}, got {actual}"
+            assert (
+                abs(actual - expected) < 0.0001
+            ), f"Expected ~{expected}, got {actual}"
 
         # Verify each exam improves from previous
         for i in range(1, len(overall_accuracies)):
-            assert overall_accuracies[i] > overall_accuracies[i-1], \
-                f"Exam {i+1} should improve over exam {i}"
+            assert (
+                overall_accuracies[i] > overall_accuracies[i - 1]
+            ), f"Exam {i+1} should improve over exam {i}"
 
 
 def test_multi_student_multi_exam_isolation():
@@ -185,7 +216,7 @@ def test_multi_student_multi_exam_isolation():
         # Create exams for two students
         students_exams = {
             "Student1": [0.60, 0.65, 0.70],
-            "Student2": [0.55, 0.62, 0.75]
+            "Student2": [0.55, 0.62, 0.75],
         }
 
         for student_name, accuracies in students_exams.items():
@@ -193,7 +224,7 @@ def test_multi_student_multi_exam_isolation():
                 exam_data = {
                     "exam_number": exam_num,
                     "date": f"2026-06-{20+exam_num}",
-                    "overall_accuracy": accuracy
+                    "overall_accuracy": accuracy,
                 }
                 loader.save_exam_performance(student_name, exam_num, exam_data)
 
@@ -226,7 +257,7 @@ def test_multi_exam_with_missing_exam_number():
             exam_data = {
                 "exam_number": exam_num,
                 "date": f"2026-06-{20+exam_num}",
-                "overall_accuracy": 0.60 + (exam_num * 0.05)
+                "overall_accuracy": 0.60 + (exam_num * 0.05),
             }
             loader.save_exam_performance("Dana", exam_num, exam_data)
 

@@ -14,7 +14,7 @@ Must be run BEFORE student answer analysis!
 import json
 import re
 from pathlib import Path
-from typing import Tuple, Dict, List
+from typing import Tuple, Dict
 from pypdf import PdfReader
 
 
@@ -22,14 +22,14 @@ class ExamValidator:
     """Validates exam PDFs for completeness and correctness"""
 
     EXPECTED_QUESTIONS = 125
-    VALID_ANSWERS = ['A', 'B', 'C', 'D']
+    VALID_ANSWERS = ["A", "B", "C", "D"]
 
     def __init__(self, pdf_path: str):
         self.pdf_path = Path(pdf_path)
-        self.issues = []
-        self.warnings = []
-        self.questions = {}
-        self.answer_key = {}
+        self.issues: list = []
+        self.warnings: list = []
+        self.questions: Dict[int, str] = {}
+        self.answer_key: Dict[int, str] = {}
 
     def extract_questions(self) -> Dict[int, str]:
         """Extract questions from PDF"""
@@ -44,12 +44,11 @@ class ExamValidator:
                 all_text += page.extract_text() + "\n"
 
             # Extract questions: "1. What is..." format
-            pattern = r'^(\d+)\.\s+([A-Z][^A\.)]*(?:A\.\s|$))'
             questions = {}
 
-            for line in all_text.split('\n'):
+            for line in all_text.split("\n"):
                 # Match: "123. Question text here"
-                match = re.match(r'^(\d+)\.\s+(.+?)(?:\nA\.|$)', line, re.MULTILINE)
+                match = re.match(r"^(\d+)\.\s+(.+?)(?:\nA\.|$)", line, re.MULTILINE)
                 if match:
                     q_num = int(match.group(1))
                     q_text = match.group(2).strip()[:100]  # First 100 chars
@@ -77,9 +76,9 @@ class ExamValidator:
 
             # Extract answers: "123. A. Explanation..." format
             answers = {}
-            pattern = r'^(\d+)\.\s+([A-D])\.'
+            pattern = r"^(\d+)\.\s+([A-D])\."
 
-            for line in all_text.split('\n'):
+            for line in all_text.split("\n"):
                 match = re.match(pattern, line.strip())
                 if match:
                     q_num = int(match.group(1))
@@ -96,21 +95,29 @@ class ExamValidator:
 
     def validate_questions(self) -> bool:
         """Validate question completeness"""
-        print(f"\n📋 VALIDATING QUESTIONS")
+        print("\n📋 VALIDATING QUESTIONS")
         print("-" * 80)
 
         if not self.questions:
-            self.issues.append(f"No questions extracted from PDF")
+            self.issues.append("No questions extracted from PDF")
             return False
 
         # Check count
         if len(self.questions) < self.EXPECTED_QUESTIONS:
-            missing = [i for i in range(1, self.EXPECTED_QUESTIONS + 1)
-                      if i not in self.questions]
+            missing = [
+                i
+                for i in range(1, self.EXPECTED_QUESTIONS + 1)
+                if i not in self.questions
+            ]
+            missing_count = self.EXPECTED_QUESTIONS - len(self.questions)
+            missing_preview = missing[:10]
+            missing_more = "..." if len(missing) > 10 else ""
             self.issues.append(
-                f"Missing {self.EXPECTED_QUESTIONS - len(self.questions)} questions: {missing[:10]}{'...' if len(missing) > 10 else ''}"
+                f"Missing {missing_count} questions: {missing_preview}{missing_more}"
             )
-            print(f"✗ Only {len(self.questions)}/{self.EXPECTED_QUESTIONS} questions found")
+            print(
+                f"✗ Only {len(self.questions)}/{self.EXPECTED_QUESTIONS} questions found"
+            )
             return False
 
         if len(self.questions) == self.EXPECTED_QUESTIONS:
@@ -121,7 +128,7 @@ class ExamValidator:
 
     def validate_answer_key(self) -> bool:
         """Validate answer key completeness"""
-        print(f"\n🔑 VALIDATING ANSWER KEY")
+        print("\n🔑 VALIDATING ANSWER KEY")
         print("-" * 80)
 
         if not self.answer_key:
@@ -130,12 +137,20 @@ class ExamValidator:
 
         # Check count
         if len(self.answer_key) < self.EXPECTED_QUESTIONS:
-            missing = [i for i in range(1, self.EXPECTED_QUESTIONS + 1)
-                      if i not in self.answer_key]
+            missing = [
+                i
+                for i in range(1, self.EXPECTED_QUESTIONS + 1)
+                if i not in self.answer_key
+            ]
+            missing_count = self.EXPECTED_QUESTIONS - len(self.answer_key)
+            missing_preview = missing[:10]
+            missing_more = "..." if len(missing) > 10 else ""
             self.issues.append(
-                f"Missing {self.EXPECTED_QUESTIONS - len(self.answer_key)} answers: {missing[:10]}{'...' if len(missing) > 10 else ''}"
+                f"Missing {missing_count} answers: {missing_preview}{missing_more}"
             )
-            print(f"✗ Only {len(self.answer_key)}/{self.EXPECTED_QUESTIONS} answers found")
+            print(
+                f"✗ Only {len(self.answer_key)}/{self.EXPECTED_QUESTIONS} answers found"
+            )
             print(f"  Missing: {missing[:10]}{'...' if len(missing) > 10 else ''}")
             return False
 
@@ -147,7 +162,7 @@ class ExamValidator:
 
     def validate_answer_format(self) -> bool:
         """Validate all answers are A/B/C/D"""
-        print(f"\n✓ VALIDATING ANSWER FORMAT")
+        print("\n✓ VALIDATING ANSWER FORMAT")
         print("-" * 80)
 
         invalid = []
@@ -164,20 +179,22 @@ class ExamValidator:
                 print(f"  Q{q_num}: '{ans}' (expected A/B/C/D)")
             return False
 
-        print(f"✓ All answers are valid (A/B/C/D)")
+        print("✓ All answers are valid (A/B/C/D)")
         return True
 
     def validate_alignment(self) -> bool:
         """Validate questions and answers align"""
-        print(f"\n⚙️  VALIDATING ALIGNMENT")
+        print("\n⚙️  VALIDATING ALIGNMENT")
         print("-" * 80)
 
         # Both must have same count
         if len(self.questions) != len(self.answer_key):
+            q_count = len(self.questions)
+            a_count = len(self.answer_key)
             self.issues.append(
-                f"Question/Answer mismatch: {len(self.questions)} questions vs {len(self.answer_key)} answers"
+                f"Question/Answer mismatch: {q_count} questions vs {a_count} answers"
             )
-            print(f"✗ Question/Answer count mismatch:")
+            print("✗ Question/Answer count mismatch:")
             print(f"  Questions: {len(self.questions)}")
             print(f"  Answers:   {len(self.answer_key)}")
             return False
@@ -190,21 +207,25 @@ class ExamValidator:
             missing_in_answers = q_nums - a_nums
             missing_in_questions = a_nums - q_nums
             if missing_in_answers:
-                self.warnings.append(f"Answers missing for: {sorted(missing_in_answers)[:10]}")
+                self.warnings.append(
+                    f"Answers missing for: {sorted(missing_in_answers)[:10]}"
+                )
             if missing_in_questions:
-                self.warnings.append(f"Questions missing for: {sorted(missing_in_questions)[:10]}")
+                self.warnings.append(
+                    f"Questions missing for: {sorted(missing_in_questions)[:10]}"
+                )
 
         if not self.warnings:
-            print(f"✓ Questions and answers perfectly aligned")
+            print("✓ Questions and answers perfectly aligned")
             return True
 
         return len(self.issues) == 0
 
     def validate(self) -> Tuple[bool, Dict]:
         """Run complete validation"""
-        print("\n" + "="*80)
+        print("\n" + "=" * 80)
         print("EXAM PDF VALIDATION")
-        print("="*80)
+        print("=" * 80)
         print(f"File: {self.pdf_path.name}")
 
         # Extract
@@ -212,15 +233,15 @@ class ExamValidator:
         self.extract_answer_key()
 
         # Validate
-        q_valid = self.validate_questions()
-        a_valid = self.validate_answer_key()
-        f_valid = self.validate_answer_format()
-        alignment_valid = self.validate_alignment()
+        self.validate_questions()
+        self.validate_answer_key()
+        self.validate_answer_format()
+        self.validate_alignment()
 
         # Summary
-        print("\n" + "="*80)
+        print("\n" + "=" * 80)
         print("VALIDATION SUMMARY")
-        print("="*80)
+        print("=" * 80)
 
         if self.issues:
             print("\n❌ CRITICAL ISSUES (must fix):")
@@ -240,7 +261,7 @@ class ExamValidator:
         else:
             print("❌ EXAM VALIDATION FAILED - Fix issues before processing")
 
-        print("="*80 + "\n")
+        print("=" * 80 + "\n")
 
         return is_valid, {
             "valid": is_valid,
@@ -249,19 +270,23 @@ class ExamValidator:
             "questions_found": len(self.questions),
             "answers_found": len(self.answer_key),
             "questions": self.questions,
-            "answer_key": self.answer_key
+            "answer_key": self.answer_key,
         }
 
     def save_answer_key(self, output_path: str) -> bool:
         """Save validated answer key to JSON"""
         if len(self.answer_key) != self.EXPECTED_QUESTIONS:
-            print(f"Cannot save incomplete answer key ({len(self.answer_key)}/{self.EXPECTED_QUESTIONS})")
+            found = len(self.answer_key)
+            expected = self.EXPECTED_QUESTIONS
+            print(
+                f"Cannot save incomplete answer key ({found}/{expected})"
+            )
             return False
 
         try:
             # Convert to string keys for JSON
             answer_key_str = {str(k): v for k, v in sorted(self.answer_key.items())}
-            with open(output_path, 'w') as f:
+            with open(output_path, "w") as f:
                 json.dump(answer_key_str, f, indent=2)
             print(f"✓ Answer key saved to: {output_path}")
             return True

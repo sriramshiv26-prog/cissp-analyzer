@@ -7,7 +7,7 @@ from cissp_analyzer.models import StudentAnswer
 
 @pytest.fixture
 def mapper():
-    return DomainMapper(mapping_file='data/question_domain_mapping.json')
+    return DomainMapper(mapping_file="data/question_domain_mapping.json")
 
 
 @pytest.fixture
@@ -37,7 +37,9 @@ def test_export_performance_as_json(engine):
     performance = engine.evaluate_student(answers, "student1")
 
     # Export performance data
-    perf_data = engine.export_student_performance("student1", exam_number=1, exam_date="2026-06-28")
+    perf_data = engine.export_student_performance(
+        "student1", exam_number=1, exam_date="2026-06-28"
+    )
 
     # Verify schema
     assert perf_data["exam_number"] == 1
@@ -122,7 +124,7 @@ def test_export_performance_schema_completeness(engine):
         "by_domain",
         "by_difficulty",
         "by_question_type",
-        "wrong_question_ids"
+        "wrong_question_ids",
     ]
 
     for field in required_fields:
@@ -148,9 +150,14 @@ def test_export_performance_optional_date(engine):
     engine.evaluate_student(answers, "test_student")
 
     # Export with date
-    perf_with_date = engine.export_student_performance("test_student", exam_number=1, exam_date="2026-06-28")
+    perf_with_date = engine.export_student_performance(
+        "test_student", exam_number=1, exam_date="2026-06-28"
+    )
     assert perf_with_date["exam_date"] == "2026-06-28"
 
     # Export without date
     perf_without_date = engine.export_student_performance("test_student", exam_number=2)
-    assert "exam_date" not in perf_without_date or perf_without_date.get("exam_date") is None
+    assert (
+        "exam_date" not in perf_without_date
+        or perf_without_date.get("exam_date") is None
+    )

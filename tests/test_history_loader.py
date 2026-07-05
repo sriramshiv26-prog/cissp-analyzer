@@ -25,9 +25,7 @@ def test_load_previous_exams_single_exam():
             "date": "2026-06-26",
             "student_name": "ExistingStudent",
             "overall_accuracy": 0.65,
-            "by_domain": {
-                "Security & Risk Management": {"accuracy": 0.70}
-            }
+            "by_domain": {"Security & Risk Management": {"accuracy": 0.70}},
         }
 
         with open(student_dir / "exam-1_performance.json", "w") as f:
@@ -51,7 +49,7 @@ def test_load_previous_exams_multiple_exams():
             exam_data = {
                 "exam_number": exam_num,
                 "date": f"2026-06-{25+exam_num}",
-                "overall_accuracy": 0.60 + (exam_num * 0.05)
+                "overall_accuracy": 0.60 + (exam_num * 0.05),
             }
             with open(student_dir / f"exam-{exam_num}_performance.json", "w") as f:
                 json.dump(exam_data, f)
@@ -76,7 +74,7 @@ def test_load_previous_exams_enforces_max_limit(caplog):
             exam_data = {
                 "exam_number": exam_num,
                 "date": f"2026-06-{10+exam_num}",
-                "overall_accuracy": 0.50 + (exam_num * 0.02)
+                "overall_accuracy": 0.50 + (exam_num * 0.02),
             }
             with open(student_dir / f"exam-{exam_num}_performance.json", "w") as f:
                 json.dump(exam_data, f)
@@ -87,17 +85,20 @@ def test_load_previous_exams_enforces_max_limit(caplog):
         exam_11_data = {
             "exam_number": 11,
             "date": "2026-07-01",
-            "overall_accuracy": 0.72
+            "overall_accuracy": 0.72,
         }
         saved_path = loader.save_exam_performance("MaxLimitStudent", 11, exam_11_data)
 
         # Verify warning was logged
-        assert any("MaxLimitStudent" in record.message and "10 exams" in record.message
-                   for record in caplog.records if record.levelname == "WARNING")
+        assert any(
+            "MaxLimitStudent" in record.message and "10 exams" in record.message
+            for record in caplog.records
+            if record.levelname == "WARNING"
+        )
 
         # Verify exam 11 was still saved despite warning (not a hard block)
         assert saved_path.exists()
-        with open(saved_path, 'r') as f:
+        with open(saved_path, "r") as f:
             saved_data = json.load(f)
         assert saved_data["exam_number"] == 11
         assert saved_data["overall_accuracy"] == 0.72

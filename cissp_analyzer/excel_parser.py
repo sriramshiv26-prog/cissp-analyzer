@@ -26,28 +26,30 @@ class ExcelParser:
         answer_str = str(answer_str).strip().upper()
 
         # Single letter answer (A, B, C, or D)
-        if len(answer_str) == 1 and answer_str in 'ABCD':
+        if len(answer_str) == 1 and answer_str in "ABCD":
             return answer_str
 
         # Already formatted: "1-A, 2-B, 3-C" or "1-A,2-B,3-C"
-        if re.match(r'^\d+-?[A-D](\s*,\s*\d+-?[A-D])*$', answer_str):
+        if re.match(r"^\d+-?[A-D](\s*,\s*\d+-?[A-D])*$", answer_str):
             # Normalize to "1-A,2-B,3-C" format
-            parts = re.findall(r'(\d+)-?([A-D])', answer_str)
+            parts = re.findall(r"(\d+)-?([A-D])", answer_str)
             if parts:
-                normalized = ','.join([f"{num}-{letter}" for num, letter in parts])
+                normalized = ",".join([f"{num}-{letter}" for num, letter in parts])
                 return normalized
 
         # Format: "1A2B3C4D" or "1B2C3A4D" (no separators)
-        if re.match(r'^\d[A-D](\d[A-D])*$', answer_str):
-            parts = re.findall(r'(\d)([A-D])', answer_str)
+        if re.match(r"^\d[A-D](\d[A-D])*$", answer_str):
+            parts = re.findall(r"(\d)([A-D])", answer_str)
             if parts:
-                normalized = ','.join([f"{num}-{letter}" for num, letter in parts])
+                normalized = ",".join([f"{num}-{letter}" for num, letter in parts])
                 return normalized
 
         # Format: "A, B, C, D" or "ABCD" (positional, no numbers)
-        letters = re.findall(r'[A-D]', answer_str)
+        letters = re.findall(r"[A-D]", answer_str)
         if len(letters) >= 2:  # Multi-part answer without position numbers
-            normalized = ','.join([f"{i+1}-{letter}" for i, letter in enumerate(letters)])
+            normalized = ",".join(
+                [f"{i+1}-{letter}" for i, letter in enumerate(letters)]
+            )
             return normalized
 
         return answer_str
@@ -71,19 +73,24 @@ class ExcelParser:
 
         try:
             df = pd.read_excel(excel_file)
-        except Exception as e:
-            raise IOError(f"Failed to read Excel file '{excel_file}': {str(e)}")
+        except Exception as exc:
+            raise IOError(f"Failed to read Excel file '{excel_file}': {str(exc)}")
 
         df.columns = df.columns.str.strip()
 
         # Verify required columns
-        if 'Question' not in df.columns:
-            available = ', '.join(df.columns.tolist())
-            raise ValueError(f"Excel must have 'Question' column. Available columns: {available}")
+        if "Question" not in df.columns:
+            available = ", ".join(df.columns.tolist())
+            raise ValueError(
+                f"Excel must have 'Question' column. Available columns: {available}"
+            )
 
         if student_name not in df.columns:
-            available = ', '.join(df.columns.tolist())
-            raise ValueError(f"Excel must have column for student '{student_name}'. Available columns: {available}")
+            available = ", ".join(df.columns.tolist())
+            raise ValueError(
+                f"Excel must have column for student '{student_name}'. "
+                f"Available columns: {available}"
+            )
 
         if df.empty:
             raise ValueError("Excel file is empty (no data rows)")
@@ -91,9 +98,13 @@ class ExcelParser:
         answers = []
         for row_idx, (_, row) in enumerate(df.iterrows(), start=2):
             try:
-                q_number = int(row['Question'])
-            except (ValueError, TypeError) as e:
-                raise ValueError(f"Invalid question number in row {row_idx}: {row['Question']}. Expected integer.")
+                q_number = int(row["Question"])
+            except (ValueError, TypeError):
+                q_val = row["Question"]
+                raise ValueError(
+                    f"Invalid question number in row {row_idx}: {q_val}. "
+                    "Expected integer."
+                )
 
             raw_answer = row[student_name]
 
@@ -104,7 +115,7 @@ class ExcelParser:
                 student_name=student_name,
                 question_number=q_number,
                 selected_answer=selected_answer,
-                is_correct=False  # Will be set by analysis engine
+                is_correct=False,  # Will be set by analysis engine
             )
             answers.append(answer)
 
@@ -113,7 +124,9 @@ class ExcelParser:
 
         return sorted(answers, key=lambda x: x.question_number)
 
-    def parse_all_students(self, excel_file: str, student_names: List[str]) -> Dict[str, List[StudentAnswer]]:
+    def parse_all_students(
+        self, excel_file: str, student_names: List[str]
+    ) -> Dict[str, List[StudentAnswer]]:
         """Parse answers for multiple students from one file"""
         result = {}
         for student_name in student_names:

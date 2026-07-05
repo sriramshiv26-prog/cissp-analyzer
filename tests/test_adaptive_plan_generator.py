@@ -20,8 +20,8 @@ def current_exam():
             "Software Development Security": {"accuracy": 0.48},
             "Security Assessment & Testing": {"accuracy": 0.70},
             "Security Operations": {"accuracy": 0.65},
-            "Software Development Security": {"accuracy": 0.58}
-        }
+            "Software Development Security": {"accuracy": 0.58},
+        },
     }
 
 
@@ -38,8 +38,8 @@ def previous_exam():
             "Software Development Security": {"accuracy": 0.42},
             "Security Assessment & Testing": {"accuracy": 0.68},
             "Security Operations": {"accuracy": 0.60},
-            "Software Development Security": {"accuracy": 0.52}
-        }
+            "Software Development Security": {"accuracy": 0.52},
+        },
     }
 
 
@@ -63,11 +63,11 @@ def test_generate_study_plan_sheet(generator, current_exam, previous_exam):
                 values_list.append(cell)
 
     # Verify Priority 1 section exists
-    values_text = ' '.join(str(v) for v in values_list)
-    assert 'Priority 1' in values_text or 'priority 1' in values_text.lower()
+    values_text = " ".join(str(v) for v in values_list)
+    assert "Priority 1" in values_text or "priority 1" in values_text.lower()
 
     # Verify Priority 2 section exists
-    assert 'Priority 2' in values_text or 'priority 2' in values_text.lower()
+    assert "Priority 2" in values_text or "priority 2" in values_text.lower()
 
     # Verify sheet has meaningful content
     assert len(values_set) > 5
@@ -86,12 +86,13 @@ def test_study_plan_includes_focus_areas(generator, current_exam, previous_exam)
 
     # Verify weak domain (Communication & Network Security) appears
     # or verify "focus" keywords exist
-    values_text = ' '.join(str(v) for v in values_set)
+    values_text = " ".join(str(v) for v in values_set)
 
     # Check for actionable content keywords
-    assert any(keyword in values_text.lower() for keyword in [
-        'focus', 'review', 'practice', 'study', 'strengthen', 'improve'
-    ])
+    assert any(
+        keyword in values_text.lower()
+        for keyword in ["focus", "review", "practice", "study", "strengthen", "improve"]
+    )
 
 
 def test_study_plan_with_single_exam(generator, current_exam):
@@ -110,8 +111,8 @@ def test_study_plan_with_single_exam(generator, current_exam):
                 values_set.add(cell)
 
     # Verify priorities exist
-    values_text = ' '.join(str(v) for v in values_set)
-    assert 'Priority' in values_text
+    values_text = " ".join(str(v) for v in values_set)
+    assert "Priority" in values_text
 
 
 def test_study_plan_includes_strengths_section(generator, current_exam, previous_exam):
@@ -125,7 +126,7 @@ def test_study_plan_includes_strengths_section(generator, current_exam, previous
             if cell is not None:
                 values_list.append(cell)
 
-    values_text = ' '.join(str(v) for v in values_list)
+    values_text = " ".join(str(v) for v in values_list)
 
     # Verify strengths section exists
-    assert 'Strengths' in values_text or 'strength' in values_text.lower()
+    assert "Strengths" in values_text or "strength" in values_text.lower()

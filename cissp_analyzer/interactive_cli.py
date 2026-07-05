@@ -19,12 +19,13 @@ from cissp_analyzer.filename_parser import FilenameParser
 
 class Colors:
     """ANSI color codes for terminal output"""
-    BLUE = '\033[94m'
-    GREEN = '\033[92m'
-    YELLOW = '\033[93m'
-    RED = '\033[91m'
-    BOLD = '\033[1m'
-    END = '\033[0m'
+
+    BLUE = "\033[94m"
+    GREEN = "\033[92m"
+    YELLOW = "\033[93m"
+    RED = "\033[91m"
+    BOLD = "\033[1m"
+    END = "\033[0m"
 
     @staticmethod
     def header(text: str) -> str:
@@ -87,11 +88,13 @@ def prompt_yes_no(question: str, default: bool = True) -> bool:
         True if yes, False if no
     """
     default_str = "Y/n" if default else "y/N"
-    response = input(f"{Colors.BOLD}{question}{Colors.END} [{default_str}]: ").strip().lower()
+    response = (
+        input(f"{Colors.BOLD}{question}{Colors.END} [{default_str}]: ").strip().lower()
+    )
 
     if not response:
         return default
-    return response in ['y', 'yes']
+    return response in ["y", "yes"]
 
 
 def validate_file(filepath: str) -> bool:
@@ -129,9 +132,11 @@ def ask_analysis_type() -> str:
     print("       • Perfect for: tracking improvement, retakes, trend analysis")
 
     while True:
-        choice = input("\n" + Colors.BOLD + "Choose [A/B]: " + Colors.END).strip().upper()
-        if choice in ['A', 'B']:
-            return "single" if choice == 'A' else "comparative"
+        choice = (
+            input("\n" + Colors.BOLD + "Choose [A/B]: " + Colors.END).strip().upper()
+        )
+        if choice in ["A", "B"]:
+            return "single" if choice == "A" else "comparative"
         print(Colors.error("Please enter A or B"))
 
 
@@ -194,7 +199,9 @@ def get_exam_pdf() -> str:
             return pdf_path
         else:
             print(Colors.error(f"File not found: {pdf_path}"))
-            print(Colors.info("Try using the full path, e.g. /Users/name/exams/mock1.pdf"))
+            print(
+                Colors.info("Try using the full path, e.g. /Users/name/exams/mock1.pdf")
+            )
 
 
 def get_answer_key() -> Optional[str]:
@@ -251,7 +258,9 @@ def add_students(analysis_type: str = "single") -> List[Dict[str, str]]:
         print(f"\n{Colors.BOLD}Student {student_num}:{Colors.END}")
 
         # Get student name
-        student_name = prompt("Student name (or press Enter if done adding)", required=False)
+        student_name = prompt(
+            "Student name (or press Enter if done adding)", required=False
+        )
         if not student_name:
             if student_num == 1:
                 print(Colors.warning("At least one student is required"))
@@ -264,24 +273,30 @@ def add_students(analysis_type: str = "single") -> List[Dict[str, str]]:
             has_history = check_student_history(student_name)
 
             if not has_history:
-                print(Colors.warning(f"No previous exam history found for {student_name}"))
-                if not prompt_yes_no("Proceed with single exam analysis for this student?", default=True):
+                print(
+                    Colors.warning(f"No previous exam history found for {student_name}")
+                )
+                if not prompt_yes_no(
+                    "Proceed with single exam analysis for this student?", default=True
+                ):
                     print(Colors.info("Skipping this student"))
                     continue
             else:
                 from cissp_analyzer.history_loader import HistoryLoader
+
                 history_loader = HistoryLoader()
                 num_previous = len(history_loader.load_previous_exams(student_name))
-                print(Colors.success(f"Found {num_previous} previous exam(s) for {student_name}"))
+                print(
+                    Colors.success(
+                        f"Found {num_previous} previous exam(s) for {student_name}"
+                    )
+                )
 
         # Get student answer file
         while True:
             answer_file = prompt(f"Excel file for {student_name}")
             if validate_file(answer_file):
-                students.append({
-                    "name": student_name,
-                    "excel": answer_file
-                })
+                students.append({"name": student_name, "excel": answer_file})
                 print(Colors.success(f"Added: {student_name}"))
                 break
             else:
@@ -310,7 +325,13 @@ def get_output_directory() -> str:
     return output_dir
 
 
-def display_summary(exam_num: int, pdf: str, students: List[Dict], output: str, analysis_type: str = "single"):
+def display_summary(
+    exam_num: int,
+    pdf: str,
+    students: List[Dict],
+    output: str,
+    analysis_type: str = "single",
+):
     """Display configuration summary before running analysis.
 
     Args:
@@ -324,7 +345,9 @@ def display_summary(exam_num: int, pdf: str, students: List[Dict], output: str, 
     print(Colors.header("CONFIGURATION SUMMARY"))
     print(Colors.header("=" * 70))
 
-    analysis_label = "Single Exam" if analysis_type == "single" else "Comparative (with History)"
+    analysis_label = (
+        "Single Exam" if analysis_type == "single" else "Comparative (with History)"
+    )
 
     print(f"\n{Colors.BOLD}Analysis Type:{Colors.END} {analysis_label}")
     print(f"{Colors.BOLD}Exam:{Colors.END} Mock {exam_num}")
@@ -337,7 +360,13 @@ def display_summary(exam_num: int, pdf: str, students: List[Dict], output: str, 
     print("\n" + "=" * 70)
 
 
-def run_analysis(pdf: str, students: List[Dict], output: str, answer_key: Optional[str], analysis_type: str = "single"):
+def run_analysis(
+    pdf: str,
+    students: List[Dict],
+    output: str,
+    answer_key: Optional[str],
+    analysis_type: str = "single",
+):
     """Run the CISSP Analyzer on the provided data.
 
     Args:
@@ -354,11 +383,15 @@ def run_analysis(pdf: str, students: List[Dict], output: str, answer_key: Option
     try:
         # Initialize analyzer
         print("\n" + Colors.info("Initializing analyzer..."))
-        analyzer = CISSPAnalyzer(mapping_file='data/question_domain_mapping.json')
+        analyzer = CISSPAnalyzer(mapping_file="data/question_domain_mapping.json")
 
         # Load or auto-extract answer key
         if answer_key == "__AUTO_EXTRACT__":
-            print(Colors.info("Auto-extracting answers with domain context enhancement..."))
+            print(
+                Colors.info(
+                    "Auto-extracting answers with domain context enhancement..."
+                )
+            )
             from cissp_analyzer.pdf_parser import PDFParser
             from cissp_analyzer.answer_key_extractor import AnswerKeyExtractor
 
@@ -369,6 +402,7 @@ def run_analysis(pdf: str, students: List[Dict], output: str, answer_key: Option
 
                 # Extract text from PDF
                 from pypdf import PdfReader
+
                 reader = PdfReader(pdf)
                 pdf_text = ""
                 for page in reader.pages:
@@ -379,13 +413,27 @@ def run_analysis(pdf: str, students: List[Dict], output: str, answer_key: Option
 
                 if enhanced_context:
                     extracted_count = len(enhanced_context)
-                    print(Colors.success(f"Extracted and analyzed {extracted_count} questions"))
+                    print(
+                        Colors.success(
+                            f"Extracted and analyzed {extracted_count} questions"
+                        )
+                    )
 
                     # Warn if extraction seems incomplete (expecting at least 30 questions)
                     if extracted_count < 30:
-                        print(Colors.warning(f"Only {extracted_count} questions found. Auto-extract may be incomplete."))
-                        if not prompt_yes_no("Continue with incomplete extraction?", default=False):
-                            print(Colors.info("Skipping auto-extract, continuing without answer key"))
+                        print(
+                            Colors.warning(
+                                f"Only {extracted_count} questions found. Auto-extract may be incomplete."
+                            )
+                        )
+                        if not prompt_yes_no(
+                            "Continue with incomplete extraction?", default=False
+                        ):
+                            print(
+                                Colors.info(
+                                    "Skipping auto-extract, continuing without answer key"
+                                )
+                            )
                             answer_key = None
                             extracted_answers = {}
 
@@ -396,7 +444,11 @@ def run_analysis(pdf: str, students: List[Dict], output: str, answer_key: Option
                             domains_found.add(context["suggested_domain"])
 
                     if domains_found:
-                        print(Colors.info(f"Domains identified: {', '.join(sorted(domains_found)[:3])}..."))
+                        print(
+                            Colors.info(
+                                f"Domains identified: {', '.join(sorted(domains_found)[:3])}..."
+                            )
+                        )
 
                     # Save extracted answers (full text for reference)
                     temp_key_path = Path(output) / ".answer_key_extracted.json"
@@ -408,7 +460,7 @@ def run_analysis(pdf: str, students: List[Dict], output: str, answer_key: Option
                         if context.get("answer_letter"):
                             answer_map[q_num] = {
                                 "letter": context["answer_letter"],
-                                "text": context.get("answer_text", "")
+                                "text": context.get("answer_text", ""),
                             }
 
                     # Save full version for reference
@@ -418,7 +470,9 @@ def run_analysis(pdf: str, students: List[Dict], output: str, answer_key: Option
                         print(Colors.success(f"Answer key saved to: {temp_key_path}"))
 
                         # Extract letters only for analyzer
-                        letters_only = {q: data["letter"] for q, data in answer_map.items()}
+                        letters_only = {
+                            q: data["letter"] for q, data in answer_map.items()
+                        }
                         # Normalize to integers for analyzer
                         normalized_key = {}
                         for q_num, letter in letters_only.items():
@@ -427,8 +481,16 @@ def run_analysis(pdf: str, students: List[Dict], output: str, answer_key: Option
 
                         # Validate normalized key
                         for q_num, letter in normalized_key.items():
-                            assert isinstance(q_num, int), f"Question number must be int, got {type(q_num)}"
-                            assert letter in ["A", "B", "C", "D", "E"], f"Invalid answer letter: {letter}"
+                            assert isinstance(
+                                q_num, int
+                            ), f"Question number must be int, got {type(q_num)}"
+                            assert letter in [
+                                "A",
+                                "B",
+                                "C",
+                                "D",
+                                "E",
+                            ], f"Invalid answer letter: {letter}"
 
                         analyzer.analysis_engine.set_answer_key(normalized_key)
                 else:
@@ -443,19 +505,24 @@ def run_analysis(pdf: str, students: List[Dict], output: str, answer_key: Option
             analyzer.set_answer_key_from_file(answer_key)
 
         # Extract student names
-        student_names = [s['name'] for s in students]
+        student_names = [s["name"] for s in students]
 
         # Run analysis based on type
         if analysis_type == "comparative":
-            print(Colors.info(f"Analyzing {len(students)} student(s) with historical context..."))
+            print(
+                Colors.info(
+                    f"Analyzing {len(students)} student(s) with historical context..."
+                )
+            )
 
             # Import history loader for comparative mode
             from cissp_analyzer.history_loader import HistoryLoader
+
             history_loader = HistoryLoader()
 
             all_reports = []
             for student in students:
-                student_name = student['name']
+                student_name = student["name"]
                 print(f"\n{Colors.BOLD}Analyzing {student_name}...{Colors.END}")
 
                 # Check if student has history
@@ -467,33 +534,37 @@ def run_analysis(pdf: str, students: List[Dict], output: str, answer_key: Option
                 try:
                     result = analyzer.analyze_student_with_history(
                         exam_pdf=pdf,
-                        answer_excel=student['excel'],
+                        answer_excel=student["excel"],
                         student_name=student_name,
-                        students_dir="students"
+                        students_dir="students",
                     )
 
-                    all_reports.append(result['report_path'])
+                    all_reports.append(result["report_path"])
                     print(Colors.success(f"Report saved: {result['report_path']}"))
 
-                    if result['previous_exams_count'] > 0:
-                        print(Colors.info(f"Report includes {result['previous_exams_count']} previous exam(s) for comparison"))
+                    if result["previous_exams_count"] > 0:
+                        print(
+                            Colors.info(
+                                f"Report includes {result['previous_exams_count']} previous exam(s) for comparison"
+                            )
+                        )
 
                 except Exception as e:
                     print(Colors.error(f"Analysis failed for {student_name}: {str(e)}"))
                     continue
 
             result = {
-                'individual_reports': all_reports,
-                'students_analyzed': len(all_reports)
+                "individual_reports": all_reports,
+                "students_analyzed": len(all_reports),
             }
         else:
             # Single exam mode (ad-hoc)
             print(Colors.info(f"Analyzing {len(students)} student(s) (single exam)..."))
             result = analyzer.analyze(
                 exam_pdf=pdf,
-                answer_excel=students[0]['excel'],  # First student's file
+                answer_excel=students[0]["excel"],  # First student's file
                 student_names=student_names,
-                output_dir=output
+                output_dir=output,
             )
 
         # Display results
@@ -503,17 +574,19 @@ def run_analysis(pdf: str, students: List[Dict], output: str, answer_key: Option
 
         if analysis_type == "comparative":
             print(f"\n{Colors.success('Reports with historical trends:')}")
-            for report in result.get('individual_reports', []):
+            for report in result.get("individual_reports", []):
                 print(f"  • {report}")
         else:
             print(f"\n{Colors.success('Individual reports:')}")
-            for report in result.get('individual_reports', []):
+            for report in result.get("individual_reports", []):
                 print(f"  • {report}")
 
             print(f"\n{Colors.success('Class report:')}")
             print(f"  • {result.get('class_report', 'N/A')}")
 
-        print(f"\n{Colors.success('Students analyzed:')} {result.get('students_analyzed', 0)}")
+        print(
+            f"\n{Colors.success('Students analyzed:')} {result.get('students_analyzed', 0)}"
+        )
 
         print("\n" + "=" * 70)
         print(Colors.success("Reports saved to: " + output))
@@ -522,6 +595,7 @@ def run_analysis(pdf: str, students: List[Dict], output: str, answer_key: Option
     except Exception as e:
         print("\n" + Colors.error(f"Analysis failed: {str(e)}"))
         import traceback
+
         traceback.print_exc()
         sys.exit(1)
 
@@ -531,7 +605,11 @@ def main():
     try:
         # Welcome
         print("\n" + Colors.header("╔" + "═" * 68 + "╗"))
-        print(Colors.header("║" + " " * 15 + "CISSP ANALYZER - INTERACTIVE SETUP" + " " * 19 + "║"))
+        print(
+            Colors.header(
+                "║" + " " * 15 + "CISSP ANALYZER - INTERACTIVE SETUP" + " " * 19 + "║"
+            )
+        )
         print(Colors.header("╚" + "═" * 68 + "╝"))
 
         # Step 0: Analysis type (NEW!)
@@ -569,9 +647,10 @@ def main():
     except Exception as e:
         print("\n" + Colors.error(f"Unexpected error: {str(e)}"))
         import traceback
+
         traceback.print_exc()
         sys.exit(1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

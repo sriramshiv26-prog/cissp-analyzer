@@ -54,10 +54,10 @@ import subprocess
 from unittest.mock import Mock, patch, MagicMock
 import pandas as pd
 
-
 # ============================================================================
 # PERFORMANCE UTILITIES
 # ============================================================================
+
 
 class PerformanceTimer:
     """Context manager for timing code blocks with nanosecond precision"""
@@ -79,8 +79,9 @@ class PerformanceTimer:
 
     def assert_under(self, max_seconds: float):
         """Assert that execution completed under specified time"""
-        assert self.elapsed_seconds <= max_seconds, \
-            f"{self.name} took {self.elapsed_seconds:.3f}s, exceeds {max_seconds}s limit"
+        assert (
+            self.elapsed_seconds <= max_seconds
+        ), f"{self.name} took {self.elapsed_seconds:.3f}s, exceeds {max_seconds}s limit"
 
 
 class MemoryMonitor:
@@ -105,13 +106,15 @@ class MemoryMonitor:
 
     def assert_under(self, max_mb: float):
         """Assert that memory usage stayed under specified limit"""
-        assert self.memory_used_mb <= max_mb, \
-            f"{self.name} used {self.memory_used_mb:.1f}MB, exceeds {max_mb}MB limit"
+        assert (
+            self.memory_used_mb <= max_mb
+        ), f"{self.name} used {self.memory_used_mb:.1f}MB, exceeds {max_mb}MB limit"
 
 
 # ============================================================================
 # MOCK DATA GENERATORS
 # ============================================================================
+
 
 def create_mock_answer_key(num_questions: int = 125) -> Dict[str, str]:
     """Generate mock answer key for testing"""
@@ -120,8 +123,7 @@ def create_mock_answer_key(num_questions: int = 125) -> Dict[str, str]:
 
 
 def create_mock_student_answers(
-    num_questions: int = 125,
-    correct_percentage: float = 80.0
+    num_questions: int = 125, correct_percentage: float = 80.0
 ) -> Dict[str, str]:
     """Generate mock student answers with specified accuracy"""
     answer_key = create_mock_answer_key(num_questions)
@@ -143,9 +145,7 @@ def create_mock_student_answers(
 
 
 def create_mock_excel_file(
-    temp_dir: Path,
-    num_students: int = 1,
-    num_questions: int = 125
+    temp_dir: Path, num_students: int = 1, num_questions: int = 125
 ) -> Path:
     """Generate mock Excel file with student answers"""
     data = {"Question": list(range(1, num_questions + 1))}
@@ -154,7 +154,9 @@ def create_mock_excel_file(
         student_name = f"Student{student_idx}"
         accuracy = 85.0 - (student_idx * 3)  # Vary accuracy per student
         student_answers = create_mock_student_answers(num_questions, accuracy)
-        data[student_name] = [student_answers[str(i)] for i in range(1, num_questions + 1)]
+        data[student_name] = [
+            student_answers[str(i)] for i in range(1, num_questions + 1)
+        ]
 
     df = pd.DataFrame(data)
     file_path = temp_dir / f"mock_answers_{num_students}students.xlsx"
@@ -164,8 +166,7 @@ def create_mock_excel_file(
 
 
 def create_mock_history_data(
-    exam_index: int,
-    base_score: float = 70.0
+    exam_index: int, base_score: float = 70.0
 ) -> Dict[str, Any]:
     """Generate mock historical exam performance"""
     # Simulate improvement over time
@@ -183,37 +184,37 @@ def create_mock_history_data(
             "Security & Risk Management": {
                 "correct": int(17 * score / 100),
                 "total": 17,
-                "percentage": score
+                "percentage": score,
             },
             "Asset Security": {
                 "correct": int(17 * (score - 5) / 100),
                 "total": 17,
-                "percentage": score - 5
+                "percentage": score - 5,
             },
             "Security Architecture & Engineering": {
                 "correct": int(18 * score / 100),
                 "total": 18,
-                "percentage": score
+                "percentage": score,
             },
             "Communication & Network Security": {
                 "correct": int(18 * score / 100),
                 "total": 18,
-                "percentage": score
+                "percentage": score,
             },
             "Identity & Access Management": {
                 "correct": int(18 * (score + 5) / 100),
                 "total": 18,
-                "percentage": score + 5
+                "percentage": score + 5,
             },
             "Security Assessment & Testing": {
                 "correct": int(17 * score / 100),
                 "total": 17,
-                "percentage": score
+                "percentage": score,
             },
             "Security Operations": {
                 "correct": int(18 * (score - 3) / 100),
                 "total": 18,
-                "percentage": score - 3
+                "percentage": score - 3,
             },
         },
     }
@@ -222,6 +223,7 @@ def create_mock_history_data(
 # ============================================================================
 # TEST CLASS 1: Execution Time Benchmarks
 # ============================================================================
+
 
 @pytest.mark.performance
 class TestExecutionTime:
@@ -234,7 +236,7 @@ class TestExecutionTime:
         excel_file = create_mock_excel_file(tmp_path, num_students=1, num_questions=125)
         answer_key_file = tmp_path / "answer_key.json"
 
-        with open(answer_key_file, 'w') as f:
+        with open(answer_key_file, "w") as f:
             json.dump(create_mock_answer_key(), f)
 
         # Execute: Time the analysis
@@ -247,8 +249,11 @@ class TestExecutionTime:
             for col in df.columns:
                 if col != "Question":
                     # Calculate score
-                    correct = sum(1 for i, q in enumerate(df["Question"], 1)
-                                if df[col].iloc[i-1] == answer_key[str(q)])
+                    correct = sum(
+                        1
+                        for i, q in enumerate(df["Question"], 1)
+                        if df[col].iloc[i - 1] == answer_key[str(q)]
+                    )
                     score_pct = (correct / 125) * 100
 
         # Verify: Assert under limit
@@ -261,7 +266,7 @@ class TestExecutionTime:
         excel_file = create_mock_excel_file(tmp_path, num_students=1, num_questions=125)
         answer_key_file = tmp_path / "answer_key.json"
 
-        with open(answer_key_file, 'w') as f:
+        with open(answer_key_file, "w") as f:
             json.dump(create_mock_answer_key(), f)
 
         # Create history folder with 5 previous exams
@@ -270,7 +275,7 @@ class TestExecutionTime:
 
         for exam_num in range(1, 6):
             history_file = history_dir / f"exam_{exam_num}_performance.json"
-            with open(history_file, 'w') as f:
+            with open(history_file, "w") as f:
                 json.dump(create_mock_history_data(exam_num, base_score=70), f)
 
         # Execute: Time the comparative analysis
@@ -303,7 +308,7 @@ class TestExecutionTime:
         excel_file = create_mock_excel_file(tmp_path, num_students=5, num_questions=125)
         answer_key_file = tmp_path / "answer_key.json"
 
-        with open(answer_key_file, 'w') as f:
+        with open(answer_key_file, "w") as f:
             json.dump(create_mock_answer_key(), f)
 
         # Execute: Time batch analysis
@@ -316,13 +321,16 @@ class TestExecutionTime:
             for col in df.columns:
                 if col != "Question":
                     # Calculate score for each student
-                    correct = sum(1 for i, q in enumerate(df["Question"], 1)
-                                if df[col].iloc[i-1] == answer_key[str(q)])
+                    correct = sum(
+                        1
+                        for i, q in enumerate(df["Question"], 1)
+                        if df[col].iloc[i - 1] == answer_key[str(q)]
+                    )
                     score_pct = (correct / 125) * 100
                     results[col] = {
                         "score": score_pct,
                         "correct": correct,
-                        "total": 125
+                        "total": 125,
                     }
 
         # Verify: Assert under limit
@@ -335,7 +343,7 @@ class TestExecutionTime:
         excel_file = create_mock_excel_file(tmp_path, num_students=3, num_questions=125)
         answer_key_file = tmp_path / "answer_key.json"
 
-        with open(answer_key_file, 'w') as f:
+        with open(answer_key_file, "w") as f:
             json.dump(create_mock_answer_key(), f)
 
         # Execute: Time full workflow
@@ -357,8 +365,11 @@ class TestExecutionTime:
             results = {}
             for col in df.columns:
                 if col != "Question":
-                    correct = sum(1 for i, q in enumerate(df["Question"], 1)
-                                if str(df[col].iloc[i-1]) == answer_key.get(str(q), "X"))
+                    correct = sum(
+                        1
+                        for i, q in enumerate(df["Question"], 1)
+                        if str(df[col].iloc[i - 1]) == answer_key.get(str(q), "X")
+                    )
                     score_pct = (correct / 125) * 100
                     results[col] = {"score": score_pct, "correct": correct}
 
@@ -374,10 +385,14 @@ class TestExecutionTime:
         # Execute: Time the entry point startup
         with PerformanceTimer("Entry Point Startup (analyze.py --help)") as timer:
             result = subprocess.run(
-                [sys.executable, "-c", "import sys; from pathlib import Path; sys.path.insert(0, str(Path.cwd())); print('startup test')"],
+                [
+                    sys.executable,
+                    "-c",
+                    "import sys; from pathlib import Path; sys.path.insert(0, str(Path.cwd())); print('startup test')",
+                ],
                 capture_output=True,
                 text=True,
-                timeout=5
+                timeout=5,
             )
             assert result.returncode == 0, f"Startup failed: {result.stderr}"
 
@@ -389,6 +404,7 @@ class TestExecutionTime:
 # TEST CLASS 2: Memory Usage Benchmarks
 # ============================================================================
 
+
 @pytest.mark.performance
 class TestMemoryUsage:
     """Test memory usage for critical paths"""
@@ -399,7 +415,7 @@ class TestMemoryUsage:
         excel_file = create_mock_excel_file(tmp_path, num_students=1, num_questions=125)
         answer_key_file = tmp_path / "answer_key.json"
 
-        with open(answer_key_file, 'w') as f:
+        with open(answer_key_file, "w") as f:
             json.dump(create_mock_answer_key(), f)
 
         # Execute: Monitor memory
@@ -409,8 +425,11 @@ class TestMemoryUsage:
 
             for col in df.columns:
                 if col != "Question":
-                    correct = sum(1 for i, q in enumerate(df["Question"], 1)
-                                if df[col].iloc[i-1] == answer_key[str(q)])
+                    correct = sum(
+                        1
+                        for i, q in enumerate(df["Question"], 1)
+                        if df[col].iloc[i - 1] == answer_key[str(q)]
+                    )
                     score_pct = (correct / 125) * 100
 
         # Verify: Assert under limit
@@ -422,7 +441,7 @@ class TestMemoryUsage:
         excel_file = create_mock_excel_file(tmp_path, num_students=1, num_questions=125)
         answer_key_file = tmp_path / "answer_key.json"
 
-        with open(answer_key_file, 'w') as f:
+        with open(answer_key_file, "w") as f:
             json.dump(create_mock_answer_key(), f)
 
         # Create history
@@ -431,7 +450,7 @@ class TestMemoryUsage:
 
         for exam_num in range(1, 6):
             history_file = history_dir / f"exam_{exam_num}_performance.json"
-            with open(history_file, 'w') as f:
+            with open(history_file, "w") as f:
                 json.dump(create_mock_history_data(exam_num, base_score=70), f)
 
         # Execute: Monitor memory
@@ -457,7 +476,7 @@ class TestMemoryUsage:
         excel_file = create_mock_excel_file(tmp_path, num_students=5, num_questions=125)
         answer_key_file = tmp_path / "answer_key.json"
 
-        with open(answer_key_file, 'w') as f:
+        with open(answer_key_file, "w") as f:
             json.dump(create_mock_answer_key(), f)
 
         # Execute: Monitor memory
@@ -468,13 +487,16 @@ class TestMemoryUsage:
             results = {}
             for col in df.columns:
                 if col != "Question":
-                    correct = sum(1 for i, q in enumerate(df["Question"], 1)
-                                if df[col].iloc[i-1] == answer_key[str(q)])
+                    correct = sum(
+                        1
+                        for i, q in enumerate(df["Question"], 1)
+                        if df[col].iloc[i - 1] == answer_key[str(q)]
+                    )
                     score_pct = (correct / 125) * 100
                     results[col] = {
                         "score": score_pct,
                         "correct": correct,
-                        "total": 125
+                        "total": 125,
                     }
 
         # Verify: Assert under limit
@@ -486,7 +508,7 @@ class TestMemoryUsage:
         excel_file = create_mock_excel_file(tmp_path, num_students=1, num_questions=125)
         answer_key_file = tmp_path / "answer_key.json"
 
-        with open(answer_key_file, 'w') as f:
+        with open(answer_key_file, "w") as f:
             json.dump(create_mock_answer_key(), f)
 
         memory_samples = []
@@ -501,21 +523,26 @@ class TestMemoryUsage:
 
             for col in df.columns:
                 if col != "Question":
-                    correct = sum(1 for i, q in enumerate(df["Question"], 1)
-                                if df[col].iloc[i-1] == answer_key[str(q)])
+                    correct = sum(
+                        1
+                        for i, q in enumerate(df["Question"], 1)
+                        if df[col].iloc[i - 1] == answer_key[str(q)]
+                    )
 
             mem_after = process.memory_info().rss / (1024 * 1024)
             memory_samples.append(mem_after - mem_before)
 
         # Verify: Memory growth should be minimal (not accumulating)
         avg_growth = sum(memory_samples) / len(memory_samples)
-        assert avg_growth < 50.0, \
-            f"Average memory growth {avg_growth:.1f}MB suggests potential leak"
+        assert (
+            avg_growth < 50.0
+        ), f"Average memory growth {avg_growth:.1f}MB suggests potential leak"
 
 
 # ============================================================================
 # TEST CLASS 3: Performance Consistency
 # ============================================================================
+
 
 @pytest.mark.performance
 class TestPerformanceConsistency:
@@ -527,7 +554,7 @@ class TestPerformanceConsistency:
         excel_file = create_mock_excel_file(tmp_path, num_students=1, num_questions=125)
         answer_key_file = tmp_path / "answer_key.json"
 
-        with open(answer_key_file, 'w') as f:
+        with open(answer_key_file, "w") as f:
             json.dump(create_mock_answer_key(), f)
 
         timings = []
@@ -541,8 +568,11 @@ class TestPerformanceConsistency:
 
             for col in df.columns:
                 if col != "Question":
-                    correct = sum(1 for i, q in enumerate(df["Question"], 1)
-                                if df[col].iloc[i-1] == answer_key[str(q)])
+                    correct = sum(
+                        1
+                        for i, q in enumerate(df["Question"], 1)
+                        if df[col].iloc[i - 1] == answer_key[str(q)]
+                    )
                     score_pct = (correct / 125) * 100
 
             end = time.perf_counter()
@@ -570,8 +600,9 @@ class TestPerformanceConsistency:
             # What matters is absolute time stays under our benchmark (which it does)
             threshold = 100.0
 
-        assert variance_pct < threshold, \
-            f"Timing variance {variance_pct:.1f}% exceeds {threshold}% threshold"
+        assert (
+            variance_pct < threshold
+        ), f"Timing variance {variance_pct:.1f}% exceeds {threshold}% threshold"
 
     @pytest.mark.performance
     def test_no_hangs_or_delays(self, tmp_path):
@@ -579,7 +610,7 @@ class TestPerformanceConsistency:
         excel_file = create_mock_excel_file(tmp_path, num_students=3, num_questions=125)
         answer_key_file = tmp_path / "answer_key.json"
 
-        with open(answer_key_file, 'w') as f:
+        with open(answer_key_file, "w") as f:
             json.dump(create_mock_answer_key(), f)
 
         # Execute: Run with timeout to detect hangs
@@ -609,7 +640,7 @@ class TestPerformanceConsistency:
         excel_file = create_mock_excel_file(tmp_path, num_students=5, num_questions=125)
         answer_key_file = tmp_path / "answer_key.json"
 
-        with open(answer_key_file, 'w') as f:
+        with open(answer_key_file, "w") as f:
             json.dump(create_mock_answer_key(), f)
 
         process = psutil.Process(os.getpid())
@@ -623,8 +654,11 @@ class TestPerformanceConsistency:
 
         for col in df.columns:
             if col != "Question":
-                correct = sum(1 for i, q in enumerate(df["Question"], 1)
-                            if df[col].iloc[i-1] == answer_key[str(q)])
+                correct = sum(
+                    1
+                    for i, q in enumerate(df["Question"], 1)
+                    if df[col].iloc[i - 1] == answer_key[str(q)]
+                )
 
                 # Sample CPU usage
                 cpu_pct = process.cpu_percent(interval=0.01)
@@ -648,6 +682,7 @@ class TestPerformanceConsistency:
 # ============================================================================
 # PYTEST CONFIGURATION FOR PERFORMANCE TESTS
 # ============================================================================
+
 
 def pytest_configure(config):
     """Register performance marker"""

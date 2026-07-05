@@ -18,9 +18,9 @@ from pathlib import Path
 
 def show_welcome():
     """Show welcome screen"""
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
     print("CISSP EXAM ANALYZER")
-    print("="*80)
+    print("=" * 80)
     print()
 
 
@@ -45,23 +45,25 @@ def show_menu():
 
 def batch_analysis():
     """Route to batch analysis"""
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
     print("BATCH ANALYSIS")
-    print("="*80)
+    print("=" * 80)
     print()
 
     # Load roster to show existing batches
     try:
-        with open('student_roster.json') as f:
+        with open("student_roster.json") as f:
             roster = json.load(f)
-        existing_batches = [b for b in roster['batches'].keys() if b != 'standalone']
+        existing_batches = [b for b in roster["batches"].keys() if b != "standalone"]
         print(f"Existing batches: {', '.join(existing_batches)}\n")
     except FileNotFoundError:
         existing_batches = []
         print("⚠ Note: student_roster.json not found\n")
 
     # Get batch name
-    batch_name = input("Enter batch name (e.g., dec25, july26, aug26): ").strip().lower()
+    batch_name = (
+        input("Enter batch name (e.g., dec25, july26, aug26): ").strip().lower()
+    )
 
     if not batch_name:
         print("❌ Batch name required")
@@ -77,7 +79,9 @@ def batch_analysis():
     script_name = f"analyze_{batch_name}.py"
     if Path(script_name).exists():
         print(f"Running: {script_name}")
-        result = subprocess.run([sys.executable, script_name], capture_output=False, text=True)
+        result = subprocess.run(
+            [sys.executable, script_name], capture_output=False, text=True
+        )
         return result.returncode == 0
     else:
         # Fall back to generic workflow
@@ -88,16 +92,16 @@ def batch_analysis():
         result = subprocess.run(
             [sys.executable, "run_batch_workflow.py", "--batch", batch_name, "--full"],
             capture_output=False,
-            text=True
+            text=True,
         )
         return result.returncode == 0
 
 
 def standalone_analysis():
     """Route to standalone analysis"""
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
     print("STANDALONE ANALYSIS")
-    print("="*80)
+    print("=" * 80)
     print("""
 Two analysis modes for individual students:
 
@@ -116,19 +120,24 @@ When you run the analysis, you'll be asked which mode you want.
     """)
 
     import subprocess
-    result = subprocess.run([sys.executable, "analyze_standalone.py"], capture_output=False, text=True)
+
+    result = subprocess.run(
+        [sys.executable, "analyze_standalone.py"], capture_output=False, text=True
+    )
     return result.returncode == 0
 
 
 def full_batch_workflow():
     """Route to full batch workflow"""
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
     print("FULL BATCH WORKFLOW")
-    print("="*80)
+    print("=" * 80)
     print()
 
     # Get batch name
-    batch_name = input("Enter batch name (e.g., dec25, july26, aug26): ").strip().lower()
+    batch_name = (
+        input("Enter batch name (e.g., dec25, july26, aug26): ").strip().lower()
+    )
 
     if not batch_name:
         print("❌ Batch name required")
@@ -139,10 +148,11 @@ def full_batch_workflow():
     print()
 
     import subprocess
+
     result = subprocess.run(
         [sys.executable, "run_batch_workflow.py", "--batch", batch_name, "--full"],
         capture_output=False,
-        text=True
+        text=True,
     )
     return result.returncode == 0
 
@@ -184,8 +194,8 @@ That's it! No configuration needed.
 """)
 
 
-if __name__ == '__main__':
-    if len(sys.argv) > 1 and sys.argv[1] in ['--help', '-h', 'help']:
+if __name__ == "__main__":
+    if len(sys.argv) > 1 and sys.argv[1] in ["--help", "-h", "help"]:
         show_help()
         sys.exit(0)
 
@@ -194,21 +204,21 @@ if __name__ == '__main__':
     choice = show_menu()
 
     success = False
-    if choice == '1':
+    if choice == "1":
         success = batch_analysis()
-    elif choice == '2':
+    elif choice == "2":
         success = standalone_analysis()
-    elif choice == '3':
+    elif choice == "3":
         success = full_batch_workflow()
     else:
         print("❌ Invalid choice. Please enter 1, 2, or 3")
         sys.exit(1)
 
     # Show summary
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
     if success:
         print("✅ ANALYSIS COMPLETE")
-        print("="*80)
+        print("=" * 80)
         print("\nResults saved to: reports/")
         print("\nNext steps:")
         print("  1. Check the generated Excel reports")
@@ -217,7 +227,7 @@ if __name__ == '__main__':
         print()
     else:
         print("⚠️  ANALYSIS COMPLETED WITH WARNINGS")
-        print("="*80)
+        print("=" * 80)
         print("\nCheck the output above for details")
         print()
 

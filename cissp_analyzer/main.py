@@ -14,17 +14,21 @@ from cissp_analyzer.filename_parser import FilenameParser
 class CISSPAnalyzer:
     """Main orchestrator for CISSP exam analysis pipeline"""
 
-    def __init__(self, mapping_file: str = 'data/question_domain_mapping.json'):
+    def __init__(self, mapping_file: str = "data/question_domain_mapping.json"):
         self.domain_mapper = DomainMapper(mapping_file)
         self.analysis_engine = AnalysisEngine(self.domain_mapper)
-        self.individual_gen = IndividualReportGenerator(self.domain_mapper, self.analysis_engine)
+        self.individual_gen = IndividualReportGenerator(
+            self.domain_mapper, self.analysis_engine
+        )
         self.class_gen = ClassReportGenerator(self.domain_mapper)
 
-    def analyze(self,
-                exam_pdf: str,
-                answer_excel: str,
-                student_names: List[str],
-                output_dir: str) -> Dict:
+    def analyze(
+        self,
+        exam_pdf: str,
+        answer_excel: str,
+        student_names: List[str],
+        output_dir: str,
+    ) -> Dict:
         """
         Complete analysis pipeline
 
@@ -84,13 +88,13 @@ class CISSPAnalyzer:
         print(f"  Class report saved to {class_report_file}")
 
         return {
-            'individual_reports': [
+            "individual_reports": [
                 str(output_path / f"CISSP_Individual_Report_{name}.xlsx")
                 for name in student_names
             ],
-            'class_report': str(class_report_file),
-            'students_analyzed': len(student_names),
-            'cohort_performance': cohort_performance
+            "class_report": str(class_report_file),
+            "students_analyzed": len(student_names),
+            "cohort_performance": cohort_performance,
         }
 
     def _get_answer_key_file_path(self, exam_pdf: str) -> str:
@@ -123,7 +127,7 @@ class CISSPAnalyzer:
             ...
         }
         """
-        with open(json_file, 'r') as f:
+        with open(json_file, "r") as f:
             answer_key = json.load(f)
 
         # Convert string keys to integers if needed
@@ -134,11 +138,13 @@ class CISSPAnalyzer:
 
         self.analysis_engine.set_answer_key(normalized_key)
 
-    def analyze_student_with_history(self,
-                                    exam_pdf: str,
-                                    answer_excel: str,
-                                    student_name: str,
-                                    students_dir: str = "students") -> Dict:
+    def analyze_student_with_history(
+        self,
+        exam_pdf: str,
+        answer_excel: str,
+        student_name: str,
+        students_dir: str = "students",
+    ) -> Dict:
         """
         Analyze a student's exam, load history, generate report with trends.
 
@@ -193,17 +199,17 @@ class CISSPAnalyzer:
         # Step 6: Export performance data
         print("  Saving performance data...")
         performance_data = {
-            'exam_number': exam_number,
-            'student_name': student_name,
-            'score_percentage': performance.score_percentage,
-            'correct_count': performance.correct_count,
-            'wrong_count': performance.wrong_count,
-            'by_domain': dict(performance.by_domain),
-            'by_difficulty': dict(performance.by_difficulty),
-            'by_question_type': dict(performance.by_question_type),
-            'by_topic': dict(performance.by_topic),
-            'by_exam_trick': dict(performance.by_exam_trick),
-            'wrong_question_ids': performance.wrong_question_ids
+            "exam_number": exam_number,
+            "student_name": student_name,
+            "score_percentage": performance.score_percentage,
+            "correct_count": performance.correct_count,
+            "wrong_count": performance.wrong_count,
+            "by_domain": dict(performance.by_domain),
+            "by_difficulty": dict(performance.by_difficulty),
+            "by_question_type": dict(performance.by_question_type),
+            "by_topic": dict(performance.by_topic),
+            "by_exam_trick": dict(performance.by_exam_trick),
+            "wrong_question_ids": performance.wrong_question_ids,
         }
 
         # Step 7: Save performance JSON
@@ -213,14 +219,19 @@ class CISSPAnalyzer:
 
         # Step 8: Generate report with historical exams
         print("  Generating report with historical trends...")
-        report_file = output_path / f"CISSP_Individual_Report_{student_name}_Exam{exam_number}.xlsx"
-        self.individual_gen.generate(performance, str(report_file), historical_exams=previous_exams)
+        report_file = (
+            output_path
+            / f"CISSP_Individual_Report_{student_name}_Exam{exam_number}.xlsx"
+        )
+        self.individual_gen.generate(
+            performance, str(report_file), historical_exams=previous_exams
+        )
         print(f"  Report saved to {report_file}")
 
         return {
-            'student_name': student_name,
-            'exam_number': exam_number,
-            'report_path': str(report_file),
-            'performance_data_path': str(performance_file),
-            'previous_exams_count': len(previous_exams)
+            "student_name": student_name,
+            "exam_number": exam_number,
+            "report_path": str(report_file),
+            "performance_data_path": str(performance_file),
+            "previous_exams_count": len(previous_exams),
         }

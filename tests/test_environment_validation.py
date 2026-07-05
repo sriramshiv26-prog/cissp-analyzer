@@ -29,10 +29,10 @@ from importlib import import_module
 import importlib.util
 import pytest
 
-
 # ============================================================================
 # CLASS: TestPythonVersionSupport
 # ============================================================================
+
 
 class TestPythonVersionSupport:
     """Tests for Python version compatibility requirements"""
@@ -40,9 +40,14 @@ class TestPythonVersionSupport:
     def test_python_version_minimum_39(self):
         """Verify Python 3.9+ is installed"""
         version = sys.version_info
-        assert version.major >= 3, f"Python 3+ required, got {version.major}.{version.minor}"
-        assert (version.major == 3 and version.minor >= 9) or version.major > 3, \
+        assert (
+            version.major >= 3
+        ), f"Python 3+ required, got {version.major}.{version.minor}"
+        assert (
+            version.major == 3 and version.minor >= 9
+        ) or version.major > 3, (
             f"Python 3.9+ required, got {version.major}.{version.minor}"
+        )
 
     def test_python_version_info_accessible(self):
         """Verify Python version information is accessible"""
@@ -59,6 +64,7 @@ class TestPythonVersionSupport:
 # CLASS: TestDependencyInstallation
 # ============================================================================
 
+
 class TestDependencyInstallation:
     """Tests for core and optional dependency installation"""
 
@@ -66,10 +72,12 @@ class TestDependencyInstallation:
         """Verify openpyxl (Excel handling) is installed"""
         try:
             import openpyxl
+
             version = openpyxl.__version__
             assert version, "openpyxl version not found"
-            assert "3." in version or "4." in version, \
-                f"openpyxl version {version} may be outdated (3.10+, 4.0+ required)"
+            assert (
+                "3." in version or "4." in version
+            ), f"openpyxl version {version} may be outdated (3.10+, 4.0+ required)"
         except ImportError:
             pytest.fail("openpyxl is not installed. Run: pip install openpyxl>=3.10.0")
 
@@ -77,19 +85,20 @@ class TestDependencyInstallation:
         """Verify pandas (data processing) is installed"""
         try:
             import pandas
+
             version = pandas.__version__
             assert version, "pandas version not found"
             try:
                 # Try to use packaging.version if available for robust parsing
                 from packaging import version as pkg_version
+
                 parsed = pkg_version.parse(version)
                 major = parsed.major
             except ImportError:
                 # Fallback: split on first non-numeric character
                 parts = version.split(".")
                 major = int(parts[0])
-            assert major >= 2, \
-                f"pandas version {version} is outdated (2.0.0+ required)"
+            assert major >= 2, f"pandas version {version} is outdated (2.0.0+ required)"
         except ImportError:
             pytest.fail("pandas is not installed. Run: pip install pandas>=2.0.0")
 
@@ -97,12 +106,12 @@ class TestDependencyInstallation:
         """Verify pypdf (PDF parsing) is installed"""
         try:
             import pypdf
+
             version = pypdf.__version__
             assert version, "pypdf version not found"
             parts = version.split(".")
             major = int(parts[0])
-            assert major >= 3, \
-                f"pypdf version {version} is outdated (3.16.0+ required)"
+            assert major >= 3, f"pypdf version {version} is outdated (3.16.0+ required)"
         except ImportError:
             pytest.fail("pypdf is not installed. Run: pip install pypdf>=3.16.0")
 
@@ -110,19 +119,20 @@ class TestDependencyInstallation:
         """Verify pytest (test framework) is installed"""
         try:
             import pytest
+
             version = pytest.__version__
             assert version, "pytest version not found"
             try:
                 # Try to use packaging.version if available for robust parsing
                 from packaging import version as pkg_version
+
                 parsed = pkg_version.parse(version)
                 major = parsed.major
             except ImportError:
                 # Fallback: split on first non-numeric character
                 parts = version.split(".")
                 major = int(parts[0])
-            assert major >= 7, \
-                f"pytest version {version} is outdated (7.4.0+ required)"
+            assert major >= 7, f"pytest version {version} is outdated (7.4.0+ required)"
         except ImportError:
             pytest.fail("pytest is not installed. Run: pip install pytest>=7.4.0")
 
@@ -138,10 +148,7 @@ class TestDependencyInstallation:
         """
         try:
             result = subprocess.run(
-                ["pip", "check"],
-                capture_output=True,
-                text=True,
-                timeout=30
+                ["pip", "check"], capture_output=True, text=True, timeout=30
             )
             # pip check returns 0 if no conflicts, 1 if conflicts found
             if result.returncode == 0:
@@ -156,7 +163,7 @@ class TestDependencyInstallation:
 
                 # Check if any line starts with a core dep having a broken requirement
                 core_has_broken_requirement = False
-                for line in result.stdout.split('\n'):
+                for line in result.stdout.split("\n"):
                     if not line.strip():
                         continue
 
@@ -193,6 +200,7 @@ class TestDependencyInstallation:
 # CLASS: TestModuleImports
 # ============================================================================
 
+
 class TestModuleImports:
     """Tests for module import paths and circular dependencies"""
 
@@ -200,7 +208,10 @@ class TestModuleImports:
         """Verify main package imports without circular dependencies"""
         try:
             import cissp_analyzer
-            assert hasattr(cissp_analyzer, "__version__") or True  # __version__ is optional
+
+            assert (
+                hasattr(cissp_analyzer, "__version__") or True
+            )  # __version__ is optional
         except ImportError as e:
             pytest.fail(f"Failed to import cissp_analyzer package: {e}")
         except Exception as e:
@@ -213,6 +224,7 @@ class TestModuleImports:
         """Verify excel_parser module imports correctly"""
         try:
             from cissp_analyzer import excel_parser
+
             assert hasattr(excel_parser, "ExcelParser")
         except ImportError as e:
             pytest.fail(f"Failed to import excel_parser: {e}")
@@ -223,6 +235,7 @@ class TestModuleImports:
         """Verify pdf_parser module imports correctly"""
         try:
             from cissp_analyzer import pdf_parser
+
             # pdf_parser module exists; main class may vary
             assert pdf_parser is not None
         except ImportError as e:
@@ -237,6 +250,7 @@ class TestModuleImports:
         """Verify analysis_engine module imports correctly"""
         try:
             from cissp_analyzer import analysis_engine
+
             assert analysis_engine is not None
         except ImportError as e:
             pytest.fail(f"Failed to import analysis_engine: {e}")
@@ -250,6 +264,7 @@ class TestModuleImports:
         """Verify domain_mapper module imports correctly"""
         try:
             from cissp_analyzer import domain_mapper
+
             assert domain_mapper is not None
         except ImportError as e:
             pytest.fail(f"Failed to import domain_mapper: {e}")
@@ -263,18 +278,26 @@ class TestModuleImports:
         """Verify dependency_checker module imports correctly"""
         try:
             from cissp_analyzer import dependency_checker
+
             # Module exists and can be imported
             assert dependency_checker is not None
             # Check for expected exports: functions, classes, or constants
-            exports = [x for x in dir(dependency_checker) if not x.startswith('_')]
+            exports = [x for x in dir(dependency_checker) if not x.startswith("_")]
             assert len(exports) > 0, "dependency_checker module is empty"
             # Should have at least DependencyError class or check functions
             has_error = hasattr(dependency_checker, "DependencyError")
-            has_funcs = any(hasattr(dependency_checker, f) for f in
-                           ["check_package_installed", "get_installed_version",
-                            "check_dependencies", "validate_dependencies"])
-            assert has_error or has_funcs, \
-                "dependency_checker missing expected error class or functions"
+            has_funcs = any(
+                hasattr(dependency_checker, f)
+                for f in [
+                    "check_package_installed",
+                    "get_installed_version",
+                    "check_dependencies",
+                    "validate_dependencies",
+                ]
+            )
+            assert (
+                has_error or has_funcs
+            ), "dependency_checker missing expected error class or functions"
         except ImportError as e:
             pytest.fail(f"Failed to import dependency_checker: {e}")
         except Exception as e:
@@ -287,6 +310,7 @@ class TestModuleImports:
 # ============================================================================
 # CLASS: TestEntryPointsAccessible
 # ============================================================================
+
 
 class TestEntryPointsAccessible:
     """Tests for entry point accessibility and functionality"""
@@ -306,10 +330,12 @@ class TestEntryPointsAccessible:
         if not analyze_standalone_path.exists():
             pytest.skip(f"analyze_standalone.py not found at {analyze_standalone_path}")
 
-        assert analyze_standalone_path.is_file(), \
-            f"analyze_standalone.py is not a file: {analyze_standalone_path}"
-        assert analyze_standalone_path.stat().st_size > 0, \
-            f"analyze_standalone.py is empty: {analyze_standalone_path}"
+        assert (
+            analyze_standalone_path.is_file()
+        ), f"analyze_standalone.py is not a file: {analyze_standalone_path}"
+        assert (
+            analyze_standalone_path.stat().st_size > 0
+        ), f"analyze_standalone.py is empty: {analyze_standalone_path}"
 
     def test_entry_point_analyze_imports_main(self):
         """Verify analyze.py can be imported as a module (basic syntax check)"""
@@ -323,11 +349,10 @@ class TestEntryPointsAccessible:
                 [sys.executable, "-m", "py_compile", str(analyze_path)],
                 capture_output=True,
                 text=True,
-                timeout=5
+                timeout=5,
             )
             error_msg = result.stderr if result.stderr else result.stdout
-            assert result.returncode == 0, \
-                f"analyze.py has syntax errors:\n{error_msg}"
+            assert result.returncode == 0, f"analyze.py has syntax errors:\n{error_msg}"
         except subprocess.TimeoutExpired:
             pytest.fail("analyze.py compilation timed out")
 
@@ -343,11 +368,12 @@ class TestEntryPointsAccessible:
                 [sys.executable, "-m", "py_compile", str(analyze_standalone_path)],
                 capture_output=True,
                 text=True,
-                timeout=5
+                timeout=5,
             )
             error_msg = result.stderr if result.stderr else result.stdout
-            assert result.returncode == 0, \
-                f"analyze_standalone.py has syntax errors:\n{error_msg}"
+            assert (
+                result.returncode == 0
+            ), f"analyze_standalone.py has syntax errors:\n{error_msg}"
         except subprocess.TimeoutExpired:
             pytest.fail("analyze_standalone.py compilation timed out")
 
@@ -356,6 +382,7 @@ class TestEntryPointsAccessible:
 # CLASS: TestOptionalDependencies (Bonus Tests)
 # ============================================================================
 
+
 class TestOptionalDependencies:
     """Tests for optional development dependencies (not required for users)"""
 
@@ -363,6 +390,7 @@ class TestOptionalDependencies:
         """Verify pytest-cov is installed (optional for code coverage)"""
         try:
             import pytest_cov
+
             # If installed, we just verify it's available
             assert pytest_cov is not None
         except ImportError:
@@ -372,6 +400,7 @@ class TestOptionalDependencies:
         """Verify mypy is installed (optional for type checking)"""
         try:
             import mypy
+
             # If installed, we just verify it's available
             assert mypy is not None
         except ImportError:
@@ -381,6 +410,7 @@ class TestOptionalDependencies:
         """Verify black is installed (optional for code formatting)"""
         try:
             import black
+
             # If installed, we just verify it's available
             assert black is not None
         except ImportError:
@@ -390,23 +420,22 @@ class TestOptionalDependencies:
         """Verify flake8 is installed (optional for linting)"""
         try:
             import flake8
+
             # If installed, we just verify it's available
             assert flake8 is not None
         except ImportError:
             pytest.skip("flake8 not installed (optional for development)")
 
 
-
-
 # ============================================================================
 # PYTEST CONFIGURATION HOOKS
 # ============================================================================
 
+
 def pytest_configure(config):
     """pytest hook: runs before test collection"""
     config.addinivalue_line(
-        "markers",
-        "environment: mark test as an environment validation test"
+        "markers", "environment: mark test as an environment validation test"
     )
 
 

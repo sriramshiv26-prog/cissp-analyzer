@@ -30,9 +30,9 @@ class TestExcelFormatVariations:
     def test_standard_excel_format_headers_row1_data_row2(self, parser, tmp_path):
         """Test standard format: headers in row 1, data from row 2"""
         data = {
-            'Question': [1, 2, 3, 4, 5],
-            'Student_A': ['A', 'B', 'C', 'D', 'A'],
-            'Student_B': ['B', 'A', 'D', 'C', 'B']
+            "Question": [1, 2, 3, 4, 5],
+            "Student_A": ["A", "B", "C", "D", "A"],
+            "Student_B": ["B", "A", "D", "C", "B"],
         }
         df = pd.DataFrame(data)
         file_path = tmp_path / "standard.xlsx"
@@ -40,16 +40,13 @@ class TestExcelFormatVariations:
 
         answers = parser.parse_answers(str(file_path), "Student_A")
         assert len(answers) == 5
-        assert answers[0].selected_answer == 'A'
-        assert answers[4].selected_answer == 'A'
+        assert answers[0].selected_answer == "A"
+        assert answers[4].selected_answer == "A"
 
     def test_excel_no_headers_auto_detect(self, parser, tmp_path):
         """Test auto-detect headers when none provided"""
         # Create file without explicit headers, pandas will treat first row as header
-        data = {
-            'Question': [1, 2, 3],
-            'Student_A': ['A', 'B', 'C']
-        }
+        data = {"Question": [1, 2, 3], "Student_A": ["A", "B", "C"]}
         df = pd.DataFrame(data)
         file_path = tmp_path / "no_headers.xlsx"
         df.to_excel(file_path, index=False)
@@ -61,11 +58,11 @@ class TestExcelFormatVariations:
     def test_excel_extra_columns_auto_extract_needed(self, parser, tmp_path):
         """Test extraction with extra non-answer columns present"""
         data = {
-            'ID': [101, 102, 103],
-            'Question': [1, 2, 3],
-            'Name': ['Alice', 'Bob', 'Charlie'],
-            'Student_A': ['A', 'B', 'C'],
-            'Timestamp': ['2026-01-01', '2026-01-02', '2026-01-03']
+            "ID": [101, 102, 103],
+            "Question": [1, 2, 3],
+            "Name": ["Alice", "Bob", "Charlie"],
+            "Student_A": ["A", "B", "C"],
+            "Timestamp": ["2026-01-01", "2026-01-02", "2026-01-03"],
         }
         df = pd.DataFrame(data)
         file_path = tmp_path / "extra_cols.xlsx"
@@ -73,15 +70,15 @@ class TestExcelFormatVariations:
 
         answers = parser.parse_answers(str(file_path), "Student_A")
         assert len(answers) == 3
-        assert all(a.selected_answer in 'ABCD' for a in answers)
+        assert all(a.selected_answer in "ABCD" for a in answers)
 
     def test_excel_different_column_order(self, parser, tmp_path):
         """Test handling of different column order"""
         # Create with different column order
         data = {
-            'Student_A': ['A', 'B', 'C'],
-            'Question': [1, 2, 3],
-            'Notes': ['note1', 'note2', 'note3']
+            "Student_A": ["A", "B", "C"],
+            "Question": [1, 2, 3],
+            "Notes": ["note1", "note2", "note3"],
         }
         df = pd.DataFrame(data)
         file_path = tmp_path / "diff_order.xlsx"
@@ -95,10 +92,7 @@ class TestExcelFormatVariations:
     def test_excel_case_insensitive_headers(self, parser, tmp_path):
         """Test case-insensitive header matching"""
         # Use proper case for column names - parser expects 'Question'
-        df = pd.DataFrame({
-            'Question': [1, 2, 3],
-            'Student_A': ['A', 'B', 'C']
-        })
+        df = pd.DataFrame({"Question": [1, 2, 3], "Student_A": ["A", "B", "C"]})
         file_path = tmp_path / "case_insensitive.xlsx"
         df.to_excel(file_path, index=False)
 
@@ -108,10 +102,7 @@ class TestExcelFormatVariations:
 
     def test_excel_whitespace_in_headers_trim(self, parser, tmp_path):
         """Test whitespace trimming in column headers"""
-        df = pd.DataFrame({
-            ' Question ': [1, 2, 3],
-            ' Student_A ': ['A', 'B', 'C']
-        })
+        df = pd.DataFrame({" Question ": [1, 2, 3], " Student_A ": ["A", "B", "C"]})
         file_path = tmp_path / "whitespace_headers.xlsx"
         df.to_excel(file_path, index=False)
 
@@ -121,19 +112,13 @@ class TestExcelFormatVariations:
 
     def test_excel_multiple_sheets_detect_correct(self, parser, tmp_path):
         """Test handling multiple sheets in one file"""
-        data1 = {
-            'Question': [1, 2, 3],
-            'Student_A': ['A', 'B', 'C']
-        }
-        data2 = {
-            'Question': [1, 2, 3],
-            'Student_B': ['B', 'A', 'D']
-        }
+        data1 = {"Question": [1, 2, 3], "Student_A": ["A", "B", "C"]}
+        data2 = {"Question": [1, 2, 3], "Student_B": ["B", "A", "D"]}
 
         file_path = tmp_path / "multi_sheet.xlsx"
         with pd.ExcelWriter(file_path) as writer:
-            pd.DataFrame(data1).to_excel(writer, sheet_name='Sheet1', index=False)
-            pd.DataFrame(data2).to_excel(writer, sheet_name='Sheet2', index=False)
+            pd.DataFrame(data1).to_excel(writer, sheet_name="Sheet1", index=False)
+            pd.DataFrame(data2).to_excel(writer, sheet_name="Sheet2", index=False)
 
         # Default behavior uses first sheet
         answers = parser.parse_answers(str(file_path), "Student_A")
@@ -142,10 +127,7 @@ class TestExcelFormatVariations:
     def test_excel_merged_cells_handling(self, parser, tmp_path):
         """Test handling of merged cells in Excel"""
         # Create DataFrame and save - merged cells are handled by pandas read_excel
-        data = {
-            'Question': [1, 2, 3],
-            'Student_A': ['A', 'B', 'C']
-        }
+        data = {"Question": [1, 2, 3], "Student_A": ["A", "B", "C"]}
         df = pd.DataFrame(data)
         file_path = tmp_path / "merged.xlsx"
         df.to_excel(file_path, index=False)
@@ -156,10 +138,7 @@ class TestExcelFormatVariations:
 
     def test_excel_missing_required_columns_error(self, parser, tmp_path):
         """Test error when required 'Question' column is missing"""
-        df = pd.DataFrame({
-            'Q_Number': [1, 2, 3],
-            'Student_A': ['A', 'B', 'C']
-        })
+        df = pd.DataFrame({"Q_Number": [1, 2, 3], "Student_A": ["A", "B", "C"]})
         file_path = tmp_path / "missing_question.xlsx"
         df.to_excel(file_path, index=False)
 
@@ -169,10 +148,9 @@ class TestExcelFormatVariations:
     def test_excel_inconsistent_question_format_normalize(self, parser, tmp_path):
         """Test normalization of inconsistent question number formats"""
         # Mix of int and string question numbers (if possible)
-        df = pd.DataFrame({
-            'Question': [1, 2, '3', 4, 5],
-            'Student_A': ['A', 'B', 'C', 'D', 'A']
-        })
+        df = pd.DataFrame(
+            {"Question": [1, 2, "3", 4, 5], "Student_A": ["A", "B", "C", "D", "A"]}
+        )
         file_path = tmp_path / "inconsistent_questions.xlsx"
         df.to_excel(file_path, index=False)
 
@@ -205,8 +183,8 @@ class TestAnswerKeyJsonFormats:
         answers = self._extract_from_text(extractor, text)
         # Extractor requires proper multiline format
         assert len(answers) >= 1
-        assert '1' in answers
-        assert answers['1']['letter'] == 'A'
+        assert "1" in answers
+        assert answers["1"]["letter"] == "A"
 
     def test_json_multiple_choice_answers(self, extractor):
         """Test multiple-choice format (B,C or B, C)"""
@@ -221,8 +199,8 @@ class TestAnswerKeyJsonFormats:
         answers = self._extract_from_text(extractor, text)
         # Extractor extracts based on "Q: LETTER" pattern with line breaks
         assert len(answers) >= 1
-        if '1' in answers:
-            assert answers['1']['letter'] == 'B'
+        if "1" in answers:
+            assert answers["1"]["letter"] == "B"
 
     def test_json_matching_pairs_format(self, extractor):
         """Test matching pairs format (1-A, 2-B, 3-C)"""
@@ -264,7 +242,7 @@ class TestAnswerKeyJsonFormats:
         # Extractor extracts valid letters
         assert len(answers) >= 1
         for key in answers:
-            assert answers[key]['letter'].upper() in 'ABCDE'
+            assert answers[key]["letter"].upper() in "ABCDE"
 
     def test_json_whitespace_handling(self, extractor):
         """Test various whitespace patterns"""
@@ -291,7 +269,7 @@ class TestAnswerKeyJsonFormats:
         answers = self._extract_from_text(extractor, text)
         # Keys should be strings
         assert all(isinstance(k, str) for k in answers.keys())
-        assert '1' in answers or 1 in answers
+        assert "1" in answers or 1 in answers
 
     def test_json_missing_questions_warn(self, extractor):
         """Test detection of missing questions (< 90% coverage)"""
@@ -353,10 +331,10 @@ class TestAnswerKeyJsonFormats:
         """
         answers = self._extract_from_text(extractor, text)
         # Extractor filters invalid answers (F not in A-E)
-        assert '1' in answers
-        assert answers['1']['letter'] == 'A'
-        if '3' in answers:
-            assert answers['3']['letter'] == 'B'
+        assert "1" in answers
+        assert answers["1"]["letter"] == "A"
+        if "3" in answers:
+            assert answers["3"]["letter"] == "B"
 
     def test_json_null_empty_values_flag(self, extractor):
         """Test handling of null and empty values"""
@@ -374,7 +352,9 @@ class TestAnswerKeyJsonFormats:
         # Should handle gracefully, extracting valid answers
         if len(answers) > 0:
             # At least some valid answers extracted
-            assert any('letter' in v and v['letter'] in 'ABCDE' for v in answers.values())
+            assert any(
+                "letter" in v and v["letter"] in "ABCDE" for v in answers.values()
+            )
 
     def test_json_mixed_formats_warn(self, extractor):
         """Test detection of mixed answer formats"""
@@ -593,20 +573,23 @@ class TestDataConsistencyCrossValidation:
     def test_question_count_mismatch_detection(self):
         """Test detection when question counts don't match"""
         student_data = {
-            'questions': [1, 2, 3, 4, 5],
-            'answers': ['A', 'B', 'C', 'D', 'A']
+            "questions": [1, 2, 3, 4, 5],
+            "answers": ["A", "B", "C", "D", "A"],
         }
         answer_key = {
-            '1': 'A', '2': 'B', '3': 'C', '4': 'D'
+            "1": "A",
+            "2": "B",
+            "3": "C",
+            "4": "D",
             # Missing question 5
         }
         # Validator should flag mismatch
-        assert len(student_data['questions']) != len(answer_key)
+        assert len(student_data["questions"]) != len(answer_key)
 
     def test_question_number_gaps_detection(self):
         """Test detection of gaps in question numbers"""
         questions = [1, 2, 4, 5, 8, 9]  # Missing 3, 6, 7
-        answers = ['A', 'B', 'C', 'D', 'A', 'B']
+        answers = ["A", "B", "C", "D", "A", "B"]
 
         # Calculate gap ratio
         expected_count = max(questions) - min(questions) + 1
@@ -618,39 +601,39 @@ class TestDataConsistencyCrossValidation:
     def test_extra_answers_detection(self):
         """Test detection when more answers than questions"""
         questions = [1, 2, 3, 4, 5]
-        answers = ['A', 'B', 'C', 'D', 'A', 'B', 'C']  # 7 answers for 5 questions
+        answers = ["A", "B", "C", "D", "A", "B", "C"]  # 7 answers for 5 questions
 
         assert len(answers) > len(questions)
 
     def test_answer_format_consistency_validation(self, validator):
         """Test consistency of answer formats across all entries"""
         # Mix of single letters and multi-part
-        answers = ['A', 'B', '1-C', '2-D', 'A']  # Inconsistent
+        answers = ["A", "B", "1-C", "2-D", "A"]  # Inconsistent
 
         # Check formats
         formats = set()
         for ans in answers:
-            if '-' in ans:
-                formats.add('multi-part')
+            if "-" in ans:
+                formats.add("multi-part")
             else:
-                formats.add('single')
+                formats.add("single")
 
         assert len(formats) > 1  # Multiple formats detected
 
     def test_student_vs_key_format_mismatch(self):
         """Test detection of format mismatch between student and key answers"""
-        student_answers = ['A', 'B', 'C', 'D', 'A']  # All single letters
+        student_answers = ["A", "B", "C", "D", "A"]  # All single letters
         key_answers = {
-            '1': 'A',
-            '2': '1-B,2-C',  # Multi-part format
-            '3': 'C',
-            '4': 'D',
-            '5': 'A'
+            "1": "A",
+            "2": "1-B,2-C",  # Multi-part format
+            "3": "C",
+            "4": "D",
+            "5": "A",
         }
 
         # Format mismatch detected
-        key_has_multipart = any('-' in str(v) for v in key_answers.values())
-        student_has_multipart = any('-' in str(v) for v in student_answers)
+        key_has_multipart = any("-" in str(v) for v in key_answers.values())
+        student_has_multipart = any("-" in str(v) for v in student_answers)
 
         if key_has_multipart and not student_has_multipart:
             # Mismatch detected
@@ -663,7 +646,7 @@ class TestDataConsistencyCrossValidation:
         text_with_issues = "Question 1: What is encrypt\u0000ion?"  # Null byte
 
         # Check for invalid characters
-        invalid_chars = ['\x00', '\ufffd', '\x1a']
+        invalid_chars = ["\x00", "\ufffd", "\x1a"]
 
         has_issues = any(char in text_with_issues for char in invalid_chars)
         assert has_issues
@@ -680,24 +663,21 @@ class TestDataConsistencyCrossValidation:
         pdf_data = "1. First question\nA. Answer A"
 
         def detect_format(data):
-            if data.startswith('{') and '"' in data:
-                return 'json'
-            elif '\t' in data:
-                return 'excel'
+            if data.startswith("{") and '"' in data:
+                return "json"
+            elif "\t" in data:
+                return "excel"
             else:
-                return 'pdf'
+                return "pdf"
 
-        assert detect_format(excel_data) == 'excel'
-        assert detect_format(json_data) == 'json'
-        assert detect_format(pdf_data) == 'pdf'
+        assert detect_format(excel_data) == "excel"
+        assert detect_format(json_data) == "json"
+        assert detect_format(pdf_data) == "pdf"
 
     def test_format_conversion_handling(self, tmp_path):
         """Test conversion between different formats"""
         # Create data in Excel format
-        data = {
-            'Question': [1, 2, 3],
-            'Student_A': ['A', 'B', 'C']
-        }
+        data = {"Question": [1, 2, 3], "Student_A": ["A", "B", "C"]}
         excel_path = tmp_path / "convert.xlsx"
         df = pd.DataFrame(data)
         df.to_excel(excel_path, index=False)
@@ -707,12 +687,9 @@ class TestDataConsistencyCrossValidation:
         answers = parser.parse_answers(str(excel_path), "Student_A")
 
         # Convert to JSON format
-        json_format = {
-            str(a.question_number): a.selected_answer
-            for a in answers
-        }
+        json_format = {str(a.question_number): a.selected_answer for a in answers}
 
-        assert json_format == {'1': 'A', '2': 'B', '3': 'C'}
+        assert json_format == {"1": "A", "2": "B", "3": "C"}
 
 
 class TestAnswerNormalization:
@@ -724,44 +701,44 @@ class TestAnswerNormalization:
 
     def test_normalize_single_letter(self, parser):
         """Test single letter normalization"""
-        assert parser.normalize_answer('A') == 'A'
-        assert parser.normalize_answer('B') == 'B'
-        assert parser.normalize_answer('a') == 'A'  # Lowercase
+        assert parser.normalize_answer("A") == "A"
+        assert parser.normalize_answer("B") == "B"
+        assert parser.normalize_answer("a") == "A"  # Lowercase
 
     def test_normalize_multi_part_with_hyphens(self, parser):
         """Test multi-part with hyphens"""
-        result = parser.normalize_answer('1-A, 2-B, 3-C')
-        assert result == '1-A,2-B,3-C'
+        result = parser.normalize_answer("1-A, 2-B, 3-C")
+        assert result == "1-A,2-B,3-C"
 
     def test_normalize_multi_part_no_separators(self, parser):
         """Test multi-part without separators"""
-        result = parser.normalize_answer('1A2B3C')
-        assert result == '1-A,2-B,3-C'
+        result = parser.normalize_answer("1A2B3C")
+        assert result == "1-A,2-B,3-C"
 
     def test_normalize_positional_letters(self, parser):
         """Test positional letters without numbers"""
-        result = parser.normalize_answer('A, B, C')
-        assert result == '1-A,2-B,3-C'
+        result = parser.normalize_answer("A, B, C")
+        assert result == "1-A,2-B,3-C"
 
     def test_normalize_whitespace_handling(self, parser):
         """Test whitespace normalization"""
-        result = parser.normalize_answer('  A  ')
-        assert result == 'A'
+        result = parser.normalize_answer("  A  ")
+        assert result == "A"
 
     def test_normalize_null_empty(self, parser):
         """Test null/empty value handling"""
-        assert parser.normalize_answer('') is None
+        assert parser.normalize_answer("") is None
         assert parser.normalize_answer(None) is None
 
     def test_normalize_invalid_letter(self, parser):
         """Test invalid letter handling"""
-        result = parser.normalize_answer('E')  # E is invalid for ABCD
-        assert result == 'E'  # Returns as-is, validation happens elsewhere
+        result = parser.normalize_answer("E")  # E is invalid for ABCD
+        assert result == "E"  # Returns as-is, validation happens elsewhere
 
     def test_normalize_mixed_case_multi_part(self, parser):
         """Test mixed case in multi-part"""
-        result = parser.normalize_answer('1-a, 2-b, 3-c')
-        assert result == '1-A,2-B,3-C'
+        result = parser.normalize_answer("1-a, 2-b, 3-c")
+        assert result == "1-A,2-B,3-C"
 
 
 class TestFormatValidationIntegration:
@@ -770,10 +747,7 @@ class TestFormatValidationIntegration:
     def test_validate_excel_to_analysis_pipeline(self, tmp_path):
         """Test complete pipeline: Excel -> Parse -> Validate"""
         # Create sample Excel
-        data = {
-            'Question': [1, 2, 3, 4, 5],
-            'Student_A': ['A', 'B', '1-C', '2-D', 'A']
-        }
+        data = {"Question": [1, 2, 3, 4, 5], "Student_A": ["A", "B", "1-C", "2-D", "A"]}
         df = pd.DataFrame(data)
         excel_path = tmp_path / "pipeline.xlsx"
         df.to_excel(excel_path, index=False)
@@ -806,7 +780,7 @@ class TestFormatValidationIntegration:
 
         # Validate
         assert len(answers) >= 1
-        assert all('letter' in answers[k] for k in answers)
+        assert all("letter" in answers[k] for k in answers)
 
     def test_error_handling_corrupted_excel(self, tmp_path):
         """Test error handling for corrupted Excel"""
@@ -828,8 +802,8 @@ class TestFormatValidationIntegration:
         """Test handling of large datasets (100+ questions)"""
         # Create large dataset
         data = {
-            'Question': list(range(1, 151)),  # 150 questions
-            'Student_A': ['ABCD'[i % 4] for i in range(150)]
+            "Question": list(range(1, 151)),  # 150 questions
+            "Student_A": ["ABCD"[i % 4] for i in range(150)],
         }
         df = pd.DataFrame(data)
         large_path = tmp_path / "large.xlsx"
@@ -842,8 +816,8 @@ class TestFormatValidationIntegration:
     def test_special_characters_in_data(self, tmp_path):
         """Test handling special characters"""
         data = {
-            'Question': [1, 2, 3],
-            'Student_A™': ['A', 'B', 'C']  # Special char in column name
+            "Question": [1, 2, 3],
+            "Student_A™": ["A", "B", "C"],  # Special char in column name
         }
         df = pd.DataFrame(data)
         special_path = tmp_path / "special.xlsx"

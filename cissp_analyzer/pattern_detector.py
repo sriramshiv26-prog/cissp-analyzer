@@ -14,10 +14,7 @@ class PatternDetector:
     """
 
     def detect_topic_pattern(
-        self,
-        questions: List[Dict[str, Any]],
-        wrong_question_ids: List[int],
-        topic: str
+        self, questions: List[Dict[str, Any]], wrong_question_ids: List[int], topic: str
     ) -> Dict[str, Any]:
         """Analyze patterns for a specific topic/subtopic.
 
@@ -52,13 +49,15 @@ class PatternDetector:
                 "all_correct": False,
                 "weakness_by_type": {},
                 "weakness_by_trick": {},
-                "insight": "No data available"
+                "insight": "No data available",
             }
 
         # Validate all indices are in bounds
         total = len(questions)
         valid_indices = set(range(total))
-        invalid_indices = [idx for idx in wrong_question_ids if idx not in valid_indices]
+        invalid_indices = [
+            idx for idx in wrong_question_ids if idx not in valid_indices
+        ]
 
         if invalid_indices:
             raise ValueError(
@@ -73,10 +72,14 @@ class PatternDetector:
         all_correct = correct == total
 
         # Analyze by question type dimension
-        by_type = self._analyze_by_dimension(questions, wrong_question_ids, "question_type")
+        by_type = self._analyze_by_dimension(
+            questions, wrong_question_ids, "question_type"
+        )
 
         # Analyze by exam trick dimension
-        by_trick = self._analyze_by_dimension(questions, wrong_question_ids, "exam_trick")
+        by_trick = self._analyze_by_dimension(
+            questions, wrong_question_ids, "exam_trick"
+        )
 
         # Generate insight
         insight = self._generate_insight(
@@ -89,7 +92,7 @@ class PatternDetector:
                 "all_correct": all_correct,
             },
             by_type,
-            by_trick
+            by_trick,
         )
 
         return {
@@ -101,14 +104,14 @@ class PatternDetector:
             "all_correct": all_correct,
             "weakness_by_type": by_type,
             "weakness_by_trick": by_trick,
-            "insight": insight
+            "insight": insight,
         }
 
     def _analyze_by_dimension(
         self,
         questions: List[Dict[str, Any]],
         wrong_question_ids: List[int],
-        dimension: str
+        dimension: str,
     ) -> Dict[str, Dict[str, Any]]:
         """Aggregate accuracy by a specific dimension.
 
@@ -132,11 +135,7 @@ class PatternDetector:
             dim_value = question.get(dimension, "Unknown")
 
             if dim_value not in dimension_stats:
-                dimension_stats[dim_value] = {
-                    "correct": 0,
-                    "total": 0,
-                    "accuracy": 0.0
-                }
+                dimension_stats[dim_value] = {"correct": 0, "total": 0, "accuracy": 0.0}
 
             dimension_stats[dim_value]["total"] += 1
 
@@ -148,9 +147,7 @@ class PatternDetector:
         for dim_value in dimension_stats:
             stats = dimension_stats[dim_value]
             stats["accuracy"] = (
-                stats["correct"] / stats["total"]
-                if stats["total"] > 0
-                else 0.0
+                stats["correct"] / stats["total"] if stats["total"] > 0 else 0.0
             )
 
         return dimension_stats
@@ -159,7 +156,7 @@ class PatternDetector:
         self,
         result: Dict[str, Any],
         by_type: Dict[str, Dict[str, Any]],
-        by_trick: Dict[str, Dict[str, Any]]
+        by_trick: Dict[str, Dict[str, Any]],
     ) -> str:
         """Generate human-readable insight about the pattern.
 
@@ -214,13 +211,13 @@ class PatternDetector:
                     f"{topic}: {accuracy_percent}% accuracy - weakness in {weakest_type} "
                     f"questions with {weakest_trick} keyword"
                 )
-            return (
-                f"{topic}: {accuracy_percent}% accuracy - weakness in {weakest_type} questions"
-            )
+            return f"{topic}: {accuracy_percent}% accuracy - weakness in {weakest_type} questions"
 
         # Secondary insight based on trick weakness
         if weakest_trick and weakest_trick_accuracy == 0.0:
             return f"{topic}: {accuracy_percent}% accuracy - {weakest_trick} keyword is the issue"
 
         # Default insight
-        return f"{topic}: {accuracy_percent}% accuracy - mixed performance across subtopic"
+        return (
+            f"{topic}: {accuracy_percent}% accuracy - mixed performance across subtopic"
+        )

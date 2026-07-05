@@ -39,8 +39,14 @@ class TestInteractiveCLIIntegration:
         assert "2" in result
 
         # Verify answer context was used
-        assert result["1"]["answer_letter"] is not None or result["1"]["suggested_domain"] is not None
-        assert result["2"]["answer_letter"] is not None or result["2"]["suggested_domain"] is not None
+        assert (
+            result["1"]["answer_letter"] is not None
+            or result["1"]["suggested_domain"] is not None
+        )
+        assert (
+            result["2"]["answer_letter"] is not None
+            or result["2"]["suggested_domain"] is not None
+        )
 
     def test_answer_key_json_format_for_analyzer(self, tmp_path):
         """Test that extracted answers can be saved in format compatible with analyzer."""
@@ -63,7 +69,7 @@ class TestInteractiveCLIIntegration:
             # Save letters only (for analyzer compatibility)
             letters_only = extractor.get_answer_letters_only()
             temp_letters = tmp_path / "answers_letters.json"
-            with open(temp_letters, 'w') as f:
+            with open(temp_letters, "w") as f:
                 json.dump(letters_only, f)
 
             # Verify both files exist and have correct content
@@ -124,7 +130,10 @@ class TestInteractiveCLIIntegration:
             assert "letter" in answers["1"]
             assert answers["1"]["letter"] == "A"
             # Text should contain key concepts
-            assert "symmetric" in answers["1"]["text"].lower() or "aes" in answers["1"]["text"].lower()
+            assert (
+                "symmetric" in answers["1"]["text"].lower()
+                or "aes" in answers["1"]["text"].lower()
+            )
 
     def test_pdf_parser_extract_questions_from_text(self):
         """Test PDFParser._extract_questions_from_text extracts correctly."""
@@ -144,7 +153,7 @@ class TestInteractiveCLIIntegration:
 
     def test_colors_class_has_all_methods(self):
         """Test Colors class has all required formatting methods."""
-        methods = ['header', 'success', 'error', 'warning', 'info']
+        methods = ["header", "success", "error", "warning", "info"]
 
         for method in methods:
             assert hasattr(Colors, method)
@@ -169,7 +178,10 @@ with additional context
         # First answer should contain some text
         assert len(answers["1"]["text"]) > 0
         # Text should contain part of the answer
-        assert "long" in answers["1"]["text"].lower() or "answer" in answers["1"]["text"].lower()
+        assert (
+            "long" in answers["1"]["text"].lower()
+            or "answer" in answers["1"]["text"].lower()
+        )
 
     def test_answer_context_mapper_domain_keywords_exist(self):
         """Test that AnswerContextMapper has domain keywords configured."""

@@ -143,10 +143,7 @@ class AnswerKeyExtractor:
                     explanation = explanation[:-1].strip()
 
             if self._is_valid_answer(letter):
-                self.answers[q_num] = {
-                    "letter": letter,
-                    "text": explanation
-                }
+                self.answers[q_num] = {"letter": letter, "text": explanation}
 
     def _is_valid_answer(self, answer: str) -> bool:
         """Validate that answer is a valid letter (A-E).
@@ -167,11 +164,7 @@ class AnswerKeyExtractor:
         """
         return {q_num: ans["letter"] for q_num, ans in self.answers.items()}
 
-    def save_as_json(
-        self,
-        output_path: str,
-        include_text: bool = True
-    ) -> None:
+    def save_as_json(self, output_path: str, include_text: bool = True) -> None:
         """Save extracted answers to JSON file.
 
         Args:

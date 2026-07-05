@@ -21,7 +21,6 @@ from pathlib import Path
 from typing import Dict, List, Optional, Set
 import re
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -31,52 +30,159 @@ class AnswerContextMapper:
     # CISSP domain keywords for classification
     DOMAIN_KEYWORDS = {
         "Security and Risk Management": [
-            "risk", "threat", "vulnerability", "governance", "policy",
-            "compliance", "regulation", "audit", "assessment", "management",
-            "asset management", "security program"
+            "risk",
+            "threat",
+            "vulnerability",
+            "governance",
+            "policy",
+            "compliance",
+            "regulation",
+            "audit",
+            "assessment",
+            "management",
+            "asset management",
+            "security program",
         ],
         "Access Control and Identity Management": [
-            "access control", "authentication", "authorization", "identity",
-            "rbac", "abac", "role", "permission", "privilege", "accountability",
-            "user", "credential", "password", "mfa", "multi-factor"
+            "access control",
+            "authentication",
+            "authorization",
+            "identity",
+            "rbac",
+            "abac",
+            "role",
+            "permission",
+            "privilege",
+            "accountability",
+            "user",
+            "credential",
+            "password",
+            "mfa",
+            "multi-factor",
         ],
         "Cryptography": [
-            "encryption", "cipher", "aes", "rsa", "hash", "signature",
-            "symmetric", "asymmetric", "cryptographic", "key", "ssl", "tls",
-            "certificate", "digital signature", "ecc"
+            "encryption",
+            "cipher",
+            "aes",
+            "rsa",
+            "hash",
+            "signature",
+            "symmetric",
+            "asymmetric",
+            "cryptographic",
+            "key",
+            "ssl",
+            "tls",
+            "certificate",
+            "digital signature",
+            "ecc",
         ],
         "Physical and Environmental Security": [
-            "physical", "environment", "facility", "building", "access point",
-            "badge", "biometric", "surveillance", "cctv", "locks", "guards",
-            "location", "perimeter"
+            "physical",
+            "environment",
+            "facility",
+            "building",
+            "access point",
+            "badge",
+            "biometric",
+            "surveillance",
+            "cctv",
+            "locks",
+            "guards",
+            "location",
+            "perimeter",
         ],
         "Communication and Network Security": [
-            "network", "protocol", "firewall", "intrusion", "detection",
-            "vpn", "wan", "lan", "router", "switch", "dns", "dhcp",
-            "communication", "osi model", "tcp", "ip", "packet", "snmp"
+            "network",
+            "protocol",
+            "firewall",
+            "intrusion",
+            "detection",
+            "vpn",
+            "wan",
+            "lan",
+            "router",
+            "switch",
+            "dns",
+            "dhcp",
+            "communication",
+            "osi model",
+            "tcp",
+            "ip",
+            "packet",
+            "snmp",
         ],
         "System and Application Security": [
-            "application", "system", "patch", "update", "vulnerability",
-            "exploit", "malware", "virus", "antivirus", "endpoint", "code",
-            "secure coding", "input validation", "buffer overflow"
+            "application",
+            "system",
+            "patch",
+            "update",
+            "vulnerability",
+            "exploit",
+            "malware",
+            "virus",
+            "antivirus",
+            "endpoint",
+            "code",
+            "secure coding",
+            "input validation",
+            "buffer overflow",
         ],
         "Security Assessment and Testing": [
-            "assessment", "testing", "penetration", "pentest", "scan",
-            "vulnerability assessment", "security test", "audit", "review",
-            "evaluation", "metrics", "benchmark"
+            "assessment",
+            "testing",
+            "penetration",
+            "pentest",
+            "scan",
+            "vulnerability assessment",
+            "security test",
+            "audit",
+            "review",
+            "evaluation",
+            "metrics",
+            "benchmark",
         ],
         "Security Operations": [
-            "incident", "response", "monitoring", "logging", "siem",
-            "detection", "investigation", "forensics", "recovery", "disaster",
-            "continuity", "backup", "alert", "alarm"
+            "incident",
+            "response",
+            "monitoring",
+            "logging",
+            "siem",
+            "detection",
+            "investigation",
+            "forensics",
+            "recovery",
+            "disaster",
+            "continuity",
+            "backup",
+            "alert",
+            "alarm",
         ],
         "Software Development Security": [
-            "development", "sdlc", "secure coding", "code review", "testing",
-            "deployment", "repository", "version control", "agile", "waterfall"
+            "development",
+            "sdlc",
+            "secure coding",
+            "code review",
+            "testing",
+            "deployment",
+            "repository",
+            "version control",
+            "agile",
+            "waterfall",
         ],
         "Cloud Security": [
-            "cloud", "aws", "azure", "gcp", "saas", "paas", "iaas",
-            "virtualization", "container", "docker", "kubernetes", "serverless"
+            "cloud",
+            "aws",
+            "azure",
+            "gcp",
+            "saas",
+            "paas",
+            "iaas",
+            "virtualization",
+            "container",
+            "docker",
+            "kubernetes",
+            "serverless",
         ],
     }
 
@@ -117,7 +223,9 @@ class AnswerContextMapper:
         combined_text = f"{question_text} {answer_text}"
         return self._classify_text(combined_text)
 
-    def map_with_keywords(self, question_text: str, answer_keywords: List[str]) -> Optional[str]:
+    def map_with_keywords(
+        self, question_text: str, answer_keywords: List[str]
+    ) -> Optional[str]:
         """Map question using question text and explicit answer keywords.
 
         Args:
@@ -130,7 +238,9 @@ class AnswerContextMapper:
         combined_text = f"{question_text} {' '.join(answer_keywords)}"
         return self._classify_text(combined_text)
 
-    def detect_domains_from_text(self, text: str, domain_keywords: Optional[Dict] = None) -> List[str]:
+    def detect_domains_from_text(
+        self, text: str, domain_keywords: Optional[Dict] = None
+    ) -> List[str]:
         """Detect all matching domains in text.
 
         Args:
@@ -150,7 +260,7 @@ class AnswerContextMapper:
             score = 0
             for keyword in keywords:
                 # Count keyword occurrences (whole word match)
-                pattern = r'\b' + re.escape(keyword) + r'\b'
+                pattern = r"\b" + re.escape(keyword) + r"\b"
                 matches = len(re.findall(pattern, text_lower, re.IGNORECASE))
                 score += matches
 
@@ -172,10 +282,41 @@ class AnswerContextMapper:
         """
         # Remove common words
         stop_words = {
-            "the", "a", "an", "and", "or", "but", "in", "on", "at", "to",
-            "for", "of", "is", "are", "be", "been", "being", "have", "has",
-            "do", "does", "did", "will", "would", "could", "should", "may",
-            "might", "must", "can", "that", "this", "these", "those", "which"
+            "the",
+            "a",
+            "an",
+            "and",
+            "or",
+            "but",
+            "in",
+            "on",
+            "at",
+            "to",
+            "for",
+            "of",
+            "is",
+            "are",
+            "be",
+            "been",
+            "being",
+            "have",
+            "has",
+            "do",
+            "does",
+            "did",
+            "will",
+            "would",
+            "could",
+            "should",
+            "may",
+            "might",
+            "must",
+            "can",
+            "that",
+            "this",
+            "these",
+            "those",
+            "which",
         }
 
         # Split and filter
@@ -184,7 +325,7 @@ class AnswerContextMapper:
 
         for word in words:
             # Remove punctuation
-            clean_word = re.sub(r'[^\w\s-]', '', word)
+            clean_word = re.sub(r"[^\w\s-]", "", word)
 
             # Keep words >= 3 chars that aren't stop words
             # Also keep uppercase acronyms (e.g., AES, RSA)

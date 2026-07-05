@@ -47,10 +47,10 @@ from cissp_analyzer.excel_parser import ExcelParser
 from cissp_analyzer.history_loader import HistoryLoader
 from cissp_analyzer.filename_parser import FilenameParser
 
-
 # ============================================================================
 # TEST CLASS 1: Missing Files (Scenarios 1-3)
 # ============================================================================
+
 
 class TestMissingFiles:
     """Test error handling for missing required files."""
@@ -70,13 +70,16 @@ class TestMissingFiles:
         """Scenario 2: Invalid PDF (binary file) should provide clear error."""
         invalid_pdf = temp_test_dir / "not_a_pdf.pdf"
         # Write binary garbage
-        invalid_pdf.write_bytes(b'\x00\x01\x02\x03\x04\x05')
+        invalid_pdf.write_bytes(b"\x00\x01\x02\x03\x04\x05")
 
         extractor = AnswerKeyExtractor()
         with pytest.raises(ValueError) as exc_info:
             extractor.extract_from_file(str(invalid_pdf))
 
-        assert "failed" in str(exc_info.value).lower() or "cannot" in str(exc_info.value).lower()
+        assert (
+            "failed" in str(exc_info.value).lower()
+            or "cannot" in str(exc_info.value).lower()
+        )
 
     def test_missing_answer_key_json(self, temp_test_dir):
         """Scenario 3: Missing answer key JSON should be detected."""
@@ -90,6 +93,7 @@ class TestMissingFiles:
 # ============================================================================
 # TEST CLASS 2: Corrupted Files (Scenarios 4-6)
 # ============================================================================
+
 
 class TestCorruptedFiles:
     """Test error handling for corrupted/invalid file contents."""
@@ -114,10 +118,10 @@ class TestCorruptedFiles:
             "1": "A",
             "2": None,  # Invalid: null value
             "3": "B",
-            "4": "",    # Invalid: empty string
+            "4": "",  # Invalid: empty string
         }
 
-        with open(answer_key_file, 'w') as f:
+        with open(answer_key_file, "w") as f:
             json.dump(answer_key, f)
 
         # Load and check for invalidity
@@ -139,13 +143,15 @@ class TestCorruptedFiles:
         is_valid, issues = validator.validate_file(str(empty_excel), "TestStudent")
 
         assert not is_valid, "Empty file should not validate"
-        assert any("EMPTY" in issue.issue_type for issue in issues), \
-            "Should detect empty file"
+        assert any(
+            "EMPTY" in issue.issue_type for issue in issues
+        ), "Should detect empty file"
 
 
 # ============================================================================
 # TEST CLASS 3: Wrong Formats and Data Structure Issues (Scenarios 7-8)
 # ============================================================================
+
 
 class TestWrongFormats:
     """Test error handling for format and structure violations."""
@@ -158,19 +164,21 @@ class TestWrongFormats:
         data = {
             "StudentName": ["Test1", "Test2"],
             "AnswerResponse": [1, 2],  # Wrong: should be Answer
-            "QuestionID": [1, 2],      # Wrong: should be Question
+            "QuestionID": [1, 2],  # Wrong: should be Question
         }
         df = pd.DataFrame(data)
         df.to_excel(wrong_headers_excel, index=False)
 
         validator = AnswerSheetValidator()
-        is_valid, issues = validator.validate_file(str(wrong_headers_excel), "TestStudent")
+        is_valid, issues = validator.validate_file(
+            str(wrong_headers_excel), "TestStudent"
+        )
 
         # Should detect issues with structure
         has_structure_issue = any(
-            "column" in issue.issue_type.lower() or
-            "header" in issue.issue_type.lower() or
-            "structure" in issue.issue_type.lower()
+            "column" in issue.issue_type.lower()
+            or "header" in issue.issue_type.lower()
+            or "structure" in issue.issue_type.lower()
             for issue in issues
         )
         # Note: May not be invalid if validator is lenient, but should warn
@@ -187,12 +195,14 @@ class TestWrongFormats:
             "TestStudent1": ["B"] * 125,  # Duplicate (will overwrite in DataFrame)
             "TestStudent2": ["C"] * 125,
         }
-        df = pd.DataFrame({
-            "Question": list(range(1, 126)),
-            "TestStudent1": ["A"] * 125,
-            "TestStudent1_dup": ["B"] * 125,  # Simulate duplicate
-            "TestStudent2": ["C"] * 125,
-        })
+        df = pd.DataFrame(
+            {
+                "Question": list(range(1, 126)),
+                "TestStudent1": ["A"] * 125,
+                "TestStudent1_dup": ["B"] * 125,  # Simulate duplicate
+                "TestStudent2": ["C"] * 125,
+            }
+        )
         df.to_excel(duplicate_names_excel, index=False)
 
         # Read and verify duplicates
@@ -204,6 +214,7 @@ class TestWrongFormats:
 # TEST CLASS 4: Invalid User Input (Scenarios 9-11)
 # ============================================================================
 
+
 class TestInvalidUserInput:
     """Test error handling for invalid user input and choices."""
 
@@ -212,8 +223,9 @@ class TestInvalidUserInput:
         valid_modes = ["A", "B"]  # A=single, B=comparative
         invalid_input = "X"
 
-        assert invalid_input not in valid_modes, \
-            "Invalid mode should not be in valid modes"
+        assert (
+            invalid_input not in valid_modes
+        ), "Invalid mode should not be in valid modes"
 
     def test_invalid_exam_number(self, temp_test_dir):
         """Scenario 10: Invalid exam number in filename should be handled."""
@@ -252,6 +264,7 @@ class TestInvalidUserInput:
 # TEST CLASS 5: Resource Limits and Concurrency (Scenarios 12-13)
 # ============================================================================
 
+
 class TestResourceLimits:
     """Test error handling under resource constraints."""
 
@@ -273,7 +286,7 @@ class TestResourceLimits:
 
         # Save to file and verify can be reloaded
         large_file = temp_test_dir / "large_dataset.json"
-        with open(large_file, 'w') as f:
+        with open(large_file, "w") as f:
             json.dump(large_data, f)
 
         # Verify can reload without issue
@@ -288,7 +301,7 @@ class TestResourceLimits:
 
         # Write initial data
         data = {"counter": 0}
-        with open(test_file, 'w') as f:
+        with open(test_file, "w") as f:
             json.dump(data, f)
 
         # Simulate concurrent reads (safe operation)
@@ -305,6 +318,7 @@ class TestResourceLimits:
 # TEST CLASS 6: Partial Upload and Interruption (Scenario 14)
 # ============================================================================
 
+
 class TestPartialUploadCleanup:
     """Test error handling for interrupted uploads."""
 
@@ -313,7 +327,7 @@ class TestPartialUploadCleanup:
         partial_file = temp_test_dir / "partial_upload.xlsx"
 
         # Simulate partial write (truncated file)
-        partial_file.write_bytes(b'PK\x03\x04')  # ZIP header but incomplete
+        partial_file.write_bytes(b"PK\x03\x04")  # ZIP header but incomplete
 
         # Should not be readable as valid Excel
         with pytest.raises(Exception):
@@ -323,6 +337,7 @@ class TestPartialUploadCleanup:
 # ============================================================================
 # TEST CLASS 7: Special Characters and Encoding (Scenario 15)
 # ============================================================================
+
 
 class TestSpecialCharacterHandling:
     """Test error handling with special characters and encoding."""
@@ -393,6 +408,7 @@ class TestSpecialCharacterHandling:
 # TEST CLASS 8: File Permissions (Scenario 16)
 # ============================================================================
 
+
 class TestFilePermissions:
     """Test error handling for permission issues."""
 
@@ -439,6 +455,7 @@ class TestFilePermissions:
 # TEST CLASS 9: Data Consistency Issues (Scenarios 17-20)
 # ============================================================================
 
+
 class TestDataConsistency:
     """Test error handling for data consistency violations."""
 
@@ -456,11 +473,17 @@ class TestDataConsistency:
         df.to_excel(mismatched_excel, index=False)
 
         validator = AnswerSheetValidator()
-        is_valid, issues = validator.validate_file(str(mismatched_excel), "TestStudent1")
+        is_valid, issues = validator.validate_file(
+            str(mismatched_excel), "TestStudent1"
+        )
 
         # Should detect row count issue or incomplete data
-        assert not is_valid or any("row" in str(issue).lower() or "incomplete" in str(issue).lower() or "extra" in str(issue).lower()
-                  for issue in issues), "Should detect question count issue or be invalid"
+        assert not is_valid or any(
+            "row" in str(issue).lower()
+            or "incomplete" in str(issue).lower()
+            or "extra" in str(issue).lower()
+            for issue in issues
+        ), "Should detect question count issue or be invalid"
 
     def test_question_number_gaps(self, temp_test_dir):
         """Scenario 18: Excel with gaps in question numbering."""
@@ -488,7 +511,7 @@ class TestDataConsistency:
         # Create answer key with 130 questions (5 extra)
         answer_key = {str(i): ["A", "B", "C", "D"][i % 4] for i in range(1, 131)}
 
-        with open(answer_key_file, 'w') as f:
+        with open(answer_key_file, "w") as f:
             json.dump(answer_key, f)
 
         # Verify extra questions are present
@@ -514,6 +537,7 @@ class TestDataConsistency:
 # ============================================================================
 # TEST CLASS 10: Integration Error Scenarios (Additional Tests)
 # ============================================================================
+
 
 class TestIntegrationErrorHandling:
     """Test error handling across multiple components."""
@@ -542,8 +566,9 @@ class TestIntegrationErrorHandling:
 
         error_msg = str(exc_info.value).lower()
         # Message should be clear and actionable
-        assert any(word in error_msg for word in ["not found", "does not exist", "cannot find"]), \
-            "Error message should clearly indicate file not found"
+        assert any(
+            word in error_msg for word in ["not found", "does not exist", "cannot find"]
+        ), "Error message should clearly indicate file not found"
 
     def test_state_consistency_after_error(self, temp_test_dir):
         """Test that program state remains consistent after error."""
@@ -553,7 +578,9 @@ class TestIntegrationErrorHandling:
         initial_issues = validator.issues
 
         # Attempt validation with invalid file
-        result = validator.validate_file(str(temp_test_dir / "nonexistent.xlsx"), "Test")
+        result = validator.validate_file(
+            str(temp_test_dir / "nonexistent.xlsx"), "Test"
+        )
 
         # State should be properly set after error
         assert validator.issues is not None
@@ -564,7 +591,7 @@ class TestIntegrationErrorHandling:
         bad_excel = temp_test_dir / "bad.xlsx"
 
         # Create corrupted Excel (will fail to load)
-        bad_excel.write_bytes(b'\x00\x01\x02\x03')
+        bad_excel.write_bytes(b"\x00\x01\x02\x03")
 
         # Attempt to read
         with pytest.raises(Exception):
@@ -583,6 +610,7 @@ class TestIntegrationErrorHandling:
 # ============================================================================
 # TEST CLASS 11: Edge Cases and Boundary Conditions
 # ============================================================================
+
 
 class TestBoundaryConditions:
     """Test boundary conditions and edge cases."""

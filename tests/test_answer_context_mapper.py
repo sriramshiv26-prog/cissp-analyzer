@@ -21,7 +21,9 @@ class TestAnswerContextMapper:
         mapper = AnswerContextMapper()
 
         question_text = "Which cryptographic method uses a shared secret key?"
-        answer_text = "AES (Advanced Encryption Standard) is the symmetric encryption standard"
+        answer_text = (
+            "AES (Advanced Encryption Standard) is the symmetric encryption standard"
+        )
 
         # Should map to Cryptography domain based on both texts
         domain = mapper.map_with_context(question_text, answer_text)
@@ -33,7 +35,9 @@ class TestAnswerContextMapper:
         mapper = AnswerContextMapper()
 
         question = "Which component manages user privileges?"
-        answer = "Role-Based Access Control (RBAC) manages permissions and access levels"
+        answer = (
+            "Role-Based Access Control (RBAC) manages permissions and access levels"
+        )
 
         domain = mapper.map_with_context(question, answer)
 
@@ -56,7 +60,12 @@ class TestAnswerContextMapper:
 
         # Question is vague, but answer keywords clarify domain
         question = "This framework addresses multiple security areas"
-        answer_keywords = ["authentication", "authorization", "access control", "identity management"]
+        answer_keywords = [
+            "authentication",
+            "authorization",
+            "access control",
+            "identity management",
+        ]
 
         improved_domain = mapper.map_with_keywords(question, answer_keywords)
 

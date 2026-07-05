@@ -5,10 +5,8 @@ Verifies that all required packages are installed and provides helpful
 installation instructions if any are missing.
 """
 
-import sys
 import importlib.util
 from typing import List, Tuple, Optional
-
 
 # Required dependencies with their import names and minimum versions
 REQUIRED_DEPENDENCIES = {
@@ -27,6 +25,7 @@ OPTIONAL_DEPENDENCIES = {
 
 class DependencyError(ImportError):
     """Raised when a required dependency is missing"""
+
     pass
 
 
@@ -88,7 +87,9 @@ def compare_versions(installed: str, required: str) -> bool:
         return True
 
 
-def check_required_dependencies(verbose: bool = False) -> Tuple[List[str], List[str]]:
+def check_required_dependencies(
+    verbose: bool = False,
+) -> Tuple[List[Tuple[str, str, str]], List[Tuple[str, str, str, str]]]:
     """Check all required dependencies.
 
     Args:
@@ -96,19 +97,25 @@ def check_required_dependencies(verbose: bool = False) -> Tuple[List[str], List[
 
     Returns:
         Tuple of (missing_packages, version_issues)
-        - missing_packages: List of packages that are not installed
-        - version_issues: List of packages with version mismatches
+        - missing_packages: List of (name, version, description) tuples
+        - version_issues: List of (name, installed, required, description) tuples
     """
-    missing = []
-    version_issues = []
+    missing: List[Tuple[str, str, str]] = []
+    version_issues: List[Tuple[str, str, str, str]] = []
 
-    for package_name, (import_name, min_version, description) in REQUIRED_DEPENDENCIES.items():
+    for package_name, (
+        import_name,
+        min_version,
+        description,
+    ) in REQUIRED_DEPENDENCIES.items():
         if not check_package_installed(import_name):
             missing.append((package_name, min_version, description))
         else:
             installed = get_installed_version(import_name)
             if installed and not compare_versions(installed, min_version):
-                version_issues.append((package_name, installed, min_version, description))
+                version_issues.append(
+                    (package_name, installed, min_version, description)
+                )
 
     if verbose and missing:
         print_missing_dependencies(missing)
@@ -124,7 +131,11 @@ def check_optional_dependencies() -> List[Tuple[str, str, str]]:
     """
     missing = []
 
-    for package_name, (import_name, min_version, description) in OPTIONAL_DEPENDENCIES.items():
+    for package_name, (
+        import_name,
+        min_version,
+        description,
+    ) in OPTIONAL_DEPENDENCIES.items():
         if not check_package_installed(import_name):
             missing.append((package_name, min_version, description))
 
@@ -232,7 +243,11 @@ def print_dependency_status():
 
     print("\nREQUIRED DEPENDENCIES:")
     print("-" * 70)
-    for package, (import_name, min_version, description) in REQUIRED_DEPENDENCIES.items():
+    for package, (
+        import_name,
+        min_version,
+        description,
+    ) in REQUIRED_DEPENDENCIES.items():
         if check_package_installed(import_name):
             version = get_installed_version(import_name) or "unknown"
             print(f"  ✓ {package:<20} {version:<15} {description}")
@@ -241,7 +256,11 @@ def print_dependency_status():
 
     print("\nOPTIONAL DEPENDENCIES (Development):")
     print("-" * 70)
-    for package, (import_name, min_version, description) in OPTIONAL_DEPENDENCIES.items():
+    for package, (
+        import_name,
+        min_version,
+        description,
+    ) in OPTIONAL_DEPENDENCIES.items():
         if check_package_installed(import_name):
             version = get_installed_version(import_name) or "unknown"
             print(f"  ✓ {package:<20} {version:<15} {description}")

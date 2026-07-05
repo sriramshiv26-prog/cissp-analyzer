@@ -6,7 +6,7 @@ from typing import Optional, Dict
 class DomainMapper:
     """Loads and provides access to question_domain_mapping.json"""
 
-    def __init__(self, mapping_file: str = 'data/question_domain_mapping.json'):
+    def __init__(self, mapping_file: str = "data/question_domain_mapping.json"):
         self.mapping_file = Path(mapping_file)
         self.mapping = self._load_mapping()
 
@@ -15,7 +15,7 @@ class DomainMapper:
         if not self.mapping_file.exists():
             raise FileNotFoundError(f"Mapping file not found: {self.mapping_file}")
 
-        with open(self.mapping_file, 'r') as f:
+        with open(self.mapping_file, "r") as f:
             return json.load(f)
 
     def get_question_metadata(self, question_number: int) -> Optional[Dict]:
@@ -32,7 +32,7 @@ class DomainMapper:
         return [
             (int(qnum), meta)
             for qnum, meta in self.mapping.items()
-            if meta.get('domain') == domain
+            if meta.get("domain") == domain
         ]
 
     def get_questions_by_topic(self, topic: str) -> list:
@@ -40,5 +40,5 @@ class DomainMapper:
         return [
             (int(qnum), meta)
             for qnum, meta in self.mapping.items()
-            if meta.get('topic') == topic
+            if meta.get("topic") == topic
         ]

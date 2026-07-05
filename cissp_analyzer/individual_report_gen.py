@@ -14,28 +14,33 @@ class IndividualReportGenerator:
     """Generates professional individual performance reports for each student (7 sheets)"""
 
     # Color scheme matching Senthil report
-    COLOR_HEADER = '001F4E78'  # Dark blue
-    COLOR_CORRECT = '0092D050'  # Green
-    COLOR_WRONG = '00FF6B6B'    # Red
-    COLOR_NEUTRAL = '00E7E6E6'  # Light gray
-    COLOR_PASS = '0092D050'     # Green
-    COLOR_WEAK = '00FF6B6B'     # Red
+    COLOR_HEADER = "001F4E78"  # Dark blue
+    COLOR_CORRECT = "0092D050"  # Green
+    COLOR_WRONG = "00FF6B6B"  # Red
+    COLOR_NEUTRAL = "00E7E6E6"  # Light gray
+    COLOR_PASS = "0092D050"  # Green
+    COLOR_WEAK = "00FF6B6B"  # Red
 
     def __init__(self, domain_mapper: DomainMapper, analysis_engine: AnalysisEngine):
         self.mapper = domain_mapper
         self.engine = analysis_engine
         self.domain_names = {
-            1: 'Security & Risk Management',
-            2: 'Asset Security',
-            3: 'Security Architecture & Engineering',
-            4: 'Communication & Network Security',
-            5: 'Identity & Access Management',
-            6: 'Security Assessment & Testing',
-            7: 'Security Operations',
-            8: 'Software Development Security'
+            1: "Security & Risk Management",
+            2: "Asset Security",
+            3: "Security Architecture & Engineering",
+            4: "Communication & Network Security",
+            5: "Identity & Access Management",
+            6: "Security Assessment & Testing",
+            7: "Security Operations",
+            8: "Software Development Security",
         }
 
-    def generate(self, performance: StudentPerformance, output_file: str, historical_exams: Optional[List[Dict]] = None):
+    def generate(
+        self,
+        performance: StudentPerformance,
+        output_file: str,
+        historical_exams: Optional[List[Dict]] = None,
+    ):
         """Generate comprehensive 9-sheet professional report with optional historical data
 
         Sheet Structure:
@@ -80,58 +85,74 @@ class IndividualReportGenerator:
     def _get_status_text(self, percentage: float) -> str:
         """Return status text based on percentage"""
         if percentage >= 75:
-            return '✓ Strong' if percentage >= 85 else 'Good'
+            return "✓ Strong" if percentage >= 85 else "Good"
         elif percentage >= 50:
-            return 'Good'
+            return "Good"
         else:
-            return '⚠️ Weak'
+            return "⚠️ Weak"
 
     def _create_performance_summary(self, wb: Workbook, perf: StudentPerformance):
         """Sheet 1: Detailed Performance Summary"""
-        ws = wb.create_sheet('Performance Summary', 0)
+        ws = wb.create_sheet("Performance Summary", 0)
 
         # Title
-        ws['A1'] = 'CISSP PERSONAL PERFORMANCE REPORT'
-        ws['A1'].font = Font(bold=True, size=13, color='FFFFFF')
-        ws['A1'].fill = PatternFill(start_color='001F4E78', end_color='001F4E78', fill_type='solid')
-        ws.merge_cells('A1:E1')
+        ws["A1"] = "CISSP PERSONAL PERFORMANCE REPORT"
+        ws["A1"].font = Font(bold=True, size=13, color="FFFFFF")
+        ws["A1"].fill = PatternFill(
+            start_color="001F4E78", end_color="001F4E78", fill_type="solid"
+        )
+        ws.merge_cells("A1:E1")
 
         # Student name
-        ws['A2'] = perf.student_name
-        ws['A2'].font = Font(bold=True, size=11, color='FFFFFF')
-        ws['A2'].fill = PatternFill(start_color=self.COLOR_CORRECT, end_color=self.COLOR_CORRECT, fill_type='solid')
+        ws["A2"] = perf.student_name
+        ws["A2"].font = Font(bold=True, size=11, color="FFFFFF")
+        ws["A2"].fill = PatternFill(
+            start_color=self.COLOR_CORRECT,
+            end_color=self.COLOR_CORRECT,
+            fill_type="solid",
+        )
 
         # Exam date
-        ws['A3'] = 'Exam Date: June 21, 2026 | Report Generated: June 25, 2026'
+        ws["A3"] = "Exam Date: June 21, 2026 | Report Generated: June 25, 2026"
 
         # Score section
-        ws['A5'] = 'YOUR SCORE'
-        ws['A5'].font = Font(bold=True, color='FFFFFF')
-        ws['A5'].fill = PatternFill(start_color=self.COLOR_CORRECT, end_color=self.COLOR_CORRECT, fill_type='solid')
+        ws["A5"] = "YOUR SCORE"
+        ws["A5"].font = Font(bold=True, color="FFFFFF")
+        ws["A5"].fill = PatternFill(
+            start_color=self.COLOR_CORRECT,
+            end_color=self.COLOR_CORRECT,
+            fill_type="solid",
+        )
 
-        ws['A6'] = 'Questions Correct:'
-        ws['B6'] = f"{perf.correct_count}/125"
+        ws["A6"] = "Questions Correct:"
+        ws["B6"] = f"{perf.correct_count}/125"
 
-        ws['A7'] = 'Accuracy:'
-        ws['B7'] = f"{perf.score_percentage:.1f}%"
+        ws["A7"] = "Accuracy:"
+        ws["B7"] = f"{perf.score_percentage:.1f}%"
         if perf.score_percentage >= 70:
-            ws['B7'].fill = PatternFill(start_color=self.COLOR_CORRECT, end_color=self.COLOR_CORRECT, fill_type='solid')
+            ws["B7"].fill = PatternFill(
+                start_color=self.COLOR_CORRECT,
+                end_color=self.COLOR_CORRECT,
+                fill_type="solid",
+            )
 
-        ws['A8'] = 'Status:'
-        status = 'EXAM READY' if perf.score_percentage >= 70 else 'NEEDS IMPROVEMENT'
-        ws['B8'] = status
+        ws["A8"] = "Status:"
+        status = "EXAM READY" if perf.score_percentage >= 70 else "NEEDS IMPROVEMENT"
+        ws["B8"] = status
 
-        ws['A9'] = 'Passing Threshold:'
-        ws['B9'] = '70%'
+        ws["A9"] = "Passing Threshold:"
+        ws["B9"] = "70%"
 
-        ws['A10'] = 'Gap to Pass:'
+        ws["A10"] = "Gap to Pass:"
         gap = perf.score_percentage - 70
-        ws['B10'] = f"{gap:+.1f}%"
+        ws["B10"] = f"{gap:+.1f}%"
 
         # Message section
-        ws['A12'] = 'YOUR MESSAGE'
-        ws['A12'].font = Font(bold=True, color='FFFFFF')
-        ws['A12'].fill = PatternFill(start_color='001F4E78', end_color='001F4E78', fill_type='solid')
+        ws["A12"] = "YOUR MESSAGE"
+        ws["A12"].font = Font(bold=True, color="FFFFFF")
+        ws["A12"].fill = PatternFill(
+            start_color="001F4E78", end_color="001F4E78", fill_type="solid"
+        )
 
         # Generate personalized message
         weak_domains = self._get_weak_domains(perf)
@@ -139,27 +160,39 @@ class IndividualReportGenerator:
             msg = f"Focus on: {', '.join(weak_domains[:2])}. Target: {70 - gap:.1f}% gap. You can do this!"
         else:
             msg = "Great job! You're ready for the exam."
-        ws['A13'] = msg
-        ws['A13'].alignment = Alignment(wrap_text=True)
+        ws["A13"] = msg
+        ws["A13"].alignment = Alignment(wrap_text=True)
         ws.row_dimensions[13].height = 30
 
-        ws.column_dimensions['A'].width = 25
-        ws.column_dimensions['B'].width = 25
+        ws.column_dimensions["A"].width = 25
+        ws.column_dimensions["B"].width = 25
 
     def _create_qa_breakdown(self, wb: Workbook, perf: StudentPerformance):
         """Sheet 2: Question-by-Question Breakdown"""
-        ws = wb.create_sheet('Q&A Breakdown', 1)
+        ws = wb.create_sheet("Q&A Breakdown", 1)
 
-        ws['A1'] = 'QUESTION-BY-QUESTION DETAILED ANALYSIS'
-        ws['A1'].font = Font(bold=True, size=11)
+        ws["A1"] = "QUESTION-BY-QUESTION DETAILED ANALYSIS"
+        ws["A1"].font = Font(bold=True, size=11)
 
         # Headers
-        headers = ['Q#', 'Topic', 'Domain', 'Q Type', 'Trick', 'Difficulty', 'Your Result']
+        headers = [
+            "Q#",
+            "Topic",
+            "Domain",
+            "Q Type",
+            "Trick",
+            "Difficulty",
+            "Your Result",
+        ]
         for col_idx, header in enumerate(headers, 1):
             cell = ws.cell(row=3, column=col_idx)
             cell.value = header
-            cell.font = Font(bold=True, color='FFFFFF')
-            cell.fill = PatternFill(start_color=self.COLOR_HEADER, end_color=self.COLOR_HEADER, fill_type='solid')
+            cell.font = Font(bold=True, color="FFFFFF")
+            cell.fill = PatternFill(
+                start_color=self.COLOR_HEADER,
+                end_color=self.COLOR_HEADER,
+                fill_type="solid",
+            )
 
         row = 4
         for q_num in range(1, 126):
@@ -170,20 +203,22 @@ class IndividualReportGenerator:
 
             values = [
                 q_num,
-                meta.get('topic', '') if meta else '',
-                meta.get('domain', '') if meta else '',
-                meta.get('question_type', '') if meta else '',
-                meta.get('exam_trick', 'None') if meta else 'None',
-                meta.get('difficulty', '') if meta else '',
-                '✗ WRONG' if is_wrong else '✓ CORRECT'
+                meta.get("topic", "") if meta else "",
+                meta.get("domain", "") if meta else "",
+                meta.get("question_type", "") if meta else "",
+                meta.get("exam_trick", "None") if meta else "None",
+                meta.get("difficulty", "") if meta else "",
+                "✗ WRONG" if is_wrong else "✓ CORRECT",
             ]
 
             for col_idx, val in enumerate(values, 1):
                 cell = ws.cell(row=row, column=col_idx)
                 cell.value = val
-                cell.fill = PatternFill(start_color=fill_color, end_color=fill_color, fill_type='solid')
+                cell.fill = PatternFill(
+                    start_color=fill_color, end_color=fill_color, fill_type="solid"
+                )
                 if col_idx == 7:
-                    cell.font = Font(bold=True, color='FFFFFF')
+                    cell.font = Font(bold=True, color="FFFFFF")
 
             row += 1
 
@@ -192,33 +227,39 @@ class IndividualReportGenerator:
 
     def _create_by_question_type(self, wb: Workbook, perf: StudentPerformance):
         """Sheet 3: Performance by Question Type"""
-        ws = wb.create_sheet('By Question Type', 2)
+        ws = wb.create_sheet("By Question Type", 2)
 
-        ws['A1'] = 'PERFORMANCE BY QUESTION TYPE'
-        ws['A1'].font = Font(bold=True, size=11)
+        ws["A1"] = "PERFORMANCE BY QUESTION TYPE"
+        ws["A1"].font = Font(bold=True, size=11)
 
         # Headers
-        headers = ['Question Type', 'Correct', 'Total', 'Success Rate', 'Status']
+        headers = ["Question Type", "Correct", "Total", "Success Rate", "Status"]
         for col_idx, header in enumerate(headers, 1):
             cell = ws.cell(row=3, column=col_idx)
             cell.value = header
-            cell.font = Font(bold=True, color='FFFFFF')
-            cell.fill = PatternFill(start_color=self.COLOR_HEADER, end_color=self.COLOR_HEADER, fill_type='solid')
+            cell.font = Font(bold=True, color="FFFFFF")
+            cell.fill = PatternFill(
+                start_color=self.COLOR_HEADER,
+                end_color=self.COLOR_HEADER,
+                fill_type="solid",
+            )
 
         row = 4
         for q_type, data in sorted(perf.by_question_type.items()):
-            pct = data['percentage']
+            pct = data["percentage"]
             fill_color = self._get_status_color(pct)
             status = self._get_status_text(pct)
 
             ws.cell(row=row, column=1).value = q_type
-            ws.cell(row=row, column=2).value = data['correct']
-            ws.cell(row=row, column=3).value = data['total']
+            ws.cell(row=row, column=2).value = data["correct"]
+            ws.cell(row=row, column=3).value = data["total"]
             ws.cell(row=row, column=4).value = f"{pct:.1f}%"
             ws.cell(row=row, column=5).value = status
 
             for col in range(1, 6):
-                ws.cell(row=row, column=col).fill = PatternFill(start_color=fill_color, end_color=fill_color, fill_type='solid')
+                ws.cell(row=row, column=col).fill = PatternFill(
+                    start_color=fill_color, end_color=fill_color, fill_type="solid"
+                )
 
             row += 1
 
@@ -227,22 +268,35 @@ class IndividualReportGenerator:
 
     def _create_by_exam_tricks(self, wb: Workbook, perf: StudentPerformance):
         """Sheet 4: Performance by Exam Tricks with wrong question list"""
-        ws = wb.create_sheet('By Exam Tricks', 3)
+        ws = wb.create_sheet("By Exam Tricks", 3)
 
-        ws['A1'] = 'PERFORMANCE BY EXAM TRICK TYPE'
-        ws['A1'].font = Font(bold=True, size=11)
+        ws["A1"] = "PERFORMANCE BY EXAM TRICK TYPE"
+        ws["A1"].font = Font(bold=True, size=11)
 
         # Headers
-        headers = ['Trick Type', 'Correct', 'Total', 'Success Rate', 'Status', 'Your Wrong Qs']
+        headers = [
+            "Trick Type",
+            "Correct",
+            "Total",
+            "Success Rate",
+            "Status",
+            "Your Wrong Qs",
+        ]
         for col_idx, header in enumerate(headers, 1):
             cell = ws.cell(row=3, column=col_idx)
             cell.value = header
-            cell.font = Font(bold=True, color='FFFFFF')
-            cell.fill = PatternFill(start_color=self.COLOR_HEADER, end_color=self.COLOR_HEADER, fill_type='solid')
+            cell.font = Font(bold=True, color="FFFFFF")
+            cell.fill = PatternFill(
+                start_color=self.COLOR_HEADER,
+                end_color=self.COLOR_HEADER,
+                fill_type="solid",
+            )
 
         row = 4
-        for trick, data in sorted(perf.by_exam_trick.items(), key=lambda x: (x[0] is None, x[0])):
-            pct = data['percentage']
+        for trick, data in sorted(
+            perf.by_exam_trick.items(), key=lambda x: (x[0] is None, x[0])
+        ):
+            pct = data["percentage"]
             fill_color = self._get_status_color(pct)
             status = self._get_status_text(pct)
 
@@ -250,14 +304,16 @@ class IndividualReportGenerator:
             wrong_qs = self._get_wrong_qs_for_trick(perf, trick)
 
             ws.cell(row=row, column=1).value = trick
-            ws.cell(row=row, column=2).value = data['correct']
-            ws.cell(row=row, column=3).value = data['total']
+            ws.cell(row=row, column=2).value = data["correct"]
+            ws.cell(row=row, column=3).value = data["total"]
             ws.cell(row=row, column=4).value = f"{pct:.1f}%"
             ws.cell(row=row, column=5).value = status
             ws.cell(row=row, column=6).value = wrong_qs
 
             for col in range(1, 7):
-                ws.cell(row=row, column=col).fill = PatternFill(start_color=fill_color, end_color=fill_color, fill_type='solid')
+                ws.cell(row=row, column=col).fill = PatternFill(
+                    start_color=fill_color, end_color=fill_color, fill_type="solid"
+                )
 
             row += 1
 
@@ -266,81 +322,104 @@ class IndividualReportGenerator:
 
     def _create_by_domain(self, wb: Workbook, perf: StudentPerformance):
         """Sheet 5: Performance by Domain with topic breakdown"""
-        ws = wb.create_sheet('By Domain', 4)
+        ws = wb.create_sheet("By Domain", 4)
 
-        ws['A1'] = 'PERFORMANCE BY CISSP DOMAIN'
-        ws['A1'].font = Font(bold=True, size=11)
+        ws["A1"] = "PERFORMANCE BY CISSP DOMAIN"
+        ws["A1"].font = Font(bold=True, size=11)
 
         # Headers
-        headers = ['Domain', 'Topic Breakdown', 'Correct', 'Total', 'Success Rate', 'Status']
+        headers = [
+            "Domain",
+            "Topic Breakdown",
+            "Correct",
+            "Total",
+            "Success Rate",
+            "Status",
+        ]
         for col_idx, header in enumerate(headers, 1):
             cell = ws.cell(row=3, column=col_idx)
             cell.value = header
-            cell.font = Font(bold=True, color='FFFFFF')
-            cell.fill = PatternFill(start_color=self.COLOR_HEADER, end_color=self.COLOR_HEADER, fill_type='solid')
+            cell.font = Font(bold=True, color="FFFFFF")
+            cell.fill = PatternFill(
+                start_color=self.COLOR_HEADER,
+                end_color=self.COLOR_HEADER,
+                fill_type="solid",
+            )
 
         row = 4
         for domain_id, data in sorted(perf.by_domain.items()):
-            pct = data['percentage']
+            pct = data["percentage"]
             fill_color = self._get_status_color(pct)
             status = self._get_status_text(pct)
 
             # Format domain name
-            domain_name = f"Domain {domain_id}: {self.domain_names.get(domain_id, 'Unknown')}"
+            domain_name = (
+                f"Domain {domain_id}: {self.domain_names.get(domain_id, 'Unknown')}"
+            )
 
             # Get topic breakdown for this domain
             topic_breakdown = self._get_topic_breakdown(perf, domain_id)
 
             ws.cell(row=row, column=1).value = domain_name
             ws.cell(row=row, column=2).value = topic_breakdown
-            ws.cell(row=row, column=3).value = data['correct']
-            ws.cell(row=row, column=4).value = data['total']
+            ws.cell(row=row, column=3).value = data["correct"]
+            ws.cell(row=row, column=4).value = data["total"]
             ws.cell(row=row, column=5).value = f"{pct:.1f}%"
             ws.cell(row=row, column=6).value = status
 
             for col in range(1, 7):
-                ws.cell(row=row, column=col).fill = PatternFill(start_color=fill_color, end_color=fill_color, fill_type='solid')
+                ws.cell(row=row, column=col).fill = PatternFill(
+                    start_color=fill_color, end_color=fill_color, fill_type="solid"
+                )
 
             # Set row height for better readability
             ws.row_dimensions[row].height = 30
 
             row += 1
 
-        ws.column_dimensions['A'].width = 25
-        ws.column_dimensions['B'].width = 50
-        for col in ['C', 'D', 'E', 'F']:
+        ws.column_dimensions["A"].width = 25
+        ws.column_dimensions["B"].width = 50
+        for col in ["C", "D", "E", "F"]:
             ws.column_dimensions[col].width = 14
 
     def _create_by_difficulty(self, wb: Workbook, perf: StudentPerformance):
         """Sheet 6: Performance by Difficulty"""
-        ws = wb.create_sheet('By Difficulty', 5)
+        ws = wb.create_sheet("By Difficulty", 5)
 
-        ws['A1'] = 'PERFORMANCE BY DIFFICULTY LEVEL'
-        ws['A1'].font = Font(bold=True, size=11)
+        ws["A1"] = "PERFORMANCE BY DIFFICULTY LEVEL"
+        ws["A1"].font = Font(bold=True, size=11)
 
         # Headers
-        headers = ['Difficulty', 'Correct', 'Total', 'Success Rate', 'Status']
+        headers = ["Difficulty", "Correct", "Total", "Success Rate", "Status"]
         for col_idx, header in enumerate(headers, 1):
             cell = ws.cell(row=3, column=col_idx)
             cell.value = header
-            cell.font = Font(bold=True, color='FFFFFF')
-            cell.fill = PatternFill(start_color=self.COLOR_HEADER, end_color=self.COLOR_HEADER, fill_type='solid')
+            cell.font = Font(bold=True, color="FFFFFF")
+            cell.fill = PatternFill(
+                start_color=self.COLOR_HEADER,
+                end_color=self.COLOR_HEADER,
+                fill_type="solid",
+            )
 
         row = 4
-        for difficulty in ['Easy', 'Medium', 'Hard']:
-            data = perf.by_difficulty.get(difficulty, {'correct': 0, 'wrong': 0, 'total': 0, 'percentage': 0})
-            pct = data['percentage']
+        for difficulty in ["Easy", "Medium", "Hard"]:
+            data = perf.by_difficulty.get(
+                difficulty, {"correct": 0, "wrong": 0, "total": 0, "percentage": 0}
+            )
+            pct = data["percentage"]
             fill_color = self._get_status_color(pct)
             status = self._get_status_text(pct)
 
             ws.cell(row=row, column=1).value = difficulty
-            ws.cell(row=row, column=2).value = data['correct']
-            ws.cell(row=row, column=3).value = data['total']
+            ws.cell(row=row, column=2).value = data["correct"]
+            ws.cell(row=row, column=3).value = data["total"]
             ws.cell(row=row, column=4).value = f"{pct:.1f}%"
             ws.cell(row=row, column=5).value = status
 
             for col in range(1, 6):
-                ws.cell(row=row, column=col).fill = PatternFill(start_color=fill_color, end_color=fill_color, fill_type='solid')
+                ws.cell(row=row, column=col).fill = PatternFill(
+                    start_color=fill_color, end_color=fill_color, fill_type="solid"
+                )
 
             row += 1
 
@@ -349,119 +428,171 @@ class IndividualReportGenerator:
 
     def _create_study_plan(self, wb: Workbook, perf: StudentPerformance):
         """Sheet 7 (Index 6): Detailed Personalized Study Plan"""
-        ws = wb.create_sheet('Study Plan', 6)
+        ws = wb.create_sheet("Study Plan", 6)
 
-        ws['A1'] = f'PERSONALIZED STUDY PLAN - {perf.student_name}'
-        ws['A1'].font = Font(bold=True, size=12, color='FFFFFF')
-        ws['A1'].fill = PatternFill(start_color='001F4E78', end_color='001F4E78', fill_type='solid')
+        ws["A1"] = f"PERSONALIZED STUDY PLAN - {perf.student_name}"
+        ws["A1"].font = Font(bold=True, size=12, color="FFFFFF")
+        ws["A1"].fill = PatternFill(
+            start_color="001F4E78", end_color="001F4E78", fill_type="solid"
+        )
 
         gap = max(0, 70 - perf.score_percentage)
-        ws['A2'] = f'Current Score: {perf.score_percentage:.1f}% | Gap to Pass: {gap:.1f}% | Target: 70%'
-        ws['A3'] = f'Recommended Study: 8-10 hours/week | Timeline: 2-3 weeks'
+        ws["A2"] = (
+            f"Current Score: {perf.score_percentage:.1f}% | Gap to Pass: {gap:.1f}% | Target: 70%"
+        )
+        ws["A3"] = f"Recommended Study: 8-10 hours/week | Timeline: 2-3 weeks"
 
         # Get weak domains and topics
         weak_domains = self._get_weak_domains_with_scores(perf)
         weak_topics = self._get_weakest_topics_detailed(perf, 5)
 
         # Section 1: Priority Domains
-        ws['A5'] = 'PRIORITY STUDY DOMAINS'
-        ws['A5'].font = Font(bold=True, color='FFFFFF')
-        ws['A5'].fill = PatternFill(start_color='001F4E78', end_color='001F4E78', fill_type='solid')
+        ws["A5"] = "PRIORITY STUDY DOMAINS"
+        ws["A5"].font = Font(bold=True, color="FFFFFF")
+        ws["A5"].fill = PatternFill(
+            start_color="001F4E78", end_color="001F4E78", fill_type="solid"
+        )
 
         row = 6
-        headers = ['Priority', 'Domain', 'Current Score', 'Target', 'Study Hours']
+        headers = ["Priority", "Domain", "Current Score", "Target", "Study Hours"]
         for col_idx, header in enumerate(headers, 1):
             cell = ws.cell(row=row, column=col_idx)
             cell.value = header
-            cell.font = Font(bold=True, color='FFFFFF')
-            cell.fill = PatternFill(start_color='001F4E78', end_color='001F4E78', fill_type='solid')
+            cell.font = Font(bold=True, color="FFFFFF")
+            cell.fill = PatternFill(
+                start_color="001F4E78", end_color="001F4E78", fill_type="solid"
+            )
 
         row = 7
         for idx, (domain_id, score) in enumerate(weak_domains[:3], 1):
-            domain_name = self.domain_names.get(domain_id, f'Domain {domain_id}')
+            domain_name = self.domain_names.get(domain_id, f"Domain {domain_id}")
             hours = 3 - (idx - 1)
-            ws.cell(row=row, column=1).value = f'#{idx}'
+            ws.cell(row=row, column=1).value = f"#{idx}"
             ws.cell(row=row, column=2).value = domain_name
-            ws.cell(row=row, column=3).value = f'{score:.1f}%'
-            ws.cell(row=row, column=4).value = '70%'
-            ws.cell(row=row, column=5).value = f'{hours}h/week'
+            ws.cell(row=row, column=3).value = f"{score:.1f}%"
+            ws.cell(row=row, column=4).value = "70%"
+            ws.cell(row=row, column=5).value = f"{hours}h/week"
 
             fill = self.COLOR_WRONG if score < 50 else self.COLOR_NEUTRAL
             for col in range(1, 6):
-                ws.cell(row=row, column=col).fill = PatternFill(start_color=fill, end_color=fill, fill_type='solid')
+                ws.cell(row=row, column=col).fill = PatternFill(
+                    start_color=fill, end_color=fill, fill_type="solid"
+                )
             row += 1
 
         # Section 2: Critical Topics to Study
-        ws['A11'] = 'CRITICAL TOPICS TO MASTER'
-        ws['A11'].font = Font(bold=True, color='FFFFFF')
-        ws['A11'].fill = PatternFill(start_color='001F4E78', end_color='001F4E78', fill_type='solid')
+        ws["A11"] = "CRITICAL TOPICS TO MASTER"
+        ws["A11"].font = Font(bold=True, color="FFFFFF")
+        ws["A11"].fill = PatternFill(
+            start_color="001F4E78", end_color="001F4E78", fill_type="solid"
+        )
 
         row = 12
-        headers = ['Topic', 'Your Score', 'Questions', 'Study Strategy']
+        headers = ["Topic", "Your Score", "Questions", "Study Strategy"]
         for col_idx, header in enumerate(headers, 1):
             cell = ws.cell(row=row, column=col_idx)
             cell.value = header
-            cell.font = Font(bold=True, color='FFFFFF')
-            cell.fill = PatternFill(start_color='001F4E78', end_color='001F4E78', fill_type='solid')
+            cell.font = Font(bold=True, color="FFFFFF")
+            cell.fill = PatternFill(
+                start_color="001F4E78", end_color="001F4E78", fill_type="solid"
+            )
 
         row = 13
         for topic, score in weak_topics[:5]:
             ws.cell(row=row, column=1).value = topic
-            ws.cell(row=row, column=2).value = f'{score:.1f}%'
-            ws.cell(row=row, column=3).value = f'Review wrong answers'
-            ws.cell(row=row, column=4).value = f'Watch 1-2 videos + solve 10 practice questions'
+            ws.cell(row=row, column=2).value = f"{score:.1f}%"
+            ws.cell(row=row, column=3).value = f"Review wrong answers"
+            ws.cell(row=row, column=4).value = (
+                f"Watch 1-2 videos + solve 10 practice questions"
+            )
 
             fill = self.COLOR_WRONG if score < 50 else self.COLOR_NEUTRAL
             for col in range(1, 5):
-                ws.cell(row=row, column=col).fill = PatternFill(start_color=fill, end_color=fill, fill_type='solid')
+                ws.cell(row=row, column=col).fill = PatternFill(
+                    start_color=fill, end_color=fill, fill_type="solid"
+                )
 
             ws.row_dimensions[row].height = 25
             row += 1
 
         # Section 3: Weekly Breakdown
-        ws['A19'] = 'WEEK-BY-WEEK STUDY PLAN'
-        ws['A19'].font = Font(bold=True, color='FFFFFF')
-        ws['A19'].fill = PatternFill(start_color='001F4E78', end_color='001F4E78', fill_type='solid')
+        ws["A19"] = "WEEK-BY-WEEK STUDY PLAN"
+        ws["A19"].font = Font(bold=True, color="FFFFFF")
+        ws["A19"].fill = PatternFill(
+            start_color="001F4E78", end_color="001F4E78", fill_type="solid"
+        )
 
         row = 20
-        headers = ['Week', 'Primary Focus', 'Daily Goal', 'Hours', 'Milestones']
+        headers = ["Week", "Primary Focus", "Daily Goal", "Hours", "Milestones"]
         for col_idx, header in enumerate(headers, 1):
             cell = ws.cell(row=row, column=col_idx)
             cell.value = header
-            cell.font = Font(bold=True, color='FFFFFF')
-            cell.fill = PatternFill(start_color='001F4E78', end_color='001F4E78', fill_type='solid')
+            cell.font = Font(bold=True, color="FFFFFF")
+            cell.fill = PatternFill(
+                start_color="001F4E78", end_color="001F4E78", fill_type="solid"
+            )
 
         week_plans = [
-            ('Week 1', weak_domains[0][0] if weak_domains else 1, 'Study 1 domain, solve 20 practice questions', '8h', 'Review all wrong answers'),
-            ('Week 2', weak_domains[1][0] if len(weak_domains) > 1 else 2, 'Study 2nd domain, take practice test', '8h', 'Score > 50%'),
-            ('Week 3', 'Mixed Review', 'Practice exam simulation with time limit', '6h', 'Score > 65%'),
+            (
+                "Week 1",
+                weak_domains[0][0] if weak_domains else 1,
+                "Study 1 domain, solve 20 practice questions",
+                "8h",
+                "Review all wrong answers",
+            ),
+            (
+                "Week 2",
+                weak_domains[1][0] if len(weak_domains) > 1 else 2,
+                "Study 2nd domain, take practice test",
+                "8h",
+                "Score > 50%",
+            ),
+            (
+                "Week 3",
+                "Mixed Review",
+                "Practice exam simulation with time limit",
+                "6h",
+                "Score > 65%",
+            ),
         ]
 
         row = 21
         for week, domain_id, goal, hours, milestone in week_plans:
             ws.cell(row=row, column=1).value = week
-            domain_name = self.domain_names.get(domain_id, f'Domain {domain_id}')
+            domain_name = self.domain_names.get(domain_id, f"Domain {domain_id}")
             ws.cell(row=row, column=2).value = domain_name
             ws.cell(row=row, column=3).value = goal
             ws.cell(row=row, column=4).value = hours
             ws.cell(row=row, column=5).value = milestone
 
             for col in range(1, 6):
-                ws.cell(row=row, column=col).fill = PatternFill(start_color=self.COLOR_NEUTRAL, end_color=self.COLOR_NEUTRAL, fill_type='solid')
+                ws.cell(row=row, column=col).fill = PatternFill(
+                    start_color=self.COLOR_NEUTRAL,
+                    end_color=self.COLOR_NEUTRAL,
+                    fill_type="solid",
+                )
 
             ws.row_dimensions[row].height = 25
             row += 1
 
         # Section 4: Exam Trick Strategy
-        ws[f'A{row + 1}'] = 'EXAM TRICK KEYWORDS - COMMON MISTAKES'
-        ws[f'A{row + 1}'].font = Font(bold=True, color='FFFFFF')
-        ws[f'A{row + 1}'].fill = PatternFill(start_color='001F4E78', end_color='001F4E78', fill_type='solid')
+        ws[f"A{row + 1}"] = "EXAM TRICK KEYWORDS - COMMON MISTAKES"
+        ws[f"A{row + 1}"].font = Font(bold=True, color="FFFFFF")
+        ws[f"A{row + 1}"].fill = PatternFill(
+            start_color="001F4E78", end_color="001F4E78", fill_type="solid"
+        )
 
         row += 2
         tricks = [
-            ('NOT / EXCEPT', 'Look for negation - what is FALSE or NOT true'),
-            ('BEST / MOST / FIRST', 'Requires ranking - usually multiple correct, pick the best'),
-            ('Multiple Keywords', 'Most difficult - requires careful reading of ALL options'),
+            ("NOT / EXCEPT", "Look for negation - what is FALSE or NOT true"),
+            (
+                "BEST / MOST / FIRST",
+                "Requires ranking - usually multiple correct, pick the best",
+            ),
+            (
+                "Multiple Keywords",
+                "Most difficult - requires careful reading of ALL options",
+            ),
         ]
 
         for trick, strategy in tricks:
@@ -472,13 +603,18 @@ class IndividualReportGenerator:
             row += 1
 
         # Set column widths
-        ws.column_dimensions['A'].width = 28
-        ws.column_dimensions['B'].width = 32
-        ws.column_dimensions['C'].width = 20
-        ws.column_dimensions['D'].width = 28
-        ws.column_dimensions['E'].width = 28
+        ws.column_dimensions["A"].width = 28
+        ws.column_dimensions["B"].width = 32
+        ws.column_dimensions["C"].width = 20
+        ws.column_dimensions["D"].width = 28
+        ws.column_dimensions["E"].width = 28
 
-    def _create_progress_sheet(self, wb: Workbook, performance: StudentPerformance, historical_exams: Optional[List[Dict]]):
+    def _create_progress_sheet(
+        self,
+        wb: Workbook,
+        performance: StudentPerformance,
+        historical_exams: Optional[List[Dict]],
+    ):
         """Sheet 8 (Index 7): Progress Over Time with trend analysis"""
         if historical_exams and len(historical_exams) > 0:
             # Convert performance data and historical data to exam dicts for ProgressSheetGenerator
@@ -493,7 +629,7 @@ class IndividualReportGenerator:
             progress_ws = generator.generate_sheet(exams)
 
             # Copy the generated worksheet to the workbook by copying its data
-            ws = wb.create_sheet('Progress Over Time', 7)
+            ws = wb.create_sheet("Progress Over Time", 7)
             for row in progress_ws.iter_rows():
                 for cell in row:
                     target_cell = ws[cell.coordinate]
@@ -504,42 +640,55 @@ class IndividualReportGenerator:
                             size=cell.font.size,
                             bold=cell.font.bold,
                             italic=cell.font.italic,
-                            color=cell.font.color
+                            color=cell.font.color,
                         )
                         target_cell.fill = PatternFill(
                             fill_type=cell.fill.fill_type,
                             start_color=cell.fill.start_color,
-                            end_color=cell.fill.end_color
+                            end_color=cell.fill.end_color,
                         )
                         target_cell.alignment = Alignment(
                             horizontal=cell.alignment.horizontal,
                             vertical=cell.alignment.vertical,
-                            wrap_text=cell.alignment.wrap_text
+                            wrap_text=cell.alignment.wrap_text,
                         )
                         target_cell.number_format = cell.number_format
 
             # Copy column widths
             for col_letter in progress_ws.column_dimensions:
-                ws.column_dimensions[col_letter].width = progress_ws.column_dimensions[col_letter].width
+                ws.column_dimensions[col_letter].width = progress_ws.column_dimensions[
+                    col_letter
+                ].width
 
             # Copy row heights
             for row_num in progress_ws.row_dimensions:
-                ws.row_dimensions[row_num].height = progress_ws.row_dimensions[row_num].height
+                ws.row_dimensions[row_num].height = progress_ws.row_dimensions[
+                    row_num
+                ].height
         else:
             # Create placeholder sheet if no history available
-            ws = wb.create_sheet('Progress Over Time', 7)
-            ws['A1'] = 'PROGRESS OVER TIME'
-            ws['A1'].font = Font(bold=True, size=12, color='FFFFFF')
-            ws['A1'].fill = PatternFill(start_color='001F4E78', end_color='001F4E78', fill_type='solid')
+            ws = wb.create_sheet("Progress Over Time", 7)
+            ws["A1"] = "PROGRESS OVER TIME"
+            ws["A1"].font = Font(bold=True, size=12, color="FFFFFF")
+            ws["A1"].fill = PatternFill(
+                start_color="001F4E78", end_color="001F4E78", fill_type="solid"
+            )
 
-            ws['A3'] = 'Only 1 exam taken so far'
-            ws['A4'] = 'Historical data will appear here once you take additional practice exams.'
-            ws['A4'].alignment = Alignment(wrap_text=True)
+            ws["A3"] = "Only 1 exam taken so far"
+            ws["A4"] = (
+                "Historical data will appear here once you take additional practice exams."
+            )
+            ws["A4"].alignment = Alignment(wrap_text=True)
             ws.row_dimensions[4].height = 30
 
-            ws.column_dimensions['A'].width = 50
+            ws.column_dimensions["A"].width = 50
 
-    def _create_adaptive_plan_sheet(self, wb: Workbook, performance: StudentPerformance, historical_exams: Optional[List[Dict]]):
+    def _create_adaptive_plan_sheet(
+        self,
+        wb: Workbook,
+        performance: StudentPerformance,
+        historical_exams: Optional[List[Dict]],
+    ):
         """Sheet 9 (Index 8): Adaptive Study Plan with momentum-based recommendations"""
         # Extract current exam data
         current_exam = self._extract_current_exam_data(performance)
@@ -554,7 +703,7 @@ class IndividualReportGenerator:
         adaptive_ws = generator.generate_sheet(current_exam, previous_exam)
 
         # Copy the generated worksheet to the workbook by copying its data
-        ws = wb.create_sheet('Adaptive Study Plan', 8)
+        ws = wb.create_sheet("Adaptive Study Plan", 8)
         for row in adaptive_ws.iter_rows():
             for cell in row:
                 target_cell = ws[cell.coordinate]
@@ -565,42 +714,46 @@ class IndividualReportGenerator:
                         size=cell.font.size,
                         bold=cell.font.bold,
                         italic=cell.font.italic,
-                        color=cell.font.color
+                        color=cell.font.color,
                     )
                     target_cell.fill = PatternFill(
                         fill_type=cell.fill.fill_type,
                         start_color=cell.fill.start_color,
-                        end_color=cell.fill.end_color
+                        end_color=cell.fill.end_color,
                     )
                     target_cell.alignment = Alignment(
                         horizontal=cell.alignment.horizontal,
                         vertical=cell.alignment.vertical,
-                        wrap_text=cell.alignment.wrap_text
+                        wrap_text=cell.alignment.wrap_text,
                     )
                     target_cell.number_format = cell.number_format
 
         # Copy column widths
         for col_letter in adaptive_ws.column_dimensions:
-            ws.column_dimensions[col_letter].width = adaptive_ws.column_dimensions[col_letter].width
+            ws.column_dimensions[col_letter].width = adaptive_ws.column_dimensions[
+                col_letter
+            ].width
 
         # Copy row heights
         for row_num in adaptive_ws.row_dimensions:
-            ws.row_dimensions[row_num].height = adaptive_ws.row_dimensions[row_num].height
+            ws.row_dimensions[row_num].height = adaptive_ws.row_dimensions[
+                row_num
+            ].height
 
     def _extract_current_exam_data(self, performance: StudentPerformance) -> Dict:
         """Extract current exam performance data as dictionary for generators"""
         exam_dict = {
-            'exam_name': f'{performance.student_name} - Current Exam',
-            'by_domain': performance.by_domain,
-            'by_difficulty': performance.by_difficulty,
-            'by_question_type': performance.by_question_type,
-            'score_percentage': performance.score_percentage,
-            'correct_count': performance.correct_count,
-            'total_questions': performance.total_questions,
-            'student_name': performance.student_name,
-            'by_topic': performance.by_topic,
-            'by_exam_trick': performance.by_exam_trick,
-            'wrong_question_ids': performance.wrong_question_ids,
+            "exam_name": f"{performance.student_name} - Current Exam",
+            "by_domain": performance.by_domain,
+            "by_difficulty": performance.by_difficulty,
+            "by_question_type": performance.by_question_type,
+            "score_percentage": performance.score_percentage,
+            "correct_count": performance.correct_count,
+            "total_questions": performance.total_questions,
+            "student_name": performance.student_name,
+            "by_topic": performance.by_topic,
+            "by_exam_trick": performance.by_exam_trick,
+            "wrong_question_ids": performance.wrong_question_ids,
         }
         return exam_dict
 
@@ -608,8 +761,8 @@ class IndividualReportGenerator:
         """Get list of weak domains (< 70%)"""
         weak = []
         for domain_id, data in perf.by_domain.items():
-            if data['percentage'] < 70:
-                domain_name = self.domain_names.get(domain_id, f'Domain {domain_id}')
+            if data["percentage"] < 70:
+                domain_name = self.domain_names.get(domain_id, f"Domain {domain_id}")
                 weak.append(domain_name)
         return weak[:3]
 
@@ -617,7 +770,7 @@ class IndividualReportGenerator:
         """Get weakest topics sorted by percentage"""
         topics = []
         for topic, data in perf.by_topic.items():
-            topics.append((topic, data['percentage']))
+            topics.append((topic, data["percentage"]))
         topics.sort(key=lambda x: x[1])
         return topics[:limit]
 
@@ -625,16 +778,18 @@ class IndividualReportGenerator:
         """Get all domains with scores, sorted by performance (weakest first)"""
         domains = []
         for domain_id, data in perf.by_domain.items():
-            domains.append((domain_id, data['percentage']))
+            domains.append((domain_id, data["percentage"]))
         domains.sort(key=lambda x: x[1])
         return domains
 
-    def _get_weakest_topics_detailed(self, perf: StudentPerformance, limit: int = 5) -> list:
+    def _get_weakest_topics_detailed(
+        self, perf: StudentPerformance, limit: int = 5
+    ) -> list:
         """Get weakest topics with performance details"""
         topics = []
         for topic, data in perf.by_topic.items():
-            if data.get('total', 0) > 0:
-                topics.append((topic, data['percentage']))
+            if data.get("total", 0) > 0:
+                topics.append((topic, data["percentage"]))
         topics.sort(key=lambda x: x[1])
         return topics[:limit]
 
@@ -643,25 +798,25 @@ class IndividualReportGenerator:
         wrong_qs = []
         for q_num in perf.wrong_question_ids:
             meta = self.mapper.get_question_metadata(q_num)
-            if meta and meta.get('exam_trick') == trick:
+            if meta and meta.get("exam_trick") == trick:
                 wrong_qs.append(str(q_num))
-        return ', '.join(wrong_qs) if wrong_qs else 'None'
+        return ", ".join(wrong_qs) if wrong_qs else "None"
 
     def _get_topic_breakdown(self, perf: StudentPerformance, domain_id: int) -> str:
         """Get topic-level breakdown for a domain"""
         topics = []
         for q_num in range(1, 126):
             meta = self.mapper.get_question_metadata(q_num)
-            if meta and meta.get('domain') == domain_id:
-                topic = meta.get('topic', '')
+            if meta and meta.get("domain") == domain_id:
+                topic = meta.get("topic", "")
                 if topic:
                     # Count correct/wrong for this topic
                     is_wrong = q_num in perf.wrong_question_ids
                     # Find topic in by_topic if available
                     for topic_key, data in perf.by_topic.items():
                         if topic in topic_key:
-                            correct = data['correct']
-                            total = data['total']
+                            correct = data["correct"]
+                            total = data["total"]
                             pct = (correct / total * 100) if total > 0 else 0
                             topics.append(f"{topic}: {correct}/{total} ({pct:.0f}%)")
                             break
@@ -672,4 +827,4 @@ class IndividualReportGenerator:
             if t not in seen:
                 seen.add(t)
                 unique_topics.append(t)
-        return ' | '.join(unique_topics) if unique_topics else 'N/A'
+        return " | ".join(unique_topics) if unique_topics else "N/A"

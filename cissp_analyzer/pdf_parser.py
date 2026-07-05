@@ -9,8 +9,18 @@ class PDFParser:
     """Extracts questions and answers from CISSP exam PDF"""
 
     QUESTION_INDICATOR_WORDS = [
-        'what', 'which', 'how', 'why', 'when', 'where', 'who',
-        'describe', 'explain', 'place', 'list', 'match'
+        "what",
+        "which",
+        "how",
+        "why",
+        "when",
+        "where",
+        "who",
+        "describe",
+        "explain",
+        "place",
+        "list",
+        "match",
     ]
 
     def __init__(self, pdf_path: str):
@@ -38,7 +48,7 @@ class PDFParser:
         question_starts = []
         seen_numbers = set()
         for i in range(1, 126):
-            pattern = f'^{i}\\.'
+            pattern = f"^{i}\\."
             match = re.search(pattern, all_text, re.MULTILINE)
             if match and i not in seen_numbers:
                 question_starts.append((i, match.start()))
@@ -58,26 +68,28 @@ class PDFParser:
             block_text = all_text[start_pos:end_pos]
 
             # Remove the question number from the start
-            block_text = re.sub(r'^\d+\.\s+', '', block_text, count=1)
+            block_text = re.sub(r"^\d+\.\s+", "", block_text, count=1)
 
             # Extract options from this block
             options = {}
 
             # Find all option patterns A. B. C. D. - but only the first occurrence of each
-            for option_letter in ['A', 'B', 'C', 'D']:
-                pattern = fr'^{option_letter}\.\s+(.+?)(?=^[A-D]\.|$)'
+            for option_letter in ["A", "B", "C", "D"]:
+                pattern = rf"^{option_letter}\.\s+(.+?)(?=^[A-D]\.|$)"
                 option_match = re.search(pattern, block_text, re.MULTILINE | re.DOTALL)
                 if option_match:
                     opt_text = option_match.group(1).strip()
                     # Clean up whitespace
-                    opt_text = re.sub(r'\s+', ' ', opt_text)
+                    opt_text = re.sub(r"\s+", " ", opt_text)
                     options[option_letter] = opt_text
 
             # Extract question text (everything before first option)
-            text_match = re.search(r'^(.+?)(?=^[A-D]\.)', block_text, re.MULTILINE | re.DOTALL)
+            text_match = re.search(
+                r"^(.+?)(?=^[A-D]\.)", block_text, re.MULTILINE | re.DOTALL
+            )
             if text_match:
                 q_text = text_match.group(1).strip()
-                q_text = re.sub(r'\s+', ' ', q_text)
+                q_text = re.sub(r"\s+", " ", q_text)
             else:
                 continue
 
@@ -89,24 +101,24 @@ class PDFParser:
             if len(options) == 4 and len(q_text) > 10:
                 # Check if it looks like a real question
                 is_question = (
-                    '?' in q_text or
-                    any(word in q_text.lower() for word in self.QUESTION_INDICATOR_WORDS) or
-                    q_text.endswith('.') or
-                    q_text.endswith('___') or
-                    q_text.endswith(':')
+                    "?" in q_text
+                    or any(
+                        word in q_text.lower() for word in self.QUESTION_INDICATOR_WORDS
+                    )
+                    or q_text.endswith(".")
+                    or q_text.endswith("___")
+                    or q_text.endswith(":")
                 )
 
                 # Reject obvious non-questions (like table entries)
-                is_table_entry = (q_text.count(' ') < 2 and len(q_text) < 20)
+                is_table_entry = q_text.count(" ") < 2 and len(q_text) < 20
 
                 if is_question and not is_table_entry:
-                    questions.append({
-                        'number': q_num,
-                        'text': q_text,
-                        'options': options
-                    })
+                    questions.append(
+                        {"number": q_num, "text": q_text, "options": options}
+                    )
 
-        return sorted(questions, key=lambda x: x['number'])
+        return sorted(questions, key=lambda x: x["number"])
 
     @staticmethod
     def extract_with_answer_context(pdf_text: str) -> Dict[str, Dict[str, Any]]:
@@ -169,7 +181,7 @@ class PDFParser:
                 "question": q_text,
                 "answer_letter": answer_letter,
                 "answer_text": answer_text,
-                "suggested_domain": suggested_domain
+                "suggested_domain": suggested_domain,
             }
 
         logger.info(f"Enhanced {len(enhanced_context)} questions with domain context")
@@ -191,27 +203,27 @@ class PDFParser:
 
         # Look for pattern: "Question N: ..." or "N. ..." or "N) ..."
         # First try explicit "Question N:" pattern - match until next Question or option pattern
-        pattern1 = r'Question\s+(\d+)\s*:\s*([^\n]+?)(?=\n\s*[A-D]\)|$)'
+        pattern1 = r"Question\s+(\d+)\s*:\s*([^\n]+?)(?=\n\s*[A-D]\)|$)"
         matches = re.finditer(pattern1, text, re.IGNORECASE | re.MULTILINE)
 
         for match in matches:
             q_num = match.group(1)
             q_text = match.group(2).strip()
             # Clean up multi-line questions
-            q_text = re.sub(r'\s+', ' ', q_text)
+            q_text = re.sub(r"\s+", " ", q_text)
             if q_text and len(q_text) > 5:
                 questions[q_num] = q_text
 
         # If no "Question N:" pattern found, try "N. " or "N) " pattern
         if not questions:
-            pattern2 = r'^(\d+)\)\s+(.+?)(?=^[A-D]\)|^\d+\)|$)'
+            pattern2 = r"^(\d+)\)\s+(.+?)(?=^[A-D]\)|^\d+\)|$)"
             matches = re.finditer(pattern2, text, re.MULTILINE | re.DOTALL)
             for match in matches:
                 q_num = match.group(1)
                 q_text = match.group(2).strip()
                 # Extract only the question part (before options)
-                q_text = re.split(r'\n\s*[A-D]\)', q_text)[0].strip()
-                q_text = re.sub(r'\s+', ' ', q_text)
+                q_text = re.split(r"\n\s*[A-D]\)", q_text)[0].strip()
+                q_text = re.sub(r"\s+", " ", q_text)
                 if q_text and len(q_text) > 5:
                     questions[q_num] = q_text
 

@@ -41,10 +41,10 @@ from tests.test_utilities import (
     count_non_empty_rows,
 )
 
-
 # ============================================================================
 # TEST CLASS 1: Single Exam Mode (Ad-hoc Analysis)
 # ============================================================================
+
 
 @pytest.mark.functional
 class TestSingleExamMode:
@@ -65,7 +65,9 @@ class TestSingleExamMode:
     """
 
     @pytest.mark.functional
-    def test_single_exam_generates_report(self, temp_test_dir, sample_excel_file, output_dir):
+    def test_single_exam_generates_report(
+        self, temp_test_dir, sample_excel_file, output_dir
+    ):
         """Verify that single exam analysis generates a report file"""
         analyzer = CISSPAnalyzer()
 
@@ -79,7 +81,7 @@ class TestSingleExamMode:
                 exam_pdf="data/mock_exams/mock1.pdf",  # Mock path for testing
                 answer_excel=str(sample_excel_file),
                 student_names=student_names,
-                output_dir=str(output_dir)
+                output_dir=str(output_dir),
             )
 
             # Verify at least one report was created
@@ -88,17 +90,20 @@ class TestSingleExamMode:
 
         except Exception as e:
             # If files don't exist, verify the error is expected (file not found)
-            assert "mock1.pdf" in str(e) or "No such file" in str(e), \
-                f"Unexpected error: {e}"
+            assert "mock1.pdf" in str(e) or "No such file" in str(
+                e
+            ), f"Unexpected error: {e}"
 
     @pytest.mark.functional
-    def test_single_exam_has_nine_sheets(self, temp_test_dir, sample_excel_file, output_dir):
+    def test_single_exam_has_nine_sheets(
+        self, temp_test_dir, sample_excel_file, output_dir
+    ):
         """Verify single exam report has exactly 9 sheets (no progress sheet)"""
         # Create a minimal report structure for testing
         report_path = output_dir / "test_report.xlsx"
 
         # Create workbook with 9 sheets (single exam mode)
-        with pd.ExcelWriter(report_path, engine='openpyxl') as writer:
+        with pd.ExcelWriter(report_path, engine="openpyxl") as writer:
             for i in range(9):
                 sheet_names = [
                     "Performance Summary",
@@ -122,17 +127,19 @@ class TestSingleExamMode:
                 "Performance Summary",
                 "Domain Analysis",
                 "Difficulty Analysis",
-            ]
+            ],
         )
         assert check_file_exists(report_path, file_type="file")
 
     @pytest.mark.functional
-    def test_single_exam_no_progress_sheet(self, temp_test_dir, sample_excel_file, output_dir):
+    def test_single_exam_no_progress_sheet(
+        self, temp_test_dir, sample_excel_file, output_dir
+    ):
         """Verify single exam report does NOT have progress/trends sheet"""
         report_path = output_dir / "test_report.xlsx"
 
         # Create workbook with 9 sheets (no "Progress" or "Trends" sheet)
-        with pd.ExcelWriter(report_path, engine='openpyxl') as writer:
+        with pd.ExcelWriter(report_path, engine="openpyxl") as writer:
             sheet_names = [
                 "Performance Summary",
                 "Domain Analysis",
@@ -150,15 +157,19 @@ class TestSingleExamMode:
 
         # Load workbook and verify no Progress/Trends sheet
         import openpyxl
+
         workbook = openpyxl.load_workbook(report_path)
         sheet_names = workbook.sheetnames
 
-        assert "Progress" not in sheet_names, \
-            "Single exam report should not have 'Progress' sheet"
-        assert "Trends" not in sheet_names, \
-            "Single exam report should not have 'Trends' sheet"
-        assert "History" not in sheet_names, \
-            "Single exam report should not have 'History' sheet"
+        assert (
+            "Progress" not in sheet_names
+        ), "Single exam report should not have 'Progress' sheet"
+        assert (
+            "Trends" not in sheet_names
+        ), "Single exam report should not have 'Trends' sheet"
+        assert (
+            "History" not in sheet_names
+        ), "Single exam report should not have 'History' sheet"
 
         workbook.close()
 
@@ -181,7 +192,9 @@ class TestSingleExamMode:
         validate_scores_not_zero(report_path)
 
     @pytest.mark.functional
-    def test_domain_breakdown_populated(self, temp_test_dir, sample_student_data, output_dir):
+    def test_domain_breakdown_populated(
+        self, temp_test_dir, sample_student_data, output_dir
+    ):
         """Verify domain breakdown sheet is populated with data"""
         report_path = output_dir / "test_report.xlsx"
 
@@ -192,12 +205,14 @@ class TestSingleExamMode:
         # Create domain analysis sheet
         domains = []
         for domain_name, stats in domain_breakdown.items():
-            domains.append({
-                "Domain": domain_name,
-                "Correct": stats["correct"],
-                "Total": stats["total"],
-                "Percentage": f"{stats['percentage']:.1f}%"
-            })
+            domains.append(
+                {
+                    "Domain": domain_name,
+                    "Correct": stats["correct"],
+                    "Total": stats["total"],
+                    "Percentage": f"{stats['percentage']:.1f}%",
+                }
+            )
 
         df = pd.DataFrame(domains)
         df.to_excel(report_path, sheet_name="Domain Analysis", index=False)
@@ -213,7 +228,9 @@ class TestSingleExamMode:
         assert "Percentage" in headers, "Percentage column missing"
 
     @pytest.mark.functional
-    def test_difficulty_breakdown_by_level(self, temp_test_dir, sample_student_data, output_dir):
+    def test_difficulty_breakdown_by_level(
+        self, temp_test_dir, sample_student_data, output_dir
+    ):
         """Verify difficulty breakdown (Easy/Medium/Hard) is populated"""
         report_path = output_dir / "difficulty_report.xlsx"
 
@@ -223,12 +240,14 @@ class TestSingleExamMode:
         # Create difficulty sheet
         difficulties = []
         for level, stats in difficulty_breakdown.items():
-            difficulties.append({
-                "Difficulty": level,
-                "Correct": stats["correct"],
-                "Total": stats["total"],
-                "Percentage": f"{stats['percentage']:.1f}%"
-            })
+            difficulties.append(
+                {
+                    "Difficulty": level,
+                    "Correct": stats["correct"],
+                    "Total": stats["total"],
+                    "Percentage": f"{stats['percentage']:.1f}%",
+                }
+            )
 
         df = pd.DataFrame(difficulties)
         df.to_excel(report_path, sheet_name="Difficulty Analysis", index=False)
@@ -238,7 +257,9 @@ class TestSingleExamMode:
         assert len(sheet_data) >= 4, "Should have header + 3 difficulty levels"
 
     @pytest.mark.functional
-    def test_individual_report_filename_format(self, temp_test_dir, sample_student_data, output_dir):
+    def test_individual_report_filename_format(
+        self, temp_test_dir, sample_student_data, output_dir
+    ):
         """Verify individual report filenames follow expected format"""
         student_name = "TestStudent1"
         expected_filename = f"CISSP_Individual_Report_{student_name}.xlsx"
@@ -270,12 +291,9 @@ class TestSingleExamMode:
             "Score Summary",
         ]
 
-        with pd.ExcelWriter(report_path, engine='openpyxl') as writer:
+        with pd.ExcelWriter(report_path, engine="openpyxl") as writer:
             for sheet_name in sheet_names:
-                df = pd.DataFrame({
-                    "Item": [f"Data for {sheet_name}"],
-                    "Value": [100]
-                })
+                df = pd.DataFrame({"Item": [f"Data for {sheet_name}"], "Value": [100]})
                 df.to_excel(writer, sheet_name=sheet_name, index=False)
 
         # Verify all sheets have data
@@ -287,6 +305,7 @@ class TestSingleExamMode:
 # ============================================================================
 # TEST CLASS 2: Comparative Mode - No History Found
 # ============================================================================
+
 
 @pytest.mark.functional
 class TestComparativeModeNoHistory:
@@ -312,14 +331,19 @@ class TestComparativeModeNoHistory:
         students_dir.mkdir(exist_ok=True)
 
         # Directory exists but is empty
-        student_history_file = students_dir / "NonExistentStudent" / "exam-1_performance.json"
+        student_history_file = (
+            students_dir / "NonExistentStudent" / "exam-1_performance.json"
+        )
 
         # Verify the history file does NOT exist
-        assert not student_history_file.exists(), \
-            "History file should not exist in this test"
+        assert (
+            not student_history_file.exists()
+        ), "History file should not exist in this test"
 
     @pytest.mark.functional
-    def test_fallback_to_single_mode(self, temp_test_dir, sample_excel_file, output_dir):
+    def test_fallback_to_single_mode(
+        self, temp_test_dir, sample_excel_file, output_dir
+    ):
         """Verify system falls back to single mode when no history found"""
         # Create analyzer
         analyzer = CISSPAnalyzer()
@@ -334,7 +358,7 @@ class TestComparativeModeNoHistory:
                 exam_pdf="mock_exam.pdf",
                 answer_excel=str(sample_excel_file),
                 student_names=student_names[:1],  # Just one student
-                output_dir=str(output_dir)
+                output_dir=str(output_dir),
             )
 
             # Verify result structure
@@ -368,6 +392,7 @@ class TestComparativeModeNoHistory:
 # TEST CLASS 3: Comparative Mode - With History
 # ============================================================================
 
+
 @pytest.mark.functional
 class TestComparativeModeWithHistory:
     """
@@ -390,7 +415,9 @@ class TestComparativeModeWithHistory:
     def test_detects_existing_history(self, temp_test_dir, sample_history_folder):
         """Verify system detects existing student history"""
         # History folder already created by fixture
-        history_file = sample_history_folder / "TestStudent2" / "exam-1_performance.json"
+        history_file = (
+            sample_history_folder / "TestStudent2" / "exam-1_performance.json"
+        )
 
         # Verify history file exists
         assert check_file_exists(history_file, file_type="file")
@@ -398,10 +425,12 @@ class TestComparativeModeWithHistory:
     @pytest.mark.functional
     def test_loads_previous_exam_data(self, temp_test_dir, sample_history_folder):
         """Verify system can load and parse previous exam data"""
-        history_file = sample_history_folder / "TestStudent2" / "exam-1_performance.json"
+        history_file = (
+            sample_history_folder / "TestStudent2" / "exam-1_performance.json"
+        )
 
         # Load the history file
-        with open(history_file, 'r') as f:
+        with open(history_file, "r") as f:
             previous_data = json.load(f)
 
         # Verify structure
@@ -417,12 +446,14 @@ class TestComparativeModeWithHistory:
         assert previous_data["total"] == 125
 
     @pytest.mark.functional
-    def test_report_includes_progress_sheet(self, temp_test_dir, output_dir, sample_history_folder):
+    def test_report_includes_progress_sheet(
+        self, temp_test_dir, output_dir, sample_history_folder
+    ):
         """Verify comparative report includes progress/trends sheet"""
         report_path = output_dir / "comparative_report.xlsx"
 
         # Create report with 10 sheets (comparative mode)
-        with pd.ExcelWriter(report_path, engine='openpyxl') as writer:
+        with pd.ExcelWriter(report_path, engine="openpyxl") as writer:
             sheet_names = [
                 "Performance Summary",
                 "Domain Analysis",
@@ -444,6 +475,7 @@ class TestComparativeModeWithHistory:
 
         # Verify Progress sheet exists
         import openpyxl
+
         workbook = openpyxl.load_workbook(report_path)
         assert "Progress" in workbook.sheetnames
         workbook.close()
@@ -491,7 +523,9 @@ class TestComparativeModeWithHistory:
         # Verify improvement is shown
         sheet_data = get_sheet_data(report_path, "Comparison")
         improvement_value = sheet_data[2][3] if len(sheet_data) > 2 else None
-        assert improvement_value is not None, "Improvement should be calculated and displayed"
+        assert (
+            improvement_value is not None
+        ), "Improvement should be calculated and displayed"
 
     @pytest.mark.functional
     def test_domain_comparison_included(self, temp_test_dir, output_dir):
@@ -520,6 +554,7 @@ class TestComparativeModeWithHistory:
 # ============================================================================
 # TEST CLASS 4: Multiple History Exams (5+ Exams)
 # ============================================================================
+
 
 @pytest.mark.functional
 class TestMultipleHistoryExams:
@@ -555,9 +590,9 @@ class TestMultipleHistoryExams:
                 "score_percentage": 50.0 + (i * 8),  # 58, 66, 74, 82, 90
                 "correct": 62 + (i * 10),
                 "total": 125,
-                "by_domain": {}
+                "by_domain": {},
             }
-            with open(exam_file, 'w') as f:
+            with open(exam_file, "w") as f:
                 json.dump(exam_data, f)
             exam_files.append(exam_file)
 
@@ -575,7 +610,13 @@ class TestMultipleHistoryExams:
         # Create trend data for 5 exams
         trends_data = {
             "Exam #": [1, 2, 3, 4, 5],
-            "Date": ["2026-01-15", "2026-02-15", "2026-03-15", "2026-04-15", "2026-05-15"],
+            "Date": [
+                "2026-01-15",
+                "2026-02-15",
+                "2026-03-15",
+                "2026-04-15",
+                "2026-05-15",
+            ],
             "Score (%)": [58.0, 66.0, 74.0, 82.0, 90.0],
             "Improvement": [0, 8.0, 8.0, 8.0, 8.0],
         }
@@ -609,16 +650,17 @@ class TestMultipleHistoryExams:
                 "score_percentage": 50.0 + (i * 8),
                 "correct": 62 + (i * 10),
                 "total": 125,
-                "by_domain": {}
+                "by_domain": {},
             }
-            with open(exam_file, 'w') as f:
+            with open(exam_file, "w") as f:
                 json.dump(exam_data, f)
 
         elapsed_time = time.time() - start_time
 
         # Should complete in under 5 seconds
-        assert elapsed_time < 5.0, \
-            f"Multi-exam analysis took too long: {elapsed_time:.2f}s (limit: 5s)"
+        assert (
+            elapsed_time < 5.0
+        ), f"Multi-exam analysis took too long: {elapsed_time:.2f}s (limit: 5s)"
 
     @pytest.mark.functional
     def test_all_exams_have_valid_data(self, temp_test_dir):
@@ -634,15 +676,15 @@ class TestMultipleHistoryExams:
                 "score_percentage": 50.0 + (i * 8),
                 "correct": 62 + (i * 10),
                 "total": 125,
-                "by_domain": {}
+                "by_domain": {},
             }
-            with open(exam_file, 'w') as f:
+            with open(exam_file, "w") as f:
                 json.dump(exam_data, f)
 
         # Verify all exams are readable
         for i in range(1, 6):
             exam_file = history_dir / f"exam-{i}_performance.json"
-            with open(exam_file, 'r') as f:
+            with open(exam_file, "r") as f:
                 data = json.load(f)
 
             assert data["score_percentage"] > 0
@@ -653,6 +695,7 @@ class TestMultipleHistoryExams:
 # ============================================================================
 # TEST CLASS 5: Master Entry Point (analyze.py)
 # ============================================================================
+
 
 @pytest.mark.functional
 class TestMasterEntryPoint:
@@ -680,8 +723,9 @@ class TestMasterEntryPoint:
         if analyze_script.exists():
             # Script exists, basic validation
             content = analyze_script.read_text()
-            assert "CISSPAnalyzer" in content or "analyze" in content.lower(), \
-                "analyze.py should reference analyzer"
+            assert (
+                "CISSPAnalyzer" in content or "analyze" in content.lower()
+            ), "analyze.py should reference analyzer"
         else:
             # If file doesn't exist, that's OK for this test level
             pytest.skip("analyze.py not found")
@@ -693,14 +737,16 @@ class TestMasterEntryPoint:
         analyzer = CISSPAnalyzer()
 
         # Verify analyzer has required methods
-        assert hasattr(analyzer, 'analyze'), "Analyzer should have analyze method"
-        assert hasattr(analyzer, 'analyze_student_with_history'), \
-            "Analyzer should have analyze_student_with_history method"
+        assert hasattr(analyzer, "analyze"), "Analyzer should have analyze method"
+        assert hasattr(
+            analyzer, "analyze_student_with_history"
+        ), "Analyzer should have analyze_student_with_history method"
 
 
 # ============================================================================
 # TEST CLASS 6: Answer Key JSON Priority
 # ============================================================================
+
 
 @pytest.mark.functional
 class TestAnswerKeyLoading:
@@ -727,10 +773,12 @@ class TestAnswerKeyLoading:
         validate_answer_key_json(sample_answer_key_file)
 
     @pytest.mark.functional
-    def test_scores_not_zero_with_json(self, temp_test_dir, sample_answer_key_file, sample_excel_file, output_dir):
+    def test_scores_not_zero_with_json(
+        self, temp_test_dir, sample_answer_key_file, sample_excel_file, output_dir
+    ):
         """Verify scores are calculated correctly with JSON answer key"""
         # Load answer key
-        with open(sample_answer_key_file, 'r') as f:
+        with open(sample_answer_key_file, "r") as f:
             answer_key = json.load(f)
 
         # Load student answers
@@ -756,20 +804,23 @@ class TestAnswerKeyLoading:
         """Verify JSON answer key has priority over PDF extraction"""
         # This is a priority test - verify JSON file exists
         # In actual implementation, analyzer should check for JSON first
-        assert sample_answer_key_file.exists(), \
-            "Answer key JSON should be loaded before PDF parsing"
+        assert (
+            sample_answer_key_file.exists()
+        ), "Answer key JSON should be loaded before PDF parsing"
 
         # Verify it's valid JSON
-        with open(sample_answer_key_file, 'r') as f:
+        with open(sample_answer_key_file, "r") as f:
             data = json.load(f)
 
         assert isinstance(data, dict), "Answer key should be a dictionary"
         assert len(data) > 0, "Answer key should not be empty"
 
     @pytest.mark.functional
-    def test_answer_key_has_all_125_questions(self, temp_test_dir, sample_answer_key_file):
+    def test_answer_key_has_all_125_questions(
+        self, temp_test_dir, sample_answer_key_file
+    ):
         """Verify answer key contains all 125 questions"""
-        with open(sample_answer_key_file, 'r') as f:
+        with open(sample_answer_key_file, "r") as f:
             answer_key = json.load(f)
 
         assert len(answer_key) == 125, f"Expected 125 questions, got {len(answer_key)}"
@@ -778,12 +829,14 @@ class TestAnswerKeyLoading:
         for i in range(1, 126):
             q_key = str(i)
             assert q_key in answer_key, f"Question {i} missing from answer key"
-            assert answer_key[q_key] in "ABCD", f"Question {i} has invalid answer: {answer_key[q_key]}"
+            assert (
+                answer_key[q_key] in "ABCD"
+            ), f"Question {i} has invalid answer: {answer_key[q_key]}"
 
     @pytest.mark.functional
     def test_answer_key_distribution_valid(self, temp_test_dir, sample_answer_key_file):
         """Verify answer key has realistic distribution across A/B/C/D"""
-        with open(sample_answer_key_file, 'r') as f:
+        with open(sample_answer_key_file, "r") as f:
             answer_key = json.load(f)
 
         # Count distribution
@@ -793,13 +846,15 @@ class TestAnswerKeyLoading:
 
         # Each answer should appear 20-35 times (realistic CISSP distribution)
         for letter, count in distribution.items():
-            assert 15 < count < 40, \
-                f"Answer {letter} appears {count} times (expected 20-35 for realistic distribution)"
+            assert (
+                15 < count < 40
+            ), f"Answer {letter} appears {count} times (expected 20-35 for realistic distribution)"
 
 
 # ============================================================================
 # TEST CLASS 7: Multi-Student Batch
 # ============================================================================
+
 
 @pytest.mark.functional
 class TestMultiStudentBatch:
@@ -819,13 +874,17 @@ class TestMultiStudentBatch:
     """
 
     @pytest.mark.functional
-    def test_batch_analyzes_all_students(self, temp_test_dir, sample_excel_file, output_dir):
+    def test_batch_analyzes_all_students(
+        self, temp_test_dir, sample_excel_file, output_dir
+    ):
         """Verify batch analysis generates report for each student"""
         df = pd.read_excel(sample_excel_file)
         student_names = [col for col in df.columns if col != "Question"]
 
         # Should have at least 3 students
-        assert len(student_names) >= 3, f"Expected 3+ students, got {len(student_names)}"
+        assert (
+            len(student_names) >= 3
+        ), f"Expected 3+ students, got {len(student_names)}"
 
         # Create individual "reports" for each student
         for student_name in student_names:
@@ -842,11 +901,14 @@ class TestMultiStudentBatch:
 
         # Verify all reports exist
         report_count = len(list(output_dir.glob("CISSP_Individual_Report_*.xlsx")))
-        assert report_count == len(student_names), \
-            f"Expected {len(student_names)} reports, got {report_count}"
+        assert report_count == len(
+            student_names
+        ), f"Expected {len(student_names)} reports, got {report_count}"
 
     @pytest.mark.functional
-    def test_no_data_cross_contamination(self, temp_test_dir, sample_excel_file, output_dir):
+    def test_no_data_cross_contamination(
+        self, temp_test_dir, sample_excel_file, output_dir
+    ):
         """Verify each student's report contains only their data"""
         df = pd.read_excel(sample_excel_file)
         student_names = [col for col in df.columns if col != "Question"]
@@ -875,10 +937,12 @@ class TestMultiStudentBatch:
             loaded_name = df_loaded.iloc[0]["Student"]
             loaded_score = df_loaded.iloc[0]["Score (%)"]
 
-            assert loaded_name == student_name, \
-                f"Report for {student_name} contains wrong student name"
-            assert loaded_score == 80 + idx, \
-                f"Report for {student_name} has wrong score"
+            assert (
+                loaded_name == student_name
+            ), f"Report for {student_name} contains wrong student name"
+            assert (
+                loaded_score == 80 + idx
+            ), f"Report for {student_name} has wrong score"
 
     @pytest.mark.functional
     def test_batch_completion_time(self, temp_test_dir, sample_excel_file, output_dir):
@@ -898,13 +962,15 @@ class TestMultiStudentBatch:
         elapsed_time = time.time() - start_time
 
         # Batch should complete in under 10 seconds for 3 students
-        assert elapsed_time < 10.0, \
-            f"Batch analysis took too long: {elapsed_time:.2f}s (limit: 10s)"
+        assert (
+            elapsed_time < 10.0
+        ), f"Batch analysis took too long: {elapsed_time:.2f}s (limit: 10s)"
 
 
 # ============================================================================
 # TEST CLASS 8: Mixed Modes Sequence
 # ============================================================================
+
 
 @pytest.mark.functional
 class TestMixedModesSequence:
@@ -933,8 +999,9 @@ class TestMixedModesSequence:
         history_dir.mkdir(exist_ok=True)
 
         # Verify no history exists initially
-        assert len(list(history_dir.glob("**/exam-*.json"))) == 0, \
-            "History should not exist on first run"
+        assert (
+            len(list(history_dir.glob("**/exam-*.json"))) == 0
+        ), "History should not exist on first run"
 
         # Simulate first run report
         report_path = output_dir / "first_run_report.xlsx"
@@ -963,21 +1030,27 @@ class TestMixedModesSequence:
             "score_percentage": 75.0,
             "correct": 93,
             "total": 125,
-            "by_domain": {}
+            "by_domain": {},
         }
 
-        with open(student_dir / "exam-1_performance.json", 'w') as f:
+        with open(student_dir / "exam-1_performance.json", "w") as f:
             json.dump(first_exam, f)
 
         # Verify history is detected
-        assert check_file_exists(student_dir / "exam-1_performance.json", file_type="file")
+        assert check_file_exists(
+            student_dir / "exam-1_performance.json", file_type="file"
+        )
 
     @pytest.mark.functional
-    def test_history_used_in_report(self, temp_test_dir, output_dir, sample_history_folder):
+    def test_history_used_in_report(
+        self, temp_test_dir, output_dir, sample_history_folder
+    ):
         """Verify history data is used in second run report"""
         # Load history
-        history_file = sample_history_folder / "TestStudent2" / "exam-1_performance.json"
-        with open(history_file, 'r') as f:
+        history_file = (
+            sample_history_folder / "TestStudent2" / "exam-1_performance.json"
+        )
+        with open(history_file, "r") as f:
             previous_exam = json.load(f)
 
         # Create second exam (current) with improvement
@@ -1010,13 +1083,16 @@ class TestMixedModesSequence:
 
         # Verify comparison report has both exams
         sheet_data = get_sheet_data(report_path, "Comparison")
-        assert len(sheet_data) >= 3, "Comparison should show first exam, current, and improvement"
+        assert (
+            len(sheet_data) >= 3
+        ), "Comparison should show first exam, current, and improvement"
 
         # Verify improvement is shown
         improvement_row = sheet_data[3] if len(sheet_data) > 3 else sheet_data[-1]
         if len(improvement_row) > 1:
-            assert improvement_row[1] is not None, \
-                "Improvement should be calculated and shown"
+            assert (
+                improvement_row[1] is not None
+            ), "Improvement should be calculated and shown"
 
     @pytest.mark.functional
     def test_mode_switching_preserves_data(self, temp_test_dir, output_dir):
@@ -1031,7 +1107,7 @@ class TestMixedModesSequence:
             "correct": 90,
             "total": 125,
         }
-        with open(history_dir / "exam-1_performance.json", 'w') as f:
+        with open(history_dir / "exam-1_performance.json", "w") as f:
             json.dump(first_exam_data, f)
 
         # Create second run report
@@ -1054,7 +1130,9 @@ class TestMixedModesSequence:
         # Verify data is preserved
         sheet_data = get_sheet_data(report_path, "Results")
         assert len(sheet_data) >= 2, "Results should have data rows"
-        assert sheet_data[1][2] == "Yes", "Student data should be preserved during mode switch"
+        assert (
+            sheet_data[1][2] == "Yes"
+        ), "Student data should be preserved during mode switch"
 
 
 # ============================================================================

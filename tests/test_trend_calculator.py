@@ -13,7 +13,7 @@ def test_calculate_domain_trends_two_exams(calculator):
         "by_domain": {
             "Security & Risk Management": {"accuracy": 0.65},
             "Asset Security": {"accuracy": 0.70},
-            "Security Architecture and Engineering": {"accuracy": 0.60}
+            "Security Architecture and Engineering": {"accuracy": 0.60},
         }
     }
 
@@ -21,7 +21,7 @@ def test_calculate_domain_trends_two_exams(calculator):
         "by_domain": {
             "Security & Risk Management": {"accuracy": 0.75},
             "Asset Security": {"accuracy": 0.68},
-            "Security Architecture and Engineering": {"accuracy": 0.80}
+            "Security Architecture and Engineering": {"accuracy": 0.80},
         }
     }
 
@@ -45,21 +45,21 @@ def test_calculate_domain_trends_three_exams(calculator):
     exam1 = {
         "by_domain": {
             "Communication & Network Security": {"accuracy": 0.50},
-            "Identity and Access Management (IAM)": {"accuracy": 0.55}
+            "Identity and Access Management (IAM)": {"accuracy": 0.55},
         }
     }
 
     exam2 = {
         "by_domain": {
             "Communication & Network Security": {"accuracy": 0.60},
-            "Identity and Access Management (IAM)": {"accuracy": 0.65}
+            "Identity and Access Management (IAM)": {"accuracy": 0.65},
         }
     }
 
     exam3 = {
         "by_domain": {
             "Communication & Network Security": {"accuracy": 0.75},
-            "Identity and Access Management (IAM)": {"accuracy": 0.70}
+            "Identity and Access Management (IAM)": {"accuracy": 0.70},
         }
     }
 
@@ -82,7 +82,7 @@ def test_calculate_difficulty_trends(calculator):
         "by_difficulty": {
             "Easy": {"accuracy": 0.90},
             "Medium": {"accuracy": 0.65},
-            "Hard": {"accuracy": 0.40}
+            "Hard": {"accuracy": 0.40},
         }
     }
 
@@ -90,7 +90,7 @@ def test_calculate_difficulty_trends(calculator):
         "by_difficulty": {
             "Easy": {"accuracy": 0.92},
             "Medium": {"accuracy": 0.72},
-            "Hard": {"accuracy": 0.55}
+            "Hard": {"accuracy": 0.55},
         }
     }
 
@@ -115,7 +115,7 @@ def test_calculate_question_type_trends(calculator):
         "by_question_type": {
             "Definition": {"accuracy": 0.80},
             "Scenario": {"accuracy": 0.60},
-            "Comparison": {"accuracy": 0.55}
+            "Comparison": {"accuracy": 0.55},
         }
     }
 
@@ -123,7 +123,7 @@ def test_calculate_question_type_trends(calculator):
         "by_question_type": {
             "Definition": {"accuracy": 0.85},
             "Scenario": {"accuracy": 0.70},
-            "Comparison": {"accuracy": 0.65}
+            "Comparison": {"accuracy": 0.65},
         }
     }
 
@@ -208,7 +208,7 @@ def test_rank_domains_by_priority(calculator):
         "by_domain": {
             "Security & Risk Management": {"accuracy": 0.60},
             "Asset Security": {"accuracy": 0.85},
-            "Communication & Network Security": {"accuracy": 0.70}
+            "Communication & Network Security": {"accuracy": 0.70},
         }
     }
 
@@ -216,7 +216,7 @@ def test_rank_domains_by_priority(calculator):
         "by_domain": {
             "Security & Risk Management": {"accuracy": 0.50},
             "Asset Security": {"accuracy": 0.95},
-            "Communication & Network Security": {"accuracy": 0.65}
+            "Communication & Network Security": {"accuracy": 0.65},
         }
     }
 
