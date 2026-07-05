@@ -1,4 +1,3 @@
-import pytest
 from cissp_analyzer.filename_parser import FilenameParser
 
 

@@ -2,22 +2,24 @@
 Comprehensive Input Format Validation Test Suite (40+ tests)
 
 Tests 40+ format variations across 3 input types:
-- EXCEL FORMATS (10 tests): Standard, headers, columns, order, case, whitespace, sheets, merged cells, missing cols, inconsistent format
-- JSON FORMATS (12 tests): Single-letter, multi-choice, matching pairs, ordering, lowercase, whitespace, numeric vs string keys, missing questions, extra questions, invalid chars, null/empty, mixed formats
-- PDF FORMATS (10 tests): Numbering, Q-prefix, Question-prefix, bullet, two-column, two-section, scanned, missing questions, extra formatting, mixed numbering
-- DATA CONSISTENCY (8 tests): Mismatch detection, gaps, extra answers, format consistency, student vs key mismatch, encoding, auto-detection, conversion
+- EXCEL FORMATS (10 tests): Standard headers columns order case whitespace
+  sheets merged cells missing cols inconsistent format
+- JSON FORMATS (12 tests): Single-letter multi-choice matching pairs ordering
+  lowercase whitespace numeric vs string keys missing extra questions invalid
+  chars null/empty mixed formats
+- PDF FORMATS (10 tests): Numbering Q-prefix Question-prefix bullet
+  two-column two-section scanned missing extra formatting mixed numbering
+- DATA CONSISTENCY (8 tests): Mismatch detection gaps extra answers format
+  consistency student vs key mismatch encoding auto-detection conversion
 """
 
 import pytest
 import pandas as pd
-import json
-import tempfile
-from pathlib import Path
-from typing import Dict, List, Any
 from cissp_analyzer.excel_parser import ExcelParser
 from cissp_analyzer.answer_key_extractor import AnswerKeyExtractor
 from cissp_analyzer.pdf_parser import PDFParser
 from cissp_analyzer.data_quality_validator import AnswerSheetValidator
+from typing import Dict
 
 
 class TestExcelFormatVariations:
@@ -449,7 +451,7 @@ class TestPdfFormatVariations:
         D. Malicious intent targeting a vulnerability
         """
         # Bullet format might not be recognized by standard extraction
-        questions = PDFParser._extract_questions_from_text(text)
+        _ = PDFParser._extract_questions_from_text(text)
         # Test should handle this gracefully
 
     def test_pdf_two_column_layout_handling(self):
@@ -462,7 +464,7 @@ class TestPdfFormatVariations:
         D. Option D               D. Option D
         """
         # Two-column layouts are challenging for text extraction
-        questions = PDFParser._extract_questions_from_text(text)
+        _ = PDFParser._extract_questions_from_text(text)
         # Parser should attempt extraction
 
     def test_pdf_two_section_detection_questions_answers(self):
@@ -499,7 +501,7 @@ class TestPdfFormatVariations:
         C. B0th A @nd B
         D. Neith3r A n0r B
         """
-        questions = PDFParser._extract_questions_from_text(text)
+        _ = PDFParser._extract_questions_from_text(text)
         # Should attempt to parse despite OCR errors
 
     def test_pdf_missing_questions_handling(self):
@@ -523,7 +525,7 @@ class TestPdfFormatVariations:
         C. Answer C
         D. Answer D
         """
-        questions = PDFParser._extract_questions_from_text(text)
+        _ = PDFParser._extract_questions_from_text(text)
         # Should detect the missing questions 2 and 4
 
     def test_pdf_extra_formatting_removal(self):
@@ -535,8 +537,8 @@ class TestPdfFormatVariations:
         C. Both A & B
         D. Neither A & B
         """
-        questions = PDFParser._extract_questions_from_text(text)
-        assert len(questions) >= 0
+        _ = PDFParser._extract_questions_from_text(text)
+        assert True
 
     def test_pdf_mixed_numbering_normalize(self):
         """Test normalization of mixed numbering formats"""
@@ -559,7 +561,7 @@ class TestPdfFormatVariations:
         C. Answer C
         D. Answer D
         """
-        questions = PDFParser._extract_questions_from_text(text)
+        _ = PDFParser._extract_questions_from_text(text)
         # Should normalize different number formats
 
 
@@ -589,7 +591,7 @@ class TestDataConsistencyCrossValidation:
     def test_question_number_gaps_detection(self):
         """Test detection of gaps in question numbers"""
         questions = [1, 2, 4, 5, 8, 9]  # Missing 3, 6, 7
-        answers = ["A", "B", "C", "D", "A", "B"]
+        _ = ["A", "B", "C", "D", "A", "B"]
 
         # Calculate gap ratio
         expected_count = max(questions) - min(questions) + 1
@@ -642,7 +644,6 @@ class TestDataConsistencyCrossValidation:
     def test_encoding_issue_detection(self):
         """Test detection of encoding issues"""
         # Simulating different encodings
-        text_utf8 = "Question 1: What is encryption?"
         text_with_issues = "Question 1: What is encrypt\u0000ion?"  # Null byte
 
         # Check for invalid characters

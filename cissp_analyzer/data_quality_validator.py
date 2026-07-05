@@ -351,9 +351,7 @@ class AnswerSheetAutoFixer:
                     new_headers.append(student_name if student_name else "Answer")
                     new_name = student_name if student_name else "Answer"
                     if header != new_name:
-                        fixes_applied.append(
-                            f"Column {i}: '{header}' → '{new_name}'"
-                        )
+                        fixes_applied.append(f"Column {i}: '{header}' → '{new_name}'")
                 else:
                     new_headers.append(header)
 

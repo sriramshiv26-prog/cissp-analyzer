@@ -278,9 +278,7 @@ class ExamValidator:
         if len(self.answer_key) != self.EXPECTED_QUESTIONS:
             found = len(self.answer_key)
             expected = self.EXPECTED_QUESTIONS
-            print(
-                f"Cannot save incomplete answer key ({found}/{expected})"
-            )
+            print(f"Cannot save incomplete answer key ({found}/{expected})")
             return False
 
         try:

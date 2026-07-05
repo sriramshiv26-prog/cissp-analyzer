@@ -1,10 +1,7 @@
-import pytest
-from pathlib import Path
-from cissp_analyzer.interactive_cli import get_answer_key, Colors
+from cissp_analyzer.interactive_cli import Colors
 from cissp_analyzer.pdf_parser import PDFParser
 from cissp_analyzer.answer_key_extractor import AnswerKeyExtractor
 from cissp_analyzer.answer_context_mapper import AnswerContextMapper
-import tempfile
 import json
 
 

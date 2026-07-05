@@ -1,5 +1,4 @@
 import pytest
-from pathlib import Path
 from cissp_analyzer.class_report_gen import ClassReportGenerator
 from cissp_analyzer.domain_mapper import DomainMapper
 from cissp_analyzer.models import StudentPerformance

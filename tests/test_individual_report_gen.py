@@ -1,5 +1,4 @@
 import pytest
-from pathlib import Path
 from cissp_analyzer.individual_report_gen import IndividualReportGenerator
 from cissp_analyzer.analysis_engine import AnalysisEngine
 from cissp_analyzer.domain_mapper import DomainMapper

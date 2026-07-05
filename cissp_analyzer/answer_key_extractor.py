@@ -2,7 +2,7 @@ import re
 import json
 import logging
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Dict, Optional, Union
 from pypdf import PdfReader
 
 logger = logging.getLogger(__name__)
@@ -25,7 +25,7 @@ class AnswerKeyExtractor:
 
     def __init__(self) -> None:
         """Initialize the AnswerKeyExtractor."""
-        self.answers = {}
+        self.answers: Dict[str, Dict[str, str]] = {}
 
     def extract_from_file(self, pdf_path: str) -> Dict[str, Dict[str, str]]:
         """Extract answer key from a PDF file.
@@ -177,6 +177,7 @@ class AnswerKeyExtractor:
         if not self.answers:
             raise ValueError("No answers to save. Extract answers first.")
 
+        data: Union[Dict[str, Dict[str, str]], Dict[str, str]]
         if include_text:
             data = self.answers
         else:

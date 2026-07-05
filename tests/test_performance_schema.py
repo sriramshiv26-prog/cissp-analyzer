@@ -1,5 +1,4 @@
 import pytest
-from datetime import datetime
 from cissp_analyzer.analysis_engine import AnalysisEngine
 from cissp_analyzer.domain_mapper import DomainMapper
 from cissp_analyzer.models import StudentAnswer
@@ -34,7 +33,7 @@ def test_export_performance_as_json(engine):
         answers.append(StudentAnswer("student1", q, "B", False))
 
     # Evaluate student
-    performance = engine.evaluate_student(answers, "student1")
+    _ = engine.evaluate_student(answers, "student1")
 
     # Export performance data
     perf_data = engine.export_student_performance(
@@ -94,7 +93,7 @@ def test_export_performance_with_some_wrong_answers(engine):
     for q in range(101, 126):
         answers.append(StudentAnswer("student2", q, "B", False))  # Wrong answers
 
-    performance = engine.evaluate_student(answers, "student2")
+    _ = engine.evaluate_student(answers, "student2")
     perf_data = engine.export_student_performance("student2", exam_number=2)
 
     assert perf_data["total_correct"] == 100

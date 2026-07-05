@@ -1,7 +1,6 @@
 import pytest
 from pathlib import Path
 from cissp_analyzer.pdf_parser import PDFParser
-from cissp_analyzer.models import Question
 
 
 @pytest.fixture
@@ -59,9 +58,6 @@ def test_all_questions_numbered(parser):
 
 def test_extract_with_answer_context():
     """Test PDF parser uses answer context to enhance domain classification."""
-    from cissp_analyzer.pdf_parser import PDFParser
-    from cissp_analyzer.answer_key_extractor import AnswerKeyExtractor
-
     # Sample PDF text with both questions and answers
     pdf_text = """Question 1: What controls data access?
 A) Physical security

@@ -355,8 +355,6 @@ class TestImportConsistency:
             # If we got here, no circular imports
         except ImportError as e:
             pytest.fail(f"Import error in dependency chain: {e}")
-        except CircularImportError as e:
-            pytest.fail(f"Circular import detected: {e}")
         except Exception as e:
             if "circular" in str(e).lower():
                 pytest.fail(f"Circular import error: {e}")

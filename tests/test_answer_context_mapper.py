@@ -1,4 +1,3 @@
-import pytest
 from cissp_analyzer.answer_context_mapper import AnswerContextMapper
 
 

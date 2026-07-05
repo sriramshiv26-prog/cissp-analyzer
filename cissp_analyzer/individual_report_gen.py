@@ -1,8 +1,6 @@
-from pathlib import Path
-from typing import Optional, List, Dict
+from typing import Optional, List, Dict, Tuple
 from openpyxl import Workbook
-from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
-from openpyxl.utils import get_column_letter
+from openpyxl.styles import Font, PatternFill, Alignment
 from cissp_analyzer.models import StudentPerformance
 from cissp_analyzer.domain_mapper import DomainMapper
 from cissp_analyzer.analysis_engine import AnalysisEngine
@@ -157,7 +155,12 @@ class IndividualReportGenerator:
         # Generate personalized message
         weak_domains = self._get_weak_domains(perf)
         if weak_domains:
-            msg = f"Focus on: {', '.join(weak_domains[:2])}. Target: {70 - gap:.1f}% gap. You can do this!"
+            domains_str = ", ".join(weak_domains[:2])
+            gap_to_target = 70 - gap
+            msg = (
+                f"Focus on: {domains_str}. Target: {gap_to_target:.1f}% gap. "
+                "You can do this!"
+            )
         else:
             msg = "Great job! You're ready for the exam."
         ws["A13"] = msg
@@ -196,10 +199,10 @@ class IndividualReportGenerator:
 
         row = 4
         for q_num in range(1, 126):
-            is_wrong = q_num in perf.wrong_question_ids
+            is_q_wrong = q_num in perf.wrong_question_ids
             meta = self.mapper.get_question_metadata(q_num)
 
-            fill_color = self.COLOR_WRONG if is_wrong else self.COLOR_CORRECT
+            fill_color = self.COLOR_WRONG if is_q_wrong else self.COLOR_CORRECT
 
             values = [
                 q_num,
@@ -208,7 +211,7 @@ class IndividualReportGenerator:
                 meta.get("question_type", "") if meta else "",
                 meta.get("exam_trick", "None") if meta else "None",
                 meta.get("difficulty", "") if meta else "",
-                "✗ WRONG" if is_wrong else "✓ CORRECT",
+                "✗ WRONG" if is_q_wrong else "✓ CORRECT",
             ]
 
             for col_idx, val in enumerate(values, 1):
@@ -379,8 +382,8 @@ class IndividualReportGenerator:
 
         ws.column_dimensions["A"].width = 25
         ws.column_dimensions["B"].width = 50
-        for col in ["C", "D", "E", "F"]:
-            ws.column_dimensions[col].width = 14
+        for col_letter in ["C", "D", "E", "F"]:
+            ws.column_dimensions[col_letter].width = 14
 
     def _create_by_difficulty(self, wb: Workbook, perf: StudentPerformance):
         """Sheet 6: Performance by Difficulty"""
@@ -438,9 +441,11 @@ class IndividualReportGenerator:
 
         gap = max(0, 70 - perf.score_percentage)
         ws["A2"] = (
-            f"Current Score: {perf.score_percentage:.1f}% | Gap to Pass: {gap:.1f}% | Target: 70%"
+            "Current Score: "
+            + f"{perf.score_percentage:.1f}% | Gap to Pass: {gap:.1f}% | "
+            "Target: 70%"
         )
-        ws["A3"] = f"Recommended Study: 8-10 hours/week | Timeline: 2-3 weeks"
+        ws["A3"] = "Recommended Study: 8-10 hours/week | Timeline: 2-3 weeks"
 
         # Get weak domains and topics
         weak_domains = self._get_weak_domains_with_scores(perf)
@@ -501,9 +506,9 @@ class IndividualReportGenerator:
         for topic, score in weak_topics[:5]:
             ws.cell(row=row, column=1).value = topic
             ws.cell(row=row, column=2).value = f"{score:.1f}%"
-            ws.cell(row=row, column=3).value = f"Review wrong answers"
+            ws.cell(row=row, column=3).value = "Review wrong answers"
             ws.cell(row=row, column=4).value = (
-                f"Watch 1-2 videos + solve 10 practice questions"
+                "Watch 1-2 videos + solve 10 practice questions"
             )
 
             fill = self.COLOR_WRONG if score < 50 else self.COLOR_NEUTRAL
@@ -532,7 +537,7 @@ class IndividualReportGenerator:
                 start_color="001F4E78", end_color="001F4E78", fill_type="solid"
             )
 
-        week_plans = [
+        week_plans: List[Tuple[str, int | str, str, str, str]] = [
             (
                 "Week 1",
                 weak_domains[0][0] if weak_domains else 1,
@@ -557,13 +562,26 @@ class IndividualReportGenerator:
         ]
 
         row = 21
-        for week, domain_id, goal, hours, milestone in week_plans:
-            ws.cell(row=row, column=1).value = week
-            domain_name = self.domain_names.get(domain_id, f"Domain {domain_id}")
+        for (
+            week_label,
+            domain_focus,
+            study_goal,
+            study_hours,
+            study_milestone,
+        ) in week_plans:
+            ws.cell(row=row, column=1).value = week_label
+            # Handle both int and string domain_ids
+            domain_key: int | str = (
+                domain_focus if isinstance(domain_focus, str) else int(domain_focus)
+            )
+            if isinstance(domain_key, int):
+                domain_name = self.domain_names.get(domain_key, f"Domain {domain_key}")
+            else:
+                domain_name = domain_key
             ws.cell(row=row, column=2).value = domain_name
-            ws.cell(row=row, column=3).value = goal
-            ws.cell(row=row, column=4).value = hours
-            ws.cell(row=row, column=5).value = milestone
+            ws.cell(row=row, column=3).value = study_goal
+            ws.cell(row=row, column=4).value = study_hours
+            ws.cell(row=row, column=5).value = study_milestone
 
             for col in range(1, 6):
                 ws.cell(row=row, column=col).fill = PatternFill(
@@ -810,8 +828,6 @@ class IndividualReportGenerator:
             if meta and meta.get("domain") == domain_id:
                 topic = meta.get("topic", "")
                 if topic:
-                    # Count correct/wrong for this topic
-                    is_wrong = q_num in perf.wrong_question_ids
                     # Find topic in by_topic if available
                     for topic_key, data in perf.by_topic.items():
                         if topic in topic_key:

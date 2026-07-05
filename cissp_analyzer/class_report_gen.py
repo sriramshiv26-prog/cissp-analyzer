@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill
 from collections import defaultdict
@@ -92,7 +92,9 @@ class ClassReportGenerator:
         """Sheet 3: Class-wide weaknesses by topic"""
         ws = wb.create_sheet("Weakness Analysis")
 
-        topic_stats = defaultdict(lambda: {"correct": 0, "wrong": 0})
+        topic_stats: Dict[str, Dict[str, int]] = defaultdict(
+            lambda: {"correct": 0, "wrong": 0}
+        )
 
         for student in cohort:
             for topic, stats in student.by_topic.items():
@@ -144,7 +146,7 @@ class ClassReportGenerator:
             col_letter = chr(64 + col_idx)
             ws[f"{col_letter}1"] = student.student_name
 
-        all_topics = set()
+        all_topics: set[str] = set()
         for student in cohort:
             all_topics.update(student.by_topic.keys())
 

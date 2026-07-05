@@ -2,7 +2,7 @@ import re
 import logging
 from pathlib import Path
 from pypdf import PdfReader
-from typing import List, Dict, Optional, Any
+from typing import List, Dict, Any
 
 
 class PDFParser:
@@ -43,7 +43,8 @@ class PDFParser:
         # Strategy: Find all question numbers (1-125) and their positions
         # Then extract the block from number to next number or end of text
         # Only keep blocks that have all 4 options (A, B, C, D) and real question text
-        # IMPORTANT: Only use the FIRST occurrence of each question number (to avoid answer key duplicates)
+        # IMPORTANT: Only use the FIRST occurrence of each question number
+        # (to avoid answer key duplicates)
 
         question_starts = []
         seen_numbers = set()

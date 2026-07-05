@@ -20,7 +20,6 @@ def current_exam():
             "Software Development Security": {"accuracy": 0.48},
             "Security Assessment & Testing": {"accuracy": 0.70},
             "Security Operations": {"accuracy": 0.65},
-            "Software Development Security": {"accuracy": 0.58},
         },
     }
 
@@ -38,7 +37,6 @@ def previous_exam():
             "Software Development Security": {"accuracy": 0.42},
             "Security Assessment & Testing": {"accuracy": 0.68},
             "Security Operations": {"accuracy": 0.60},
-            "Software Development Security": {"accuracy": 0.52},
         },
     }
 

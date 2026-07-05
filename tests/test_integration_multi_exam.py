@@ -1,6 +1,4 @@
-import json
 import tempfile
-from pathlib import Path
 from cissp_analyzer.history_loader import HistoryLoader
 
 

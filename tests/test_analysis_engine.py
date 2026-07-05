@@ -1,7 +1,7 @@
 import pytest
 from cissp_analyzer.analysis_engine import AnalysisEngine
 from cissp_analyzer.domain_mapper import DomainMapper
-from cissp_analyzer.models import StudentAnswer, StudentPerformance
+from cissp_analyzer.models import StudentAnswer
 
 
 @pytest.fixture

@@ -9,12 +9,10 @@ Guides users through analyzing exams by asking for:
 - Student answer files
 """
 
-import json
 import sys
 from pathlib import Path
 from typing import List, Dict, Optional
 from cissp_analyzer.main import CISSPAnalyzer
-from cissp_analyzer.filename_parser import FilenameParser
 
 
 class Colors:
@@ -398,7 +396,6 @@ def run_analysis(
             try:
                 # Extract with answer context
                 print(Colors.info("Analyzing question-answer pairs..."))
-                parser = PDFParser(pdf)
 
                 # Extract text from PDF
                 from pypdf import PdfReader
@@ -419,11 +416,12 @@ def run_analysis(
                         )
                     )
 
-                    # Warn if extraction seems incomplete (expecting at least 30 questions)
+                    # Warn if extraction seems incomplete (expecting at least 30)
                     if extracted_count < 30:
                         print(
                             Colors.warning(
-                                f"Only {extracted_count} questions found. Auto-extract may be incomplete."
+                                f"Only {extracted_count} questions found. "
+                                "Auto-extract may be incomplete."
                             )
                         )
                         if not prompt_yes_no(
@@ -431,11 +429,12 @@ def run_analysis(
                         ):
                             print(
                                 Colors.info(
-                                    "Skipping auto-extract, continuing without answer key"
+                                    "Skipping auto-extract, continuing without "
+                                    "answer key"
                                 )
                             )
                             answer_key = None
-                            extracted_answers = {}
+                            _ = {}
 
                     # Count domain hints from answer text
                     domains_found = set()
@@ -444,11 +443,8 @@ def run_analysis(
                             domains_found.add(context["suggested_domain"])
 
                     if domains_found:
-                        print(
-                            Colors.info(
-                                f"Domains identified: {', '.join(sorted(domains_found)[:3])}..."
-                            )
-                        )
+                        domains_list = ", ".join(sorted(domains_found)[:3])
+                        print(Colors.info(f"Domains identified: {domains_list}..."))
 
                     # Save extracted answers (full text for reference)
                     temp_key_path = Path(output) / ".answer_key_extracted.json"
@@ -474,16 +470,16 @@ def run_analysis(
                             q: data["letter"] for q, data in answer_map.items()
                         }
                         # Normalize to integers for analyzer
-                        normalized_key = {}
+                        normalized_key: Dict[int, str] = {}
                         for q_num, letter in letters_only.items():
                             q_int = int(q_num) if isinstance(q_num, str) else q_num
                             normalized_key[q_int] = letter
 
                         # Validate normalized key
-                        for q_num, letter in normalized_key.items():
+                        for q_id, letter in normalized_key.items():
                             assert isinstance(
-                                q_num, int
-                            ), f"Question number must be int, got {type(q_num)}"
+                                q_id, int
+                            ), f"Question number must be int, got {type(q_id)}"
                             assert letter in [
                                 "A",
                                 "B",
@@ -543,9 +539,11 @@ def run_analysis(
                     print(Colors.success(f"Report saved: {result['report_path']}"))
 
                     if result["previous_exams_count"] > 0:
+                        prev_count = result["previous_exams_count"]
                         print(
                             Colors.info(
-                                f"Report includes {result['previous_exams_count']} previous exam(s) for comparison"
+                                f"Report includes {prev_count} "
+                                "previous exam(s) for comparison"
                             )
                         )
 

@@ -28,7 +28,6 @@ import pytest
 import json
 import time
 from pathlib import Path
-from typing import Dict, List
 import pandas as pd
 
 from cissp_analyzer.main import CISSPAnalyzer

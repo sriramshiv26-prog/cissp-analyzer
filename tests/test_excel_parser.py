@@ -1,6 +1,5 @@
 import pytest
 import pandas as pd
-from pathlib import Path
 from cissp_analyzer.excel_parser import ExcelParser
 from cissp_analyzer.models import StudentAnswer
 

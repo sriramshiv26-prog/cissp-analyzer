@@ -48,10 +48,8 @@ import os
 import sys
 import json
 from pathlib import Path
-from typing import Dict, Any, Tuple
-import tempfile
+from typing import Dict, Any
 import subprocess
-from unittest.mock import Mock, patch, MagicMock
 import pandas as pd
 
 # ============================================================================
@@ -254,7 +252,7 @@ class TestExecutionTime:
                         for i, q in enumerate(df["Question"], 1)
                         if df[col].iloc[i - 1] == answer_key[str(q)]
                     )
-                    score_pct = (correct / 125) * 100
+                    _ = (correct / 125) * 100
 
         # Verify: Assert under limit
         timer.assert_under(10.0)
@@ -281,8 +279,8 @@ class TestExecutionTime:
         # Execute: Time the comparative analysis
         with PerformanceTimer("Comparative Analysis (5 exams)") as timer:
             # Read current exam
-            df = pd.read_excel(excel_file)
-            answer_key = json.load(open(answer_key_file))
+            _ = pd.read_excel(excel_file)
+            _ = json.load(open(answer_key_file))
 
             current_score = 80.0  # Mock current score
 
@@ -296,7 +294,7 @@ class TestExecutionTime:
             # Mock trend calculation
             if history_data:
                 previous_scores = [h["score_percentage"] for h in history_data]
-                trend = current_score - (sum(previous_scores) / len(previous_scores))
+                _ = current_score - (sum(previous_scores) / len(previous_scores))
 
         # Verify: Assert under limit
         timer.assert_under(20.0)
@@ -374,7 +372,7 @@ class TestExecutionTime:
                     results[col] = {"score": score_pct, "correct": correct}
 
             # Step 5: Report generation (mock)
-            report_data = {"students": results, "analysis_date": "2026-07-03"}
+            _ = {"students": results, "analysis_date": "2026-07-03"}
 
         # Verify: Assert under limit
         timer.assert_under(120.0)
@@ -388,7 +386,9 @@ class TestExecutionTime:
                 [
                     sys.executable,
                     "-c",
-                    "import sys; from pathlib import Path; sys.path.insert(0, str(Path.cwd())); print('startup test')",
+                    "import sys; from pathlib import Path; "
+                    "sys.path.insert(0, str(Path.cwd())); "
+                    "print('startup test')",
                 ],
                 capture_output=True,
                 text=True,
@@ -430,7 +430,7 @@ class TestMemoryUsage:
                         for i, q in enumerate(df["Question"], 1)
                         if df[col].iloc[i - 1] == answer_key[str(q)]
                     )
-                    score_pct = (correct / 125) * 100
+                    _ = (correct / 125) * 100
 
         # Verify: Assert under limit
         monitor.assert_under(200.0)
@@ -455,8 +455,8 @@ class TestMemoryUsage:
 
         # Execute: Monitor memory
         with MemoryMonitor("Comparative Analysis (5 exams)") as monitor:
-            df = pd.read_excel(excel_file)
-            answer_key = json.load(open(answer_key_file))
+            _ = pd.read_excel(excel_file)
+            _ = json.load(open(answer_key_file))
 
             history_data = []
             if history_dir.exists():
@@ -465,7 +465,7 @@ class TestMemoryUsage:
                         history_data.append(json.load(f))
 
             # Process all history
-            all_scores = [h["score_percentage"] for h in history_data]
+            _ = [h["score_percentage"] for h in history_data]
 
         # Verify: Assert under limit
         monitor.assert_under(400.0)
@@ -523,7 +523,7 @@ class TestMemoryUsage:
 
             for col in df.columns:
                 if col != "Question":
-                    correct = sum(
+                    _ = sum(
                         1
                         for i, q in enumerate(df["Question"], 1)
                         if df[col].iloc[i - 1] == answer_key[str(q)]
@@ -573,7 +573,7 @@ class TestPerformanceConsistency:
                         for i, q in enumerate(df["Question"], 1)
                         if df[col].iloc[i - 1] == answer_key[str(q)]
                     )
-                    score_pct = (correct / 125) * 100
+                    _ = (correct / 125) * 100
 
             end = time.perf_counter()
             timings.append(end - start)
@@ -583,7 +583,7 @@ class TestPerformanceConsistency:
         variance = max(timings) - min(timings)
         variance_pct = (variance / avg_timing) * 100 if avg_timing > 0 else 0
 
-        print(f"\n📊 Timing Consistency Analysis:")
+        print("\n📊 Timing Consistency Analysis:")
         print(f"   Average: {avg_timing:.3f}s")
         print(f"   Min: {min(timings):.3f}s")
         print(f"   Max: {max(timings):.3f}s")
@@ -618,7 +618,7 @@ class TestPerformanceConsistency:
 
         try:
             df = pd.read_excel(excel_file)
-            answer_key = json.load(open(answer_key_file))
+            _ = json.load(open(answer_key_file))
 
             # Simulate processing
             for col in df.columns:
@@ -654,7 +654,7 @@ class TestPerformanceConsistency:
 
         for col in df.columns:
             if col != "Question":
-                correct = sum(
+                _ = sum(
                     1
                     for i, q in enumerate(df["Question"], 1)
                     if df[col].iloc[i - 1] == answer_key[str(q)]
@@ -670,7 +670,7 @@ class TestPerformanceConsistency:
         avg_cpu = sum(cpu_samples) / len(cpu_samples) if cpu_samples else 0
         max_cpu = max(cpu_samples) if cpu_samples else 0
 
-        print(f"\n🔧 CPU Usage Analysis:")
+        print("\n🔧 CPU Usage Analysis:")
         print(f"   Average: {avg_cpu:.1f}%")
         print(f"   Max: {max_cpu:.1f}%")
         print(f"   Duration: {elapsed:.3f}s")

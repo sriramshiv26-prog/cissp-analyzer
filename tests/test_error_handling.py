@@ -32,19 +32,12 @@ Each test uses fixtures from conftest.py and validates:
 
 import pytest
 import json
-import tempfile
 import os
-from pathlib import Path
-from typing import Dict, Any
 import pandas as pd
-import shutil
-from unittest.mock import patch, MagicMock
 
 # Import modules to test
-from cissp_analyzer.data_quality_validator import AnswerSheetValidator, DataQualityIssue
+from cissp_analyzer.data_quality_validator import AnswerSheetValidator
 from cissp_analyzer.answer_key_extractor import AnswerKeyExtractor
-from cissp_analyzer.excel_parser import ExcelParser
-from cissp_analyzer.history_loader import HistoryLoader
 from cissp_analyzer.filename_parser import FilenameParser
 
 # ============================================================================
@@ -85,7 +78,6 @@ class TestMissingFiles:
         """Scenario 3: Missing answer key JSON should be detected."""
         missing_json = temp_test_dir / "answer_key.json"
 
-        validator = AnswerSheetValidator()
         # Try to load non-existent file
         assert not missing_json.exists()
 
@@ -175,7 +167,7 @@ class TestWrongFormats:
         )
 
         # Should detect issues with structure
-        has_structure_issue = any(
+        _ = any(
             "column" in issue.issue_type.lower()
             or "header" in issue.issue_type.lower()
             or "structure" in issue.issue_type.lower()
@@ -189,12 +181,6 @@ class TestWrongFormats:
         duplicate_names_excel = temp_test_dir / "duplicates.xlsx"
 
         # Create Excel with duplicate student columns
-        data = {
-            "Question": list(range(1, 126)),
-            "TestStudent1": ["A"] * 125,  # First instance
-            "TestStudent1": ["B"] * 125,  # Duplicate (will overwrite in DataFrame)
-            "TestStudent2": ["C"] * 125,
-        }
         df = pd.DataFrame(
             {
                 "Question": list(range(1, 126)),
@@ -206,8 +192,8 @@ class TestWrongFormats:
         df.to_excel(duplicate_names_excel, index=False)
 
         # Read and verify duplicates
-        df_loaded = pd.read_excel(duplicate_names_excel)
-        # Pandas will handle duplicate columns by renaming, so this test validates behavior
+        _ = pd.read_excel(duplicate_names_excel)
+        # Pandas will handle duplicate columns by renaming, so this validates behavior
 
 
 # ============================================================================
@@ -574,13 +560,8 @@ class TestIntegrationErrorHandling:
         """Test that program state remains consistent after error."""
         validator = AnswerSheetValidator()
 
-        # Initial state
-        initial_issues = validator.issues
-
         # Attempt validation with invalid file
-        result = validator.validate_file(
-            str(temp_test_dir / "nonexistent.xlsx"), "Test"
-        )
+        _ = validator.validate_file(str(temp_test_dir / "nonexistent.xlsx"), "Test")
 
         # State should be properly set after error
         assert validator.issues is not None
@@ -602,9 +583,11 @@ class TestIntegrationErrorHandling:
         good_file.write_text(json.dumps({"test": "data"}))
 
         with open(good_file) as f:
-            data = json.load(f)
+            loaded_data = json.load(f)
 
-        assert data["test"] == "data", "Good file should still be readable after error"
+        assert (
+            loaded_data["test"] == "data"
+        ), "Good file should still be readable after error"
 
 
 # ============================================================================

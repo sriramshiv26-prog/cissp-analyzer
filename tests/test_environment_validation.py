@@ -23,10 +23,7 @@ Date: 2026-07-03
 
 import sys
 import subprocess
-import json
 from pathlib import Path
-from importlib import import_module
-import importlib.util
 import pytest
 
 # ============================================================================
@@ -51,7 +48,10 @@ class TestPythonVersionSupport:
 
     def test_python_version_info_accessible(self):
         """Verify Python version information is accessible"""
-        version_string = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
+        version_string = (
+            f"{sys.version_info.major}.{sys.version_info.minor}."
+            f"{sys.version_info.micro}"
+        )
         assert len(version_string) > 0
         assert sys.version_info.major == 3
         parts = version_string.split(".")
@@ -228,8 +228,11 @@ class TestModuleImports:
             assert hasattr(excel_parser, "ExcelParser")
         except ImportError as e:
             pytest.fail(f"Failed to import excel_parser: {e}")
-        except CircularImportError as e:
-            pytest.fail(f"Circular import in excel_parser: {e}")
+        except Exception as e:
+            if "circular" in str(e).lower():
+                pytest.fail(f"Circular import in excel_parser: {e}")
+            else:
+                raise
 
     def test_import_core_module_pdf_parser(self):
         """Verify pdf_parser module imports correctly"""

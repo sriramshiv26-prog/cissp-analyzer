@@ -8,7 +8,6 @@ from cissp_analyzer.analysis_engine import AnalysisEngine
 from cissp_analyzer.individual_report_gen import IndividualReportGenerator
 from cissp_analyzer.class_report_gen import ClassReportGenerator
 from cissp_analyzer.history_loader import HistoryLoader
-from cissp_analyzer.filename_parser import FilenameParser
 
 
 class CISSPAnalyzer:
@@ -47,7 +46,7 @@ class CISSPAnalyzer:
         # Step 1: Extract questions from PDF
         print("Extracting questions from PDF...")
         pdf_parser = PDFParser(exam_pdf)
-        questions = pdf_parser.extract_questions()
+        _ = pdf_parser.extract_questions()
 
         # Step 2: Get answer key (try JSON file first, then PDF)
         if not self.analysis_engine.answer_key:
@@ -174,7 +173,7 @@ class CISSPAnalyzer:
         print(f"Analyzing {student_name}: Exam {exam_number}")
         print("  Extracting questions from PDF...")
         pdf_parser = PDFParser(exam_pdf)
-        questions = pdf_parser.extract_questions()
+        _ = pdf_parser.extract_questions()
 
         # Step 3: Get answer key (try JSON file first, then PDF)
         if not self.analysis_engine.answer_key:

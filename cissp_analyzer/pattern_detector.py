@@ -61,7 +61,8 @@ class PatternDetector:
 
         if invalid_indices:
             raise ValueError(
-                f"Invalid question indices {invalid_indices} for {total} questions in topic '{topic}'"
+                f"Invalid question indices {invalid_indices} for {total} questions "
+                f"in topic '{topic}'"
             )
 
         correct = total - len(wrong_question_ids)

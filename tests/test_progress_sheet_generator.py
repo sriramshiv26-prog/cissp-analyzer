@@ -1,5 +1,4 @@
 import pytest
-from openpyxl import Workbook
 from cissp_analyzer.progress_sheet_generator import ProgressSheetGenerator
 
 
