@@ -34,9 +34,9 @@ Output:
 
 ---
 
-## Quick Start (5 Minutes)
+## Quick Start (10 Minutes)
 
-### 1. Install (2 minutes)
+### Step 1: Install (2 minutes)
 
 **On Mac:**
 ```bash
@@ -68,29 +68,66 @@ pip install -r requirements.txt
 pytest -v
 ```
 
-### 2. Run (1 minute)
+### Step 2: Verify Setup (1 minute)
 
 ```bash
+python3 check_setup.py
+```
+
+This checks that all dependencies, directories, and files are ready. You should see all checks passed.
+
+### Step 3: Choose Your Path (7 minutes)
+
+**FIRST TIME?** Try with included example files:
+```bash
 python3 analyze.py
+# Select: [2] Standalone Analysis
+# When asked for exam PDF: exams/practice_test_1_mapping.json
+# When asked for student answers: EXAMPLE_student_answers.xlsx
+# Check the generated report in outputs/
 ```
 
-**Then follow the interactive menu to:**
-- Select analysis mode (single or comparative)
-- Provide exam PDF
-- Provide student answers Excel
-- Select output location
-
-**Output:**
+**HAVE YOUR OWN FILES?** Prepare these first:
+1. **Exam PDF** - Your test file with questions and answers
+2. **Student Answers Excel** - See EXAMPLE_student_answers.xlsx for format
+3. Then run:
+```bash
+python3 analyze.py
+# Select: [2] Standalone Analysis (for single student)
+# OR      [1] Batch Analysis (for multiple students)
+# Provide file paths when prompted
 ```
-outputs/CISSP_Individual_Report_John_Doe.xlsx  ← Open this file!
+
+**RUNNING A FULL CLASS?**
+1. Prepare student roster (see FORMATS_AND_TEMPLATES_GUIDE.md)
+2. Set up folder structure (see TEMPLATE_directory_structure.md)
+3. Run:
+```bash
+python3 analyze.py
+# Select: [1] Batch Analysis
+# OR      [3] Full Batch Workflow (includes validation + auto-fix)
 ```
 
-### 3. View Results (1 minute)
+### Step 4: View Results (1 minute)
 
-Open the Excel file in:
+Open the generated Excel file in:
 - Microsoft Excel
 - Google Sheets
 - LibreOffice Calc
+
+---
+
+## Main Menu Options Explained
+
+When you run `python3 analyze.py`, you see 3 choices:
+
+| Option | Use Case | Input |
+|--------|----------|-------|
+| **[1] Batch Analysis** | Multiple students in one exam | Exam PDF + Excel with multiple students |
+| **[2] Standalone Analysis** | Single student, one-time exam | Exam PDF + Single student answers |
+| **[3] Full Batch Workflow** | Complete pipeline with validation | Same as [1] + auto-fix + consolidation |
+
+Choose based on your needs. See section above for examples.
 
 ---
 
@@ -203,27 +240,28 @@ outputs/CISSP_Class_Report.xlsx  ← Compare all students
 
 ## Files You Need
 
-### 1. Exam PDF
-- Questions and answers
-- Standard format
-- Example: `downloads/exam.pdf`
+### MINIMUM (To Run Any Analysis)
+1. **Exam PDF** - Your test file with questions (example: `exam.pdf`)
+2. **Student Answers Excel** - Student responses in Excel format (see EXAMPLE_student_answers.xlsx)
 
-### 2. Student Answers Excel
-- Column headers = student names
-- Rows = answers (A, B, C, or D)
-- Example:
+### OPTIONAL (For Advanced Features)
+3. **Domain Mapping JSON** - Already included for CISSP exams
+4. **student_roster.json** - Only needed for [1] Batch Analysis option
 
-| John Doe | Jane Smith |
-|----------|-----------|
-| A | B |
-| B | A |
-| C | C |
-| D | D |
+### Correct Excel Format
 
-### 3. (Optional) Domain Mapping
-- Already provided for CISSP
-- JSON file with question metadata
-- Can customize for other exams
+**Column headers = Student names, Rows = Answers (A/B/C/D)**
+
+Example:
+| Question | John Doe | Jane Smith |
+|----------|----------|-----------|
+| Q1 | A | B |
+| Q2 | B | A |
+| Q3 | C | C |
+| Q4 | D | D |
+
+**See EXAMPLE_student_answers.xlsx for real example**
+**See FORMATS_AND_TEMPLATES_GUIDE.md for all accepted formats**
 
 ---
 
@@ -309,6 +347,7 @@ A: Yes! Open source, MIT licensed.
 ```
 cissp-analyzer/
 ├── README.md                                  ← You are here
+├── check_setup.py                            ← RUN THIS FIRST! (verify setup)
 ├── INSTALLATION_COMMANDS.md                   ← Platform-specific setup
 ├── QUICK_SETUP_CARD.txt                      ← 7-step quick start
 ├── DOCUMENTATION_INDEX.md                    ← Master documentation index
@@ -319,6 +358,8 @@ cissp-analyzer/
 ├── requirements.txt                          ← Dependencies
 ├── analyze.py                                ← Main entry point (run this!)
 ├── analyze_standalone.py                     ← Standalone analysis mode
+├── analyze_dec25.py                          ← Dec-25 batch analysis (pre-configured)
+├── analyze_july26.py                         ← July-26 batch analysis (pre-configured)
 │
 ├── cissp_analyzer/                           ← Source code modules
 │   ├── pdf_parser.py                         ← Reads exam PDF
@@ -337,10 +378,12 @@ cissp-analyzer/
 │
 ├── EXAMPLE_answer_key.json                   ← 30 sample questions (JSON)
 ├── EXAMPLE_answer_key.csv                    ← 30 sample questions (CSV)
-├── EXAMPLE_student_answers.xlsx              ← 4 students, 20 questions
+├── EXAMPLE_student_answers.xlsx              ← 4 students, 20 questions (USE THIS!)
+├── EXAMPLE_FILES_HOW_TO_USE.md               ← How to expand examples
 ├── TEMPLATE_answer_key.json                  ← Blank JSON template
 ├── TEMPLATE_student_answers.md               ← Excel format guide
 ├── TEMPLATE_directory_structure.md           ← Project setup guide
+├── TEMPLATE_REFERENCE.txt                    ← Template overview
 │
 └── tests/                                    ← Test suite (277 tests)
     ├── test_environment_validation.py
@@ -374,9 +417,73 @@ Output:
 
 ---
 
+## Troubleshooting
+
+### Problem: "FileNotFoundError: student_roster.json"
+**Cause:** You selected [1] Batch Analysis but don't have the batch setup files.
+**Solution:** 
+1. For first-time use, select [2] Standalone Analysis instead
+2. For batch analysis, read [TEMPLATE_directory_structure.md](TEMPLATE_directory_structure.md)
+
+### Problem: "FileNotFoundError: No such file or directory: 'exam.pdf'"
+**Cause:** The exam PDF doesn't exist at the path you provided.
+**Solution:**
+1. Check the file path is correct
+2. Make sure the file exists: `ls -la path/to/file.pdf`
+3. Try using the full path: `/Users/yourname/Downloads/exam.pdf`
+
+### Problem: "FileNotFoundError: (Errno 2) No such file or directory: '.../answers.xlsx'"
+**Cause:** The student answers Excel file doesn't exist.
+**Solution:**
+1. Check the file path is correct
+2. Try using EXAMPLE_student_answers.xlsx first to verify the format
+3. Make sure your Excel file matches the format in [FORMATS_AND_TEMPLATES_GUIDE.md](FORMATS_AND_TEMPLATES_GUIDE.md)
+
+### Problem: "KeyError: column 'StudentName' not found"
+**Cause:** Column names in Excel don't match student names in the mapping.
+**Solution:**
+1. Open EXAMPLE_student_answers.xlsx and check the format
+2. Make sure your Excel column headers are student names
+3. See [FORMATS_AND_TEMPLATES_GUIDE.md](FORMATS_AND_TEMPLATES_GUIDE.md) for details
+
+### Problem: "pytest shows fewer than 277 passed"
+**Cause:** Some tests are being skipped (usually 4 skipped is normal).
+**Solution:**
+1. Run: `pytest -v` to see details
+2. 277 passed + 4 skipped = healthy test suite
+3. If you see failures, check your Python version: `python3 --version` (need 3.9+)
+
+### Before Asking for Help
+
+Run these checks:
+```bash
+# 1. Verify setup
+python3 check_setup.py
+
+# 2. Verify tests pass
+pytest -v
+
+# 3. Check Python version
+python3 --version
+
+# 4. Check required packages
+pip list | grep -E "pandas|openpyxl|pypdf"
+
+# 5. Verify file exists
+ls -la your_exam_file.pdf
+ls -la your_student_answers.xlsx
+```
+
+If all pass and you still have issues:
+1. Read [FORMATS_AND_TEMPLATES_GUIDE.md](FORMATS_AND_TEMPLATES_GUIDE.md) for file format help
+2. Check [DOCUMENTATION_INDEX.md](DOCUMENTATION_INDEX.md) for more resources
+3. Open an issue on GitHub with the error message
+
+---
+
 ## Installation Issues?
 
-If you get stuck:
+If you get stuck during installation:
 1. Make sure Python 3.9+ is installed: `python3 --version`
 2. Make sure pip is installed: `python3 -m pip --version`
 3. Reinstall packages: `pip install -r requirements.txt --force-reinstall`
