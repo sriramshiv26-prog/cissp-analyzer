@@ -71,13 +71,14 @@ pytest -v
 ### 2. Run (1 minute)
 
 ```bash
-python3 run.py "exam.pdf" "answers.xlsx" "Student Name" "outputs/"
+python3 analyze.py
 ```
 
-**Example:**
-```bash
-python3 run.py "downloads/June_21st_Test.pdf" "downloads/answers.xlsx" "John Doe" "outputs/"
-```
+**Then follow the interactive menu to:**
+- Select analysis mode (single or comparative)
+- Provide exam PDF
+- Provide student answers Excel
+- Select output location
 
 **Output:**
 ```
@@ -118,17 +119,20 @@ Track student progress across multiple exams and get adaptive study recommendati
 
 ### First Exam (Baseline)
 ```bash
-python3 run.py "exam.pdf" "answers.xlsx" "Student Name" "outputs/"
+python3 analyze.py
+# Select: Standalone Analysis → Single Student Mode
 ```
 
 Output:
 ```
-outputs/Mock1_2026-06-28_StudentName.xlsx  ← Named with date & student
+outputs/CISSP_Individual_Report_StudentName.xlsx
 ```
 
 ### Second Exam (Progress Tracking)
 ```bash
-python3 run.py "exam.pdf" "answers2.xlsx" "Student Name" "outputs/"
+python3 analyze.py
+# Select: Standalone Analysis → Comparative Mode (with history)
+# Tool auto-detects previous exam and tracks progress
 ```
 
 The tool automatically detects prior exams and adds:
@@ -168,29 +172,31 @@ The adaptive recommendation engine:
 
 ---
 
-## Multiple Students
+## Multiple Students / Batch Analysis
 
-Analyze 3 students at once:
+Analyze multiple students at once:
 
 ```bash
-python3 run.py "exam.pdf" "answers.xlsx" "John,Jane,Bob" "outputs/"
+python3 analyze.py
+# Select: Batch Analysis (Multiple students in cohort)
+# Provide exam PDF and student answers Excel file
 ```
 
-Output:
+Output (one report per student):
 ```
 outputs/CISSP_Individual_Report_John.xlsx
 outputs/CISSP_Individual_Report_Jane.xlsx
 outputs/CISSP_Individual_Report_Bob.xlsx
-outputs/CISSP_Class_Analysis.xlsx  ← Compare all students
+outputs/CISSP_Class_Report.xlsx  ← Compare all students
 ```
 
 ---
 
 ## Requirements
 
-- **Python:** 3.11 or higher
+- **Python:** 3.9, 3.10, 3.11, or 3.12
 - **Packages:** pandas, openpyxl, pypdf (auto-installed via `pip install -r requirements.txt`)
-- **Time:** Installation = 2 min, Analysis = 5 sec per student
+- **Time:** Installation = 2 min, Analysis = 10-15 sec per exam
 - **AI:** None needed - pure data analysis
 
 ---
@@ -223,16 +229,17 @@ outputs/CISSP_Class_Analysis.xlsx  ← Compare all students
 
 ## Detailed Setup
 
-**Full instructions for each platform:**
-- 👉 **Windows setup:** See [INSTALLATION.md](INSTALLATION.md)
-- 👉 **Mac setup:** See [INSTALLATION.md](INSTALLATION.md)
-- 👉 **Linux setup:** See [INSTALLATION.md](INSTALLATION.md)
+**Platform-specific installation commands:**
+- 👉 See [INSTALLATION_COMMANDS.md](INSTALLATION_COMMANDS.md) for macOS, Windows (CMD), and Windows (PowerShell)
 
-**Quick reference:**
-- 👉 See [QUICKSTART.md](QUICKSTART.md)
+**Quick reference card (printable):**
+- 👉 See [QUICK_SETUP_CARD.txt](QUICK_SETUP_CARD.txt)
 
-**Step-by-step GitHub push:**
-- 👉 See [GITHUB_PUSH_STEPS.txt](GITHUB_PUSH_STEPS.txt)
+**Complete documentation index:**
+- 👉 See [DOCUMENTATION_INDEX.md](DOCUMENTATION_INDEX.md) for all guides and learning paths
+
+**Download templates and examples:**
+- 👉 See [WHERE_TO_DOWNLOAD_TEMPLATES.md](WHERE_TO_DOWNLOAD_TEMPLATES.md)
 
 ---
 
@@ -255,19 +262,23 @@ outputs/CISSP_Class_Analysis.xlsx  ← Compare all students
 
 ## Test Coverage
 
-All components are tested:
+All components are thoroughly tested:
 ```bash
 pytest -v
-# Result: 26 passed, 3 skipped (skipped = need full Excel data)
+# Result: 277 passed, 4 skipped (comprehensive coverage across all modules)
 ```
 
 Tests cover:
-- ✅ PDF extraction
-- ✅ Excel parsing
-- ✅ Question mapping
-- ✅ Performance analysis
-- ✅ Report generation
-- ✅ Real exam data
+- ✅ Environment validation (12 tests)
+- ✅ PDF extraction & parsing
+- ✅ Excel parsing (multiple formats)
+- ✅ Question mapping & metadata
+- ✅ Performance analysis (5 dimensions)
+- ✅ Report generation (7-sheet format)
+- ✅ Error handling & edge cases (15+ scenarios)
+- ✅ Input format variations (40+ formats)
+- ✅ Integration across all modules
+- ✅ Performance benchmarks
 
 ---
 
@@ -297,28 +308,48 @@ A: Yes! Open source, MIT licensed.
 
 ```
 cissp-analyzer/
-├── README.md                          ← You are here
-├── INSTALLATION.md                    ← Setup instructions
-├── QUICKSTART.md                      ← Quick reference
-├── GITHUB_PUSH_STEPS.txt             ← GitHub upload guide
-├── requirements.txt                   ← Dependencies (pandas, openpyxl, pypdf)
-├── run.py                            ← Main program (run this!)
+├── README.md                                  ← You are here
+├── INSTALLATION_COMMANDS.md                   ← Platform-specific setup
+├── QUICK_SETUP_CARD.txt                      ← 7-step quick start
+├── DOCUMENTATION_INDEX.md                    ← Master documentation index
+├── WORKFLOW_OVERVIEW.md                      ← 5-step process explanation
+├── FORMATS_AND_TEMPLATES_GUIDE.md            ← All input formats
+├── NAMING_CONVENTIONS_AND_FORMATS.md         ← Naming rules
+├── WHERE_TO_DOWNLOAD_TEMPLATES.md            ← Download guide
+├── requirements.txt                          ← Dependencies
+├── analyze.py                                ← Main entry point (run this!)
+├── analyze_standalone.py                     ← Standalone analysis mode
 │
-├── cissp_analyzer/                   ← Source code
-│   ├── pdf_parser.py                 ← Reads exam PDF
-│   ├── excel_parser.py               ← Reads student answers
-│   ├── domain_mapper.py              ← Question metadata
-│   ├── analysis_engine.py            ← Performance analysis
-│   ├── individual_report_gen.py      ← Creates 7-sheet report
-│   ├── class_report_gen.py           ← Compares students
-│   └── main.py                       ← Orchestrator
+├── cissp_analyzer/                           ← Source code modules
+│   ├── pdf_parser.py                         ← Reads exam PDF
+│   ├── excel_parser.py                       ← Reads student answers
+│   ├── domain_mapper.py                      ← Question metadata
+│   ├── analysis_engine.py                    ← Performance analysis
+│   ├── adaptive_plan_generator.py            ← Study recommendations
+│   ├── individual_report_gen.py              ← Creates 7-sheet report
+│   ├── class_report_gen.py                   ← Compares students
+│   ├── interactive_cli.py                    ← CLI interface
+│   ├── main.py                               ← Orchestrator
+│   └── dependency_checker.py                 ← Environment validation
 │
-├── data/                             ← Question mappings
-│   ├── question_domain_mapping.json  ← 125 CISSP questions
-│   └── practice_test_1_mapping.json  ← 107 practice questions
+├── data/                                     ← Question mappings
+│   └── question_domain_mapping.json          ← 125 CISSP questions
 │
-└── tests/                            ← Test suite (26 tests)
-    └── test_*.py                     ← All components tested
+├── EXAMPLE_answer_key.json                   ← 30 sample questions (JSON)
+├── EXAMPLE_answer_key.csv                    ← 30 sample questions (CSV)
+├── EXAMPLE_student_answers.xlsx              ← 4 students, 20 questions
+├── TEMPLATE_answer_key.json                  ← Blank JSON template
+├── TEMPLATE_student_answers.md               ← Excel format guide
+├── TEMPLATE_directory_structure.md           ← Project setup guide
+│
+└── tests/                                    ← Test suite (277 tests)
+    ├── test_environment_validation.py
+    ├── test_analysis_engine.py
+    ├── test_adaptive_plan_generator.py
+    ├── test_input_formats.py
+    ├── test_error_handling.py
+    ├── test_integration.py
+    └── ... (additional test modules)
 ```
 
 ---
@@ -346,10 +377,10 @@ Output:
 ## Installation Issues?
 
 If you get stuck:
-1. Make sure Python 3.11+ is installed: `python3 --version`
+1. Make sure Python 3.9+ is installed: `python3 --version`
 2. Make sure pip is installed: `python3 -m pip --version`
 3. Reinstall packages: `pip install -r requirements.txt --force-reinstall`
-4. See [INSTALLATION.md](INSTALLATION.md) for detailed troubleshooting
+4. See [INSTALLATION_COMMANDS.md](INSTALLATION_COMMANDS.md) for detailed platform-specific troubleshooting
 
 ---
 
@@ -361,15 +392,17 @@ MIT License - Free to use for any purpose
 
 ## Questions?
 
-- 📖 Read [INSTALLATION.md](INSTALLATION.md) for setup
-- 📖 Read [QUICKSTART.md](QUICKSTART.md) for examples
+- 📖 Read [INSTALLATION_COMMANDS.md](INSTALLATION_COMMANDS.md) for platform-specific setup
+- 📖 Read [QUICK_SETUP_CARD.txt](QUICK_SETUP_CARD.txt) for quick start (printable)
+- 📖 Read [FORMATS_AND_TEMPLATES_GUIDE.md](FORMATS_AND_TEMPLATES_GUIDE.md) for data format help
+- 📖 Read [DOCUMENTATION_INDEX.md](DOCUMENTATION_INDEX.md) for complete guide index
 - 📖 Check test files (`tests/`) for code examples
 - 🐛 Open an issue if something doesn't work
 
 ---
 
-**Ready to analyze exams? Run:** `python3 run.py exam.pdf answers.xlsx "Name" outputs/`
+**Ready to analyze exams? Run:** `python3 analyze.py`
 
 ---
 
-**Version:** 1.0 | **Last Updated:** June 25, 2026 | **Built with Python**
+**Version:** 1.0 | **Last Updated:** July 5, 2026 | **Tests:** 277/277 Passing | **Status:** Production Ready
