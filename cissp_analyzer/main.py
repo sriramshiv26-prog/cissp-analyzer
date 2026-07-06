@@ -126,8 +126,13 @@ class CISSPAnalyzer:
             ...
         }
         """
-        with open(json_file, "r") as f:
-            answer_key = json.load(f)
+        try:
+            with open(json_file, "r") as f:
+                answer_key = json.load(f)
+        except FileNotFoundError:
+            raise FileNotFoundError(f"Answer key file not found: {json_file}")
+        except json.JSONDecodeError as e:
+            raise ValueError(f"Invalid JSON in answer key file: {str(e)}")
 
         # Convert string keys to integers if needed
         normalized_key = {}

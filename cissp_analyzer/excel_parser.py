@@ -9,6 +9,16 @@ class ExcelParser:
     """Parses student answer Excel files with support for multi-part answers"""
 
     @staticmethod
+    def _find_column_case_insensitive(
+        df_columns: List[str], target_name: str
+    ) -> Optional[str]:
+        """Find column name in dataframe columns (case-insensitive)"""
+        for col in df_columns:
+            if col.lower() == target_name.lower():
+                return col
+        return None
+
+    @staticmethod
     def normalize_answer(answer_str: str) -> Optional[str]:
         """
         Normalize multi-part and single answers to consistent format.
@@ -78,14 +88,21 @@ class ExcelParser:
 
         df.columns = df.columns.str.strip()
 
-        # Verify required columns
-        if "Question" not in df.columns:
+        # Find question column (case-insensitive)
+        question_col = self._find_column_case_insensitive(
+            df.columns.tolist(), "Question"
+        )
+        if not question_col:
             available = ", ".join(df.columns.tolist())
             raise ValueError(
                 f"Excel must have 'Question' column. Available columns: {available}"
             )
 
-        if student_name not in df.columns:
+        # Find student column (case-insensitive)
+        student_col = self._find_column_case_insensitive(
+            df.columns.tolist(), student_name
+        )
+        if not student_col:
             available = ", ".join(df.columns.tolist())
             raise ValueError(
                 f"Excel must have column for student '{student_name}'. "
@@ -98,15 +115,15 @@ class ExcelParser:
         answers = []
         for row_idx, (_, row) in enumerate(df.iterrows(), start=2):
             try:
-                q_number = int(row["Question"])
+                q_number = int(row[question_col])
             except (ValueError, TypeError):
-                q_val = row["Question"]
+                q_val = row[question_col]
                 raise ValueError(
                     f"Invalid question number in row {row_idx}: {q_val}. "
                     "Expected integer."
                 )
 
-            raw_answer = row[student_name]
+            raw_answer = row[student_col]
 
             # Normalize the answer
             selected_answer = self.normalize_answer(raw_answer)

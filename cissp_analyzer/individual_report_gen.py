@@ -1,4 +1,5 @@
 from typing import Optional, List, Dict, Tuple
+from datetime import datetime
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment
 from cissp_analyzer.models import StudentPerformance
@@ -111,7 +112,8 @@ class IndividualReportGenerator:
         )
 
         # Exam date
-        ws["A3"] = "Exam Date: June 21, 2026 | Report Generated: June 25, 2026"
+        today = datetime.now().strftime("%B %d, %Y")
+        ws["A3"] = f"Report Generated: {today}"
 
         # Score section
         ws["A5"] = "YOUR SCORE"

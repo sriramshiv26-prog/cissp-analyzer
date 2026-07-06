@@ -13,6 +13,7 @@ Then choose:
 
 import sys
 import json
+import re
 from pathlib import Path
 
 
@@ -22,6 +23,16 @@ def show_welcome():
     print("CISSP EXAM ANALYZER")
     print("=" * 80)
     print()
+
+
+def validate_batch_name(batch_name):
+    """Validate batch name to prevent injection attacks"""
+    if not re.match(r"^[a-z0-9_-]+$", batch_name.lower()):
+        raise ValueError(
+            f"Invalid batch name: '{batch_name}'. "
+            "Use only lowercase letters, numbers, hyphens, and underscores."
+        )
+    return batch_name
 
 
 def show_menu():
@@ -67,6 +78,12 @@ def batch_analysis():
 
     if not batch_name:
         print("❌ Batch name required")
+        return False
+
+    try:
+        validate_batch_name(batch_name)
+    except ValueError as e:
+        print(f"❌ {str(e)}")
         return False
 
     # Run appropriate analysis script
@@ -141,6 +158,12 @@ def full_batch_workflow():
 
     if not batch_name:
         print("❌ Batch name required")
+        return False
+
+    try:
+        validate_batch_name(batch_name)
+    except ValueError as e:
+        print(f"❌ {str(e)}")
         return False
 
     print(f"\n⚙️  Starting full workflow for batch: {batch_name}")
