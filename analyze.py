@@ -15,6 +15,7 @@ import sys
 import json
 import re
 from pathlib import Path
+from setup_wizard import run_setup_wizard
 
 
 def show_welcome():
@@ -84,6 +85,12 @@ def batch_analysis():
         validate_batch_name(batch_name)
     except ValueError as e:
         print(f"❌ {str(e)}")
+        return False
+
+    # Run setup wizard to check files
+    print()
+    if not run_setup_wizard(batch_name):
+        print("\n❌ Setup validation failed. Please fix the issues above and try again.")
         return False
 
     # Run appropriate analysis script
@@ -164,6 +171,12 @@ def full_batch_workflow():
         validate_batch_name(batch_name)
     except ValueError as e:
         print(f"❌ {str(e)}")
+        return False
+
+    # Run setup wizard to check files
+    print()
+    if not run_setup_wizard(batch_name):
+        print("\n❌ Setup validation failed. Please fix the issues above and try again.")
         return False
 
     print(f"\n⚙️  Starting full workflow for batch: {batch_name}")

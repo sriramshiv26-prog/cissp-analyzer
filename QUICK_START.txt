@@ -1,0 +1,193 @@
+================================================================================
+                   CISSP ANALYZER - QUICK START CARD
+================================================================================
+
+PROBLEM YOU ASKED FOR:
+  "The tool is looking for files but never asked me where to upload them"
+
+SOLUTION DELIVERED:
+  ✅ Interactive Setup Wizard — Guides you step-by-step
+  ✅ Auto-Creates Templates — No manual file setup needed
+  ✅ Shows Exact File Paths — Tells you WHERE to put everything
+  ✅ Provides Format Examples — Shows HOW to format your data
+  ✅ Validates Before Running — Checks all files exist first
+
+================================================================================
+                              HOW TO USE
+================================================================================
+
+1. RUN THE ANALYZER:
+   $ python3 analyze.py
+
+2. CHOOSE AN OPTION:
+   [1] Batch Analysis
+   [2] Standalone Analysis
+   [3] Full Batch Workflow
+
+3. ENTER BATCH NAME:
+   Enter batch name (e.g., dec25, july26, aug26): july12
+
+4. FOLLOW THE SETUP WIZARD:
+   The wizard will:
+   ✓ Create student_roster.json (if missing)
+   ✓ Create directory structure
+   ✓ Check for exam PDFs
+   ✓ Check for answer files
+   ✓ Tell you EXACTLY what's missing and where to put it
+
+5. PLACE YOUR FILES:
+   Follow the wizard's instructions to:
+   • Copy exam PDF → exams/july12_exam.pdf
+   • Create student answers → answers/july12/*.json
+
+6. RUN AGAIN:
+   $ python3 analyze.py
+   Same steps, but this time all files will be found!
+
+================================================================================
+                         WHAT GETS CREATED FOR YOU
+================================================================================
+
+✅ student_roster.json
+   Auto-created template with sample students
+   Edit to add your real students
+
+✅ exams/ directory
+   For your exam PDFs (auto-created if missing)
+
+✅ answers/{batch_name}/ directory
+   For student answer files (auto-created if missing)
+
+✅ reports/ directory
+   Where analysis results will be saved (auto-created if missing)
+
+================================================================================
+                           FILE FORMAT REFERENCE
+================================================================================
+
+STUDENT ROSTER (student_roster.json):
+{
+  "batches": {
+    "july12": {
+      "name": "July 12, 2026 Batch",
+      "students": [
+        {"id": "S001", "name": "John Doe", "email": "john@example.com"},
+        {"id": "S002", "name": "Jane Smith", "email": "jane@example.com"}
+      ],
+      "exam_file": "exams/july12_exam.pdf",
+      "answer_dir": "answers/july12"
+    }
+  }
+}
+
+STUDENT ANSWERS (answers/july12/john_doe.json):
+{
+  "student_name": "John Doe",
+  "student_id": "S001",
+  "answers": {
+    "Q1": "A",
+    "Q2": "B",
+    "Q3": "C"
+  }
+}
+
+EXAM PDF FILE:
+exams/july12_exam.pdf  ← Just place your PDF here with this name
+
+================================================================================
+                         DOCUMENTATION REFERENCE
+================================================================================
+
+NEW FILES CREATED:
+
+1. SETUP_GUIDE.md
+   → Complete setup workflow with scenarios
+   → Common issues and fixes
+   → File format examples
+
+2. FILE_FORMAT_REFERENCE.md
+   → Visual file tree
+   → Detailed format specifications
+   → Setup checklist
+
+3. setup_wizard.py
+   → The automation behind the guidance
+   → Validates and creates files
+
+4. SETUP_WIZARD_IMPROVEMENTS.md
+   → Before/after comparison
+   → What changed and why
+   → Feature breakdown
+
+START HERE:
+  1. README.md → Get overview
+  2. QUICK_START.txt → This file (what to do first)
+  3. SETUP_GUIDE.md → Detailed instructions
+  4. FILE_FORMAT_REFERENCE.md → File format details
+
+================================================================================
+                           COMMON WORKFLOWS
+================================================================================
+
+NEW BATCH (First Time):
+  $ python3 analyze.py
+  → Choose [3] Full Batch Workflow
+  → Enter: july12
+  → Follow wizard's instructions
+  → Place files in suggested directories
+  → Run again when ready
+
+EXISTING BATCH (Already Have Files):
+  $ python3 analyze.py
+  → Choose [1] Batch Analysis
+  → Enter: july12
+  → Wizard validates files
+  → Analysis starts!
+
+ONE STUDENT (Standalone):
+  $ python3 analyze.py
+  → Choose [2] Standalone Analysis
+  → No files needed! Answer prompts interactively
+  → Analysis runs immediately
+
+================================================================================
+                            TROUBLESHOOTING
+================================================================================
+
+❌ "student_roster.json not found"
+   ✅ Run analyze.py → wizard creates it automatically
+
+❌ "No exam PDFs found"
+   ✅ Wizard shows where to put the PDF
+   ✅ Name format: exams/{batch_name}_exam.pdf
+
+❌ "No answer files found"
+   ✅ Wizard shows where to put answer files
+   ✅ Location: answers/{batch_name}/*.json
+   ✅ Check FILE_FORMAT_REFERENCE.md for format
+
+❌ "student_roster.json is corrupted"
+   ✅ Delete it and run analyze.py to recreate
+
+❌ Need format examples?
+   ✅ Read: FILE_FORMAT_REFERENCE.md
+   ✅ Or ask the wizard (it shows examples!)
+
+================================================================================
+                              NEXT STEPS
+================================================================================
+
+1. Run: python3 analyze.py
+2. Follow the setup wizard
+3. Place your files in suggested directories
+4. Run again when ready
+5. Check reports/ for results
+
+That's it! The wizard guides you through every step.
+
+For detailed help:
+  • Setup: Read SETUP_GUIDE.md
+  • Formats: Read FILE_FORMAT_REFERENCE.md
+  • Changes: Read SETUP_WIZARD_IMPROVEMENTS.md
+
+================================================================================

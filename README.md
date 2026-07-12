@@ -76,7 +76,24 @@ python3 check_setup.py
 
 This checks that all dependencies, directories, and files are ready. You should see all checks passed.
 
-### Step 3: Choose Your Path (7 minutes)
+### Step 3: Run the Analyzer with Setup Wizard (7 minutes)
+
+```bash
+python3 analyze.py
+```
+
+**That's it!** The setup wizard will:
+- ✅ Check if all files exist
+- ✅ Create `student_roster.json` template if missing
+- ✅ Guide you to place exam PDFs and answer files
+- ✅ Tell you exactly what's needed and where to put it
+- ✅ Start analysis automatically once files are ready
+
+**Detailed Setup Help:** See [SETUP_GUIDE.md](SETUP_GUIDE.md)
+
+---
+
+### Step 4: Choose Your Analysis Path
 
 **FIRST TIME?** Try with included example files:
 ```bash

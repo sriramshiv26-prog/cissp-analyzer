@@ -1,0 +1,25 @@
+{
+  "batches": {
+    "standalone": {
+      "name": "Standalone (One-time exams)",
+      "students": []
+    },
+    "july12": {
+      "name": "July 12, 2026 Batch",
+      "students": [
+        {
+          "id": "S001",
+          "name": "Student Name 1",
+          "email": "student1@example.com"
+        },
+        {
+          "id": "S002",
+          "name": "Student Name 2",
+          "email": "student2@example.com"
+        }
+      ],
+      "exam_file": "exams/july12_exam.pdf",
+      "answer_dir": "answers/july12"
+    }
+  }
+}
