@@ -1,0 +1,11 @@
+{
+  "exam_name": "CISSP_July_2026_FINAL",
+  "created": "2026-07-13T18:02:40.106467",
+  "structure": {
+    "questions": "Question PDFs",
+    "answer_keys": "Answer key JSON files",
+    "student_answers": "Student answer Excel files",
+    "reports": "Generated reports",
+    "logs": "Analysis logs"
+  }
+}

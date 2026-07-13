@@ -99,7 +99,7 @@ class AnswerKeyManager:
 
     def extract_from_pdf(self, pdf_path: str) -> Tuple[Dict[int, str], ConfidenceReport]:
         """
-        Extract answer key from PDF
+        Extract answer key from PDF using robust line-by-line parsing
 
         Args:
             pdf_path: Path to PDF file
@@ -116,15 +116,23 @@ class AnswerKeyManager:
                 for page in pdf_reader.pages:
                     all_text += page.extract_text()
 
-            # Extract answers using regex
+            # Extract answers using line-by-line parsing (robust against whitespace/encoding)
             answers = []
             lines = all_text.split("\n")
 
             for line in lines:
-                if "correct" in line.lower() and "answer" in line.lower():
-                    for letter in ["A", "B", "C", "D"]:
-                        if letter in line:
-                            answers.append(letter)
+                line_lower = line.lower()
+                # Look for lines containing both "correct" and "answer"
+                if "correct" in line_lower and "answer" in line_lower:
+                    # Find position of "answer" keyword
+                    answer_pos = line_lower.find("answer")
+                    # Look at next 50 characters after "answer" keyword
+                    search_window = line[answer_pos:answer_pos + 50]
+
+                    # Find first A/B/C/D in that window
+                    for char in search_window:
+                        if char in "ABCD":
+                            answers.append(char)
                             report.pattern_matches += 1
                             break
 
