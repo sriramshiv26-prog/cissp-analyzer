@@ -46,3 +46,7 @@ class StudentPerformance:
     by_question_type: dict
     by_exam_trick: dict
     wrong_question_ids: list
+    # Validation statistics (NEW)
+    blank_count: int = 0  # Blank/unanswered questions
+    invalid_count: int = 0  # Typos/invalid format
+    validation_warnings: list = None  # List of warning messages

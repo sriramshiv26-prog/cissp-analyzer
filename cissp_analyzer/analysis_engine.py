@@ -2,15 +2,17 @@ from typing import List, Dict, Optional
 from collections import defaultdict
 from cissp_analyzer.models import StudentAnswer, StudentPerformance
 from cissp_analyzer.domain_mapper import DomainMapper
+from cissp_analyzer.answer_validator import AnswerValidator
 
 
 class AnalysisEngine:
-    """Core multi-dimensional analysis engine"""
+    """Core multi-dimensional analysis engine with intelligent answer validation"""
 
     def __init__(self, domain_mapper: DomainMapper):
         self.mapper = domain_mapper
         self.answer_key: Dict[int, str] = {}
         self.student_results: Dict[str, Dict] = {}  # Store results for each student
+        self.validator = AnswerValidator()  # Initialize answer validator
 
     def set_answer_key(self, answer_key: Dict[int, str]):
         """Set the correct answer for each question"""
@@ -19,18 +21,54 @@ class AnalysisEngine:
     def evaluate_student(
         self, answers: List[StudentAnswer], student_name: str
     ) -> StudentPerformance:
-        """Evaluate a student's performance across all dimensions"""
+        """Evaluate a student's performance across all dimensions with answer validation"""
 
-        # Mark answers as correct/incorrect
+        # Step 1: Validate all answers for edge cases
+        answer_dict = {a.question_number: a.selected_answer for a in answers}
+        validated_answers = AnswerValidator.validate_batch(answer_dict)
+        validation_report = AnswerValidator.get_report(validated_answers)
+
+        # Step 2: Mark answers as correct/incorrect (using validated/normalized answers)
+        blank_count = 0
+        invalid_count = 0
+
         for answer in answers:
             q_num = answer.question_number
-            if q_num in self.answer_key:
-                answer.is_correct = answer.selected_answer == self.answer_key[q_num]
+            validated = validated_answers.get(q_num)
 
-        # Count correct/wrong
+            # Handle blank answers differently (don't count as wrong)
+            if validated and validated.is_blank:
+                answer.is_correct = False
+                blank_count += 1
+                # Mark as blank for later reporting
+                answer.selected_answer = None
+                continue
+
+            # Handle invalid/typo answers (count as wrong, but note the issue)
+            if validated and validated.is_typo:
+                invalid_count += 1
+                # Use corrected answer if available
+                if validated.corrected_answer:
+                    answer.selected_answer = validated.corrected_answer
+                else:
+                    answer.is_correct = False
+                    continue
+
+            # Standard comparison with normalized answer
+            if q_num in self.answer_key:
+                # Use normalized/corrected answer for comparison
+                user_answer = (
+                    validated.normalized_input
+                    if validated and validated.normalized_input
+                    else answer.selected_answer
+                )
+                answer.is_correct = user_answer == self.answer_key[q_num]
+
+        # Step 3: Count correct/wrong (blanks and invalid count as wrong)
         correct_count = sum(1 for a in answers if a.is_correct)
-        wrong_count = len(answers) - correct_count
-        score_pct = (correct_count / len(answers)) * 100 if answers else 0
+        total_count = len(answers)
+        wrong_count = total_count - correct_count
+        score_pct = (correct_count / total_count) * 100 if total_count > 0 else 0
 
         # Get metadata for each question
         by_domain: defaultdict = defaultdict(lambda: {"correct": 0, "wrong": 0})
@@ -84,6 +122,9 @@ class AnalysisEngine:
             by_question_type=by_question_type_pct,
             by_exam_trick=by_exam_trick_pct,
             wrong_question_ids=wrong_question_ids,
+            blank_count=blank_count,
+            invalid_count=invalid_count,
+            validation_warnings=validation_report.get("warnings", []),
         )
 
         # Store results for later export
@@ -94,6 +135,8 @@ class AnalysisEngine:
             "by_difficulty": by_difficulty_pct,
             "by_question_type": by_question_type_pct,
             "wrong_question_ids": wrong_question_ids,
+            "validation_report": validation_report,
+            "validation_warnings": validation_report.get("warnings", []),
         }
 
         return performance
