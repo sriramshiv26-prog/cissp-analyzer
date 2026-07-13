@@ -9,6 +9,7 @@ for batch analysis. Creates templates and validates all inputs.
 import json
 import os
 from pathlib import Path
+from handle_sheet_variations import SheetVariationHandler
 
 
 def create_sample_roster():
@@ -175,8 +176,20 @@ def validate_batch_files(batch_name):
         errors.append(f"Answer directory missing: answers/{batch_name}/")
     else:
         answer_files = list(answer_dir.glob("*.json"))
-        if not answer_files:
-            errors.append(f"No answer files in: answers/{batch_name}/")
+        excel_files = list(answer_dir.glob("*.xlsx")) + list(answer_dir.glob("*.xls"))
+
+        if not answer_files and not excel_files:
+            errors.append(f"No answer files (JSON or Excel) in: answers/{batch_name}/")
+        elif excel_files and not answer_files:
+            # Check Excel sheet consistency
+            all_consistent, details = SheetVariationHandler.validate_sheet_consistency(
+                str(answer_dir)
+            )
+            if not all_consistent:
+                warnings.append(
+                    f"Excel files use {len(details['patterns_found'])} different sheet names. "
+                    f"Run: python3 handle_sheet_variations.py --batch {batch_name} --check"
+                )
 
     # Check student roster
     roster_path = Path("student_roster.json")
