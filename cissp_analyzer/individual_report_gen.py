@@ -20,7 +20,13 @@ class IndividualReportGenerator:
     COLOR_PASS = "0092D050"  # Green
     COLOR_WEAK = "00FF6B6B"  # Red
 
-    def __init__(self, domain_mapper: DomainMapper, analysis_engine: AnalysisEngine, student_answers: dict = None, answer_key: dict = None):
+    def __init__(
+        self,
+        domain_mapper: DomainMapper,
+        analysis_engine: AnalysisEngine,
+        student_answers: dict = None,
+        answer_key: dict = None,
+    ):
         self.mapper = domain_mapper
         self.engine = analysis_engine
         self.student_answers = student_answers or {}
@@ -260,7 +266,10 @@ class IndividualReportGenerator:
 
         row = 4
         # Sort with safe handling for mixed types
-        sorted_q_types = sorted(perf.by_question_type.items(), key=lambda x: (isinstance(x[0], str), str(x[0])))
+        sorted_q_types = sorted(
+            perf.by_question_type.items(),
+            key=lambda x: (isinstance(x[0], str), str(x[0])),
+        )
         for q_type, data in sorted_q_types:
             pct = data["percentage"]
             fill_color = self._get_status_color(pct)
@@ -364,7 +373,9 @@ class IndividualReportGenerator:
 
         row = 4
         # Sort domains with integers first, then strings (for "Unmapped")
-        sorted_domains = sorted(perf.by_domain.items(), key=lambda x: (isinstance(x[0], str), x[0]))
+        sorted_domains = sorted(
+            perf.by_domain.items(), key=lambda x: (isinstance(x[0], str), x[0])
+        )
         for domain_id, data in sorted_domains:
             pct = data["percentage"]
             fill_color = self._get_status_color(pct)
