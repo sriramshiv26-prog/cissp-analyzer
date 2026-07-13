@@ -116,25 +116,17 @@ class AnswerKeyManager:
                 for page in pdf_reader.pages:
                     all_text += page.extract_text()
 
-            # Extract answers using line-by-line parsing (robust against whitespace/encoding)
+            # Extract answers using regex for "correct answer is [A-D]" pattern
+            import re
             answers = []
-            lines = all_text.split("\n")
 
-            for line in lines:
-                line_lower = line.lower()
-                # Look for lines containing both "correct" and "answer"
-                if "correct" in line_lower and "answer" in line_lower:
-                    # Find position of "answer" keyword
-                    answer_pos = line_lower.find("answer")
-                    # Look at next 50 characters after "answer" keyword
-                    search_window = line[answer_pos:answer_pos + 50]
+            # More robust regex: look for "correct answer is X" where X is A-D
+            pattern = r"(?:correct\s+answer\s+is|answer\s+is)\s+([A-D])"
+            matches = re.finditer(pattern, all_text, re.IGNORECASE)
 
-                    # Find first A/B/C/D in that window
-                    for char in search_window:
-                        if char in "ABCD":
-                            answers.append(char)
-                            report.pattern_matches += 1
-                            break
+            for match in matches:
+                answers.append(match.group(1).upper())
+                report.pattern_matches += 1
 
             # Create answer key
             answer_key = {i: ans for i, ans in enumerate(answers, 1)}
