@@ -10,6 +10,7 @@ import json
 import os
 from pathlib import Path
 from handle_sheet_variations import SheetVariationHandler
+from detect_exam_consistency import ExamConsistencyDetector
 
 
 def create_sample_roster():
@@ -187,16 +188,36 @@ def validate_batch_files(batch_name):
 
         if not answer_files and not excel_files:
             errors.append(f"No answer files (JSON or Excel) in: answers/{batch_name}/")
-        elif excel_files and not answer_files:
+        else:
             # Check Excel sheet consistency
-            all_consistent, details = SheetVariationHandler.validate_sheet_consistency(
+            if excel_files:
+                all_consistent, details = SheetVariationHandler.validate_sheet_consistency(
+                    str(answer_dir)
+                )
+                if not all_consistent:
+                    warnings.append(
+                        f"Excel files use {len(details['patterns_found'])} different sheet names. "
+                        f"Run: python3 handle_sheet_variations.py --batch {batch_name} --check"
+                    )
+
+            # CHECK EXAM CONSISTENCY: Are all sheets from same exam?
+            is_consistent, consistency_details = ExamConsistencyDetector.validate_consistency(
                 str(answer_dir)
             )
-            if not all_consistent:
-                warnings.append(
-                    f"Excel files use {len(details['patterns_found'])} different sheet names. "
-                    f"Run: python3 handle_sheet_variations.py --batch {batch_name} --check"
-                )
+
+            if not is_consistent:
+                # Multiple exams detected
+                if consistency_details["groups_found"] > 1:
+                    errors.append(
+                        f"⚠️  Multiple exam versions detected in answer sheets! "
+                        f"Found {consistency_details['groups_found']} different question sets."
+                    )
+                    warnings.append(
+                        f"Run: python3 detect_exam_consistency.py --batch {batch_name} --detailed"
+                    )
+                    warnings.append(
+                        "Use --fix-groups to organize sheets by exam version"
+                    )
 
     # Check student roster
     roster_path = Path("student_roster.json")
