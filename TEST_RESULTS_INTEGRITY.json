@@ -1,0 +1,29 @@
+{
+  "timestamp": "2026-07-13T21:32:43.917012",
+  "total": 40,
+  "passed": 35,
+  "failed": 5,
+  "pass_rate": 87.5,
+  "issues": [
+    {
+      "test": "Trap codes include all 8 core types (7 total)",
+      "error": ""
+    },
+    {
+      "test": "  Kapil report has all required sheets",
+      "error": "Found: ['Performance Summary', 'Q&A Breakdown', 'By Question Type', 'By Exam Tricks', 'By Domain', 'By Difficulty', 'Study Plan', 'Progress Over Time', 'Adaptive Study Plan']"
+    },
+    {
+      "test": "  Senthilraj report has all required sheets",
+      "error": "Found: ['Performance Summary', 'Q&A Breakdown', 'By Question Type', 'By Exam Tricks', 'By Domain', 'By Difficulty', 'Study Plan', 'Progress Over Time', 'Adaptive Study Plan']"
+    },
+    {
+      "test": "  Praveena report has all required sheets",
+      "error": "Found: ['Performance Summary', 'Q&A Breakdown', 'By Question Type', 'By Exam Tricks', 'By Domain', 'By Difficulty', 'Study Plan', 'Progress Over Time', 'Adaptive Study Plan']"
+    },
+    {
+      "test": "  Aman report has all required sheets",
+      "error": "Found: ['Performance Summary', 'Q&A Breakdown', 'By Question Type', 'By Exam Tricks', 'By Domain', 'By Difficulty', 'Study Plan', 'Progress Over Time', 'Adaptive Study Plan']"
+    }
+  ]
+}

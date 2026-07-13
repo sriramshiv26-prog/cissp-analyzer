@@ -1,0 +1,221 @@
+{
+  "timestamp": "2026-07-13T21:30:20.463618",
+  "passed": [
+    {
+      "check": "Answer Key Count",
+      "status": "PASS: All 162 questions present"
+    },
+    {
+      "check": "Answer Validity",
+      "status": "PASS: All answers are valid (A/B/C/D)"
+    },
+    {
+      "check": "Blank Answers",
+      "status": "PASS: No blank answers"
+    },
+    {
+      "check": "Question 144 Correction",
+      "expected": "A",
+      "actual": "A",
+      "status": "PASS: Q144 = A"
+    },
+    {
+      "check": "Question 147 Correction",
+      "expected": "A",
+      "actual": "A",
+      "status": "PASS: Q147 = A"
+    },
+    {
+      "check": "Question 156 Correction",
+      "expected": "C",
+      "actual": "C",
+      "status": "PASS: Q156 = C"
+    },
+    {
+      "check": "Question 157 Correction",
+      "expected": "D",
+      "actual": "D",
+      "status": "PASS: Q157 = D"
+    },
+    {
+      "check": "Question 4 Correction",
+      "expected": "C",
+      "actual": "C",
+      "status": "PASS: Q4 = C"
+    },
+    {
+      "check": "Question 17 Correction",
+      "expected": "B",
+      "actual": "B",
+      "status": "PASS: Q17 = B"
+    },
+    {
+      "check": "Kapil Question Count",
+      "count": 170,
+      "status": "PASS: 170 questions in Q&A Breakdown"
+    },
+    {
+      "check": "Senthilraj Question Count",
+      "count": 164,
+      "status": "PASS: 164 questions in Q&A Breakdown"
+    },
+    {
+      "check": "Praveena Question Count",
+      "count": 164,
+      "status": "PASS: 164 questions in Q&A Breakdown"
+    },
+    {
+      "check": "Aman Question Count",
+      "count": 164,
+      "status": "PASS: 164 questions in Q&A Breakdown"
+    },
+    {
+      "check": "Reference Table Metadata",
+      "status": "PASS: Metadata section present"
+    },
+    {
+      "check": "Reference Table Question Count",
+      "status": "PASS: All 162 questions in reference table"
+    },
+    {
+      "check": "Reference Table Required Fields",
+      "status": "PASS: All required fields present"
+    },
+    {
+      "check": "Reference Table CSV Export",
+      "status": "PASS: CSV version exists"
+    },
+    {
+      "check": "Trap Code Assignment",
+      "status": "PASS: All questions have trap codes"
+    },
+    {
+      "check": "Trap Framework File",
+      "status": "PASS: cissp_trap_framework.py exists"
+    },
+    {
+      "check": "Trap Codes Definition",
+      "trap_count": 7,
+      "status": "PASS: Trap codes definition exists (7 codes)"
+    },
+    {
+      "check": "Framework File: TRAP_FRAMEWORK_ARCHITECTURE.md",
+      "size": 9530,
+      "status": "PASS: Framework architecture documentation (9530 bytes)"
+    },
+    {
+      "check": "Framework File: TRAP_ANALYSIS_WORKFLOW.md",
+      "size": 13932,
+      "status": "PASS: Analysis workflow for new exams (13932 bytes)"
+    },
+    {
+      "check": "Framework File: REFERENCE_TABLE_USAGE.md",
+      "size": 8283,
+      "status": "PASS: Reference table integration guide (8283 bytes)"
+    },
+    {
+      "check": "Framework File: trap_metadata.md",
+      "size": 11413,
+      "status": "PASS: Trap metadata and study guide (11413 bytes)"
+    }
+  ],
+  "failed": [
+    {
+      "check": "Question 158 Correction",
+      "expected": "C",
+      "actual": "B",
+      "status": "FAIL: Q158 expected C, got B"
+    },
+    {
+      "check": "Question 159 Correction",
+      "expected": "B",
+      "actual": "D",
+      "status": "FAIL: Q159 expected B, got D"
+    },
+    {
+      "check": "Question 160 Correction",
+      "expected": "A",
+      "actual": "C",
+      "status": "FAIL: Q160 expected A, got C"
+    },
+    {
+      "check": "Question 161 Correction",
+      "expected": "D",
+      "actual": "A",
+      "status": "FAIL: Q161 expected D, got A"
+    },
+    {
+      "check": "Question 12 Correction",
+      "expected": "B",
+      "actual": "C",
+      "status": "FAIL: Q12 expected B, got C"
+    },
+    {
+      "check": "Kapil Report Sheets",
+      "missing": [
+        "Summary",
+        "Progress Sheet"
+      ],
+      "status": "FAIL: Missing sheets"
+    },
+    {
+      "check": "Senthilraj Report Sheets",
+      "missing": [
+        "Summary",
+        "Progress Sheet"
+      ],
+      "status": "FAIL: Missing sheets"
+    },
+    {
+      "check": "Praveena Report Sheets",
+      "missing": [
+        "Summary",
+        "Progress Sheet"
+      ],
+      "status": "FAIL: Missing sheets"
+    },
+    {
+      "check": "Aman Report Sheets",
+      "missing": [
+        "Summary",
+        "Progress Sheet"
+      ],
+      "status": "FAIL: Missing sheets"
+    }
+  ],
+  "warnings": [
+    {
+      "check": "Kapil Trap Code Column",
+      "status": "WARNING: Trap code column not found"
+    },
+    {
+      "check": "Senthilraj Trap Code Column",
+      "status": "WARNING: Trap code column not found"
+    },
+    {
+      "check": "Praveena Trap Code Column",
+      "status": "WARNING: Trap code column not found"
+    },
+    {
+      "check": "Aman Trap Code Column",
+      "status": "WARNING: Trap code column not found"
+    },
+    {
+      "check": "Kapil Result Marking",
+      "status": "WARNING: Result column not clearly labeled"
+    },
+    {
+      "check": "Senthilraj Result Marking",
+      "status": "WARNING: Result column not clearly labeled"
+    },
+    {
+      "check": "Praveena Result Marking",
+      "status": "WARNING: Result column not clearly labeled"
+    },
+    {
+      "check": "Aman Result Marking",
+      "status": "WARNING: Result column not clearly labeled"
+    }
+  ],
+  "summary": {}
+}
