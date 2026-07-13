@@ -1,0 +1,1957 @@
+{
+  "metadata": {
+    "total_questions": 162,
+    "created_date": "2026-07-13",
+    "format_version": "2.0",
+    "description": "Complete reference database for all 162 CISSP exam questions with trap codes and analysis"
+  },
+  "questions": {
+    "1": {
+      "question_num": 1,
+      "question_preview": "Alice runs a small online retail company; many of her customers are from the United",
+      "correct_answer": null,
+      "trap_codes": [
+        "ABS"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "HIGH"
+    },
+    "2": {
+      "question_num": 2,
+      "question_preview": "According to the (ISC)2 ethics policy, complaints must be submitted ________.",
+      "correct_answer": null,
+      "trap_codes": [
+        "ETHIC"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "3": {
+      "question_num": 3,
+      "question_preview": "The business impact analysis (BIA) should consider all of the following except:",
+      "correct_answer": null,
+      "trap_codes": [
+        "NEG",
+        "ABS"
+      ],
+      "complexity": "\ud83d\udd34 HIGH",
+      "num_traps": 2,
+      "is_multi_trap": true,
+      "priority": "CRITICAL"
+    },
+    "4": {
+      "question_num": 4,
+      "question_preview": "The _______ is the length of time an organization can suffer the loss of its critical path",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "5": {
+      "question_num": 5,
+      "question_preview": "Which of the following security instruction options offers the most potential for real-time",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "6": {
+      "question_num": 6,
+      "question_preview": "Which of the following is a formal, detailed description of the responsibilities between an",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "7": {
+      "question_num": 7,
+      "question_preview": "Which of the following is promulgated by senior management and outlines the",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "8": {
+      "question_num": 8,
+      "question_preview": "Which of the following entities is the individual human associated with a particular set of",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "9": {
+      "question_num": 9,
+      "question_preview": "Organizations in which of the following countries are not allowed to process EU citizen",
+      "correct_answer": null,
+      "trap_codes": [
+        "NEG"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "10": {
+      "question_num": 10,
+      "question_preview": "Which of the following is not a common trait of DRM solutions?",
+      "correct_answer": null,
+      "trap_codes": [
+        "NEG"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "11": {
+      "question_num": 11,
+      "question_preview": "All of the following are common intellectual property licensing options except:",
+      "correct_answer": null,
+      "trap_codes": [
+        "NEG",
+        "ABS"
+      ],
+      "complexity": "\ud83d\udd34 HIGH",
+      "num_traps": 2,
+      "is_multi_trap": true,
+      "priority": "CRITICAL"
+    },
+    "12": {
+      "question_num": 12,
+      "question_preview": "What is the term for the criminal practice of extorting victims by encrypting their data?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "13": {
+      "question_num": 13,
+      "question_preview": "Which of the following is not a common facet of data privacy laws?",
+      "correct_answer": null,
+      "trap_codes": [
+        "NEG"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "14": {
+      "question_num": 14,
+      "question_preview": "Which of the following is the American law governing protection of medical-related",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "15": {
+      "question_num": 15,
+      "question_preview": "Which of the following is not an industry standard for data security?",
+      "correct_answer": null,
+      "trap_codes": [
+        "NEG"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "16": {
+      "question_num": 16,
+      "question_preview": "Which of the following is a contractual industry standard?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "17": {
+      "question_num": 17,
+      "question_preview": "Which of the following enforcement mechanisms is best used for regularly occurring,",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "18": {
+      "question_num": 18,
+      "question_preview": "Which of the following is not included in the STRIDE threat model? Which of the following",
+      "correct_answer": null,
+      "trap_codes": [
+        "NEG"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "19": {
+      "question_num": 19,
+      "question_preview": "Which of the following is not a common audit methodology?",
+      "correct_answer": null,
+      "trap_codes": [
+        "NEG"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "20": {
+      "question_num": 20,
+      "question_preview": "Which of the following is not a common security control category?",
+      "correct_answer": null,
+      "trap_codes": [
+        "NEG"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "21": {
+      "question_num": 21,
+      "question_preview": "In security management, the need-to-know element should be provided by the",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "22": {
+      "question_num": 22,
+      "question_preview": "How can an asset classification program enhance access controls?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "23": {
+      "question_num": 23,
+      "question_preview": "The main benefit of a data classification program is",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "24": {
+      "question_num": 24,
+      "question_preview": "The network security administrator has submitted her request to implement additional",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "25": {
+      "question_num": 25,
+      "question_preview": "The role of the information custodian should not include which of the following?",
+      "correct_answer": null,
+      "trap_codes": [
+        "NEG",
+        "ROLE"
+      ],
+      "complexity": "\ud83d\udd34 HIGH",
+      "num_traps": 2,
+      "is_multi_trap": true,
+      "priority": "CRITICAL"
+    },
+    "26": {
+      "question_num": 26,
+      "question_preview": "Privileged users should be subject to periodic recertification to maintain the level of",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "27": {
+      "question_num": 27,
+      "question_preview": "Asset classification is the accountability of the",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "28": {
+      "question_num": 28,
+      "question_preview": "The correct amount of security is dictated by",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "29": {
+      "question_num": 29,
+      "question_preview": "When establishing the value of information, the least important factor is",
+      "correct_answer": null,
+      "trap_codes": [
+        "NEG"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "30": {
+      "question_num": 30,
+      "question_preview": "Who normally operates technology systems?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "31": {
+      "question_num": 31,
+      "question_preview": "Which of the following is the BEST definition of a baseline?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "32": {
+      "question_num": 32,
+      "question_preview": "Which of the following is the BEST method for destroying data on magnetic media without",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "33": {
+      "question_num": 33,
+      "question_preview": "The decision to encrypt information over a network is driven by",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "34": {
+      "question_num": 34,
+      "question_preview": "What is the proper method of disposing of data on optical media?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "35": {
+      "question_num": 35,
+      "question_preview": "Information ethics and compliance deem that an organization has an obligation to protect",
+      "correct_answer": null,
+      "trap_codes": [
+        "ETHIC"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "36": {
+      "question_num": 36,
+      "question_preview": "Which of the following is a key responsibility of the custodian of data?",
+      "correct_answer": null,
+      "trap_codes": [
+        "ROLE"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "37": {
+      "question_num": 37,
+      "question_preview": "When personal data is maintained about a natural or legal person, that person is defined",
+      "correct_answer": null,
+      "trap_codes": [
+        "ETHIC"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "38": {
+      "question_num": 38,
+      "question_preview": "Which of the following needs to be intelligible with end-to-end encryption?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "39": {
+      "question_num": 39,
+      "question_preview": "An advantage of link encryption in a network might be",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "40": {
+      "question_num": 40,
+      "question_preview": "Which of the following is the BEST definition of data remanence?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "41": {
+      "question_num": 41,
+      "question_preview": "The four types of system and system security engineering processes are:",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "42": {
+      "question_num": 42,
+      "question_preview": "The Bell\u2013LaPadula (BLP) security model is an example of a security model that is focused",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "43": {
+      "question_num": 43,
+      "question_preview": "Three types of security controls are:",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "44": {
+      "question_num": 44,
+      "question_preview": "The process of customizing security controls to fit the specific security needs of a",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "45": {
+      "question_num": 45,
+      "question_preview": "Which of the following are security capabilities integrated to some extent into most major",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "46": {
+      "question_num": 46,
+      "question_preview": "A TPM is a _________________ component known as the _________________________.",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "47": {
+      "question_num": 47,
+      "question_preview": "Software as a service (SaaS) is considered to be what type of system?",
+      "correct_answer": null,
+      "trap_codes": [
+        "SCOPE"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "HIGH"
+    },
+    "48": {
+      "question_num": 48,
+      "question_preview": "Select the best answer: A private cloud deployment:",
+      "correct_answer": null,
+      "trap_codes": [
+        "SCOPE"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "HIGH"
+    },
+    "49": {
+      "question_num": 49,
+      "question_preview": "Select the best system type based on the following characteristics: small form factor, low",
+      "correct_answer": null,
+      "trap_codes": [
+        "ABS"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "HIGH"
+    },
+    "50": {
+      "question_num": 50,
+      "question_preview": "Select the system type most susceptible to the following vulnerabilities: loss, theft, weak",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "51": {
+      "question_num": 51,
+      "question_preview": "Pick the best response. Site and facility design should include consideration for:",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "52": {
+      "question_num": 52,
+      "question_preview": "Select the best response. When designing exterior lighting, you should consider:",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "53": {
+      "question_num": 53,
+      "question_preview": "Select the best answer item from the list below. Two primary types of fire suppression",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "54": {
+      "question_num": 54,
+      "question_preview": "Select the best response from the lists below. Environmental issues to consider as part of",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "55": {
+      "question_num": 55,
+      "question_preview": "Encrypting a message with a private key in an asymmetric system provides?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "56": {
+      "question_num": 56,
+      "question_preview": "One of the largest disadvantages of symmetric key cryptography is?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "57": {
+      "question_num": 57,
+      "question_preview": "A hybrid cryptography system uses?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "58": {
+      "question_num": 58,
+      "question_preview": "Digital Signatures do not allow for?",
+      "correct_answer": null,
+      "trap_codes": [
+        "NEG"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "59": {
+      "question_num": 59,
+      "question_preview": "The process of hiding characters of plaintext with non-cipher characters is referred to as?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "60": {
+      "question_num": 60,
+      "question_preview": "For what application would Electronic Code Book (ECB) mode of symmetric block ciphers",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "61": {
+      "question_num": 61,
+      "question_preview": "Hash collisions are?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "62": {
+      "question_num": 62,
+      "question_preview": "Where parties do not have a shared secret, and large quantities of sensitive information",
+      "correct_answer": null,
+      "trap_codes": [
+        "NEG"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "63": {
+      "question_num": 63,
+      "question_preview": "You come into work on Monday and your workstation is booting up after being turned off",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "64": {
+      "question_num": 64,
+      "question_preview": "You are trying to use an external Domain Name System (DNS) server as a forward lookup",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "65": {
+      "question_num": 65,
+      "question_preview": "At what layer of the Open Systems Interconnection (OSI) model are segments",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "66": {
+      "question_num": 66,
+      "question_preview": "A Simple Network Management Protocol (SNMP) system is monitoring services and",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "67": {
+      "question_num": 67,
+      "question_preview": "What statement is true about software-defined networks (SDNs)?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "68": {
+      "question_num": 68,
+      "question_preview": "What is a benefit of Network Function Virtualization (NFV)?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "69": {
+      "question_num": 69,
+      "question_preview": "A workstation has made a request to synchronize (SYN) with your workstation, and your",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "70": {
+      "question_num": 70,
+      "question_preview": "Company X was on alert that they could be under attack after they referred to a baseline",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "71": {
+      "question_num": 71,
+      "question_preview": "What Voice over Internet Protocol (VoIP) concern is tied to variation of traffic timing?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "72": {
+      "question_num": 72,
+      "question_preview": "Two users are making decisions on how they want to create an IPSEC connection. Their",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "73": {
+      "question_num": 73,
+      "question_preview": "What is the tunneling in Layer 2 Tunneling Protocol (L2TP)?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "74": {
+      "question_num": 74,
+      "question_preview": "A user has need to keep their transmission contents secret from their computer to",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "75": {
+      "question_num": 75,
+      "question_preview": "A request has been made to a web application by means of a URL and within the request it",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "76": {
+      "question_num": 76,
+      "question_preview": "Which ISO document address the 7-layer OSI model?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "77": {
+      "question_num": 77,
+      "question_preview": "A rogue wireless device has been found on a network, and the way it was discovered is",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "78": {
+      "question_num": 78,
+      "question_preview": "Your organization has made the decision to implement a software-defined network (SDN).",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "79": {
+      "question_num": 79,
+      "question_preview": "Your organization must still manage a Multiprotocol Label Switching (MPLS) network while",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "80": {
+      "question_num": 80,
+      "question_preview": "Which \u201cGeneration\u201d of cellular service is being designed to accommodate software-",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "81": {
+      "question_num": 81,
+      "question_preview": "In which cellular service is each call encoded with a unique key?",
+      "correct_answer": null,
+      "trap_codes": [
+        "ABS"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "HIGH"
+    },
+    "82": {
+      "question_num": 82,
+      "question_preview": "In what attack can a user on one VLAN connect to another unauthorized VLAN via",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "83": {
+      "question_num": 83,
+      "question_preview": "Your organization maintains a wide range of intellectual property that includes digital",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "84": {
+      "question_num": 84,
+      "question_preview": "Which document specifies access control models as \u201cformal presentations of the security",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "85": {
+      "question_num": 85,
+      "question_preview": "Which of the following could represent an identity management risk?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "86": {
+      "question_num": 86,
+      "question_preview": "When the data owner manages classification of data, what control is being envisioned?",
+      "correct_answer": null,
+      "trap_codes": [
+        "ROLE"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "87": {
+      "question_num": 87,
+      "question_preview": "Which biometric reader has the most rapid authentication?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "88": {
+      "question_num": 88,
+      "question_preview": "What is Open Web Application Security Project (OWASP) Top 10 number 2 threat?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "89": {
+      "question_num": 89,
+      "question_preview": "The Digital Identity Guidelines of NIST SP 800-63-3 contain recommendations to support",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "90": {
+      "question_num": 90,
+      "question_preview": "A Credential Service Provider is responsible for",
+      "correct_answer": null,
+      "trap_codes": [
+        "SCOPE"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "HIGH"
+    },
+    "91": {
+      "question_num": 91,
+      "question_preview": "What are the four components of Security Assertion Markup Language (SAML)?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "92": {
+      "question_num": 92,
+      "question_preview": "A claimant is asked to provide in-person proof of their identity. What minimum level of",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "93": {
+      "question_num": 93,
+      "question_preview": "Federation Assurance Level (FAL) refers to the strength of an assertion in a",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "94": {
+      "question_num": 94,
+      "question_preview": "NIST SP 800-63-3 enrollment process allows for credential production to made in the",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "95": {
+      "question_num": 95,
+      "question_preview": "An organization has various forms of intellectual property that are labeled as confidential",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "96": {
+      "question_num": 96,
+      "question_preview": "Which of the following is a part of the creation, management, and disposal of system user",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "97": {
+      "question_num": 97,
+      "question_preview": "NIST SP 800-145 defines three cloud service models. Which one of the three would",
+      "correct_answer": null,
+      "trap_codes": [
+        "SCOPE"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "HIGH"
+    },
+    "98": {
+      "question_num": 98,
+      "question_preview": "What activity would represent an outcome of identity and access management",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "99": {
+      "question_num": 99,
+      "question_preview": "What role is authentication information based upon that is utilized during the identity",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "100": {
+      "question_num": 100,
+      "question_preview": "A primary goal of federated identity management (FIM) is to",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "101": {
+      "question_num": 101,
+      "question_preview": "When Type I errors are equal to Type II errors on a biometric system, what state has been",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "102": {
+      "question_num": 102,
+      "question_preview": "What scenario below represents multi-factor authentication?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "103": {
+      "question_num": 103,
+      "question_preview": "Your organization has system administrators that have management control of server",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "104": {
+      "question_num": 104,
+      "question_preview": "Vulnerability scanning could be used to determine_________.",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "105": {
+      "question_num": 105,
+      "question_preview": "A company is hosting a web front-end service that has users that access services from",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "106": {
+      "question_num": 106,
+      "question_preview": "What method should be used to test the thoroughness of the logic of code?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "107": {
+      "question_num": 107,
+      "question_preview": "What are proper considerations to make when selecting a testing method?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "108": {
+      "question_num": 108,
+      "question_preview": "Code-based testing is also known as ________",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "109": {
+      "question_num": 109,
+      "question_preview": "What would you recommend to the executive management of this company for being able",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "110": {
+      "question_num": 110,
+      "question_preview": "What action should be taken to address the perceived response of the employees at the",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "111": {
+      "question_num": 111,
+      "question_preview": "What would be a way to discern if the desired change is being achieved?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "112": {
+      "question_num": 112,
+      "question_preview": "What should be avoided in test output data?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "113": {
+      "question_num": 113,
+      "question_preview": "Which audit should be done to address the concern about the length of time the service",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "114": {
+      "question_num": 114,
+      "question_preview": "What audit should be done to provide assurance about the availability and confidentiality",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "115": {
+      "question_num": 115,
+      "question_preview": "What type of audit should be done on the service provider?",
+      "correct_answer": null,
+      "trap_codes": [
+        "SCOPE"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "HIGH"
+    },
+    "116": {
+      "question_num": 116,
+      "question_preview": "Which trust services principles are most appropriate for the auditor to focus on?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "117": {
+      "question_num": 117,
+      "question_preview": "List examples of security awareness sources for an awareness program.",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "118": {
+      "question_num": 118,
+      "question_preview": "What control is specified in ISO 27002 concerning test data?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "119": {
+      "question_num": 119,
+      "question_preview": "Third-party assessments are ________",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "120": {
+      "question_num": 120,
+      "question_preview": "What is the primary purpose of a negative test?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "121": {
+      "question_num": 121,
+      "question_preview": "Interface testing can be used to __________",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "122": {
+      "question_num": 122,
+      "question_preview": "Once code inspection is complete, what kind of software testing occurs?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "123": {
+      "question_num": 123,
+      "question_preview": "Which of the following terms is most associated with the concept of need-to-know?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "124": {
+      "question_num": 124,
+      "question_preview": "Which of the following is not true about privileged accounts?",
+      "correct_answer": null,
+      "trap_codes": [
+        "NEG"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "125": {
+      "question_num": 125,
+      "question_preview": "Which of the following is not a benefit the organization realized from job rotation?",
+      "correct_answer": null,
+      "trap_codes": [
+        "NEG"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "126": {
+      "question_num": 126,
+      "question_preview": "In which phase of the information lifecycle is data moved from the production",
+      "correct_answer": null,
+      "trap_codes": [
+        "ORDER"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "127": {
+      "question_num": 127,
+      "question_preview": "What is usually the enforcement mechanism of a service-level agreement (SLA)?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "128": {
+      "question_num": 128,
+      "question_preview": "Which of the following is not typically reflected in the asset inventory?",
+      "correct_answer": null,
+      "trap_codes": [
+        "NEG"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "129": {
+      "question_num": 129,
+      "question_preview": "All of the following departments typically will be represented on the Change Management",
+      "correct_answer": null,
+      "trap_codes": [
+        "ABS"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "HIGH"
+    },
+    "130": {
+      "question_num": 130,
+      "question_preview": "What should always be included in the patch process?",
+      "correct_answer": null,
+      "trap_codes": [
+        "ABS"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "HIGH"
+    },
+    "131": {
+      "question_num": 131,
+      "question_preview": "Patches should be tested ________.",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "132": {
+      "question_num": 132,
+      "question_preview": "Which of the following is a preventative measure to counter the possibility of lost/stolen",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "133": {
+      "question_num": 133,
+      "question_preview": "Which of the following is not an acceptable, suggested practice in dealing with third-party",
+      "correct_answer": null,
+      "trap_codes": [
+        "NEG"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "134": {
+      "question_num": 134,
+      "question_preview": "One of the best benefits of anti-malware systems is _________.",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "135": {
+      "question_num": 135,
+      "question_preview": "Which of the following entities/activities is not usually involved in incident detection?",
+      "correct_answer": null,
+      "trap_codes": [
+        "NEG"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "136": {
+      "question_num": 136,
+      "question_preview": "Which of the following is not one of the main variables affecting how an organization",
+      "correct_answer": null,
+      "trap_codes": [
+        "NEG"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "137": {
+      "question_num": 137,
+      "question_preview": "All incident management actions should be __________.",
+      "correct_answer": null,
+      "trap_codes": [
+        "ABS"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "HIGH"
+    },
+    "138": {
+      "question_num": 138,
+      "question_preview": "Who should decide how an incident would be addressed?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "139": {
+      "question_num": 139,
+      "question_preview": "Which kind of investigation should be performed if the organization does not want to",
+      "correct_answer": null,
+      "trap_codes": [
+        "NEG"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "140": {
+      "question_num": 140,
+      "question_preview": "Which of the following is used to ensure evidence collected is evidence presented to",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "141": {
+      "question_num": 141,
+      "question_preview": "Which of the following is not a trait expected of evidence presented to a court?",
+      "correct_answer": null,
+      "trap_codes": [
+        "NEG"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "142": {
+      "question_num": 142,
+      "question_preview": "Which of the following is not a typical location for placement of an intrusion detection",
+      "correct_answer": null,
+      "trap_codes": [
+        "NEG"
+      ],
+      "complexity": "\ud83d\udfe2 MEDIUM",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "CRITICAL"
+    },
+    "143": {
+      "question_num": 143,
+      "question_preview": "How should buffer overflow vulnerabilities be addressed?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "144": {
+      "question_num": 144,
+      "question_preview": "How is an interpreted language application different from a compiled language",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "145": {
+      "question_num": 145,
+      "question_preview": "Why is it important to build security into the application as opposed to adding it later?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "146": {
+      "question_num": 146,
+      "question_preview": "What is a common issue to consider regarding the cryptographic protection of data in",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "147": {
+      "question_num": 147,
+      "question_preview": "What are the reasons that testing applications with live data or testing in a production",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "148": {
+      "question_num": 148,
+      "question_preview": "What is the purpose of the Capability Maturity Model Integration for Development",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "149": {
+      "question_num": 149,
+      "question_preview": "What is the PRIMARY security issue with application backdoors?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "150": {
+      "question_num": 150,
+      "question_preview": "The primary key is used to uniquely identify records in a database. By adding additional",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "151": {
+      "question_num": 151,
+      "question_preview": "A database that uses pre-defined groupings of data that can only be accessed based upon",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "152": {
+      "question_num": 152,
+      "question_preview": "Which of the following database attacks describes an attack where the perpetrator uses",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "153": {
+      "question_num": 153,
+      "question_preview": "One of the most significant differences between the software development lifecycle",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "154": {
+      "question_num": 154,
+      "question_preview": "How can polyinstantiation be used to protect a sensitive database?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "155": {
+      "question_num": 155,
+      "question_preview": "Why does compiled code pose more of a security risk than interpreted code?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "156": {
+      "question_num": 156,
+      "question_preview": "Which framework allows organizations to evaluate their software process based on quality",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "157": {
+      "question_num": 157,
+      "question_preview": "The security of an application is most effective and economical in which of the following?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "158": {
+      "question_num": 158,
+      "question_preview": "Building security into the application begins at",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "159": {
+      "question_num": 159,
+      "question_preview": "Which of the following is MOST likely to cause long-term damage?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "160": {
+      "question_num": 160,
+      "question_preview": "Why is inference from a database an important security problem to address?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "161": {
+      "question_num": 161,
+      "question_preview": "What is the name of a malicious program that has the ability to infect both program files",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    },
+    "162": {
+      "question_num": 162,
+      "question_preview": "Which of the following best characterizes a buffer overflow attack?",
+      "correct_answer": null,
+      "trap_codes": [
+        "CONCEPT"
+      ],
+      "complexity": "\ud83d\udd35 LOW",
+      "num_traps": 1,
+      "is_multi_trap": false,
+      "priority": "MEDIUM"
+    }
+  }
+}
