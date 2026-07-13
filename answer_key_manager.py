@@ -2,6 +2,7 @@
 """
 Interactive Answer Key Manager
 Handles extraction, validation, and user confirmation for answer keys
+Supports dual-method extraction: pdfplumber (primary) + pypdf (fallback)
 """
 
 import json
@@ -10,6 +11,7 @@ from pathlib import Path
 from typing import Dict, Tuple, Optional
 import pypdf
 from answer_validator_interactive import InteractiveAnswerValidator
+from answer_extractor_dual import extract_answers_dual
 
 
 class ConfidenceReport:
@@ -117,7 +119,9 @@ class AnswerKeyManager:
 
     def extract_from_pdf(self, pdf_path: str) -> Tuple[Dict[int, str], ConfidenceReport, Dict[int, str]]:
         """
-        Extract answer key from PDF with context for each answer
+        Extract answer key from PDF with dual-method extraction
+        Primary: pdfplumber (layout-aware)
+        Fallback: pypdf + regex (robust)
 
         Args:
             pdf_path: Path to PDF file
@@ -126,35 +130,26 @@ class AnswerKeyManager:
             Tuple of (answer_key dict, confidence report, context dict)
         """
         report = ConfidenceReport()
-        pdf_context = {}
 
         try:
-            with open(pdf_path, "rb") as f:
-                pdf_reader = pypdf.PdfReader(f)
-                all_text = ""
-                for page in pdf_reader.pages:
-                    all_text += page.extract_text()
+            # Use dual-method extraction (pdfplumber with pypdf fallback)
+            answer_key, metadata, pdf_context = extract_answers_dual(pdf_path)
 
-            # Extract answers using regex for "correct answer is [A-D]" pattern
-            import re
-            answers = []
+            report.pattern_matches = metadata.get("pattern_matches", 0)
+            report.total_extracted = metadata.get("total_extracted", 0)
 
-            # More robust regex: look for "correct answer is X" where X is A-D
-            pattern = r"(?:correct\s+answer\s+is|answer\s+is)\s+([A-D])"
-            matches = list(re.finditer(pattern, all_text, re.IGNORECASE))
+            # Add extraction method info to warnings
+            extraction_method = metadata.get("extraction_method", "unknown")
+            print(f"\n✓ Extraction method: {extraction_method}")
+            print(f"  Confidence: {metadata.get('confidence', 0):.0%}")
 
-            for match in matches:
-                answers.append(match.group(1).upper())
-                # Capture context around the match (100 chars before and after)
-                start = max(0, match.start() - 100)
-                end = min(len(all_text), match.end() + 100)
-                context = all_text[start:end].replace("\n", " ").strip()
-                pdf_context[len(answers)] = context
-                report.pattern_matches += 1
+            if metadata.get("issues"):
+                for issue in metadata["issues"]:
+                    report.warnings.append(issue)
 
-            # Create answer key
-            answer_key = {i: ans for i, ans in enumerate(answers, 1)}
-            report.total_extracted = len(answer_key)
+            # Calculate confidence
+            confidence = metadata.get("confidence", 0.0)
+            report.confidence_score = confidence
 
             return answer_key, report, pdf_context
 
