@@ -208,11 +208,11 @@ class IndividualReportGenerator:
 
             values = [
                 q_num,
-                meta.get("topic", "") if meta else "",
-                meta.get("domain", "") if meta else "",
-                meta.get("question_type", "") if meta else "",
+                meta.get("topic", "Unmapped") if meta else "Unmapped",
+                meta.get("domain", "Unmapped") if meta else "Unmapped",
+                meta.get("question_type", "Unknown") if meta else "Unknown",
                 meta.get("exam_trick", "None") if meta else "None",
-                meta.get("difficulty", "") if meta else "",
+                meta.get("difficulty", "Unknown") if meta else "Unknown",
                 "✗ WRONG" if is_q_wrong else "✓ CORRECT",
             ]
 
@@ -250,7 +250,9 @@ class IndividualReportGenerator:
             )
 
         row = 4
-        for q_type, data in sorted(perf.by_question_type.items()):
+        # Sort with safe handling for mixed types
+        sorted_q_types = sorted(perf.by_question_type.items(), key=lambda x: (isinstance(x[0], str), str(x[0])))
+        for q_type, data in sorted_q_types:
             pct = data["percentage"]
             fill_color = self._get_status_color(pct)
             status = self._get_status_text(pct)
@@ -352,15 +354,20 @@ class IndividualReportGenerator:
             )
 
         row = 4
-        for domain_id, data in sorted(perf.by_domain.items()):
+        # Sort domains with integers first, then strings (for "Unmapped")
+        sorted_domains = sorted(perf.by_domain.items(), key=lambda x: (isinstance(x[0], str), x[0]))
+        for domain_id, data in sorted_domains:
             pct = data["percentage"]
             fill_color = self._get_status_color(pct)
             status = self._get_status_text(pct)
 
             # Format domain name
-            domain_name = (
-                f"Domain {domain_id}: {self.domain_names.get(domain_id, 'Unknown')}"
-            )
+            if isinstance(domain_id, str):
+                domain_name = domain_id
+            else:
+                domain_name = (
+                    f"Domain {domain_id}: {self.domain_names.get(domain_id, 'Unknown')}"
+                )
 
             # Get topic breakdown for this domain
             topic_breakdown = self._get_topic_breakdown(perf, domain_id)

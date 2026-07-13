@@ -80,14 +80,12 @@ class AnalysisEngine:
 
         for answer in answers:
             meta = self.mapper.get_question_metadata(answer.question_number)
-            if not meta:
-                continue
-
-            domain = meta.get("domain", "Unknown")
-            topic = meta.get("topic", "Unknown")
-            difficulty = meta.get("difficulty", "Unknown")
-            q_type = meta.get("question_type", "Unknown")
-            trick = meta.get("exam_trick", "Unknown")
+            # Use metadata if available, otherwise use defaults (don't skip questions)
+            domain = meta.get("domain", "Unmapped") if meta else "Unmapped"
+            topic = meta.get("topic", "Unmapped") if meta else "Unmapped"
+            difficulty = meta.get("difficulty", "Unknown") if meta else "Unknown"
+            q_type = meta.get("question_type", "Unknown") if meta else "Unknown"
+            trick = meta.get("exam_trick", "Unknown") if meta else "Unknown"
 
             if answer.is_correct:
                 by_domain[domain]["correct"] += 1
