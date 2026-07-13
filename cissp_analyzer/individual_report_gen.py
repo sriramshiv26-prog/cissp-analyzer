@@ -20,9 +20,11 @@ class IndividualReportGenerator:
     COLOR_PASS = "0092D050"  # Green
     COLOR_WEAK = "00FF6B6B"  # Red
 
-    def __init__(self, domain_mapper: DomainMapper, analysis_engine: AnalysisEngine):
+    def __init__(self, domain_mapper: DomainMapper, analysis_engine: AnalysisEngine, student_answers: dict = None, answer_key: dict = None):
         self.mapper = domain_mapper
         self.engine = analysis_engine
+        self.student_answers = student_answers or {}
+        self.answer_key = answer_key or {}
         self.domain_names = {
             1: "Security & Risk Management",
             2: "Asset Security",
@@ -187,6 +189,8 @@ class IndividualReportGenerator:
             "Q Type",
             "Trick",
             "Difficulty",
+            "Your Answer",
+            "Correct Answer",
             "Your Result",
         ]
         for col_idx, header in enumerate(headers, 1):
@@ -206,6 +210,9 @@ class IndividualReportGenerator:
 
             fill_color = self.COLOR_WRONG if is_q_wrong else self.COLOR_CORRECT
 
+            student_ans = self.student_answers.get(q_num, "")
+            correct_ans = self.answer_key.get(q_num, "?")
+
             values = [
                 q_num,
                 meta.get("topic", "Unmapped") if meta else "Unmapped",
@@ -213,6 +220,8 @@ class IndividualReportGenerator:
                 meta.get("question_type", "Unknown") if meta else "Unknown",
                 meta.get("exam_trick", "None") if meta else "None",
                 meta.get("difficulty", "Unknown") if meta else "Unknown",
+                student_ans if student_ans else "[BLANK]",
+                correct_ans,
                 "✗ WRONG" if is_q_wrong else "✓ CORRECT",
             ]
 
@@ -222,13 +231,13 @@ class IndividualReportGenerator:
                 cell.fill = PatternFill(
                     start_color=fill_color, end_color=fill_color, fill_type="solid"
                 )
-                if col_idx == 7:
+                if col_idx == 9:
                     cell.font = Font(bold=True, color="FFFFFF")
 
             row += 1
 
-        for col in range(1, 8):
-            ws.column_dimensions[chr(64 + col)].width = 18
+        for col in range(1, 10):
+            ws.column_dimensions[chr(64 + col)].width = 16
 
     def _create_by_question_type(self, wb: Workbook, perf: StudentPerformance):
         """Sheet 3: Performance by Question Type"""

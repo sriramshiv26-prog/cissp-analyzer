@@ -91,7 +91,7 @@ class ExamAnalyzer:
         print("GENERATING REPORTS")
         print("=" * 80 + "\n")
 
-        self._generate_reports(exam_folder, engine, results)
+        self._generate_reports(exam_folder, engine, results, students)
 
         # Step 7: Summary
         print("\n" + "=" * 80)
@@ -188,11 +188,18 @@ class ExamAnalyzer:
 
         return answers
 
-    def _generate_reports(self, exam_folder: Path, engine, results: dict):
+    def _generate_reports(self, exam_folder: Path, engine, results: dict, students: dict):
         """Generate individual and class reports"""
+        # Load answer key
+        import json
+        key_file = exam_folder / "answer_keys" / "answer_key.json"
+        with open(key_file, 'r') as f:
+            answer_key = {int(k): v for k, v in json.load(f).items()}
+
         # Individual reports
         for student_name, perf in results.items():
-            gen = IndividualReportGenerator(self.mapper, engine)
+            student_answers = students.get(student_name, {})
+            gen = IndividualReportGenerator(self.mapper, engine, student_answers, answer_key)
             output_file = exam_folder / "reports" / f"{student_name}_Report.xlsx"
             gen.generate(perf, output_file)
             size = output_file.stat().st_size / 1024
