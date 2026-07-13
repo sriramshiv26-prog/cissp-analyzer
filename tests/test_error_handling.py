@@ -446,30 +446,37 @@ class TestDataConsistency:
     """Test error handling for data consistency violations."""
 
     def test_question_count_mismatch(self, temp_test_dir):
-        """Scenario 17: Excel with wrong number of questions."""
-        mismatched_excel = temp_test_dir / "wrong_question_count.xlsx"
+        """Scenario 17: Mismatched question counts between files (flexible system)."""
+        # With the flexible system, any question count is valid on its own
+        # This test verifies that counts are auto-detected properly
+        file1 = temp_test_dir / "file1.xlsx"
+        file2 = temp_test_dir / "file2.xlsx"
 
-        # Create Excel with only 100 questions instead of 125
-        # Note: Validator expects either a single "Answer" column or multiple student columns
-        data = {
-            "Question": list(range(1, 101)),  # Only 100
+        # Create first Excel with 100 questions
+        data1 = {
+            "Question": list(range(1, 101)),
             "TestStudent1": ["A"] * 100,
         }
-        df = pd.DataFrame(data)
-        df.to_excel(mismatched_excel, index=False)
+        df1 = pd.DataFrame(data1)
+        df1.to_excel(file1, index=False)
 
-        validator = AnswerSheetValidator()
-        is_valid, issues = validator.validate_file(
-            str(mismatched_excel), "TestStudent1"
-        )
+        # Create second Excel with 80 questions
+        data2 = {
+            "Question": list(range(1, 81)),
+            "TestStudent2": ["B"] * 80,
+        }
+        df2 = pd.DataFrame(data2)
+        df2.to_excel(file2, index=False)
 
-        # Should detect row count issue or incomplete data
-        assert not is_valid or any(
-            "row" in str(issue).lower()
-            or "incomplete" in str(issue).lower()
-            or "extra" in str(issue).lower()
-            for issue in issues
-        ), "Should detect question count issue or be invalid"
+        # Each file should be valid on its own (flexible system auto-detects)
+        validator1 = AnswerSheetValidator()
+        is_valid1, issues1 = validator1.validate_file(str(file1), "TestStudent1")
+        assert is_valid1, f"First file should be valid: {issues1}"
+
+        # Different validator for second file (auto-detects its own count)
+        validator2 = AnswerSheetValidator()
+        is_valid2, issues2 = validator2.validate_file(str(file2), "TestStudent2")
+        assert is_valid2, f"Second file should be valid: {issues2}"
 
     def test_question_number_gaps(self, temp_test_dir):
         """Scenario 18: Excel with gaps in question numbering."""

@@ -77,7 +77,7 @@ class ClassReportGenerator:
         row = 2
         for perf in sorted_students:
             ws[f"A{row}"] = perf.student_name
-            ws[f"B{row}"] = f"{perf.correct_count}/125"
+            ws[f"B{row}"] = f"{perf.correct_count}/{perf.total_questions}"
             ws[f"C{row}"] = f"{perf.score_percentage:.1f}%"
             status = "EXAM READY" if perf.score_percentage >= 70 else "NEEDS WORK"
             ws[f"D{row}"] = status

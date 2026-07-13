@@ -125,7 +125,7 @@ class IndividualReportGenerator:
         )
 
         ws["A6"] = "Questions Correct:"
-        ws["B6"] = f"{perf.correct_count}/125"
+        ws["B6"] = f"{perf.correct_count}/{perf.total_questions}"
 
         ws["A7"] = "Accuracy:"
         ws["B7"] = f"{perf.score_percentage:.1f}%"
@@ -200,7 +200,7 @@ class IndividualReportGenerator:
             )
 
         row = 4
-        for q_num in range(1, 126):
+        for q_num in range(1, perf.total_questions + 1):
             is_q_wrong = q_num in perf.wrong_question_ids
             meta = self.mapper.get_question_metadata(q_num)
 

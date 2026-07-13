@@ -40,15 +40,25 @@ class PDFParser:
         for page in self.pages:
             all_text += page.extract_text()
 
-        # Strategy: Find all question numbers (1-125) and their positions
-        # Then extract the block from number to next number or end of text
-        # Only keep blocks that have all 4 options (A, B, C, D) and real question text
+        # Strategy: Find all question numbers (dynamic, not hardcoded to 125)
+        # 1. First find all question numbers that exist in the PDF
+        # 2. Then extract the block from number to next number or end of text
+        # 3. Only keep blocks that have all 4 options (A, B, C, D) and real question text
         # IMPORTANT: Only use the FIRST occurrence of each question number
         # (to avoid answer key duplicates)
 
+        # Find all question numbers in the PDF dynamically
+        question_pattern = r"^(\d+)\."
+        all_matches = re.finditer(question_pattern, all_text, re.MULTILINE)
+        found_numbers = sorted(set(int(m.group(1)) for m in all_matches))
+
+        # If no numbers found, assume it's a numbered document but check up to 250 to be safe
+        if not found_numbers:
+            found_numbers = list(range(1, 251))
+
         question_starts = []
         seen_numbers = set()
-        for i in range(1, 126):
+        for i in found_numbers:
             pattern = f"^{i}\\."
             match = re.search(pattern, all_text, re.MULTILINE)
             if match and i not in seen_numbers:

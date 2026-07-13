@@ -3,11 +3,12 @@
 Exam Question & Answer Key Validator
 
 Validates that exam PDFs have:
-- Complete questions (125 total)
-- Complete answer key (125 total)
+- Complete questions (flexible count, auto-detected)
+- Complete answer key (flexible count, auto-detected)
 - Proper format and alignment
 - No mismatches or missing data
 
+Supports any number of questions (50, 100, 125, 200, etc.)
 Must be run BEFORE student answer analysis!
 """
 
@@ -21,11 +22,11 @@ from pypdf import PdfReader
 class ExamValidator:
     """Validates exam PDFs for completeness and correctness"""
 
-    EXPECTED_QUESTIONS = 125
     VALID_ANSWERS = ["A", "B", "C", "D"]
 
-    def __init__(self, pdf_path: str):
+    def __init__(self, pdf_path: str, expected_questions: int = None):
         self.pdf_path = Path(pdf_path)
+        self.expected_questions = expected_questions  # Auto-detect if None
         self.issues: list = []
         self.warnings: list = []
         self.questions: Dict[int, str] = {}
@@ -52,7 +53,8 @@ class ExamValidator:
                 if match:
                     q_num = int(match.group(1))
                     q_text = match.group(2).strip()[:100]  # First 100 chars
-                    if 1 <= q_num <= self.EXPECTED_QUESTIONS:
+                    # Accept any positive question number (flexible, not hardcoded to 125)
+                    if q_num > 0:
                         questions[q_num] = q_text
 
             self.questions = questions
@@ -83,7 +85,8 @@ class ExamValidator:
                 if match:
                     q_num = int(match.group(1))
                     answer = match.group(2)
-                    if 1 <= q_num <= self.EXPECTED_QUESTIONS:
+                    # Accept any positive question number (flexible)
+                    if q_num > 0:
                         answers[q_num] = answer
 
             self.answer_key = answers
@@ -102,26 +105,31 @@ class ExamValidator:
             self.issues.append("No questions extracted from PDF")
             return False
 
+        # Auto-detect question count if not specified
+        if self.expected_questions is None:
+            self.expected_questions = len(self.questions)
+            print(f"ℹ️  Auto-detected {self.expected_questions} questions in PDF")
+
         # Check count
-        if len(self.questions) < self.EXPECTED_QUESTIONS:
+        if len(self.questions) < self.expected_questions:
             missing = [
                 i
-                for i in range(1, self.EXPECTED_QUESTIONS + 1)
+                for i in range(1, self.expected_questions + 1)
                 if i not in self.questions
             ]
-            missing_count = self.EXPECTED_QUESTIONS - len(self.questions)
+            missing_count = self.expected_questions - len(self.questions)
             missing_preview = missing[:10]
             missing_more = "..." if len(missing) > 10 else ""
             self.issues.append(
                 f"Missing {missing_count} questions: {missing_preview}{missing_more}"
             )
             print(
-                f"✗ Only {len(self.questions)}/{self.EXPECTED_QUESTIONS} questions found"
+                f"✗ Only {len(self.questions)}/{self.expected_questions} questions found"
             )
             return False
 
-        if len(self.questions) == self.EXPECTED_QUESTIONS:
-            print(f"✓ All {self.EXPECTED_QUESTIONS} questions extracted")
+        if len(self.questions) == self.expected_questions:
+            print(f"✓ All {self.expected_questions} questions extracted")
             return True
 
         return False
@@ -135,27 +143,26 @@ class ExamValidator:
             self.issues.append("No answer key extracted from PDF")
             return False
 
+        # Use expected count (auto-detected from questions or provided)
+        expected = (
+            self.expected_questions if self.expected_questions else len(self.answer_key)
+        )
+
         # Check count
-        if len(self.answer_key) < self.EXPECTED_QUESTIONS:
-            missing = [
-                i
-                for i in range(1, self.EXPECTED_QUESTIONS + 1)
-                if i not in self.answer_key
-            ]
-            missing_count = self.EXPECTED_QUESTIONS - len(self.answer_key)
+        if len(self.answer_key) < expected:
+            missing = [i for i in range(1, expected + 1) if i not in self.answer_key]
+            missing_count = expected - len(self.answer_key)
             missing_preview = missing[:10]
             missing_more = "..." if len(missing) > 10 else ""
             self.issues.append(
                 f"Missing {missing_count} answers: {missing_preview}{missing_more}"
             )
-            print(
-                f"✗ Only {len(self.answer_key)}/{self.EXPECTED_QUESTIONS} answers found"
-            )
+            print(f"✗ Only {len(self.answer_key)}/{expected} answers found")
             print(f"  Missing: {missing[:10]}{'...' if len(missing) > 10 else ''}")
             return False
 
-        if len(self.answer_key) == self.EXPECTED_QUESTIONS:
-            print(f"✓ All {self.EXPECTED_QUESTIONS} answers extracted")
+        if len(self.answer_key) == expected:
+            print(f"✓ All {expected} answers extracted")
             return True
 
         return False

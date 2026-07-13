@@ -5,9 +5,11 @@ Data Quality Validator for Student Answer Sheets
 Validates answer Excel files before processing to catch:
 - Missing/NaN answers
 - Inconsistent column naming
-- Incomplete data (fewer than 125 questions)
+- Incomplete data (fewer than expected questions)
 - Malformed answer values
 - Data structure issues
+
+Supports any number of questions (flexible, auto-detected)
 """
 
 import pandas as pd
@@ -42,12 +44,12 @@ class DataQualityIssue:
 class AnswerSheetValidator:
     """Validates student answer Excel files for data quality"""
 
-    EXPECTED_QUESTIONS = 125
     VALID_ANSWERS = ["A", "B", "C", "D"]
     EXPECTED_COLUMNS = ["Question", "Answer"]
 
-    def __init__(self):
+    def __init__(self, expected_questions: int = None):
         self.issues = []
+        self.expected_questions = expected_questions  # Auto-detect if None
 
     def validate_file(
         self, file_path: str, student_name: str
@@ -165,21 +167,26 @@ class AnswerSheetValidator:
     def _check_row_count(self, file_name: str, student_name: str, df: pd.DataFrame):
         """Check if file has expected number of rows"""
         row_count = len(df)
-        if row_count < self.EXPECTED_QUESTIONS:
+
+        # Auto-detect expected count if not specified
+        if self.expected_questions is None:
+            self.expected_questions = row_count
+
+        if row_count < self.expected_questions:
             issue = DataQualityIssue(
                 file_name,
                 student_name,
                 "INCOMPLETE_DATA",
-                f"Only {row_count} answers found, expected {self.EXPECTED_QUESTIONS}",
+                f"Only {row_count} answers found, expected {self.expected_questions}",
                 "ERROR",
             )
             self.issues.append(issue)
-        elif row_count > self.EXPECTED_QUESTIONS:
+        elif row_count > self.expected_questions:
             issue = DataQualityIssue(
                 file_name,
                 student_name,
                 "EXTRA_ROWS",
-                f"File has {row_count} rows instead of {self.EXPECTED_QUESTIONS}",
+                f"File has {row_count} rows instead of {self.expected_questions}",
                 "WARNING",
             )
             self.issues.append(issue)
