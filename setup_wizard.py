@@ -113,7 +113,7 @@ def get_batch_files(batch_name):
     print_section(f"SETUP: {batch_name.upper()} BATCH")
 
     print(f"\nTo analyze the '{batch_name}' batch, you need:")
-    print("  1. Exam PDF file(s)")
+    print("  1. Exam PDF file(s) — Can be multiple versions!")
     print("  2. Student answer file(s)")
     print("  3. (Optional) Answer key\n")
 
@@ -125,9 +125,16 @@ def get_batch_files(batch_name):
         print(f"✓ Found exam PDFs for '{batch_name}':")
         for f in exam_files:
             print(f"    - {f.name}")
+
+        # Detect if multiple versions
+        if len(exam_files) > 1:
+            print(f"\n⚠️  Multiple exam versions detected!")
+            print(f"  Make sure answer sheets include 'exam_version' field")
+            print(f"  Example: {{'exam_version': '{exam_files[0].stem}', 'answers': {{...}}}}")
     else:
         print(f"✗ No exam PDFs found matching: exams/{batch_name}*.pdf")
-        print(f"  → Place your exam PDF as: exams/{batch_name}_exam.pdf")
+        print(f"  → Single version: Place as: exams/{batch_name}_exam.pdf")
+        print(f"  → Multiple versions: Place as: exams/{batch_name}_v1_exam.pdf, exams/{batch_name}_v2_exam.pdf")
 
     # Check for answer files
     answer_dir = Path(f"answers/{batch_name}")
