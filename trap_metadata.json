@@ -1,0 +1,310 @@
+{
+  "framework_version": "2.0",
+  "created_date": "2026-07-13",
+  "description": "CISSP Trap Framework - Metadata Reference for Student Reports",
+  
+  "trap_codes": {
+    "MGT": {
+      "name": "Managerial Mindset",
+      "category": "End Game Traps",
+      "description": "Policy/Process vs. Technical Solution",
+      "red_flag": "You picked 'install X' instead of 'draft policy'",
+      "study_focus": "Governance frameworks, policy creation, business continuity",
+      "priority": "CRITICAL",
+      "report_note": "You picked a technical solution when the question required strategic/managerial thinking"
+    },
+    "MOD": {
+      "name": "Negative/Modifier",
+      "category": "Blind Spot Traps",
+      "description": "Missing LEAST/EXCEPT/NOT/MOST keywords",
+      "red_flag": "You read 'LEAST effective' and picked the MOST effective",
+      "study_focus": "Read question stem twice, highlight key words",
+      "priority": "CRITICAL",
+      "report_note": "You missed a critical keyword (NOT/LEAST/EXCEPT/MOST) in the question"
+    },
+    "ABS": {
+      "name": "Absolute Language",
+      "category": "Blind Spot Traps",
+      "description": "Always/Never/All/Every - absolutes are usually wrong",
+      "red_flag": "You picked an answer saying 'completely eliminate risk'",
+      "study_focus": "Residual risk ALWAYS exists in security",
+      "priority": "MEDIUM",
+      "report_note": "Absolute language is usually a trap - security has residual risk"
+    },
+    "FAM": {
+      "name": "False Assumption/Vendor Jargon",
+      "category": "Blind Spot Traps",
+      "description": "Brand name vs. generic/official term",
+      "red_flag": "You picked 'Palo Alto firewall' instead of 'NGFW'",
+      "study_focus": "Use ISC2 glossary terms, not vendor brands",
+      "priority": "MEDIUM",
+      "report_note": "The question tests knowledge of standard terminology, not specific brands"
+    },
+    "BEST": {
+      "name": "Best/Primary/Most",
+      "category": "Structural Traps",
+      "description": "Distinguish most effective from acceptable answers",
+      "red_flag": "You picked 'correct' instead of 'best/optimal'",
+      "study_focus": "Rank all options by quality, always pick the highest",
+      "priority": "MEDIUM",
+      "report_note": "You picked a correct answer, but a better/more strategic one existed"
+    },
+    "ALL": {
+      "name": "All-of-the-Above / Umbrella Effect",
+      "category": "Reading Comprehension",
+      "description": "All answers are true - pick the broadest umbrella answer",
+      "red_flag": "You picked partial answer when broader option encompassed it",
+      "study_focus": "Look for 'Defense in Depth', 'Risk Management', 'holistic' answers",
+      "priority": "CRITICAL",
+      "report_note": "You picked an answer that's technically correct but not the broadest/best option"
+    },
+    "NON": {
+      "name": "Non-sequitur / Shiny Object",
+      "category": "Reading Comprehension",
+      "description": "Technically correct but answers the wrong question",
+      "red_flag": "Question asks Authentication, you picked 'AES-256' (Confidentiality)",
+      "study_focus": "Read question stem 3 times, identify what it's really asking",
+      "priority": "MEDIUM",
+      "report_note": "You picked a technically correct answer that doesn't address the question asked"
+    },
+    "TIM": {
+      "name": "Timeline Trick",
+      "category": "Reading Comprehension",
+      "description": "Immediate response vs. long-term fix",
+      "red_flag": "You picked 'update training' instead of 'disconnect network' for immediate response",
+      "study_focus": "FIRST/IMMEDIATE action = containment, NOT prevention",
+      "priority": "HIGH",
+      "report_note": "For immediate/first response questions, prioritize containment over prevention"
+    },
+    "IRP": {
+      "name": "Incident Response Process",
+      "category": "Order of Operations",
+      "description": "Preparation → Detection → Containment → Eradication → Recovery → Lessons Learned",
+      "red_flag": "You picked 'eradicate malware' as the FIRST step instead of 'contain'",
+      "study_focus": "Learn NIST IR phases: Detect → Contain → Eradicate → Recover → Lessons",
+      "priority": "CRITICAL",
+      "report_note": "You mixed up the order of incident response phases"
+    },
+    "BCP": {
+      "name": "Business Continuity Plan",
+      "category": "Order of Operations",
+      "description": "Initiation → BIA → Continuity Strategies → Approval → Testing",
+      "red_flag": "You picked 'write the plan' first instead of 'conduct BIA'",
+      "study_focus": "BIA (Business Impact Analysis) comes BEFORE strategy design",
+      "priority": "CRITICAL",
+      "report_note": "You got the order of BCP phases wrong"
+    },
+    "SDL": {
+      "name": "SDLC Phases",
+      "category": "Order of Operations",
+      "description": "Requirements → Design → Development → Testing → Implementation",
+      "red_flag": "You picked 'fix bug in production' instead of 'use dev environment'",
+      "study_focus": "Changes require proper environment separation",
+      "priority": "HIGH",
+      "report_note": "You didn't follow proper SDLC phase sequence"
+    },
+    "FOR": {
+      "name": "Forensics Order",
+      "category": "Order of Operations",
+      "description": "Capture volatile data (RAM) before persistent (disk)",
+      "red_flag": "You picked 'shut down system' first instead of 'capture RAM'",
+      "study_focus": "Order of volatility: RAM → Disk → Network",
+      "priority": "HIGH",
+      "report_note": "You didn't follow proper order of volatility for evidence capture"
+    },
+    "ORD": {
+      "name": "Process Sequence",
+      "category": "Order of Operations",
+      "description": "General process or phase ordering",
+      "red_flag": "You mixed up phases or steps of a sequential process",
+      "study_focus": "Identify the process, memorize the correct order",
+      "priority": "HIGH",
+      "report_note": "You got the sequence of process steps wrong"
+    },
+    "SCO": {
+      "name": "Scope & Boundaries",
+      "category": "Scope Traps",
+      "description": "Cloud Consumer vs. Cloud Provider responsibilities (CCSP)",
+      "red_flag": "You forgot encryption is Consumer's job in IaaS but Provider's in SaaS",
+      "study_focus": "CSA Cloud Responsibility Matrix - memorize by service model",
+      "priority": "HIGH",
+      "report_note": "You confused Cloud Consumer vs. Provider responsibilities"
+    },
+    "RAC": {
+      "name": "Role Confusion",
+      "category": "Scope Traps",
+      "description": "Data Owner vs. Data Custodian vs. System Admin",
+      "red_flag": "You picked 'IT Admin' instead of 'Business Manager' for authorization",
+      "study_focus": "Owner (decides) vs. Custodian (executes) vs. Admin (operates)",
+      "priority": "CRITICAL",
+      "report_note": "You confused who decides vs. who implements"
+    },
+    "GEO": {
+      "name": "Jurisdiction",
+      "category": "Scope Traps",
+      "description": "GDPR/HIPAA/Legal compliance - law > technology",
+      "red_flag": "You picked technical control instead of 'consult Legal'",
+      "study_focus": "Legal/compliance ALWAYS overrides technical solutions",
+      "priority": "HIGH",
+      "report_note": "You didn't recognize that legal/compliance requirements override technical fixes"
+    },
+    "ETH": {
+      "name": "Ethical Fence",
+      "category": "End Game Traps",
+      "description": "Legal vs. Ethical vs. Practical - ISC2 Code of Ethics first",
+      "red_flag": "You picked 'hack back' instead of 'protect society first'",
+      "study_focus": "ISC2 Ethics: Protect society > Follow law > Protect employer",
+      "priority": "CRITICAL",
+      "report_note": "You didn't apply ISC2 Code of Ethics principle"
+    },
+    "RFP": {
+      "name": "Risk Framework Puzzle",
+      "category": "End Game Traps",
+      "description": "Accept vs. Mitigate vs. Transfer vs. Avoid",
+      "red_flag": "You picked 'implement firewall' (Mitigate) instead of 'buy insurance' (Transfer)",
+      "study_focus": "Know when each risk response is appropriate",
+      "priority": "HIGH",
+      "report_note": "You picked the wrong risk response strategy"
+    },
+    "SLA": {
+      "name": "Service Level Agreement",
+      "category": "End Game Traps",
+      "description": "Reactive vs. Proactive - RTO/RPO driven decisions",
+      "red_flag": "You picked 'restore server' instead of 'activate DR plan' per RTO/RPO",
+      "study_focus": "SLA/RTO/RPO dictate what action to take, not your gut",
+      "priority": "HIGH",
+      "report_note": "You didn't consider RTO/RPO requirements in your decision"
+    },
+    "CUL": {
+      "name": "Culture Shock",
+      "category": "Human Factor",
+      "description": "User training vs. technical control - people > technology",
+      "red_flag": "You picked 'DLP software' instead of 'awareness training'",
+      "study_focus": "Root cause is usually human behavior, not technology",
+      "priority": "MEDIUM",
+      "report_note": "You picked a technical solution when training/awareness was the real fix"
+    }
+  },
+
+  "concept_categories": {
+    "DEF_DIST": {
+      "name": "Definition + Distinction",
+      "description": "Know what X means AND how it differs from similar terms",
+      "example": "Q4: MAD vs RTO vs RPO",
+      "study_strategy": "Create comparison matrices and Venn diagrams",
+      "priority": "HIGH"
+    },
+    "DEFINITION": {
+      "name": "Pure Definition",
+      "description": "Know the exact, official definition of a term",
+      "example": "Q7: Policy is promulgated by senior management",
+      "study_strategy": "Use ISC2 glossary, create flashcards",
+      "priority": "MEDIUM"
+    },
+    "PURPOSE": {
+      "name": "Purpose/Use Case",
+      "description": "Know WHEN and WHERE something should be used",
+      "example": "Q17: SLA for regularly recurring activities",
+      "study_strategy": "Study use cases, context, and appropriate applications",
+      "priority": "HIGH"
+    },
+    "APPLICATION": {
+      "name": "Scenario Application",
+      "description": "Apply concepts to real-world situations",
+      "example": "Long scenario questions with organizational context",
+      "study_strategy": "Practice case studies, think like a CISO",
+      "priority": "HIGH"
+    },
+    "RECALL": {
+      "name": "Knowledge Recall",
+      "description": "Simple factual knowledge and memorization",
+      "example": "Which law governs medical data?",
+      "study_strategy": "Flashcards, memorization drills",
+      "priority": "LOW"
+    },
+    "COMPARISON": {
+      "name": "Compare/Distinguish",
+      "description": "Identify differences and relationships between concepts",
+      "example": "Difference between authentication and authorization?",
+      "study_strategy": "Create Venn diagrams and comparison charts",
+      "priority": "HIGH"
+    },
+    "CALCULATION": {
+      "name": "Math/Metrics",
+      "description": "Compute specific values, formulas, or percentages",
+      "example": "Calculate ALE, RTO, or risk scores",
+      "study_strategy": "Work through examples step-by-step",
+      "priority": "MEDIUM"
+    },
+    "ACRONYM": {
+      "name": "Multiple Acronyms",
+      "description": "Distinguish between similar or related acronyms",
+      "example": "GDPR vs CCPA vs HIPAA vs PCI-DSS",
+      "study_strategy": "Create acronym decoder sheets, use color coding",
+      "priority": "LOW"
+    },
+    "FRAMEWORK": {
+      "name": "Framework/Model Knowledge",
+      "description": "Know components, phases, or principles of a framework",
+      "example": "NIST CSF pillars, SDLC phases, CIA triad",
+      "study_strategy": "Learn the structure, memorize sequence",
+      "priority": "HIGH"
+    },
+    "DISTINCTION": {
+      "name": "Semantic Distinction",
+      "description": "Distinguish between similar-sounding or conceptually close terms",
+      "example": "Confidentiality vs. Integrity vs. Availability",
+      "study_strategy": "Use concept maps and definitions",
+      "priority": "MEDIUM"
+    },
+    "CONCEPT_GENERAL": {
+      "name": "General Concept Understanding",
+      "description": "Broad concept comprehension without specific categorization",
+      "example": "Various foundational knowledge questions",
+      "study_strategy": "Review textbook chapters, practice questions",
+      "priority": "MEDIUM"
+    }
+  },
+
+  "priority_levels": {
+    "CRITICAL": {
+      "description": "These are objective rules that apply across exams",
+      "examples": ["MGT", "MOD", "RAC", "IRP", "BCP", "ETH", "ALL"],
+      "action": "Memorize and practice until automatic"
+    },
+    "HIGH": {
+      "description": "Common confusion points that appear frequently",
+      "examples": ["BEST", "TIM", "SCO", "GEO", "RFP", "SLA"],
+      "action": "Create study aids (charts, flowcharts, comparisons)"
+    },
+    "MEDIUM": {
+      "description": "Important but less frequent trap patterns",
+      "examples": ["ABS", "FAM", "CALCULATION", "FRAMEWORK"],
+      "action": "Study with examples and practice questions"
+    },
+    "LOW": {
+      "description": "Pure memorization, appears less frequently",
+      "examples": ["RECALL", "ACRONYM"],
+      "action": "Flashcards and periodic review"
+    }
+  },
+
+  "report_mapping": {
+    "WRONG_with_CRITICAL_trap": "High-impact error - student needs targeted review",
+    "WRONG_with_HIGH_trap": "Common mistake - review trap pattern",
+    "WRONG_with_MEDIUM_trap": "Skill gap - more practice needed",
+    "WRONG_with_LOW_trap": "Knowledge gap - use flashcards",
+    "WRONG_without_trap": "General concept misunderstanding"
+  },
+
+  "quick_reference": {
+    "at_exam": [
+      "Read LAST SENTENCE of question first (to identify role and action word)",
+      "Highlight key words: BEST, FIRST, LEAST, NOT, EXCEPT, MOST",
+      "Eliminate answers with absolute language (always, never, all, completely)",
+      "If stem says 'manager/policy', eliminate technical answers",
+      "If multiple answers look right, pick the broadest/umbrella answer",
+      "Match the role in the stem (analyst→technical, manager→strategy)"
+    ]
+  }
+}
