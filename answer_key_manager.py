@@ -9,6 +9,7 @@ import re
 from pathlib import Path
 from typing import Dict, Tuple, Optional
 import pypdf
+from answer_validator_interactive import InteractiveAnswerValidator
 
 
 class ConfidenceReport:
@@ -53,14 +54,15 @@ class AnswerKeyManager:
         self.answer_keys_dir.mkdir(exist_ok=True)
 
     def load_answer_key(
-        self, pdf_path: str, interactive: bool = True
+        self, pdf_path: str, interactive: bool = True, use_validator: bool = True
     ) -> Dict[int, str]:
         """
-        Load answer key with automatic extraction + interactive fallback
+        Load answer key with automatic extraction + interactive validation
 
         Args:
             pdf_path: Path to PDF file
             interactive: Whether to show interactive prompts
+            use_validator: Whether to use interactive validator for low-confidence answers
 
         Returns:
             Dict mapping question number to correct answer (A/B/C/D)
@@ -72,7 +74,7 @@ class AnswerKeyManager:
         # Step 1: Try automatic extraction
         print("Step 1: Attempting automatic extraction from PDF...")
         print("-" * 80)
-        extracted_key, report = self.extract_from_pdf(pdf_path)
+        extracted_key, report, pdf_context = self.extract_from_pdf(pdf_path)
         confidence = report.calculate(len(extracted_key))
 
         print(f"Extracted: {len(extracted_key)} answers")
@@ -83,31 +85,48 @@ class AnswerKeyManager:
             for warning in report.warnings:
                 print(f"  ⚠️  {warning}")
 
-        # Step 2: Check confidence
+        # Step 2: Interactive validation for confidence < 95%
+        if use_validator and interactive and confidence < 0.95:
+            print(f"\nStep 2: Interactive validation of extracted answers...")
+            print("-" * 80)
+            validator = InteractiveAnswerValidator()
+            validated_key, validation_report = validator.validate_answers(
+                extracted_key, pdf_context, confidence_threshold=0.75
+            )
+
+            # Save validation report
+            validation_log = self.answer_keys_dir / "validation_report.json"
+            validator.save_validation_report(validation_report, validation_log)
+
+            self._save_answer_key(validated_key, "automatic_with_validation")
+            return validated_key
+
+        # Step 3: Check confidence threshold
         if confidence >= self.CONFIDENCE_THRESHOLD and len(extracted_key) >= 50:
             print(f"\n✓ Confidence sufficient ({confidence:.0%}). Using extracted key.")
             self._save_answer_key(extracted_key, "automatic")
             return extracted_key
 
-        # Step 3: Ask user to choose
+        # Step 4: Ask user to choose fallback method
         if not interactive:
             print(f"\n✗ Confidence too low ({confidence:.0%}) and interactive mode disabled.")
             return extracted_key
 
-        print(f"\n⚠️  Confidence too low ({confidence:.0%}). Need user input.\n")
-        return self._interactive_wizard(pdf_path, extracted_key, confidence)
+        print(f"\n⚠️  Confidence low ({confidence:.0%}). Choose method:\n")
+        return self._interactive_wizard(pdf_path, extracted_key, confidence, pdf_context)
 
-    def extract_from_pdf(self, pdf_path: str) -> Tuple[Dict[int, str], ConfidenceReport]:
+    def extract_from_pdf(self, pdf_path: str) -> Tuple[Dict[int, str], ConfidenceReport, Dict[int, str]]:
         """
-        Extract answer key from PDF using robust line-by-line parsing
+        Extract answer key from PDF with context for each answer
 
         Args:
             pdf_path: Path to PDF file
 
         Returns:
-            Tuple of (answer_key dict, confidence report)
+            Tuple of (answer_key dict, confidence report, context dict)
         """
         report = ConfidenceReport()
+        pdf_context = {}
 
         try:
             with open(pdf_path, "rb") as f:
@@ -122,24 +141,29 @@ class AnswerKeyManager:
 
             # More robust regex: look for "correct answer is X" where X is A-D
             pattern = r"(?:correct\s+answer\s+is|answer\s+is)\s+([A-D])"
-            matches = re.finditer(pattern, all_text, re.IGNORECASE)
+            matches = list(re.finditer(pattern, all_text, re.IGNORECASE))
 
             for match in matches:
                 answers.append(match.group(1).upper())
+                # Capture context around the match (100 chars before and after)
+                start = max(0, match.start() - 100)
+                end = min(len(all_text), match.end() + 100)
+                context = all_text[start:end].replace("\n", " ").strip()
+                pdf_context[len(answers)] = context
                 report.pattern_matches += 1
 
             # Create answer key
             answer_key = {i: ans for i, ans in enumerate(answers, 1)}
             report.total_extracted = len(answer_key)
 
-            return answer_key, report
+            return answer_key, report, pdf_context
 
         except Exception as e:
             report.warnings.append(f"PDF extraction error: {str(e)}")
-            return {}, report
+            return {}, report, {}
 
     def _interactive_wizard(
-        self, pdf_path: str, partial_key: Dict[int, str], confidence: float
+        self, pdf_path: str, partial_key: Dict[int, str], confidence: float, pdf_context: Dict[int, str] = None
     ) -> Dict[int, str]:
         """
         Interactive wizard for answer key entry/correction
@@ -148,6 +172,7 @@ class AnswerKeyManager:
             pdf_path: Path to PDF
             partial_key: Partially extracted answer key (if any)
             confidence: Confidence score of extraction
+            pdf_context: Context around extracted answers
 
         Returns:
             Final validated answer key
@@ -162,29 +187,37 @@ class AnswerKeyManager:
         print()
 
         print("Options:")
-        print("  1) Use extracted answers (at your own risk)")
-        print("  2) Upload answer_key.json file")
-        print("  3) Enter answers manually (interactive Q&A)")
-        print("  4) Review and correct extracted answers")
+        print("  1) Review & validate extracted answers (recommended)")
+        print("  2) Use extracted answers as-is (at your own risk)")
+        print("  3) Upload answer_key.json file")
+        print("  4) Enter answers manually (interactive Q&A)")
         print("  5) Skip this exam")
         print()
 
         choice = input("Select option (1-5): ").strip()
 
         if choice == "1":
+            print("\nStarting interactive validation...")
+            validator = InteractiveAnswerValidator()
+            validated_key, validation_report = validator.validate_answers(
+                partial_key, pdf_context, confidence_threshold=0.75
+            )
+            validation_log = self.answer_keys_dir / "validation_report.json"
+            validator.save_validation_report(validation_report, validation_log)
+            self._save_answer_key(validated_key, "manual_validation")
+            return validated_key
+
+        elif choice == "2":
             print("\n⚠️  Using extracted answers with low confidence.")
             print("     Results may be inaccurate. Verify after analysis.")
             self._save_answer_key(partial_key, "auto_low_confidence")
             return partial_key
 
-        elif choice == "2":
+        elif choice == "3":
             return self._load_json_upload()
 
-        elif choice == "3":
-            return self._manual_entry_wizard()
-
         elif choice == "4":
-            return self._review_and_correct(partial_key)
+            return self._manual_entry_wizard()
 
         elif choice == "5":
             print("\nSkipping this exam.")
@@ -192,7 +225,7 @@ class AnswerKeyManager:
 
         else:
             print("Invalid option. Try again.")
-            return self._interactive_wizard(pdf_path, partial_key, confidence)
+            return self._interactive_wizard(pdf_path, partial_key, confidence, pdf_context)
 
     def _load_json_upload(self) -> Dict[int, str]:
         """
