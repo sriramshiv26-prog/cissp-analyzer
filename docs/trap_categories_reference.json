@@ -1,0 +1,370 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "date": "2026-07-14",
+    "total_categories": 21,
+    "purpose": "Standardized categorization of CISSP exam traps and trick questions"
+  },
+  "categories": {
+    "NEG": {
+      "name": "Negative Modifiers",
+      "type": "Reading Comprehension",
+      "difficulty": "⭐⭐⭐ High",
+      "frequency": "12%",
+      "the_trap": "You skim over words like LEAST, EXCEPT, NOT, or BEST and answer the obvious positive truth.",
+      "the_fix": "Flip the stem. Re-read the question replacing LEAST with MOST to see if your answer still makes sense.",
+      "isc2_principle": "Careful reading of negative modifiers in question stems",
+      "example_trap": "Which is the LEAST effective control against availability threats? → Pick Encryption",
+      "example_correct": "Which is the LEAST effective control against availability threats? → Pick Backups",
+      "affected_domains": [1, 2, 3, 4, 5, 6, 7, 8],
+      "prevention_strategy": "Circle all negative modifiers before reading options"
+    },
+    "ABS": {
+      "name": "Absolute Language",
+      "type": "Logic and Reasoning",
+      "difficulty": "⭐⭐⭐ High",
+      "frequency": "9%",
+      "the_trap": "You pick answers with Always, Never, All, or Completely Eliminate because they sound decisive and confident.",
+      "the_fix": "Eliminate immediately. In risk/security, 100% certainty is impossible. The correct answer will almost always use Generally, Risk-based, or Mitigate.",
+      "isc2_principle": "Risk management is probabilistic, not deterministic",
+      "example_trap": "This will completely prevent SQL injection → Sounds authoritative",
+      "example_correct": "This will significantly reduce the risk of SQL injection → Realistic",
+      "affected_domains": [3, 4, 7, 8],
+      "prevention_strategy": "Eliminate answers with Always, Never, All, Completely, Impossible"
+    },
+    "ROLE": {
+      "name": "Job Title Mismatch",
+      "type": "Context Understanding",
+      "difficulty": "⭐⭐⭐ High",
+      "frequency": "11%",
+      "the_trap": "You pick a technical fix (firewall/antivirus) even when the stem gives you a non-technical job title.",
+      "the_fix": "Match the role. Analyst = Technical. Manager = Policy/Process. Owner = Approve budget/risk. Custodian = Implement the fix.",
+      "isc2_principle": "Responsibility alignment with organizational roles",
+      "example_trap": "Data Owner should handle? → Install a DLP agent (IT Admin job)",
+      "example_correct": "Data Owner should? → Approve the new Data Classification Policy",
+      "affected_domains": [1, 5, 7],
+      "prevention_strategy": "Map each role to its authority level before reading options"
+    },
+    "ORDER": {
+      "name": "Process Sequence",
+      "type": "Knowledge and Procedure",
+      "difficulty": "⭐⭐⭐ High",
+      "frequency": "10%",
+      "the_trap": "You jump to the fix or solution without considering the mandatory step that comes before it.",
+      "the_fix": "Recite the ISC2 lifecycle. BCP = BIA first. Incident Response = Containment first. Forensics = Capture RAM first.",
+      "isc2_principle": "Understanding SDLC, BCP, incident response, and forensic lifecycles",
+      "example_trap": "First step in BCP activation? → Restore from the last backup",
+      "example_correct": "First step in BCP activation? → Activate the warm site per the DR Plan (comes after BIA)",
+      "affected_domains": [1, 7, 8],
+      "prevention_strategy": "Write out the lifecycle sequence before reading options"
+    },
+    "SCOPE": {
+      "name": "Boundary Confusion",
+      "type": "Conceptual Understanding",
+      "difficulty": "⭐⭐⭐ High",
+      "frequency": "9%",
+      "the_trap": "You apply on-premise logic to cloud, or forget who holds the legal liability in shared environments.",
+      "the_fix": "Define the shared model. In IaaS, you manage OS/Apps. In PaaS, you manage Data/Apps. In SaaS, you manage only Data & Access.",
+      "isc2_principle": "Understanding cloud shared responsibility models",
+      "example_trap": "In IaaS, reconfigure the hypervisor settings",
+      "example_correct": "In IaaS, reconfigure the guest OS firewall (your responsibility, not provider's)",
+      "affected_domains": [3, 4],
+      "prevention_strategy": "Identify the deployment model first, then assign responsibility"
+    },
+    "ALL": {
+      "name": "Umbrella Effect",
+      "type": "Strategic Thinking",
+      "difficulty": "⭐⭐ Medium",
+      "frequency": "9%",
+      "the_trap": "You pick a specific, technically correct answer (e.g., Firewall) when a broader answer covers it entirely.",
+      "the_fix": "Ask: Does this include the others? If yes, pick the broadest strategic answer, not the tactical one.",
+      "isc2_principle": "Strategic vs tactical security thinking",
+      "example_trap": "Best overall security strategy? → Intrusion Detection System",
+      "example_correct": "Best overall security strategy? → Defense-in-Depth strategy (includes IDS)",
+      "affected_domains": [1, 3, 5],
+      "prevention_strategy": "Read all options before choosing, look for broader answers"
+    },
+    "GOLD": {
+      "name": "Shiny Object",
+      "type": "Distraction and Relevance",
+      "difficulty": "⭐⭐ Medium",
+      "frequency": "9%",
+      "the_trap": "You pick the most complex, technical, or crypto-related term because it looks impressive, even if it's irrelevant to the question.",
+      "the_fix": "Eliminate irrelevant domains. If the question is about Authentication, ignore anything related to Encryption (CIA triad mismatch).",
+      "isc2_principle": "Matching answer to question domain",
+      "example_trap": "Identity proofing approach? → Use AES-256 encryption (impressive but wrong domain)",
+      "example_correct": "Identity proofing? → Implement a one-time password (OTP) token (authentication-specific)",
+      "affected_domains": [4, 5, 8],
+      "prevention_strategy": "Identify the domain of the question before reading options"
+    },
+    "ETHIC": {
+      "name": "Moral Hazard",
+      "type": "Values and Professional Ethics",
+      "difficulty": "⭐⭐ Medium",
+      "frequency": "8%",
+      "the_trap": "You pick the cool vigilante option (hacking back) or the quick legal option (calling cops) without considering professional duty.",
+      "the_fix": "Apply ISC2 Canon. Protect society first. Then protect the organization. Then inform authorities. Never take offensive action.",
+      "isc2_principle": "ISC2 Code of Ethics compliance",
+      "example_trap": "Trace the attacker's IP and block them globally (hacking back)",
+      "example_correct": "Isolate the compromised system and preserve logs for chain of custody",
+      "affected_domains": [1, 7],
+      "prevention_strategy": "Remember ISC2 Canon: Society > Organization > Authorities > Actions"
+    },
+    "EASY": {
+      "name": "Overthink",
+      "type": "Psychology and Test Strategy",
+      "difficulty": "⭐⭐ Medium",
+      "frequency": "8%",
+      "the_trap": "The CAT gives you a simple, obvious question early on. You assume it's a trick and overcomplicate it.",
+      "the_fix": "Trust the obvious. If a question seems easy, it's because you are performing well. Pick the straightforward, textbook answer.",
+      "isc2_principle": "Confidence in textbook knowledge",
+      "example_trap": "What is authentication? → Assume trick, pick Retinal Scan",
+      "example_correct": "What is authentication? → Multi-Factor Authentication (textbook answer)",
+      "affected_domains": [1, 2, 3, 4, 5, 6, 7, 8],
+      "prevention_strategy": "Trust obvious answers when performing well in CAT"
+    },
+    "TIME": {
+      "name": "Clock Killer",
+      "type": "Behavior and Test Management",
+      "difficulty": "⭐ Low",
+      "frequency": "7%",
+      "the_trap": "You spend 4 minutes on a single, highly complex question because you're afraid to get it wrong.",
+      "the_fix": "Eliminate 2 wrongs, guess, and move on. Getting one hard question wrong won't tank you; running out of time will.",
+      "isc2_principle": "Time management under pressure",
+      "example_trap": "Re-reading a complex scenario 5 times, changing answer multiple times",
+      "example_correct": "Read once, eliminate 2 wrongs, pick between 2 remaining, click Next",
+      "affected_domains": [1, 3, 7],
+      "prevention_strategy": "Set 90-second timer per question, move on if stuck"
+    },
+    "REPEAT": {
+      "name": "Deja Vu",
+      "type": "Memory and Confidence",
+      "difficulty": "⭐ Low",
+      "frequency": "7%",
+      "the_trap": "The CAT gives you a question on a topic you already saw. You assume you got it wrong previously.",
+      "the_fix": "Treat it as a new question. CAT recycles domains. Do not assume your previous answer was wrong. Read it fresh.",
+      "isc2_principle": "Understanding CAT algorithm and domain recycling",
+      "example_trap": "Got BCP earlier, must have failed, so pick different answer now",
+      "example_correct": "Apply ORDER rule fresh to this new incident response question",
+      "affected_domains": [1, 2, 3, 4, 5, 6, 7, 8],
+      "prevention_strategy": "Treat each question independently, ignore prior similar questions"
+    },
+    "COMPLIANCE": {
+      "name": "Regulatory Confusion",
+      "type": "Knowledge and Frameworks",
+      "difficulty": "⭐⭐⭐ High",
+      "frequency": "8%",
+      "the_trap": "You mix up which regulation applies to which scenario. (GDPR vs CCPA vs SOX vs HIPAA vs PCI-DSS vs ISO 27001)",
+      "the_fix": "GDPR = EU personal data. CCPA = California. HIPAA = US healthcare. PCI-DSS = Payment cards. SOX = Public companies. ISO 27001 = General framework.",
+      "isc2_principle": "Understanding regulatory and compliance frameworks",
+      "example_trap": "EU customer data + US company = Implement CCPA controls",
+      "example_correct": "EU customer data = Implement GDPR controls (regardless of company location)",
+      "affected_domains": [1, 3],
+      "prevention_strategy": "Create a regulatory framework comparison table"
+    },
+    "HIERARCHY": {
+      "name": "Authority Mismatch",
+      "type": "Organizational Understanding",
+      "difficulty": "⭐⭐⭐ High",
+      "frequency": "7%",
+      "the_trap": "You suggest the wrong person has authority to make a decision. (CEO ≠ CISO ≠ Data Owner ≠ Security Officer)",
+      "the_fix": "CEO = Budget. CISO = Strategy. Data Owner = Data decisions. Security Officer = Implementation. System Owner = System decisions.",
+      "isc2_principle": "Understanding organizational hierarchy and accountability",
+      "example_trap": "CISO approves all access requests directly",
+      "example_correct": "Data Owner approves access to their data; CISO defines the process",
+      "affected_domains": [1, 5, 7],
+      "prevention_strategy": "Create organizational role-responsibility matrix"
+    },
+    "TOOL": {
+      "name": "Wrong Technology",
+      "type": "Technical Knowledge",
+      "difficulty": "⭐⭐⭐ High",
+      "frequency": "10%",
+      "the_trap": "You pick a tool that's technically sound but isn't the BEST fit for the specific scenario.",
+      "the_fix": "Context matters: Firewalls stop network attacks, not insider threats. DLP catches data exfiltration. SIEM detects patterns.",
+      "isc2_principle": "Matching security tools to specific threats",
+      "example_trap": "Stop insider data theft = Install firewall",
+      "example_correct": "Stop insider data theft = Implement DLP (Data Loss Prevention)",
+      "affected_domains": [1, 3, 4, 7],
+      "prevention_strategy": "Create threat-to-tool mapping chart"
+    },
+    "CONTEXT": {
+      "name": "Missing Scenario Clues",
+      "type": "Reading Comprehension",
+      "difficulty": "⭐⭐ Medium",
+      "frequency": "6%",
+      "the_trap": "You miss a critical detail in the scenario that changes the answer. (Internal/external, regulated, startup, cloud, etc.)",
+      "the_fix": "Highlight scenario context: Internal vs External, Regulated vs Non-regulated, Startup vs Mature, Cloud vs On-premise.",
+      "isc2_principle": "Context-aware decision making",
+      "example_trap": "Scenario says THIRD-PARTY cloud → Answer assumes you own infrastructure",
+      "example_correct": "Third-party cloud = Answer must reference shared responsibility model",
+      "affected_domains": [3, 4, 5],
+      "prevention_strategy": "Highlight context clues in scenario before reading options"
+    },
+    "DEFINITION": {
+      "name": "Concept Confusion",
+      "type": "Knowledge and Terminology",
+      "difficulty": "⭐⭐⭐ High",
+      "frequency": "9%",
+      "the_trap": "You confuse two similar concepts. (Authentication ≠ Authorization; Threat ≠ Risk; Vulnerability ≠ Exploit)",
+      "the_fix": "Create flashcards: Authentication = Prove identity. Authorization = Grant permissions. Threat = Something that could happen. Risk = Probability × Impact.",
+      "isc2_principle": "Understanding CISSP foundational concepts",
+      "example_trap": "Improve authorization? → Answer describes authentication (two-factor)",
+      "example_correct": "Improve authorization? → Answer describes RBAC",
+      "affected_domains": [1, 2, 3, 4, 5, 6, 7, 8],
+      "prevention_strategy": "Create concept comparison flashcards"
+    },
+    "LIFECYCLE": {
+      "name": "Process Stage Error",
+      "type": "Knowledge and Procedures",
+      "difficulty": "⭐⭐⭐ High",
+      "frequency": "11%",
+      "the_trap": "You answer with the correct technique, but at the wrong stage of a process lifecycle.",
+      "the_fix": "BCP: BIA → Plan → Implement → Test → Maintain. Incident: Detect → Contain → Eradicate → Recover → Post-mortem. SDLC: Design → Develop → Test → Deploy → Maintain.",
+      "isc2_principle": "Understanding CISSP process lifecycles",
+      "example_trap": "First step in incident response? → Eradicate the threat",
+      "example_correct": "First step in incident response? → Contain (stop spreading)",
+      "affected_domains": [1, 3, 7, 8],
+      "prevention_strategy": "Memorize and visualize each lifecycle sequence"
+    },
+    "METRIC": {
+      "name": "Measurement Mismatch",
+      "type": "Analysis and Metrics",
+      "difficulty": "⭐⭐ Medium",
+      "frequency": "5%",
+      "the_trap": "You pick a metric that's important but isn't what the question is asking for.",
+      "the_fix": "RTO = Recovery time. RPO = Recovery point (data loss window). MTBF = Mean time between failures. MTTR = Mean time to repair. SLA = Uptime %.",
+      "isc2_principle": "Understanding business continuity metrics",
+      "example_trap": "Measure DR readiness = Check SLA",
+      "example_correct": "Measure DR readiness = Verify RTO/RPO targets met",
+      "affected_domains": [1, 7],
+      "prevention_strategy": "Create metrics reference card (RTO, RPO, MTBF, MTTR, SLA)"
+    },
+    "ASSUMPTION": {
+      "name": "Unstated Prerequisites",
+      "type": "Logic and Analysis",
+      "difficulty": "⭐⭐ Medium",
+      "frequency": "5%",
+      "the_trap": "You assume something the question doesn't state, and your answer breaks in edge cases.",
+      "the_fix": "Check: Is this answer valid ONLY if [assumption is true]? Look for answers that work in MOST cases.",
+      "isc2_principle": "Defense-in-depth and layered security thinking",
+      "example_trap": "Secure transmission = Encrypt with TLS (assumes infrastructure exists)",
+      "example_correct": "Secure transmission = Encrypt with TLS AND verify certificate",
+      "affected_domains": [3, 4, 8],
+      "prevention_strategy": "Add second layer to single-layer answers"
+    },
+    "VERSUS": {
+      "name": "Similar Options",
+      "type": "Analysis and Judgment",
+      "difficulty": "⭐⭐⭐ High",
+      "frequency": "8%",
+      "the_trap": "Two answers are both technically correct, but one is MORE correct (best practice vs practical vs theoretical).",
+      "the_fix": "Context: True vs Best vs Most Practical. Ask what the question is really asking for.",
+      "isc2_principle": "Understanding ISC2 standards and best practices",
+      "example_trap": "Best encryption = 2048-bit RSA (outdated minimum)",
+      "example_correct": "Best encryption = 2048-bit minimum, 4096-bit preferred",
+      "affected_domains": [1, 2, 3, 4, 5, 6, 7, 8],
+      "prevention_strategy": "Compare all options against current ISC2 standards"
+    },
+    "TIMING": {
+      "name": "When vs What",
+      "type": "Conceptual Understanding",
+      "difficulty": "⭐⭐ Medium",
+      "frequency": "6%",
+      "the_trap": "You understand WHAT happens, but miss WHEN it happens in a sequence.",
+      "the_fix": "Create timeline diagrams: Incident Response → Forensics → BCP activation. Pay attention to 'first,' 'before,' 'after' keywords.",
+      "isc2_principle": "Understanding process timing and sequencing",
+      "example_trap": "During forensics, when do you analyze memory? → During analyze phase",
+      "example_correct": "First action during forensics? → Capture volatile memory (RAM) before disk",
+      "affected_domains": [1, 7],
+      "prevention_strategy": "Create timeline diagrams for each major process"
+    }
+  },
+  "study_priorities": {
+    "high_priority": [
+      "NEG",
+      "ORDER",
+      "ROLE",
+      "TOOL",
+      "DEFINITION"
+    ],
+    "medium_priority": [
+      "COMPLIANCE",
+      "LIFECYCLE",
+      "HIERARCHY",
+      "SCOPE",
+      "VERSUS"
+    ],
+    "low_priority": [
+      "ABS",
+      "ALL",
+      "GOLD",
+      "ETHIC",
+      "EASY",
+      "TIME",
+      "REPEAT",
+      "CONTEXT",
+      "METRIC",
+      "ASSUMPTION",
+      "TIMING"
+    ]
+  },
+  "domain_distribution": {
+    "domain_1": [
+      "ROLE",
+      "ORDER",
+      "LIFECYCLE",
+      "COMPLIANCE",
+      "HIERARCHY",
+      "DEFINITION"
+    ],
+    "domain_2": [
+      "TOOL",
+      "DEFINITION",
+      "SCOPE"
+    ],
+    "domain_3": [
+      "SCOPE",
+      "ALL",
+      "DEFINITION",
+      "GOLD",
+      "TOOL",
+      "COMPLIANCE"
+    ],
+    "domain_4": [
+      "SCOPE",
+      "GOLD",
+      "DEFINITION",
+      "TOOL",
+      "ASSUMPTION"
+    ],
+    "domain_5": [
+      "ROLE",
+      "DEFINITION",
+      "ALL",
+      "VERSUS",
+      "HIERARCHY"
+    ],
+    "domain_6": [
+      "CONTEXT",
+      "METRIC",
+      "DEFINITION",
+      "TOOL"
+    ],
+    "domain_7": [
+      "LIFECYCLE",
+      "ORDER",
+      "TIMING",
+      "TOOL",
+      "ETHIC",
+      "HIERARCHY"
+    ],
+    "domain_8": [
+      "LIFECYCLE",
+      "DEFINITION",
+      "GOLD",
+      "ASSUMPTION",
+      "ORDER"
+    ]
+  }
+}
