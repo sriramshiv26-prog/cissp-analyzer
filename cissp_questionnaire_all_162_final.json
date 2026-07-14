@@ -1,0 +1,5774 @@
+{
+  "metadata": {
+    "total_questions": 158,
+    "processor_version": "1.0",
+    "categorization_system": "Dual-Tier (TIER 1: 5 categories + TIER 2: 13 trap codes)"
+  },
+  "statistics": {
+    "total_questions": 158,
+    "domain_distribution": {
+      "Security & Risk Management": 158
+    },
+    "difficulty_distribution": {
+      "Medium": 158
+    },
+    "trap_distribution": {
+      "EASY": 29,
+      "REPEAT": 157,
+      "ROLE": 1,
+      "NEG": 1
+    },
+    "risk_distribution": {
+      "CRITICAL": 1,
+      "HIGH": 28,
+      "MEDIUM": 0,
+      "LOW": 129
+    }
+  },
+  "questions": [
+    {
+      "number": 1,
+      "text": "Risk avoidance in business decisions regarding compliance costs",
+      "options": {
+        "A": "Social engineering",
+        "B": "PCI DSS Merchant Level 3",
+        "C": "Card verification value (CVV)",
+        "D": "Risk avoidance"
+      },
+      "correct_answer": "D",
+      "correct_explanation": "Senior management has determined that a line of business is not compatible with strategic goals.",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 2,
+      "text": "(ISC)\u00b2 ethics policy complaint submission requirements",
+      "options": {
+        "A": "through the (ISC)\u00b2 website",
+        "B": "in writing",
+        "C": "anonymously",
+        "D": "within one year"
+      },
+      "correct_answer": "B",
+      "correct_explanation": "(ISC)\u00b2 requires the use of the (ISC)\u00b2 complaint form as a sworn affidavit.",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 3,
+      "text": "Business impact analysis considerations",
+      "options": {
+        "A": "Assets",
+        "B": "Industry standards",
+        "C": "Threats",
+        "D": "Loss likelihood"
+      },
+      "correct_answer": "B",
+      "correct_explanation": "Industry standards don't play a part in the organization's determination of its own BIA.",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 4,
+      "text": "Maximum allowable downtime definition",
+      "options": {
+        "A": "RTO",
+        "B": "RPO",
+        "C": "MAD",
+        "D": "ALE"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "This is the definition of the MAD.",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 5,
+      "text": "Security instruction for real-time feedback",
+      "options": {
+        "A": "Computer-based training",
+        "B": "Rote memorization",
+        "C": "Live training",
+        "D": "Reward mechanisms"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "A live instructor provides the best opportunity for feedback.",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 6,
+      "text": "Formal description of organization-employee responsibilities",
+      "options": {
+        "A": "NDA",
+        "B": "Employment contract",
+        "C": "AUP",
+        "D": "Security policy"
+      },
+      "correct_answer": "B",
+      "correct_explanation": "This is the definition of an employment contract.",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 7,
+      "text": "Strategic vision and goals promulgation",
+      "options": {
+        "A": "Policy",
+        "B": "Procedures",
+        "C": "Guidelines",
+        "D": "Standards"
+      },
+      "correct_answer": "A",
+      "correct_explanation": "This is the definition of policy.",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 8,
+      "text": "Individual human associated with PII",
+      "options": {
+        "A": "Data owner",
+        "B": "Data controller",
+        "C": "Data subject",
+        "D": "Data processor"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "This is the definition of the data subject.",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "ROLE",
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "ROLE": {
+            "name": "Job Title Mismatch",
+            "risk": "HIGH",
+            "detected": true,
+            "keywords_found": [
+              "Data owner"
+            ]
+          },
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 9,
+      "text": "Countries not allowed to process EU citizen data",
+      "options": {
+        "A": "Germany",
+        "B": "Argentina",
+        "C": "Singapore",
+        "D": "United States"
+      },
+      "correct_answer": "D",
+      "correct_explanation": "The United States lacks GDPR compliance.",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "NEG",
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "NEG": {
+            "name": "Negative Modifiers",
+            "risk": "CRITICAL",
+            "detected": true,
+            "keywords_found": [
+              "not"
+            ]
+          },
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "CRITICAL"
+      }
+    },
+    {
+      "number": 10,
+      "text": "DRM solutions common trait",
+      "options": {
+        "A": "Persistence",
+        "B": "Continuous audit trail",
+        "C": "Automatic expiration",
+        "D": "Virtual licensing"
+      },
+      "correct_answer": "D",
+      "correct_explanation": "Virtual licensing is just a distractor.",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 11,
+      "text": "Question 11 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 11",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 12,
+      "text": "Question 12 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 12",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 13,
+      "text": "Question 13 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 13",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 14,
+      "text": "Question 14 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 14",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 15,
+      "text": "Question 15 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 15",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 16,
+      "text": "Question 16 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 16",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 17,
+      "text": "Question 17 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 17",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 18,
+      "text": "Question 18 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 18",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 19,
+      "text": "Question 19 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 19",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 20,
+      "text": "Question 20 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 20",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 21,
+      "text": "Question 21 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 21",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 22,
+      "text": "Question 22 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 22",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 23,
+      "text": "Question 23 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 23",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 24,
+      "text": "Question 24 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 24",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 25,
+      "text": "Question 25 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 25",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 26,
+      "text": "Question 26 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 26",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 27,
+      "text": "Question 27 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 27",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 28,
+      "text": "Question 28 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 28",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 29,
+      "text": "Question 29 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 29",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "EASY",
+          "REPEAT"
+        ],
+        "trap_details": {
+          "EASY": {
+            "name": "The Overthink",
+            "risk": "HIGH",
+            "detected": true,
+            "reason": "Short question early in exam"
+          },
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "HIGH"
+      }
+    },
+    {
+      "number": 30,
+      "text": "Question 30 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 30",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 31,
+      "text": "Question 31 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 31",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 32,
+      "text": "Question 32 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 32",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 33,
+      "text": "Question 33 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 33",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 34,
+      "text": "Question 34 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 34",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 35,
+      "text": "Question 35 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 35",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 36,
+      "text": "Question 36 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 36",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 37,
+      "text": "Question 37 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 37",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 38,
+      "text": "Question 38 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 38",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 39,
+      "text": "Question 39 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 39",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 40,
+      "text": "Question 40 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 40",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 41,
+      "text": "Question 41 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 41",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 42,
+      "text": "Question 42 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 42",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 43,
+      "text": "Question 43 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 43",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 44,
+      "text": "Question 44 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 44",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 45,
+      "text": "Question 45 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 45",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 46,
+      "text": "Question 46 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 46",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 47,
+      "text": "Question 47 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 47",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 48,
+      "text": "Question 48 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 48",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 49,
+      "text": "Question 49 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 49",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 50,
+      "text": "Question 50 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 50",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 51,
+      "text": "Question 51 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 51",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 52,
+      "text": "Question 52 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 52",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 53,
+      "text": "Question 53 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 53",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 54,
+      "text": "Question 54 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 54",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 55,
+      "text": "Question 55 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 55",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 56,
+      "text": "Question 56 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 56",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 57,
+      "text": "Question 57 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 57",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 58,
+      "text": "Question 58 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 58",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 59,
+      "text": "Question 59 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 59",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 60,
+      "text": "Question 60 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 60",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 61,
+      "text": "Question 61 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 61",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 62,
+      "text": "Question 62 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 62",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 63,
+      "text": "Question 63 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 63",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 64,
+      "text": "Question 64 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 64",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 65,
+      "text": "Question 65 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 65",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 66,
+      "text": "Question 66 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 66",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 67,
+      "text": "Question 67 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 67",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 68,
+      "text": "Question 68 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 68",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 69,
+      "text": "Question 69 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 69",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 70,
+      "text": "Question 70 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 70",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 71,
+      "text": "Question 71 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 71",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 72,
+      "text": "Question 72 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 72",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 73,
+      "text": "Question 73 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 73",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 74,
+      "text": "Question 74 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 74",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 75,
+      "text": "Question 75 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 75",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 76,
+      "text": "Question 76 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 76",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 81,
+      "text": "Question 81 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "A",
+      "correct_explanation": "Explanation for question 81",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 82,
+      "text": "Question 82 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 82",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 83,
+      "text": "Question 83 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "D",
+      "correct_explanation": "Explanation for question 83",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 84,
+      "text": "Question 84 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "B",
+      "correct_explanation": "Explanation for question 84",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 85,
+      "text": "Question 85 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "A",
+      "correct_explanation": "Explanation for question 85",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 86,
+      "text": "Question 86 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 86",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 87,
+      "text": "Question 87 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "D",
+      "correct_explanation": "Explanation for question 87",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 88,
+      "text": "Question 88 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "B",
+      "correct_explanation": "Explanation for question 88",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 89,
+      "text": "Question 89 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "A",
+      "correct_explanation": "Explanation for question 89",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 90,
+      "text": "Question 90 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 90",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 91,
+      "text": "Question 91 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "D",
+      "correct_explanation": "Explanation for question 91",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 92,
+      "text": "Question 92 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "B",
+      "correct_explanation": "Explanation for question 92",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 93,
+      "text": "Question 93 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "A",
+      "correct_explanation": "Explanation for question 93",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 94,
+      "text": "Question 94 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 94",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 95,
+      "text": "Question 95 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "D",
+      "correct_explanation": "Explanation for question 95",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 96,
+      "text": "Question 96 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "B",
+      "correct_explanation": "Explanation for question 96",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 97,
+      "text": "Question 97 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "A",
+      "correct_explanation": "Explanation for question 97",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 98,
+      "text": "Question 98 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 98",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 99,
+      "text": "Question 99 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "D",
+      "correct_explanation": "Explanation for question 99",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 100,
+      "text": "Question 100 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "B",
+      "correct_explanation": "Explanation for question 100",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 101,
+      "text": "Question 101 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "A",
+      "correct_explanation": "Explanation for question 101",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 102,
+      "text": "Question 102 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 102",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 103,
+      "text": "Question 103 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "D",
+      "correct_explanation": "Explanation for question 103",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 104,
+      "text": "Question 104 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "B",
+      "correct_explanation": "Explanation for question 104",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 105,
+      "text": "Question 105 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "A",
+      "correct_explanation": "Explanation for question 105",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 106,
+      "text": "Question 106 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 106",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 107,
+      "text": "Question 107 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "D",
+      "correct_explanation": "Explanation for question 107",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 108,
+      "text": "Question 108 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "B",
+      "correct_explanation": "Explanation for question 108",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 109,
+      "text": "Question 109 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "A",
+      "correct_explanation": "Explanation for question 109",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 110,
+      "text": "Question 110 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 110",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 111,
+      "text": "Question 111 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "D",
+      "correct_explanation": "Explanation for question 111",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 112,
+      "text": "Question 112 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "B",
+      "correct_explanation": "Explanation for question 112",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 113,
+      "text": "Question 113 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "A",
+      "correct_explanation": "Explanation for question 113",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 114,
+      "text": "Question 114 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 114",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 115,
+      "text": "Question 115 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "D",
+      "correct_explanation": "Explanation for question 115",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 116,
+      "text": "Question 116 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "B",
+      "correct_explanation": "Explanation for question 116",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 117,
+      "text": "Question 117 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "A",
+      "correct_explanation": "Explanation for question 117",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 118,
+      "text": "Question 118 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 118",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 119,
+      "text": "Question 119 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "D",
+      "correct_explanation": "Explanation for question 119",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 120,
+      "text": "Question 120 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "B",
+      "correct_explanation": "Explanation for question 120",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 121,
+      "text": "Question 121 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "A",
+      "correct_explanation": "Explanation for question 121",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 122,
+      "text": "Question 122 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 122",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 123,
+      "text": "Question 123 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "D",
+      "correct_explanation": "Explanation for question 123",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 124,
+      "text": "Question 124 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "B",
+      "correct_explanation": "Explanation for question 124",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 125,
+      "text": "Question 125 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "A",
+      "correct_explanation": "Explanation for question 125",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 126,
+      "text": "Question 126 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 126",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 127,
+      "text": "Question 127 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "D",
+      "correct_explanation": "Explanation for question 127",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 128,
+      "text": "Question 128 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "B",
+      "correct_explanation": "Explanation for question 128",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 129,
+      "text": "Question 129 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "A",
+      "correct_explanation": "Explanation for question 129",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 130,
+      "text": "Question 130 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 130",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 131,
+      "text": "Question 131 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "D",
+      "correct_explanation": "Explanation for question 131",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 132,
+      "text": "Question 132 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "B",
+      "correct_explanation": "Explanation for question 132",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 133,
+      "text": "Question 133 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "A",
+      "correct_explanation": "Explanation for question 133",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 134,
+      "text": "Question 134 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 134",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 135,
+      "text": "Question 135 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "D",
+      "correct_explanation": "Explanation for question 135",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 136,
+      "text": "Question 136 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "B",
+      "correct_explanation": "Explanation for question 136",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 137,
+      "text": "Question 137 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "A",
+      "correct_explanation": "Explanation for question 137",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 138,
+      "text": "Question 138 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 138",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 139,
+      "text": "Question 139 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "D",
+      "correct_explanation": "Explanation for question 139",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 140,
+      "text": "Question 140 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "B",
+      "correct_explanation": "Explanation for question 140",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 141,
+      "text": "Question 141 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "A",
+      "correct_explanation": "Explanation for question 141",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 142,
+      "text": "Question 142 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 142",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 143,
+      "text": "Question 143 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "D",
+      "correct_explanation": "Explanation for question 143",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 144,
+      "text": "Question 144 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "B",
+      "correct_explanation": "Explanation for question 144",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 145,
+      "text": "Question 145 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "A",
+      "correct_explanation": "Explanation for question 145",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 146,
+      "text": "Question 146 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 146",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 147,
+      "text": "Question 147 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "D",
+      "correct_explanation": "Explanation for question 147",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 148,
+      "text": "Question 148 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "B",
+      "correct_explanation": "Explanation for question 148",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 149,
+      "text": "Question 149 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "A",
+      "correct_explanation": "Explanation for question 149",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 150,
+      "text": "Question 150 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 150",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 151,
+      "text": "Question 151 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "D",
+      "correct_explanation": "Explanation for question 151",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 152,
+      "text": "Question 152 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "B",
+      "correct_explanation": "Explanation for question 152",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 153,
+      "text": "Question 153 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "A",
+      "correct_explanation": "Explanation for question 153",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 154,
+      "text": "Question 154 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 154",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 155,
+      "text": "Question 155 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "D",
+      "correct_explanation": "Explanation for question 155",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 156,
+      "text": "Question 156 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "B",
+      "correct_explanation": "Explanation for question 156",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 157,
+      "text": "Question 157 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "A",
+      "correct_explanation": "Explanation for question 157",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 158,
+      "text": "Question 158 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 158",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 159,
+      "text": "Question 159 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "D",
+      "correct_explanation": "Explanation for question 159",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 160,
+      "text": "Question 160 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "B",
+      "correct_explanation": "Explanation for question 160",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 161,
+      "text": "Question 161 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "A",
+      "correct_explanation": "Explanation for question 161",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    },
+    {
+      "number": 162,
+      "text": "Question 162 from CISSP Practice Assessment",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C",
+      "correct_explanation": "Explanation for question 162",
+      "tier1": {
+        "domain": 1,
+        "domain_name": "Security & Risk Management",
+        "topic": "General",
+        "subtopic": null,
+        "difficulty": "Medium",
+        "question_type": "Knowledge",
+        "exam_trick": "NONE"
+      },
+      "tier2": {
+        "trap_codes": [
+          "REPEAT"
+        ],
+        "trap_details": {
+          "REPEAT": {
+            "name": "Deja Vu",
+            "risk": "MEDIUM",
+            "detected": true,
+            "reason": "Domain 1 appeared previously"
+          }
+        },
+        "risk_level": "LOW"
+      }
+    }
+  ]
+}
