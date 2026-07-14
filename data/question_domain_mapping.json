@@ -11,7 +11,7 @@
     "topic": "Network Protocols",
     "difficulty": "Hard",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "COMPLIANCE"
   },
   "3": {
     "domain": 1,
@@ -25,28 +25,28 @@
     "topic": "Risk Management",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "5": {
     "domain": 4,
     "topic": "Network Protocols",
     "difficulty": "Easy",
     "question_type": "Sequence",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "6": {
     "domain": 4,
     "topic": "PKI",
     "difficulty": "Hard",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "DEFINITION"
   },
   "7": {
     "domain": 5,
     "topic": "Access Control",
     "difficulty": "Easy",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "VERSUS"
   },
   "8": {
     "domain": 2,
@@ -60,14 +60,14 @@
     "topic": "General",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "EASY"
   },
   "10": {
     "domain": 1,
     "topic": "General",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "EASY"
   },
   "11": {
     "domain": 8,
@@ -81,175 +81,175 @@
     "topic": "Cryptography",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "13": {
     "domain": 1,
     "topic": "General",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "EASY"
   },
   "14": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Hard",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "15": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "16": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Hard",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "17": {
     "domain": 2,
     "topic": "Access Control",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "VERSUS"
   },
   "18": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "19": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Hard",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "20": {
     "domain": 1,
     "topic": "General",
     "difficulty": "Easy",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "EASY"
   },
   "21": {
     "domain": 2,
     "topic": "Asset Management",
     "difficulty": "Easy",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "VERSUS"
   },
   "22": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Hard",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "23": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "24": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "25": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Easy",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "26": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "27": {
     "domain": 1,
     "topic": "General",
     "difficulty": "Easy",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "EASY"
   },
   "28": {
     "domain": 1,
     "topic": "General",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "EASY"
   },
   "29": {
     "domain": 1,
     "topic": "General",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "EASY"
   },
   "30": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "31": {
     "domain": 2,
     "topic": "Asset Management",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "VERSUS"
   },
   "32": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "33": {
     "domain": 2,
     "topic": "Access Control",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "VERSUS"
   },
   "34": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "35": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "36": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Hard",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "37": {
     "domain": 1,
@@ -263,602 +263,602 @@
     "topic": "Threat Modeling",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "CONTEXT"
   },
   "39": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Easy",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "40": {
     "domain": 1,
     "topic": "Disaster Recovery",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "LIFECYCLE"
   },
   "41": {
     "domain": 1,
     "topic": "Logging & Monitoring",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "COMPLIANCE"
   },
   "42": {
     "domain": 1,
     "topic": "Business Continuity",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "COMPLIANCE"
   },
   "43": {
     "domain": 5,
     "topic": "Access Control",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "VERSUS"
   },
   "44": {
     "domain": 7,
     "topic": "Incident Response",
     "difficulty": "Hard",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "TIMING"
   },
   "45": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "46": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "47": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "48": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Hard",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "49": {
     "domain": 6,
     "topic": "Vulnerability Assessment",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "METRIC"
   },
   "50": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "51": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "52": {
     "domain": 1,
     "topic": "General",
     "difficulty": "Easy",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "EASY"
   },
   "53": {
     "domain": 5,
     "topic": "Access Control",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "VERSUS"
   },
   "54": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "55": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Hard",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "56": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "57": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "58": {
     "domain": 6,
     "topic": "Testing",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "METRIC"
   },
   "59": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "60": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "61": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "62": {
     "domain": 2,
     "topic": "Asset Management",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "VERSUS"
   },
   "63": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Hard",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "64": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "65": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "66": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "67": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "68": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Hard",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "69": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "70": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Hard",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "71": {
     "domain": 5,
     "topic": "Access Control",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "VERSUS"
   },
   "72": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "73": {
     "domain": 2,
     "topic": "Asset Management",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "VERSUS"
   },
   "74": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "75": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Hard",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "76": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "77": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "78": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "79": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "80": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "81": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "82": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "83": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "84": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "85": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "86": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "87": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "88": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Hard",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "89": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "90": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "91": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "92": {
     "domain": 2,
     "topic": "Asset Management",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "VERSUS"
   },
   "93": {
     "domain": 2,
     "topic": "Asset Management",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "VERSUS"
   },
   "94": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "95": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "96": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "97": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "98": {
     "domain": 2,
     "topic": "Asset Management",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "VERSUS"
   },
   "99": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Hard",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "100": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "101": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "102": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "103": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "104": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Hard",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "105": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "106": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "107": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "108": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "109": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "110": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Hard",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "111": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "112": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "113": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "114": {
     "domain": 2,
     "topic": "Asset Management",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "VERSUS"
   },
   "115": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "116": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "117": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Hard",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "118": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "119": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "120": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "121": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "122": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "123": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Hard",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "124": {
     "domain": 8,
@@ -872,258 +872,258 @@
     "topic": "General",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "EASY"
   },
   "126": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "127": {
     "domain": 8,
     "topic": "Software Security",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "DEFINITION"
   },
   "128": {
     "domain": 1,
     "topic": "Asset Management",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "129": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Easy",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "130": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "131": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "132": {
     "domain": 8,
     "topic": "Software Security",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "DEFINITION"
   },
   "133": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "134": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "135": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "136": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "137": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "138": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Hard",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "139": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "140": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "141": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "142": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Hard",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "143": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "144": {
     "domain": 8,
     "topic": "Software Security",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "DEFINITION"
   },
   "145": {
     "domain": 8,
     "topic": "Software Security",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "DEFINITION"
   },
   "146": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "147": {
     "domain": 1,
     "topic": "Privacy",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "COMPLIANCE"
   },
   "148": {
     "domain": 8,
     "topic": "CMMI",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "DEFINITION"
   },
   "149": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Hard",
     "question_type": "Scenario",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "150": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "151": {
     "domain": 4,
     "topic": "Network Security",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "152": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "153": {
     "domain": 2,
     "topic": "Data Protection",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TOOL"
   },
   "154": {
     "domain": 8,
     "topic": "Software Security",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "DEFINITION"
   },
   "155": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   },
   "156": {
     "domain": 8,
     "topic": "SW-CMM",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "DEFINITION"
   },
   "157": {
     "domain": 8,
     "topic": "Software Security",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "DEFINITION"
   },
   "158": {
     "domain": 8,
     "topic": "Software Security",
     "difficulty": "Medium",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "DEFINITION"
   },
   "159": {
     "domain": 7,
     "topic": "Incident Response",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "TIMING"
   },
   "160": {
     "domain": 1,
     "topic": "Risk Management",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ORDER"
   },
   "161": {
     "domain": 3,
     "topic": "Cryptography",
     "difficulty": "Hard",
     "question_type": "Application",
-    "exam_trick": null
+    "exam_trick": "ALL"
   }
 }
