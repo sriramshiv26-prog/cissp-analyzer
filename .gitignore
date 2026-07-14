@@ -126,3 +126,8 @@ docs/superpowers/
 TEST_RESULTS_*.md
 INTEGRATION_TEST_*.md
 VALIDATION_REPORT.json
+
+# Local Data (user's question banks and reports - never commit)
+data/
+output/
+reports/
