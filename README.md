@@ -68,64 +68,85 @@ pip install -r requirements.txt
 pytest -v
 ```
 
-### Step 2: Verify Setup (1 minute)
+### Step 2: Prepare Your Question Bank (Local Setup)
 
-```bash
-python3 check_setup.py
+The system requires a **local CISSP question bank** on your machine. Place it here:
+
+```
+cissp-analyzer/
+└── data/
+    └── questions/
+        └── CISSP_162_QUESTIONS_REFERENCE.json  ← Your question bank goes here
 ```
 
-This checks that all dependencies, directories, and files are ready. You should see all checks passed.
+**Why local?** Each user has their own question bank version. The repo doesn't include it—you provide your own.
 
-### Step 3: Run the Analyzer with Setup Wizard (7 minutes)
-
-```bash
-python3 analyze.py
+**Example question bank format:**
+```json
+{
+  "metadata": {
+    "total_questions": 162,
+    "exam_name": "CISSP",
+    "version": "2026"
+  },
+  "questions": [
+    {
+      "id": "Q001",
+      "domain": "Security & Risk Management",
+      "topic": "Information Security Governance",
+      "difficulty": "Medium",
+      "type": "Scenario",
+      "trap_category": "All-of-the-Above",
+      "text": "Question text here...",
+      "options": {
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
+      },
+      "correct_answer": "C"
+    }
+    // ... more questions
+  ]
+}
 ```
 
-**That's it!** The setup wizard will:
-- ✅ Check if all files exist
-- ✅ Create `student_roster.json` template if missing
-- ✅ Guide you to place exam PDFs and answer files
-- ✅ Tell you exactly what's needed and where to put it
-- ✅ Start analysis automatically once files are ready
-
-**Detailed Setup Help:** See [SETUP_GUIDE.md](SETUP_GUIDE.md)
-
----
-
-### Step 4: Choose Your Analysis Path
-
-**FIRST TIME?** Try with included example files:
+Don't have a question bank yet? Use the included example:
 ```bash
-python3 analyze.py
-# Select: [2] Standalone Analysis
-# When asked for exam PDF: exams/practice_test_1_mapping.json
-# When asked for student answers: EXAMPLE_student_answers.xlsx
-# Check the generated report in outputs/
+cp examples/CISSP_162_QUESTIONS_REFERENCE.json data/questions/
 ```
 
-**HAVE YOUR OWN FILES?** Prepare these first:
-1. **Exam PDF** - Your test file with questions and answers
-2. **Student Answers Excel** - See EXAMPLE_student_answers.xlsx for format
-3. Then run:
+### Step 3: Verify Setup (1 minute)
+
 ```bash
-python3 analyze.py
-# Select: [2] Standalone Analysis (for single student)
-# OR      [1] Batch Analysis (for multiple students)
-# Provide file paths when prompted
+python3 run.py --help
 ```
 
-**RUNNING A FULL CLASS?**
-1. Prepare student roster (see FORMATS_AND_TEMPLATES_GUIDE.md)
-2. Set up folder structure (see TEMPLATE_directory_structure.md)
+This shows available commands and verifies the system is ready.
+
+### Step 4: Choose Your Analysis Mode
+
+
+
+**FIRST TIME?** Try with included example:
+```bash
+python3 run.py
+```
+
+**ANALYZING STUDENT ANSWERS?**
+1. Place student answer Excel file in your working directory
+2. Ensure question bank is in `data/questions/CISSP_162_QUESTIONS_REFERENCE.json`
 3. Run:
 ```bash
-python3 analyze.py
-# Select: [1] Batch Analysis
-# OR      [3] Full Batch Workflow (includes validation + auto-fix)
+python3 run.py --analyze <student_file.xlsx>
 ```
 
-### Step 4: View Results (1 minute)
+**BATCH ANALYSIS (Multiple Students)?**
+```bash
+python3 run.py --batch <directory_with_answer_sheets>
+```
+
+### Step 5: View Results
 
 Open the generated Excel file in:
 - Microsoft Excel
