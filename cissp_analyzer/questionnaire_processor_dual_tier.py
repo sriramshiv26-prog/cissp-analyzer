@@ -17,6 +17,7 @@ from enum import Enum
 
 class TrapCode(Enum):
     """13 Trap Codes for TIER 2 Analysis"""
+
     NEG = "Negative Modifiers"  # NOT, EXCEPT, LEAST, NONE OF
     ABS = "Absolute Language"  # ALWAYS, NEVER, ALL, COMPLETELY, 100%
     EASY = "The Overthink"  # Simple question that looks too easy
@@ -33,6 +34,7 @@ class TrapCode(Enum):
 @dataclass
 class Tier1Categorization:
     """TIER 1: Original 5 categories"""
+
     domain: int
     domain_name: str
     topic: str
@@ -45,6 +47,7 @@ class Tier1Categorization:
 @dataclass
 class Tier2TrapAnalysis:
     """TIER 2: 13 Trap Code Analysis"""
+
     trap_codes: List[str]
     trap_details: Dict[str, Dict]
     risk_level: str  # CRITICAL, HIGH, MEDIUM
@@ -53,6 +56,7 @@ class Tier2TrapAnalysis:
 @dataclass
 class QuestionProfile:
     """Complete question profile with both tiers"""
+
     number: int
     text: str
     options: Dict[str, str]
@@ -69,42 +73,73 @@ class TrapDetector:
     def __init__(self):
         self.trap_patterns = {
             TrapCode.NEG: {
-                "keywords": [r"\bNOT\b", r"\bEXCEPT\b", r"\bLEAST\b", r"\bNONE OF\b", r"\bALL ARE.*EXCEPT\b"],
-                "risk": "CRITICAL"
+                "keywords": [
+                    r"\bNOT\b",
+                    r"\bEXCEPT\b",
+                    r"\bLEAST\b",
+                    r"\bNONE OF\b",
+                    r"\bALL ARE.*EXCEPT\b",
+                ],
+                "risk": "CRITICAL",
             },
             TrapCode.ABS: {
-                "keywords": [r"\bALWAYS\b", r"\bNEVER\b", r"\bCOMPLETELY\b", r"\b100%\b", r"\bWILL PREVENT\b"],
-                "risk": "HIGH"
+                "keywords": [
+                    r"\bALWAYS\b",
+                    r"\bNEVER\b",
+                    r"\bCOMPLETELY\b",
+                    r"\b100%\b",
+                    r"\bWILL PREVENT\b",
+                ],
+                "risk": "HIGH",
             },
             TrapCode.ORDER: {
-                "keywords": [r"\bFIRST\b", r"\bBEFORE\b", r"\bSEQUENCE\b", r"\bSTEP\b", r"\bINITIAL\b"],
-                "risk": "CRITICAL"
+                "keywords": [
+                    r"\bFIRST\b",
+                    r"\bBEFORE\b",
+                    r"\bSEQUENCE\b",
+                    r"\bSTEP\b",
+                    r"\bINITIAL\b",
+                ],
+                "risk": "CRITICAL",
             },
             TrapCode.ROLE: {
                 "keywords": [r"\b(ANALYST|MANAGER|OWNER|CUSTODIAN|CISO|DATA OWNER)\b"],
-                "risk": "HIGH"
+                "risk": "HIGH",
             },
             TrapCode.SCOPE: {
-                "keywords": [r"\b(IaaS|PAAS|SAAS|CLOUD|HYPERVISOR|SHARED RESPONSIBILITY)\b"],
-                "risk": "HIGH"
+                "keywords": [
+                    r"\b(IaaS|PAAS|SAAS|CLOUD|HYPERVISOR|SHARED RESPONSIBILITY)\b"
+                ],
+                "risk": "HIGH",
             },
             TrapCode.ALL: {
-                "keywords": [r"\b(STRATEGY|COMPREHENSIVE|FRAMEWORK|DEFENSE-IN-DEPTH|OVERALL)\b"],
-                "risk": "MEDIUM"
+                "keywords": [
+                    r"\b(STRATEGY|COMPREHENSIVE|FRAMEWORK|DEFENSE-IN-DEPTH|OVERALL)\b"
+                ],
+                "risk": "MEDIUM",
             },
             TrapCode.GOLD: {
-                "keywords": [r"\b(ENCRYPTION|PKI|BLOCKCHAIN|CRYPTOGRAPHY|CERTIFICATE)\b"],
-                "risk": "MEDIUM"
+                "keywords": [
+                    r"\b(ENCRYPTION|PKI|BLOCKCHAIN|CRYPTOGRAPHY|CERTIFICATE)\b"
+                ],
+                "risk": "MEDIUM",
             },
             TrapCode.ETHIC: {
-                "keywords": [r"\b(HACK BACK|OFFENSIVE|VIGILANTE|ILLEGAL|UNAUTHORIZED)\b"],
-                "risk": "HIGH"
+                "keywords": [
+                    r"\b(HACK BACK|OFFENSIVE|VIGILANTE|ILLEGAL|UNAUTHORIZED)\b"
+                ],
+                "risk": "HIGH",
             },
         }
 
-    def detect_traps(self, question_text: str, options: Dict[str, str],
-                     correct_answer: str, is_short_question: bool = False,
-                     position: int = 0) -> Tuple[List[str], Dict, str]:
+    def detect_traps(
+        self,
+        question_text: str,
+        options: Dict[str, str],
+        correct_answer: str,
+        is_short_question: bool = False,
+        position: int = 0,
+    ) -> Tuple[List[str], Dict, str]:
         """
         Detect trap codes in question
         Returns: (trap_codes, trap_details, risk_level)
@@ -121,7 +156,7 @@ class TrapDetector:
                             "name": trap_code.value,
                             "risk": pattern_info["risk"],
                             "detected": True,
-                            "keywords_found": []
+                            "keywords_found": [],
                         }
                     # Extract matching keywords
                     matches = re.findall(keyword_pattern, combined_text, re.IGNORECASE)
@@ -133,7 +168,7 @@ class TrapDetector:
                 "name": "The Overthink",
                 "risk": "HIGH",
                 "detected": True,
-                "reason": "Short question early in exam"
+                "reason": "Short question early in exam",
             }
 
         # TIME trap: long complex scenario
@@ -142,7 +177,7 @@ class TrapDetector:
                 "name": "Clock Killer",
                 "risk": "CRITICAL",
                 "detected": True,
-                "reason": "Long complex scenario (300+ chars)"
+                "reason": "Long complex scenario (300+ chars)",
             }
 
         # Determine overall risk level
@@ -168,13 +203,15 @@ class QuestionnaireProcessor:
     def _load_domain_mapper(self, path: str) -> Dict:
         """Load domain mapping from JSON"""
         try:
-            with open(path, 'r') as f:
+            with open(path, "r") as f:
                 return json.load(f)
         except FileNotFoundError:
             print(f"Warning: Domain mapper not found at {path}")
             return {}
 
-    def _categorize_tier1(self, question_num: int, question_text: str) -> Tier1Categorization:
+    def _categorize_tier1(
+        self, question_num: int, question_text: str
+    ) -> Tier1Categorization:
         """Apply TIER 1 categorization using domain mapper"""
         # Fetch from domain mapper if available
         q_key = f"q_{question_num}"
@@ -188,7 +225,7 @@ class QuestionnaireProcessor:
                 subtopic=q_data.get("subtopic"),
                 difficulty=q_data.get("difficulty", "Medium"),
                 question_type=q_data.get("question_type", "Knowledge"),
-                exam_trick=q_data.get("exam_trick", "NONE")
+                exam_trick=q_data.get("exam_trick", "NONE"),
             )
 
         # Fallback: basic categorization
@@ -199,12 +236,17 @@ class QuestionnaireProcessor:
             subtopic=None,
             difficulty="Medium",
             question_type="Knowledge",
-            exam_trick="NONE"
+            exam_trick="NONE",
         )
 
-    def process_question(self, question_num: int, question_text: str,
-                        options: Dict[str, str], correct_answer: str,
-                        explanation: str = "") -> QuestionProfile:
+    def process_question(
+        self,
+        question_num: int,
+        question_text: str,
+        options: Dict[str, str],
+        correct_answer: str,
+        explanation: str = "",
+    ) -> QuestionProfile:
         """
         Process single question through both tiers
         """
@@ -214,9 +256,11 @@ class QuestionnaireProcessor:
         # TIER 2: Trap code detection
         is_short = len(question_text) < 100
         trap_codes, trap_details, risk_level = self.trap_detector.detect_traps(
-            question_text, options, correct_answer,
+            question_text,
+            options,
+            correct_answer,
             is_short_question=is_short,
-            position=question_num
+            position=question_num,
         )
 
         # Detect REPEAT trap
@@ -226,15 +270,13 @@ class QuestionnaireProcessor:
                 "name": "Deja Vu",
                 "risk": "MEDIUM",
                 "detected": True,
-                "reason": f"Domain {tier1.domain} appeared previously"
+                "reason": f"Domain {tier1.domain} appeared previously",
             }
 
         self.previous_domains.append(tier1.domain)
 
         tier2 = Tier2TrapAnalysis(
-            trap_codes=trap_codes,
-            trap_details=trap_details,
-            risk_level=risk_level
+            trap_codes=trap_codes, trap_details=trap_details, risk_level=risk_level
         )
 
         return QuestionProfile(
@@ -244,7 +286,7 @@ class QuestionnaireProcessor:
             correct_answer=correct_answer,
             correct_explanation=explanation,
             tier1=tier1,
-            tier2=tier2
+            tier2=tier2,
         )
 
     def process_questionnaire(self, questions: List[Dict]) -> Dict:
@@ -258,7 +300,7 @@ class QuestionnaireProcessor:
             "domain_distribution": {},
             "difficulty_distribution": {},
             "trap_distribution": {},
-            "risk_distribution": {"CRITICAL": 0, "HIGH": 0, "MEDIUM": 0, "LOW": 0}
+            "risk_distribution": {"CRITICAL": 0, "HIGH": 0, "MEDIUM": 0, "LOW": 0},
         }
 
         for i, q in enumerate(questions, 1):
@@ -267,44 +309,52 @@ class QuestionnaireProcessor:
                 question_text=q.get("text", ""),
                 options=q.get("options", {}),
                 correct_answer=q.get("correct_answer", ""),
-                explanation=q.get("explanation", "")
+                explanation=q.get("explanation", ""),
             )
 
             # Update statistics
             domain = profile.tier1.domain_name
-            stats["domain_distribution"][domain] = stats["domain_distribution"].get(domain, 0) + 1
+            stats["domain_distribution"][domain] = (
+                stats["domain_distribution"].get(domain, 0) + 1
+            )
 
             difficulty = profile.tier1.difficulty
-            stats["difficulty_distribution"][difficulty] = stats["difficulty_distribution"].get(difficulty, 0) + 1
+            stats["difficulty_distribution"][difficulty] = (
+                stats["difficulty_distribution"].get(difficulty, 0) + 1
+            )
 
             for trap in profile.tier2.trap_codes:
-                stats["trap_distribution"][trap] = stats["trap_distribution"].get(trap, 0) + 1
+                stats["trap_distribution"][trap] = (
+                    stats["trap_distribution"].get(trap, 0) + 1
+                )
 
             stats["risk_distribution"][profile.tier2.risk_level] += 1
 
             # Serialize to dict
-            processed_questions.append({
-                "number": profile.number,
-                "text": profile.text,
-                "options": profile.options,
-                "correct_answer": profile.correct_answer,
-                "correct_explanation": profile.correct_explanation,
-                "tier1": asdict(profile.tier1),
-                "tier2": {
-                    "trap_codes": profile.tier2.trap_codes,
-                    "trap_details": profile.tier2.trap_details,
-                    "risk_level": profile.tier2.risk_level
+            processed_questions.append(
+                {
+                    "number": profile.number,
+                    "text": profile.text,
+                    "options": profile.options,
+                    "correct_answer": profile.correct_answer,
+                    "correct_explanation": profile.correct_explanation,
+                    "tier1": asdict(profile.tier1),
+                    "tier2": {
+                        "trap_codes": profile.tier2.trap_codes,
+                        "trap_details": profile.tier2.trap_details,
+                        "risk_level": profile.tier2.risk_level,
+                    },
                 }
-            })
+            )
 
         return {
             "metadata": {
                 "total_questions": stats["total_questions"],
                 "processor_version": "1.0",
-                "categorization_system": "Dual-Tier (TIER 1: 5 categories + TIER 2: 13 trap codes)"
+                "categorization_system": "Dual-Tier (TIER 1: 5 categories + TIER 2: 13 trap codes)",
             },
             "statistics": stats,
-            "questions": processed_questions
+            "questions": processed_questions,
         }
 
 
@@ -318,11 +368,10 @@ def generate_sample_output():
                 "A": "Turn on port authentication on the host switches.",
                 "B": "Create reservation on the DHCP server.",
                 "C": "Set the clients to Bootstrap Protocol (BootP).",
-                "D": "Expand the reservation pool on the DHCP server."
+                "D": "Expand the reservation pool on the DHCP server.",
             },
             "correct_answer": "A",
             "explanation": "Turn on port authentication on the host switches to prevent rogue stations from connecting without proper MAC addresses.",
-
             "TIER_1_ORIGINAL_5_CATEGORIES": {
                 "domain": 3,
                 "domain_name": "Security Architecture and Engineering",
@@ -330,9 +379,8 @@ def generate_sample_output():
                 "subtopic": "Access Control",
                 "difficulty": "Medium",
                 "question_type": "Application",
-                "exam_trick": "BEST"
+                "exam_trick": "BEST",
             },
-
             "TIER_2_NEW_13_TRAP_CODES": {
                 "trap_codes": ["ROLE", "SCOPE"],
                 "trap_details": {
@@ -340,17 +388,17 @@ def generate_sample_output():
                         "name": "Job Title Mismatch",
                         "risk": "HIGH",
                         "detected": True,
-                        "explanation": "Question asks 'what should be done' - assumes network admin role, but answer requires understanding responsibility boundaries"
+                        "explanation": "Question asks 'what should be done' - assumes network admin role, but answer requires understanding responsibility boundaries",
                     },
                     "SCOPE": {
                         "name": "Boundary Confusion",
                         "risk": "HIGH",
                         "detected": True,
-                        "explanation": "Question context (DHCP, port authentication) tests understanding of access control scope"
-                    }
+                        "explanation": "Question context (DHCP, port authentication) tests understanding of access control scope",
+                    },
                 },
-                "risk_level": "HIGH"
-            }
+                "risk_level": "HIGH",
+            },
         }
     }
     return sample

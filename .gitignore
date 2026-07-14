@@ -95,3 +95,34 @@ student_results/
 *_report.xlsx
 *_analysis*.json
 exams/*/reports/
+
+# Answer keys - NEVER commit (questionnaire-specific, not reusable)
+data/answer_key.json
+answer_key.json
+**/answer_key*.json
+exams/*/answer_key.json
+
+# Answer keys - NEVER commit (questionnaire-specific)
+data/answer_key.json
+answer_key.json
+**/answer_key*.json
+exams/*/answer_key.json
+
+# Student Data - NEVER commit
+student_roster.json
+*student*.csv
+*student*.json
+*_report.xlsx
+*_analysis*.json
+exams/*/student_answers/
+answers/*/
+
+# Development/Planning (internal only)
+docs/superpowers/
+.superpowers/
+*.todo
+
+# Test Artifacts
+TEST_RESULTS_*.md
+INTEGRATION_TEST_*.md
+VALIDATION_REPORT.json

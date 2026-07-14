@@ -14,6 +14,7 @@ from pathlib import Path
 @dataclass
 class StudentPerformance:
     """Complete student performance profile"""
+
     student_id: str
     name: str
     total_correct: int
@@ -42,14 +43,15 @@ class StudentAnswerProcessor:
     def _load_questions(self, path: str) -> Dict:
         """Load the 162-question database"""
         try:
-            with open(path, 'r') as f:
+            with open(path, "r") as f:
                 return json.load(f)
         except FileNotFoundError:
             print(f"Warning: Question database not found at {path}")
             return {}
 
-    def process_student_answers(self, student_id: str, name: str,
-                               answers: Dict[int, str]) -> StudentPerformance:
+    def process_student_answers(
+        self, student_id: str, name: str, answers: Dict[int, str]
+    ) -> StudentPerformance:
         """
         Process single student's answers
 
@@ -63,10 +65,15 @@ class StudentAnswerProcessor:
         """
 
         # Calculate score
-        total_correct = sum(1 for q, ans in answers.items()
-                          if ans.upper() == self.answer_key.get(q, "").upper())
+        total_correct = sum(
+            1
+            for q, ans in answers.items()
+            if ans.upper() == self.answer_key.get(q, "").upper()
+        )
         total_questions = len(answers)
-        overall_score = (total_correct / total_questions * 100) if total_questions > 0 else 0
+        overall_score = (
+            (total_correct / total_questions * 100) if total_questions > 0 else 0
+        )
 
         # Analyze by domain (TIER 1)
         domain_scores = self._analyze_by_domain(answers)
@@ -87,7 +94,7 @@ class StudentAnswerProcessor:
             domain_scores=domain_scores,
             trap_performance=trap_performance,
             weak_areas=weak_areas,
-            strong_areas=strong_areas
+            strong_areas=strong_areas,
         )
 
     def _analyze_by_domain(self, answers: Dict[int, str]) -> Dict[int, Dict]:
@@ -99,8 +106,11 @@ class StudentAnswerProcessor:
         domain_questions = self._get_domain_question_mapping()
 
         for domain_num, q_numbers in domain_questions.items():
-            correct = sum(1 for q in q_numbers
-                         if answers.get(q, "").upper() == self.answer_key.get(q, "").upper())
+            correct = sum(
+                1
+                for q in q_numbers
+                if answers.get(q, "").upper() == self.answer_key.get(q, "").upper()
+            )
             total = len(q_numbers)
             pct = (correct / total * 100) if total > 0 else 0
 
@@ -109,14 +119,26 @@ class StudentAnswerProcessor:
                 "correct": correct,
                 "total": total,
                 "percentage": round(pct, 1),
-                "status": self._get_performance_status(pct)
+                "status": self._get_performance_status(pct),
             }
 
         return domains
 
     def _analyze_by_trap(self, answers: Dict[int, str]) -> Dict[str, Dict]:
         """Analyze performance by trap codes (TIER 2)"""
-        trap_codes = ["NEG", "ABS", "EASY", "ROLE", "SCOPE", "ORDER", "ALL", "GOLD", "ETHIC", "TIME", "REPEAT"]
+        trap_codes = [
+            "NEG",
+            "ABS",
+            "EASY",
+            "ROLE",
+            "SCOPE",
+            "ORDER",
+            "ALL",
+            "GOLD",
+            "ETHIC",
+            "TIME",
+            "REPEAT",
+        ]
         trap_performance = {}
 
         # Map questions to traps (would come from question database)
@@ -125,8 +147,11 @@ class StudentAnswerProcessor:
         for trap_code in trap_codes:
             q_numbers = trap_questions.get(trap_code, [])
             if q_numbers:
-                correct = sum(1 for q in q_numbers
-                            if answers.get(q, "").upper() == self.answer_key.get(q, "").upper())
+                correct = sum(
+                    1
+                    for q in q_numbers
+                    if answers.get(q, "").upper() == self.answer_key.get(q, "").upper()
+                )
                 total = len(q_numbers)
                 pct = (correct / total * 100) if total > 0 else 0
 
@@ -135,66 +160,78 @@ class StudentAnswerProcessor:
                     "correct": correct,
                     "total": total,
                     "percentage": round(pct, 1),
-                    "vulnerability": self._get_vulnerability_level(pct)
+                    "vulnerability": self._get_vulnerability_level(pct),
                 }
 
         return trap_performance
 
-    def _identify_weak_areas(self, domain_scores: Dict, trap_performance: Dict) -> List[Dict]:
+    def _identify_weak_areas(
+        self, domain_scores: Dict, trap_performance: Dict
+    ) -> List[Dict]:
         """Identify weak areas (domains and traps where student scored < 70%)"""
         weak = []
 
         # Weak domains
         for domain_num, scores in domain_scores.items():
             if scores["percentage"] < 70:
-                weak.append({
-                    "type": "DOMAIN",
-                    "name": scores["domain_name"],
-                    "score": scores["percentage"],
-                    "correct": scores["correct"],
-                    "total": scores["total"],
-                    "priority": "HIGH" if scores["percentage"] < 60 else "MEDIUM"
-                })
+                weak.append(
+                    {
+                        "type": "DOMAIN",
+                        "name": scores["domain_name"],
+                        "score": scores["percentage"],
+                        "correct": scores["correct"],
+                        "total": scores["total"],
+                        "priority": "HIGH" if scores["percentage"] < 60 else "MEDIUM",
+                    }
+                )
 
         # Weak traps
         for trap_code, scores in trap_performance.items():
             if scores["percentage"] < 70:
-                weak.append({
-                    "type": "TRAP",
-                    "name": f"{trap_code}: {scores['trap_name']}",
-                    "score": scores["percentage"],
-                    "correct": scores["correct"],
-                    "total": scores["total"],
-                    "priority": "HIGH" if scores["percentage"] < 60 else "MEDIUM"
-                })
+                weak.append(
+                    {
+                        "type": "TRAP",
+                        "name": f"{trap_code}: {scores['trap_name']}",
+                        "score": scores["percentage"],
+                        "correct": scores["correct"],
+                        "total": scores["total"],
+                        "priority": "HIGH" if scores["percentage"] < 60 else "MEDIUM",
+                    }
+                )
 
         return sorted(weak, key=lambda x: x["score"])
 
-    def _identify_strong_areas(self, domain_scores: Dict, trap_performance: Dict) -> List[Dict]:
+    def _identify_strong_areas(
+        self, domain_scores: Dict, trap_performance: Dict
+    ) -> List[Dict]:
         """Identify strong areas (domains and traps where student scored > 85%)"""
         strong = []
 
         # Strong domains
         for domain_num, scores in domain_scores.items():
             if scores["percentage"] > 85:
-                strong.append({
-                    "type": "DOMAIN",
-                    "name": scores["domain_name"],
-                    "score": scores["percentage"],
-                    "correct": scores["correct"],
-                    "total": scores["total"]
-                })
+                strong.append(
+                    {
+                        "type": "DOMAIN",
+                        "name": scores["domain_name"],
+                        "score": scores["percentage"],
+                        "correct": scores["correct"],
+                        "total": scores["total"],
+                    }
+                )
 
         # Strong traps
         for trap_code, scores in trap_performance.items():
             if scores["percentage"] > 85:
-                strong.append({
-                    "type": "TRAP",
-                    "name": f"{trap_code}: {scores['trap_name']}",
-                    "score": scores["percentage"],
-                    "correct": scores["correct"],
-                    "total": scores["total"]
-                })
+                strong.append(
+                    {
+                        "type": "TRAP",
+                        "name": f"{trap_code}: {scores['trap_name']}",
+                        "score": scores["percentage"],
+                        "correct": scores["correct"],
+                        "total": scores["total"],
+                    }
+                )
 
         return sorted(strong, key=lambda x: x["score"], reverse=True)
 
@@ -209,7 +246,7 @@ class StudentAnswerProcessor:
             5: list(range(86, 106)),
             6: list(range(106, 121)),
             7: list(range(121, 143)),
-            8: list(range(143, 163))
+            8: list(range(143, 163)),
         }
 
     def _get_trap_question_mapping(self) -> Dict[str, List[int]]:
@@ -232,7 +269,7 @@ class StudentAnswerProcessor:
             5: "Identity and Access Management",
             6: "Security Assessment and Testing",
             7: "Security Operations",
-            8: "Software Development Security"
+            8: "Software Development Security",
         }
         return domains.get(domain_num, "Unknown")
 
@@ -249,7 +286,7 @@ class StudentAnswerProcessor:
             "GOLD": "Shiny Object",
             "ETHIC": "Moral Hazard",
             "TIME": "Clock Killer",
-            "REPEAT": "Deja Vu"
+            "REPEAT": "Deja Vu",
         }
         return traps.get(trap_code, trap_code)
 
@@ -292,8 +329,8 @@ class CohortAnalyzer:
             "average_score": round(sum(scores) / len(scores), 1),
             "highest_score": max(scores),
             "lowest_score": min(scores),
-            "median_score": sorted(scores)[len(scores)//2],
-            "standard_deviation": self._calculate_std_dev(scores)
+            "median_score": sorted(scores)[len(scores) // 2],
+            "standard_deviation": self._calculate_std_dev(scores),
         }
 
     def get_domain_cohort_analysis(self) -> Dict[int, Dict]:
@@ -303,12 +340,14 @@ class CohortAnalyzer:
 
         domain_stats = {}
         for domain_num in range(1, 9):
-            scores = [s.domain_scores.get(domain_num, {}).get("percentage", 0)
-                     for s in self.students]
+            scores = [
+                s.domain_scores.get(domain_num, {}).get("percentage", 0)
+                for s in self.students
+            ]
             domain_stats[domain_num] = {
                 "average": round(sum(scores) / len(scores), 1) if scores else 0,
                 "highest": max(scores) if scores else 0,
-                "lowest": min(scores) if scores else 0
+                "lowest": min(scores) if scores else 0,
             }
 
         return domain_stats
@@ -319,7 +358,7 @@ class CohortAnalyzer:
             return 0
         mean = sum(values) / len(values)
         variance = sum((x - mean) ** 2 for x in values) / len(values)
-        return round(variance ** 0.5, 1)
+        return round(variance**0.5, 1)
 
 
 if __name__ == "__main__":
