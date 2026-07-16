@@ -182,9 +182,17 @@ class ClassReportAggregator:
             report_filename = "Class_Report.json"
             report_path = self.reports_dir / report_filename
 
+            # Get previous metrics if report exists
+            previous_metrics = self._load_previous_metrics(report_path)
+
+            # Generate new metrics
             metrics = self.generate_class_metrics()
             with open(report_path, "w") as f:
                 json.dump(metrics, f, indent=2)
+
+            # Log changes if there was a previous report
+            if previous_metrics:
+                self._log_report_changes(previous_metrics, metrics)
 
             logger.info(f"Class report generated: {report_path}")
             return report_path
@@ -192,6 +200,141 @@ class ClassReportAggregator:
         except Exception as e:
             logger.error(f"Error generating class report: {str(e)}")
             return None
+
+    def _load_previous_metrics(self, report_path: Path) -> Optional[Dict]:
+        """
+        Load previous class report metrics if it exists.
+
+        Args:
+            report_path: Path to the class report file
+
+        Returns:
+            Previous metrics dict or None if file doesn't exist
+        """
+        if not report_path.exists():
+            return None
+
+        try:
+            with open(report_path, "r") as f:
+                return json.load(f)
+        except Exception as e:
+            logger.warning(f"Could not load previous metrics: {str(e)}")
+            return None
+
+    def _log_report_changes(self, previous: Dict, current: Dict) -> None:
+        """
+        Log changes between previous and current class report.
+
+        Args:
+            previous: Previous metrics dictionary
+            current: Current metrics dictionary
+        """
+        prev_students = previous.get("total_students", 0)
+        curr_students = current.get("total_students", 0)
+        student_delta = curr_students - prev_students
+
+        if student_delta != 0:
+            logger.info(f"📊 Class Report Updated:")
+            logger.info(f"   Students: {prev_students} → {curr_students} " f"({student_delta:+d})")
+
+        prev_avg = previous.get("average_score", 0)
+        curr_avg = current.get("average_score", 0)
+        avg_delta = curr_avg - prev_avg
+
+        logger.info(f"   Average Score: {prev_avg:.1f}% → {curr_avg:.1f}% " f"({avg_delta:+.1f}%)")
+
+        prev_pass = previous.get("pass_rate", 0)
+        curr_pass = current.get("pass_rate", 0)
+        pass_delta = curr_pass - prev_pass
+
+        logger.info(
+            f"   Pass Rate: {prev_pass:.1f}% → {curr_pass:.1f}% "
+            f"({pass_delta:+.1f}%)"
+        )
+
+        if student_delta > 0:
+            new_students = [
+                s for s in current.get("student_metrics", [])
+                if s["student_name"]
+                not in [p["student_name"] for p in previous.get("student_metrics", [])]
+            ]
+            if new_students:
+                logger.info(f"   New students added:")
+                for student in new_students:
+                    logger.info(
+                        f"     • {student['student_name']}: "
+                        f"{student['correct']}/{student['total']} "
+                        f"({student['percentage']:.1f}%)"
+                    )
+
+    def get_report_changes(self, report_path: Path, current_metrics: Dict) -> Optional[str]:
+        """
+        Get formatted summary of changes since last report generation.
+
+        Args:
+            report_path: Path to the previous class report
+            current_metrics: Current metrics dictionary
+
+        Returns:
+            Formatted change summary or None if no previous report
+        """
+        previous_metrics = self._load_previous_metrics(report_path)
+        if not previous_metrics:
+            return None
+
+        prev_students = previous_metrics.get("total_students", 0)
+        curr_students = current_metrics.get("total_students", 0)
+        student_delta = curr_students - prev_students
+
+        prev_avg = previous_metrics.get("average_score", 0)
+        curr_avg = current_metrics.get("average_score", 0)
+        avg_delta = curr_avg - prev_avg
+
+        prev_pass = previous_metrics.get("pass_rate", 0)
+        curr_pass = current_metrics.get("pass_rate", 0)
+        pass_delta = curr_pass - prev_pass
+
+        # Get new students
+        new_students = []
+        if student_delta > 0:
+            prev_names = {p["student_name"] for p in previous_metrics.get("student_metrics", [])}
+            new_students = [
+                s for s in current_metrics.get("student_metrics", [])
+                if s["student_name"] not in prev_names
+            ]
+
+        # Format changes
+        changes = "\n" + "=" * 70 + "\n"
+        changes += "📊 Class Report Updated\n"
+        changes += "=" * 70 + "\n\n"
+
+        changes += f"Students: {prev_students} → {curr_students}"
+        if student_delta != 0:
+            changes += f" ({student_delta:+d})"
+        changes += "\n"
+
+        changes += f"Average Score: {prev_avg:.1f}% → {curr_avg:.1f}%"
+        if avg_delta != 0:
+            changes += f" ({avg_delta:+.1f}%)"
+        changes += "\n"
+
+        changes += f"Pass Rate: {prev_pass:.1f}% → {curr_pass:.1f}%"
+        if pass_delta != 0:
+            changes += f" ({pass_delta:+.1f}%)"
+        changes += "\n"
+
+        if new_students:
+            changes += "\n📝 New Students Added:\n"
+            for student in new_students:
+                changes += (
+                    f"  • {student['student_name']:20} "
+                    f"{student['correct']:3}/{student['total']:3} "
+                    f"({student['percentage']:5.1f}%)\n"
+                )
+
+        changes += "=" * 70 + "\n"
+
+        return changes
 
     def show_preview(self, metrics: Dict) -> str:
         """

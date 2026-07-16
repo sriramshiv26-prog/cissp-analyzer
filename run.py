@@ -195,6 +195,11 @@ class CISSPAnalyzerCLI:
             # Generate report
             report_path = aggregator.generate_class_report()
             if report_path:
+                # Show changes if this is an update (not first report)
+                changes = aggregator.get_report_changes(report_path, metrics)
+                if changes:
+                    print(changes)
+
                 self.menu.show_success_message(f"Class report generated: {report_path}")
             else:
                 self.menu.show_error_message("Failed to generate class report")
