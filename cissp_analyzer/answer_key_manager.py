@@ -1,410 +1,347 @@
 #!/usr/bin/env python3
 """
-Interactive Answer Key Manager
-Handles extraction, validation, and user confirmation for answer keys
-Supports dual-method extraction: pdfplumber (primary) + pypdf (fallback)
+Answer Key Manager - Phase 2 Integration
+Loads, validates, and manages answer keys for exam grading.
+Supports: Excel files, JSON files, and version control.
 """
 
 import json
-import re
+import logging
 from pathlib import Path
-from typing import Dict, Tuple, Optional
-import pypdf
-from answer_validator_interactive import InteractiveAnswerValidator
-from answer_extractor_dual import extract_answers_dual
+from typing import Dict, List, Optional, Tuple
 
+import pandas as pd
 
-class ConfidenceReport:
-    """Tracks answer key extraction confidence"""
-
-    def __init__(self):
-        self.total_extracted = 0
-        self.pattern_matches = 0
-        self.validation_issues = []
-        self.warnings = []
-        self.confidence_score = 0.0
-
-    def calculate(self, extracted_count: int, expected_min: int = 50) -> float:
-        """Calculate confidence score (0.0 to 1.0)"""
-        if extracted_count < expected_min:
-            self.warnings.append(
-                f"Low answer count: {extracted_count} (expected >= {expected_min})"
-            )
-            self.confidence_score = 0.3
-        elif extracted_count >= 100:
-            self.confidence_score = 0.95
-        else:
-            self.confidence_score = 0.7 + (extracted_count - expected_min) / 100 * 0.25
-
-        return self.confidence_score
-
-    def to_dict(self):
-        return {
-            "confidence_score": round(self.confidence_score, 2),
-            "total_extracted": self.total_extracted,
-            "warnings": self.warnings,
-            "validation_issues": self.validation_issues,
-        }
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 class AnswerKeyManager:
-    """Manages answer key extraction with interactive fallback"""
-
-    CONFIDENCE_THRESHOLD = 0.75  # If below this, ask user
+    """Manages answer key loading, validation, and lookup for exam grading."""
 
     def __init__(self, exam_folder: Path):
-        self.exam_folder = exam_folder
-        self.answer_keys_dir = exam_folder / "answer_keys"
+        """
+        Initialize AnswerKeyManager for an exam.
+
+        Args:
+            exam_folder: Path to exam folder
+        """
+        self.exam_folder = Path(exam_folder)
+        self.answer_keys_dir = self.exam_folder / "answer_keys"
         self.answer_keys_dir.mkdir(exist_ok=True)
+        self.current_key: Optional[Dict[int, str]] = None
+        self.version = 1
 
-    def load_answer_key(
-        self, pdf_path: str, interactive: bool = True, use_validator: bool = True
-    ) -> Dict[int, str]:
+    def load_from_excel(self, excel_path: str, version: int = 1) -> Dict[int, str]:
         """
-        Load answer key with automatic extraction + interactive validation
+        Load answer key from Excel file.
+
+        Expected format:
+        - Column headers: "Question", "Answer" OR "Q", "Ans" OR "Q#", "A"
+        - Or: First column = question number, second column = answer
+        - Answers: A, B, C, D (case-insensitive)
 
         Args:
-            pdf_path: Path to PDF file
-            interactive: Whether to show interactive prompts
-            use_validator: Whether to use interactive validator for low-confidence answers
+            excel_path: Path to Excel file containing answer key
+            version: Version number for this key (for multi-version exams)
 
         Returns:
-            Dict mapping question number to correct answer (A/B/C/D)
+            Dictionary mapping question number (int) to answer (str)
+
+        Raises:
+            FileNotFoundError: If file doesn't exist
+            ValueError: If format is invalid or no data found
         """
-        print("\n" + "=" * 80)
-        print("ANSWER KEY MANAGER")
-        print("=" * 80 + "\n")
-
-        # Step 1: Try automatic extraction
-        print("Step 1: Attempting automatic extraction from PDF...")
-        print("-" * 80)
-        extracted_key, report, pdf_context = self.extract_from_pdf(pdf_path)
-        confidence = report.calculate(len(extracted_key))
-
-        print(f"Extracted: {len(extracted_key)} answers")
-        print(f"Confidence: {confidence:.0%}")
-
-        if report.warnings:
-            print("\nWarnings:")
-            for warning in report.warnings:
-                print(f"  ⚠️  {warning}")
-
-        # Step 2: Interactive validation for confidence < 95%
-        if use_validator and interactive and confidence < 0.95:
-            print(f"\nStep 2: Interactive validation of extracted answers...")
-            print("-" * 80)
-            validator = InteractiveAnswerValidator()
-            validated_key, validation_report = validator.validate_answers(
-                extracted_key, pdf_context, confidence_threshold=0.75
-            )
-
-            # Save validation report
-            validation_log = self.answer_keys_dir / "validation_report.json"
-            validator.save_validation_report(validation_report, validation_log)
-
-            self._save_answer_key(validated_key, "automatic_with_validation")
-            return validated_key
-
-        # Step 3: Check confidence threshold
-        if confidence >= self.CONFIDENCE_THRESHOLD and len(extracted_key) >= 50:
-            print(f"\n✓ Confidence sufficient ({confidence:.0%}). Using extracted key.")
-            self._save_answer_key(extracted_key, "automatic")
-            return extracted_key
-
-        # Step 4: Ask user to choose fallback method
-        if not interactive:
-            print(
-                f"\n✗ Confidence too low ({confidence:.0%}) and interactive mode disabled."
-            )
-            return extracted_key
-
-        print(f"\n⚠️  Confidence low ({confidence:.0%}). Choose method:\n")
-        return self._interactive_wizard(
-            pdf_path, extracted_key, confidence, pdf_context
-        )
-
-    def extract_from_pdf(
-        self, pdf_path: str
-    ) -> Tuple[Dict[int, str], ConfidenceReport, Dict[int, str]]:
-        """
-        Extract answer key from PDF with dual-method extraction
-        Primary: pdfplumber (layout-aware)
-        Fallback: pypdf + regex (robust)
-
-        Args:
-            pdf_path: Path to PDF file
-
-        Returns:
-            Tuple of (answer_key dict, confidence report, context dict)
-        """
-        report = ConfidenceReport()
+        file_path = Path(excel_path)
+        if not file_path.exists():
+            raise FileNotFoundError(f"Excel file not found: {excel_path}")
 
         try:
-            # Use dual-method extraction (pdfplumber with pypdf fallback)
-            answer_key, metadata, pdf_context = extract_answers_dual(pdf_path)
+            # Read Excel file
+            df = pd.read_excel(excel_path)
+            logger.info(f"Loaded Excel file: {excel_path}")
+            logger.info(f"Columns: {list(df.columns)}")
 
-            report.pattern_matches = metadata.get("pattern_matches", 0)
-            report.total_extracted = metadata.get("total_extracted", 0)
+            # Find question and answer columns (case-insensitive)
+            question_col = self._find_column(df, ["Question", "Q", "Q#", "Qnum"])
+            answer_col = self._find_column(df, ["Answer", "Ans", "A", "Correct"])
 
-            # Add extraction method info to warnings
-            extraction_method = metadata.get("extraction_method", "unknown")
-            print(f"\n✓ Extraction method: {extraction_method}")
-            print(f"  Confidence: {metadata.get('confidence', 0):.0%}")
+            if not question_col or not answer_col:
+                # Try using first two columns
+                if len(df.columns) < 2:
+                    raise ValueError("Excel file must have at least 2 columns")
+                question_col = df.columns[0]
+                answer_col = df.columns[1]
+                logger.warning(
+                    f"Using first two columns: {question_col}, {answer_col}"
+                )
 
-            if metadata.get("issues"):
-                for issue in metadata["issues"]:
-                    report.warnings.append(issue)
-
-            # Calculate confidence
-            confidence = metadata.get("confidence", 0.0)
-            report.confidence_score = confidence
-
-            return answer_key, report, pdf_context
-
-        except Exception as e:
-            report.warnings.append(f"PDF extraction error: {str(e)}")
-            return {}, report, {}
-
-    def _interactive_wizard(
-        self,
-        pdf_path: str,
-        partial_key: Dict[int, str],
-        confidence: float,
-        pdf_context: Dict[int, str] = None,
-    ) -> Dict[int, str]:
-        """
-        Interactive wizard for answer key entry/correction
-
-        Args:
-            pdf_path: Path to PDF
-            partial_key: Partially extracted answer key (if any)
-            confidence: Confidence score of extraction
-            pdf_context: Context around extracted answers
-
-        Returns:
-            Final validated answer key
-        """
-        print("\n" + "=" * 80)
-        print("ANSWER KEY WIZARD - SELECT YOUR OPTION")
-        print("=" * 80 + "\n")
-
-        print(f"Current Status:")
-        print(f"  Extracted: {len(partial_key)} answers")
-        print(f"  Confidence: {confidence:.0%}")
-        print()
-
-        print("Options:")
-        print("  1) Review & validate extracted answers (recommended)")
-        print("  2) Use extracted answers as-is (at your own risk)")
-        print("  3) Upload answer_key.json file")
-        print("  4) Enter answers manually (interactive Q&A)")
-        print("  5) Skip this exam")
-        print()
-
-        choice = input("Select option (1-5): ").strip()
-
-        if choice == "1":
-            print("\nStarting interactive validation...")
-            validator = InteractiveAnswerValidator()
-            validated_key, validation_report = validator.validate_answers(
-                partial_key, pdf_context, confidence_threshold=0.75
-            )
-            validation_log = self.answer_keys_dir / "validation_report.json"
-            validator.save_validation_report(validation_report, validation_log)
-            self._save_answer_key(validated_key, "manual_validation")
-            return validated_key
-
-        elif choice == "2":
-            print("\n⚠️  Using extracted answers with low confidence.")
-            print("     Results may be inaccurate. Verify after analysis.")
-            self._save_answer_key(partial_key, "auto_low_confidence")
-            return partial_key
-
-        elif choice == "3":
-            return self._load_json_upload()
-
-        elif choice == "4":
-            return self._manual_entry_wizard()
-
-        elif choice == "5":
-            print("\nSkipping this exam.")
-            return {}
-
-        else:
-            print("Invalid option. Try again.")
-            return self._interactive_wizard(
-                pdf_path, partial_key, confidence, pdf_context
-            )
-
-    def _load_json_upload(self) -> Dict[int, str]:
-        """
-        Load answer key from JSON file upload
-
-        Returns:
-            Answer key dictionary
-        """
-        print("\n" + "-" * 80)
-        print("UPLOAD ANSWER KEY (JSON Format)")
-        print("-" * 80 + "\n")
-
-        print("Expected JSON format:")
-        print("""
-{
-  "1": "D",
-  "2": "B",
-  "3": "A",
-  ...
-}
-or
-{
-  "Q1": "D",
-  "Q2": "B",
-  ...
-}
-        """)
-
-        json_path = input("\nEnter path to answer_key.json file: ").strip()
-
-        try:
-            with open(json_path, "r") as f:
-                data = json.load(f)
-
-            # Normalize keys to integers
             answer_key = {}
-            for key, value in data.items():
-                # Remove 'Q' prefix if present
-                clean_key = key.replace("Q", "").replace("q", "")
-                q_num = int(clean_key)
-                answer_key[q_num] = str(value).upper().strip()
+            errors = []
 
-            print(f"\n✓ Loaded {len(answer_key)} answers from JSON")
-            self._save_answer_key(answer_key, "json_upload")
+            for idx, row in df.iterrows():
+                try:
+                    q_num = int(row[question_col])
+                    answer = str(row[answer_col]).strip().upper()
+
+                    if answer not in ["A", "B", "C", "D"]:
+                        errors.append(f"Q{q_num}: Invalid answer '{answer}'")
+                        continue
+
+                    answer_key[q_num] = answer
+
+                except (ValueError, TypeError) as e:
+                    errors.append(f"Row {idx + 2}: {str(e)}")
+
+            if not answer_key:
+                raise ValueError("No valid answer key data found in Excel file")
+
+            if errors:
+                logger.warning(f"Conversion errors: {errors}")
+
+            logger.info(f"✓ Loaded {len(answer_key)} answer keys from Excel")
+            self._save_answer_key(answer_key, version, "excel")
+            self.current_key = answer_key
+            self.version = version
             return answer_key
 
         except Exception as e:
-            print(f"\n✗ Error loading JSON: {e}")
-            retry = input("Try again? (Y/N): ").strip().lower()
-            if retry == "y":
-                return self._load_json_upload()
-            else:
-                return {}
+            logger.error(f"Error loading Excel file: {str(e)}")
+            raise
 
-    def _manual_entry_wizard(self) -> Dict[int, str]:
+    def load_from_json(self, json_path: str, version: int = 1) -> Dict[int, str]:
         """
-        Interactive Q&A for manual answer entry
+        Load answer key from JSON file.
 
-        Returns:
-            Answer key from user input
-        """
-        print("\n" + "-" * 80)
-        print("MANUAL ANSWER ENTRY")
-        print("-" * 80 + "\n")
-
-        print("Enter answers one by one (type 'done' to finish)")
-        print("Format: Just type A, B, C, or D")
-        print()
-
-        answer_key = {}
-        q_num = 1
-
-        while True:
-            ans = input(f"Q{q_num:3d}: ").strip().upper()
-
-            if ans.lower() == "done":
-                break
-
-            if ans in ["A", "B", "C", "D"]:
-                answer_key[q_num] = ans
-                q_num += 1
-            elif ans == "SKIP":
-                q_num += 1
-            else:
-                print("  Invalid input. Enter A, B, C, D, 'SKIP', or 'DONE'")
-
-        print(f"\n✓ Entered {len(answer_key)} answers")
-        self._save_answer_key(answer_key, "manual_entry")
-        return answer_key
-
-    def _review_and_correct(self, partial_key: Dict[int, str]) -> Dict[int, str]:
-        """
-        Review extracted answers and allow corrections
+        Expected format:
+        {
+            "1": "A",
+            "2": "B",
+            ...
+        }
+        Or:
+        {
+            "Q1": "A",
+            "Q2": "B",
+            ...
+        }
 
         Args:
-            partial_key: Extracted answer key to review
+            json_path: Path to JSON file
+            version: Version number for this key
 
         Returns:
-            Corrected answer key
+            Dictionary mapping question number (int) to answer (str)
+
+        Raises:
+            FileNotFoundError: If file doesn't exist
+            ValueError: If JSON format is invalid
         """
-        print("\n" + "-" * 80)
-        print("REVIEW AND CORRECT EXTRACTED ANSWERS")
-        print("-" * 80 + "\n")
+        file_path = Path(json_path)
+        if not file_path.exists():
+            raise FileNotFoundError(f"JSON file not found: {json_path}")
 
-        print("Review answers. To change, type new answer (A/B/C/D).")
-        print("Press ENTER to keep current answer. Type 'done' to finish.\n")
+        try:
+            with open(file_path, "r") as f:
+                data = json.load(f)
 
-        corrected_key = partial_key.copy()
+            answer_key = {}
+            errors = []
 
-        for q_num in sorted(partial_key.keys()):
-            current = partial_key[q_num]
-            correction = input(f"Q{q_num:3d}: {current} → ").strip().upper()
+            for key, value in data.items():
+                try:
+                    # Handle both "1" and "Q1" formats
+                    q_num_str = str(key).strip().upper()
+                    if q_num_str.startswith("Q"):
+                        q_num_str = q_num_str[1:]
+                    q_num = int(q_num_str)
 
-            if correction == "DONE":
-                break
-            elif correction in ["A", "B", "C", "D"]:
-                corrected_key[q_num] = correction
-            elif correction == "":
-                # Keep current
-                pass
-            else:
-                print("  Invalid input. Keeping original.")
+                    answer = str(value).strip().upper()
+                    if answer not in ["A", "B", "C", "D"]:
+                        errors.append(f"Q{q_num}: Invalid answer '{answer}'")
+                        continue
 
-        print(f"\n✓ Reviewed {len(corrected_key)} answers")
-        self._save_answer_key(corrected_key, "manual_review")
-        return corrected_key
+                    answer_key[q_num] = answer
+
+                except (ValueError, TypeError) as e:
+                    errors.append(f"Key '{key}': {str(e)}")
+
+            if not answer_key:
+                raise ValueError("No valid answer key data found in JSON file")
+
+            if errors:
+                logger.warning(f"Conversion errors: {errors}")
+
+            logger.info(f"✓ Loaded {len(answer_key)} answer keys from JSON")
+            self._save_answer_key(answer_key, version, "json")
+            self.current_key = answer_key
+            self.version = version
+            return answer_key
+
+        except json.JSONDecodeError as e:
+            logger.error(f"Invalid JSON format: {str(e)}")
+            raise ValueError(f"Invalid JSON file: {str(e)}")
+        except Exception as e:
+            logger.error(f"Error loading JSON file: {str(e)}")
+            raise
+
+    def validate_against_questions(
+        self, answer_key: Dict[int, str], total_questions: int
+    ) -> Tuple[bool, List[str]]:
+        """
+        Validate that answer key matches the exam questions.
+
+        Args:
+            answer_key: Answer key to validate
+            total_questions: Total number of questions in exam
+
+        Returns:
+            Tuple of (is_valid, error_messages)
+        """
+        errors = []
+
+        # Check if answer key is empty
+        if not answer_key:
+            errors.append("Answer key is empty")
+            return False, errors
+
+        # Check for missing answers
+        missing = []
+        for q_num in range(1, total_questions + 1):
+            if q_num not in answer_key:
+                missing.append(q_num)
+
+        if missing and len(missing) <= 10:
+            errors.append(f"Missing answers for questions: {missing}")
+        elif missing:
+            errors.append(f"Missing answers for {len(missing)} questions")
+
+        # Check for extra answers (beyond total questions)
+        extra = [q for q in answer_key.keys() if q > total_questions]
+        if extra and len(extra) <= 10:
+            errors.append(f"Answer key has extra answers: {extra}")
+        elif extra:
+            errors.append(f"Answer key has {len(extra)} extra answers")
+
+        # Check coverage
+        coverage = len(answer_key) / total_questions * 100
+        logger.info(f"Answer key coverage: {coverage:.1f}% ({len(answer_key)}/{total_questions})")
+
+        is_valid = len(errors) == 0
+        return is_valid, errors
+
+    def get_answer(self, question_number: int) -> Optional[str]:
+        """
+        Get answer for a specific question.
+
+        Args:
+            question_number: Question number to lookup
+
+        Returns:
+            Answer (A/B/C/D) or None if not found
+        """
+        if not self.current_key:
+            return None
+        return self.current_key.get(question_number)
+
+    def get_all_answers(self) -> Dict[int, str]:
+        """Get all loaded answer keys."""
+        return self.current_key or {}
+
+    def handle_multiple_versions(
+        self, version: int
+    ) -> Optional[Dict[int, str]]:
+        """
+        Load answer key for a specific exam version.
+
+        Args:
+            version: Version number (1, 2, 3, etc.)
+
+        Returns:
+            Answer key dictionary or None if version not found
+        """
+        version_file = self.answer_keys_dir / f"answer_key_v{version}.json"
+
+        if not version_file.exists():
+            logger.warning(f"Version {version} not found")
+            return None
+
+        try:
+            with open(version_file, "r") as f:
+                data = json.load(f)
+                # Convert string keys to integers
+                return {int(k): v for k, v in data.items()}
+        except Exception as e:
+            logger.error(f"Error loading version {version}: {str(e)}")
+            return None
+
+    def _find_column(self, df: pd.DataFrame, possible_names: List[str]) -> Optional[str]:
+        """
+        Find column in DataFrame by name (case-insensitive).
+
+        Args:
+            df: Pandas DataFrame
+            possible_names: List of possible column names to match
+
+        Returns:
+            Column name if found, None otherwise
+        """
+        df_columns_lower = {col.lower(): col for col in df.columns}
+
+        for name in possible_names:
+            if name.lower() in df_columns_lower:
+                return df_columns_lower[name.lower()]
+
+        return None
 
     def _save_answer_key(
-        self, answer_key: Dict[int, str], method: str = "unknown"
+        self, answer_key: Dict[int, str], version: int = 1, source: str = "unknown"
     ) -> Path:
         """
-        Save answer key to exam folder
+        Save answer key to disk with versioning.
 
         Args:
             answer_key: Answer key dictionary
-            method: How it was obtained (for tracking)
+            version: Version number
+            source: Source of answer key (excel, json, manual)
 
         Returns:
-            Path to saved answer key file
+            Path to saved file
         """
-        output_file = self.answer_keys_dir / "answer_key.json"
-
-        # Convert to string keys for JSON
+        # Save versioned file
+        version_file = self.answer_keys_dir / f"answer_key_v{version}.json"
         json_data = {str(k): v for k, v in answer_key.items()}
 
-        with open(output_file, "w") as f:
+        with open(version_file, "w") as f:
+            json.dump(json_data, f, indent=2)
+
+        # Update current answer key link
+        current_file = self.answer_keys_dir / "answer_key_current.json"
+        with open(current_file, "w") as f:
             json.dump(json_data, f, indent=2)
 
         # Save metadata
         metadata = {
-            "method": method,
+            "version": version,
+            "source": source,
             "total_answers": len(answer_key),
-            "timestamp": __import__("datetime").datetime.now().isoformat(),
+            "created_at": __import__("datetime").datetime.now().isoformat(),
         }
-
-        metadata_file = self.answer_keys_dir / "answer_key_metadata.json"
+        metadata_file = self.answer_keys_dir / f"answer_key_v{version}_metadata.json"
         with open(metadata_file, "w") as f:
             json.dump(metadata, f, indent=2)
 
-        print(f"\n✓ Saved to: {output_file}")
-        return output_file
+        logger.info(f"✓ Saved answer key v{version} to {version_file}")
+        return version_file
 
-    def get_answer_key(self) -> Optional[Dict[int, str]]:
-        """Load existing answer key from exam folder"""
-        key_file = self.answer_keys_dir / "answer_key.json"
-
-        if not key_file.exists():
-            return None
-
-        with open(key_file, "r") as f:
-            data = json.load(f)
-            # Convert string keys back to integers
-            return {int(k): v for k, v in data.items()}
+    def list_versions(self) -> List[int]:
+        """List all available answer key versions."""
+        versions = []
+        for file in self.answer_keys_dir.glob("answer_key_v*.json"):
+            if not file.name.endswith("_metadata.json"):
+                try:
+                    version = int(file.stem.replace("answer_key_v", ""))
+                    versions.append(version)
+                except ValueError:
+                    pass
+        return sorted(versions)

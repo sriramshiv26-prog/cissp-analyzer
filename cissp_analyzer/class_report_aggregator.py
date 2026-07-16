@@ -99,6 +99,7 @@ class ClassReportAggregator:
     def generate_class_metrics(self) -> Dict:
         """
         Calculate class-level metrics from all student reports.
+        Uses graded results if available, falls back to answer count.
 
         Returns:
             Dictionary with aggregated metrics
@@ -112,24 +113,42 @@ class ClassReportAggregator:
         # Calculate per-student metrics
         student_metrics = []
         all_scores = []
+        grading_available = False
 
         for report in reports:
             student_name = report.get("student_name", "Unknown")
-            answers = report.get("answers", {})
             total_questions = report.get("total_questions", 0)
 
             if total_questions == 0:
                 logger.warning(f"No total questions defined for {student_name}")
                 continue
 
-            # Count correct answers (simplified - assumes answers are correct if present)
-            correct = len(answers)
-            score_pct = (correct / total_questions * 100) if total_questions > 0 else 0
+            # Try to use grading results first (Phase 2 Integration)
+            grading = report.get("grading", {})
+            if grading.get("grading_available"):
+                correct = grading.get("total_correct", 0)
+                incorrect = grading.get("total_incorrect", 0)
+                blank = grading.get("total_blank", 0)
+                score_pct = grading.get("score", 0)
+                grading_available = True
+            else:
+                # Fall back to counting answers (original Phase 2 behavior)
+                answers = report.get("answers", {})
+                correct = len(answers)
+                incorrect = 0
+                blank = 0
+                score_pct = (
+                    (correct / total_questions * 100)
+                    if total_questions > 0
+                    else 0
+                )
 
             student_metrics.append(
                 {
                     "student_name": student_name,
                     "correct": correct,
+                    "incorrect": incorrect,
+                    "blank": blank,
                     "total": total_questions,
                     "percentage": score_pct,
                 }
@@ -152,7 +171,12 @@ class ClassReportAggregator:
             "max_score": max(all_scores),
             "std_dev": statistics.stdev(all_scores) if len(all_scores) > 1 else 0,
             "passing_count": passing_count,
-            "pass_rate": (passing_count / len(student_metrics) * 100) if student_metrics else 0,
+            "pass_rate": (
+                (passing_count / len(student_metrics) * 100)
+                if student_metrics
+                else 0
+            ),
+            "grading_used": grading_available,
             "student_metrics": student_metrics,
             "exam_name": self.metadata.get("exam_name", "Unknown"),
         }
@@ -160,6 +184,8 @@ class ClassReportAggregator:
         logger.info(f"Generated metrics for {len(student_metrics)} students")
         logger.info(f"Class average: {metrics['average_score']:.1f}%")
         logger.info(f"Pass rate: {metrics['pass_rate']:.1f}%")
+        if grading_available:
+            logger.info(f"✓ Using v1.0 grading integration")
 
         return metrics
 
@@ -375,11 +401,19 @@ class ClassReportAggregator:
                 reverse=True,
             ):
                 status = "✓ PASS" if student["percentage"] >= 75 else "✗ FAIL"
-                preview += (
-                    f"  {student['student_name']:30} "
-                    f"{student['correct']:3}/{student['total']:3} "
-                    f"({student['percentage']:5.1f}%) {status}\n"
-                )
+                # Show detailed breakdown if grading used
+                if metrics.get("grading_used"):
+                    preview += (
+                        f"  {student['student_name']:25} "
+                        f"✓{student['correct']:2} ✗{student['incorrect']:2} "
+                        f"({student['percentage']:5.1f}%) {status}\n"
+                    )
+                else:
+                    preview += (
+                        f"  {student['student_name']:30} "
+                        f"{student['correct']:3}/{student['total']:3} "
+                        f"({student['percentage']:5.1f}%) {status}\n"
+                    )
 
         preview += "=" * 70 + "\n\n"
 

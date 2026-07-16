@@ -13,6 +13,9 @@ from cissp_analyzer.exam_folder_manager import ExamFolderManager
 from cissp_analyzer.state_tracker import ProcessedFileTracker
 from cissp_analyzer.excel_parser import ExcelParser
 from cissp_analyzer.pdf_parser import PDFParser
+from cissp_analyzer.answer_key_manager import AnswerKeyManager
+from cissp_analyzer.question_database import QuestionDatabase
+from cissp_analyzer.answer_validator import AnswerValidator
 from cissp_analyzer.models import StudentAnswer
 
 # Setup logging
@@ -47,6 +50,11 @@ class ExamProcessor:
         # Load extracted questions
         self.questions = self._load_questions()
 
+        # Initialize v1.0 grading components
+        self.answer_key_manager = AnswerKeyManager(self.exam_folder)
+        self.question_db = QuestionDatabase(self.exam_folder)
+        self.answer_key: Optional[Dict[int, str]] = None
+
         # Create reports directory if not exists
         self.reports_dir = self.exam_folder / "reports"
         self.reports_dir.mkdir(exist_ok=True)
@@ -69,6 +77,46 @@ class ExamProcessor:
         except Exception as e:
             logger.error(f"Error extracting questions: {str(e)}")
             return []
+
+    def load_answer_key(self, answer_key_path: Optional[str] = None) -> bool:
+        """
+        Load answer key from Excel or JSON file.
+
+        Args:
+            answer_key_path: Path to answer key file (Excel or JSON)
+                           If None, tries to load from exam folder
+
+        Returns:
+            True if answer key loaded successfully
+        """
+        try:
+            if answer_key_path:
+                # Load from provided path
+                file_path = Path(answer_key_path)
+                if file_path.suffix.lower() == ".xlsx":
+                    self.answer_key = self.answer_key_manager.load_from_excel(
+                        answer_key_path
+                    )
+                elif file_path.suffix.lower() == ".json":
+                    self.answer_key = self.answer_key_manager.load_from_json(
+                        answer_key_path
+                    )
+                else:
+                    logger.error(f"Unsupported file format: {file_path.suffix}")
+                    return False
+            else:
+                # Try to load from answer_keys directory
+                self.answer_key = self.answer_key_manager.get_all_answers()
+                if not self.answer_key:
+                    logger.warning("No answer key found in exam folder")
+                    return False
+
+            logger.info(f"✓ Loaded {len(self.answer_key)} answer keys")
+            return True
+
+        except Exception as e:
+            logger.error(f"Error loading answer key: {str(e)}")
+            return False
 
     def detect_new_answer_files(self) -> List[str]:
         """
@@ -339,13 +387,79 @@ class ExamProcessor:
 
         return False
 
+    def _grade_answers(
+        self, answers: Dict[int, str]
+    ) -> Dict:
+        """
+        Grade student answers using answer key.
+
+        Args:
+            answers: Dictionary of student answers {question_number: answer}
+
+        Returns:
+            Dictionary with grading results
+        """
+        if not self.answer_key:
+            logger.warning("No answer key loaded; skipping grading")
+            return {
+                "total_correct": 0,
+                "total_incorrect": 0,
+                "total_blank": 0,
+                "score": 0.0,
+                "grading_available": False,
+            }
+
+        correct = 0
+        incorrect = 0
+        blank = 0
+        details = {}
+
+        # Use answer key question numbers as source of truth
+        answer_key_questions = sorted(self.answer_key.keys())
+        max_question = (
+            answer_key_questions[-1] if answer_key_questions else 0
+        )
+
+        # Iterate through all questions in answer key
+        for q_num in answer_key_questions:
+            student_answer = answers.get(q_num, "")
+            correct_answer = self.answer_key.get(q_num, "")
+
+            if not student_answer:
+                blank += 1
+                details[q_num] = {"result": "blank", "correct": correct_answer}
+            elif student_answer.upper() == correct_answer.upper():
+                correct += 1
+                details[q_num] = {"result": "correct"}
+            else:
+                incorrect += 1
+                details[q_num] = {
+                    "result": "incorrect",
+                    "student": student_answer,
+                    "correct": correct_answer,
+                }
+
+        total_answered = correct + incorrect
+        score = (
+            (correct / total_answered * 100) if total_answered > 0 else 0
+        )
+
+        return {
+            "total_correct": correct,
+            "total_incorrect": incorrect,
+            "total_blank": blank,
+            "score": score,
+            "grading_available": True,
+            "details": details,
+        }
+
     def _generate_individual_report(
         self,
         student_name: str,
         answers: Dict[int, str],
     ) -> Path:
         """
-        Generate individual student report.
+        Generate individual student report with grading results.
 
         Args:
             student_name: Name of student
@@ -354,8 +468,8 @@ class ExamProcessor:
         Returns:
             Path to generated report
         """
-        # For now, create a simple JSON report
-        # This can be extended to generate Excel/PDF reports
+        # Grade answers if answer key is available
+        grading = self._grade_answers(answers)
 
         report_filename = f"Individual_Report_{student_name}.json"
         report_path = self.reports_dir / report_filename
@@ -366,11 +480,12 @@ class ExamProcessor:
             "total_questions": len(self.questions),
             "answers_provided": len(answers),
             "answers": answers,
-            "generated_at": str(Path.cwd()),
+            "grading": grading,
+            "generated_at": __import__("datetime").datetime.now().isoformat(),
         }
 
         with open(report_path, "w") as f:
             json.dump(report_data, f, indent=2)
 
-        logger.info(f"Report saved: {report_path}")
+        logger.info(f"✓ Report saved: {report_path}")
         return report_path
