@@ -103,7 +103,9 @@ class RobustPDFParser:
             result.confidence = self._calculate_confidence(result)
 
             if result.confidence >= 0.75:
-                logger.info(f"✓ Primary extraction successful ({len(questions)} questions, {result.confidence:.0%} confidence)")
+                logger.info(
+                    f"✓ Primary extraction successful ({len(questions)} questions, {result.confidence:.0%} confidence)"
+                )
                 return result
 
         # Strategy 2: Try alternative format detection
@@ -117,7 +119,9 @@ class RobustPDFParser:
             result.confidence = self._calculate_confidence(result)
 
             if result.confidence >= 0.60:
-                logger.info(f"✓ Alternative extraction successful ({len(questions)} questions, {result.confidence:.0%} confidence)")
+                logger.info(
+                    f"✓ Alternative extraction successful ({len(questions)} questions, {result.confidence:.0%} confidence)"
+                )
                 return result
 
         # Return partial results
@@ -127,11 +131,17 @@ class RobustPDFParser:
         result.confidence = self._calculate_confidence(result)
 
         if result.questions_found > 0:
-            logger.warning(f"⚠️  Partial extraction: {len(questions)} questions (low confidence)")
-            result.warnings.append(f"Only {len(questions)} questions extracted. Manual review recommended.")
+            logger.warning(
+                f"⚠️  Partial extraction: {len(questions)} questions (low confidence)"
+            )
+            result.warnings.append(
+                f"Only {len(questions)} questions extracted. Manual review recommended."
+            )
         else:
             logger.error("✗ No questions extracted. All extraction strategies failed.")
-            result.issues.append("Could not extract questions from PDF. Manual entry required.")
+            result.issues.append(
+                "Could not extract questions from PDF. Manual entry required."
+            )
 
         return result
 
@@ -196,7 +206,9 @@ class RobustPDFParser:
                         if q_text and len(q_text) > 10:  # Minimum question text length
                             if q_num not in questions:
                                 # Find options following this question
-                                options = self._find_options_after(all_text, match.end())
+                                options = self._find_options_after(
+                                    all_text, match.end()
+                                )
                                 if len(options) >= 2:  # At least 2 options
                                     questions[q_num] = {
                                         "text": q_text,
@@ -252,16 +264,14 @@ class RobustPDFParser:
         try:
             # Find next question number or use text end
             next_match = re.search(r"^(\d+)\.", text[start_pos + 10 :], re.MULTILINE)
-            end_pos = (
-                start_pos + 10 + next_match.start()
-                if next_match
-                else len(text)
-            )
+            end_pos = start_pos + 10 + next_match.start() if next_match else len(text)
 
             block_text = text[start_pos:end_pos]
 
             # Extract question text
-            text_match = re.search(r"^\d+\.\s+(.+?)(?=^[A-D]\.|$)", block_text, re.MULTILINE | re.DOTALL)
+            text_match = re.search(
+                r"^\d+\.\s+(.+?)(?=^[A-D]\.|$)", block_text, re.MULTILINE | re.DOTALL
+            )
             question_text = text_match.group(1).strip() if text_match else ""
 
             if not question_text or len(question_text) < 10:
@@ -324,9 +334,10 @@ class RobustPDFParser:
 
         # Penalize missing options
         if result.questions_found > 0:
-            avg_options = sum(
-                len(q.get("options", {})) for q in result.questions.values()
-            ) / result.questions_found
+            avg_options = (
+                sum(len(q.get("options", {})) for q in result.questions.values())
+                / result.questions_found
+            )
 
             option_confidence = min(avg_options / 4, 1.0)
             base_confidence = (base_confidence + option_confidence) / 2

@@ -72,9 +72,7 @@ class AnswerKeyManager:
                     raise ValueError("Excel file must have at least 2 columns")
                 question_col = df.columns[0]
                 answer_col = df.columns[1]
-                logger.warning(
-                    f"Using first two columns: {question_col}, {answer_col}"
-                )
+                logger.warning(f"Using first two columns: {question_col}, {answer_col}")
 
             answer_key = {}
             errors = []
@@ -225,7 +223,9 @@ class AnswerKeyManager:
 
         # Check coverage
         coverage = len(answer_key) / total_questions * 100
-        logger.info(f"Answer key coverage: {coverage:.1f}% ({len(answer_key)}/{total_questions})")
+        logger.info(
+            f"Answer key coverage: {coverage:.1f}% ({len(answer_key)}/{total_questions})"
+        )
 
         is_valid = len(errors) == 0
         return is_valid, errors
@@ -248,9 +248,7 @@ class AnswerKeyManager:
         """Get all loaded answer keys."""
         return self.current_key or {}
 
-    def handle_multiple_versions(
-        self, version: int
-    ) -> Optional[Dict[int, str]]:
+    def handle_multiple_versions(self, version: int) -> Optional[Dict[int, str]]:
         """
         Load answer key for a specific exam version.
 
@@ -275,7 +273,9 @@ class AnswerKeyManager:
             logger.error(f"Error loading version {version}: {str(e)}")
             return None
 
-    def _find_column(self, df: pd.DataFrame, possible_names: List[str]) -> Optional[str]:
+    def _find_column(
+        self, df: pd.DataFrame, possible_names: List[str]
+    ) -> Optional[str]:
         """
         Find column in DataFrame by name (case-insensitive).
 

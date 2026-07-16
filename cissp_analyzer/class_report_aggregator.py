@@ -138,9 +138,7 @@ class ClassReportAggregator:
                 incorrect = 0
                 blank = 0
                 score_pct = (
-                    (correct / total_questions * 100)
-                    if total_questions > 0
-                    else 0
+                    (correct / total_questions * 100) if total_questions > 0 else 0
                 )
 
             student_metrics.append(
@@ -172,9 +170,7 @@ class ClassReportAggregator:
             "std_dev": statistics.stdev(all_scores) if len(all_scores) > 1 else 0,
             "passing_count": passing_count,
             "pass_rate": (
-                (passing_count / len(student_metrics) * 100)
-                if student_metrics
-                else 0
+                (passing_count / len(student_metrics) * 100) if student_metrics else 0
             ),
             "grading_used": grading_available,
             "student_metrics": student_metrics,
@@ -261,13 +257,19 @@ class ClassReportAggregator:
 
         if student_delta != 0:
             logger.info(f"📊 Class Report Updated:")
-            logger.info(f"   Students: {prev_students} → {curr_students} " f"({student_delta:+d})")
+            logger.info(
+                f"   Students: {prev_students} → {curr_students} "
+                f"({student_delta:+d})"
+            )
 
         prev_avg = previous.get("average_score", 0)
         curr_avg = current.get("average_score", 0)
         avg_delta = curr_avg - prev_avg
 
-        logger.info(f"   Average Score: {prev_avg:.1f}% → {curr_avg:.1f}% " f"({avg_delta:+.1f}%)")
+        logger.info(
+            f"   Average Score: {prev_avg:.1f}% → {curr_avg:.1f}% "
+            f"({avg_delta:+.1f}%)"
+        )
 
         prev_pass = previous.get("pass_rate", 0)
         curr_pass = current.get("pass_rate", 0)
@@ -280,7 +282,8 @@ class ClassReportAggregator:
 
         if student_delta > 0:
             new_students = [
-                s for s in current.get("student_metrics", [])
+                s
+                for s in current.get("student_metrics", [])
                 if s["student_name"]
                 not in [p["student_name"] for p in previous.get("student_metrics", [])]
             ]
@@ -293,7 +296,9 @@ class ClassReportAggregator:
                         f"({student['percentage']:.1f}%)"
                     )
 
-    def get_report_changes(self, report_path: Path, current_metrics: Dict) -> Optional[str]:
+    def get_report_changes(
+        self, report_path: Path, current_metrics: Dict
+    ) -> Optional[str]:
         """
         Get formatted summary of changes since last report generation.
 
@@ -323,9 +328,12 @@ class ClassReportAggregator:
         # Get new students
         new_students = []
         if student_delta > 0:
-            prev_names = {p["student_name"] for p in previous_metrics.get("student_metrics", [])}
+            prev_names = {
+                p["student_name"] for p in previous_metrics.get("student_metrics", [])
+            }
             new_students = [
-                s for s in current_metrics.get("student_metrics", [])
+                s
+                for s in current_metrics.get("student_metrics", [])
                 if s["student_name"] not in prev_names
             ]
 
@@ -387,9 +395,7 @@ class ClassReportAggregator:
         preview += f"Std Dev: {metrics.get('std_dev', 0):.1f}%\n\n"
 
         preview += f"Pass Rate (>75%): {metrics.get('pass_rate', 0):.1f}% "
-        preview += (
-            f"({metrics.get('passing_count', 0)}/{metrics.get('total_students', 0)} students)\n\n"
-        )
+        preview += f"({metrics.get('passing_count', 0)}/{metrics.get('total_students', 0)} students)\n\n"
 
         # Show individual student scores
         if metrics.get("student_metrics"):

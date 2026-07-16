@@ -59,7 +59,9 @@ class FileLock:
                     # Check timeout
                     elapsed = time.time() - start_time
                     if elapsed > self.timeout:
-                        raise TimeoutError(f"Could not acquire lock after {self.timeout}s")
+                        raise TimeoutError(
+                            f"Could not acquire lock after {self.timeout}s"
+                        )
 
                     # Wait before retrying
                     time.sleep(0.1)

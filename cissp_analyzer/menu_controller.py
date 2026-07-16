@@ -52,7 +52,9 @@ class MenuController:
         """
         menu = "\n"
         menu += self._colorize("=" * 70, self.BLUE) + "\n"
-        menu += self._colorize(f"{self.BOLD}CISSP ANALYZER - Main Menu{self.RESET}", self.BOLD)
+        menu += self._colorize(
+            f"{self.BOLD}CISSP ANALYZER - Main Menu{self.RESET}", self.BOLD
+        )
         menu += "\n"
         menu += self._colorize("=" * 70, self.BLUE) + "\n\n"
 
@@ -68,7 +70,9 @@ class MenuController:
 
         # Add options
         next_option = len(exams) + 1
-        menu += self._colorize(f"[{next_option}] Upload NEW questionnaire\n", self.GREEN)
+        menu += self._colorize(
+            f"[{next_option}] Upload NEW questionnaire\n", self.GREEN
+        )
         menu += self._colorize(f"[{next_option + 1}] Exit\n", self.RED)
         menu += "\n"
         menu += self._colorize("=" * 70, self.BLUE) + "\n"
@@ -153,7 +157,9 @@ class MenuController:
         if total_files:
             print(f"Total files in exam: {total_files}")
 
-        print(f"New files to process: {self._colorize(str(len(new_files)), self.GREEN)}")
+        print(
+            f"New files to process: {self._colorize(str(len(new_files)), self.GREEN)}"
+        )
         if new_files:
             print("\nFiles:")
             for f in new_files:
@@ -165,7 +171,9 @@ class MenuController:
 
         while True:
             choice = (
-                input(self._colorize("Continue processing? (y/n): ", self.YELLOW)).strip().lower()
+                input(self._colorize("Continue processing? (y/n): ", self.YELLOW))
+                .strip()
+                .lower()
             )
             if choice in ["y", "yes"]:
                 return True
@@ -205,7 +213,9 @@ class MenuController:
 
         while True:
             choice = (
-                input(self._colorize("Generate class report? (y/n): ", self.YELLOW)).strip().lower()
+                input(self._colorize("Generate class report? (y/n): ", self.YELLOW))
+                .strip()
+                .lower()
             )
             if choice in ["y", "yes"]:
                 return True

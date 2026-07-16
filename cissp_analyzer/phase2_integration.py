@@ -75,9 +75,7 @@ class Phase2Integration:
             logger.error(f"✗ Question extraction failed: {str(e)}")
             return {"status": "failed", "error": str(e)}
 
-    def load_and_validate_answer_key(
-        self, answer_key_path: str
-    ) -> Tuple[bool, Dict]:
+    def load_and_validate_answer_key(self, answer_key_path: str) -> Tuple[bool, Dict]:
         """
         Step 2: Load answer key and validate against questions.
 
@@ -140,9 +138,7 @@ class Phase2Integration:
         try:
             # Load answer key first
             if not self.processor.load_answer_key():
-                logger.warning(
-                    "No answer key loaded; reports will not include grades"
-                )
+                logger.warning("No answer key loaded; reports will not include grades")
 
             # Process all new files
             result = self.processor.process_new_files()
@@ -210,9 +206,7 @@ class Phase2Integration:
             logger.error(f"✗ Class report generation failed: {str(e)}")
             return False, {"error": str(e)}
 
-    def run_full_pipeline(
-        self, pdf_path: str, answer_key_path: str
-    ) -> Dict:
+    def run_full_pipeline(self, pdf_path: str, answer_key_path: str) -> Dict:
         """
         Run complete Phase 2 Integration pipeline.
 
@@ -242,9 +236,7 @@ class Phase2Integration:
             logger.error("Pipeline failed at Step 1")
             return results
 
-        is_key_valid, key_result = self.load_and_validate_answer_key(
-            answer_key_path
-        )
+        is_key_valid, key_result = self.load_and_validate_answer_key(answer_key_path)
         results["step_2_load_answer_key"] = key_result
 
         if not is_key_valid:

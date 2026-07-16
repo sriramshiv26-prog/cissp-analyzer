@@ -33,7 +33,9 @@ class TestExamFolderManager:
             pdf_path.write_bytes(b"%PDF-1.4\n")
 
             # Create exam folder
-            with patch.object(manager, '_extract_total_questions_from_pdf', return_value=100):
+            with patch.object(
+                manager, "_extract_total_questions_from_pdf", return_value=100
+            ):
                 folder = manager.create_exam_folder("Test Exam", str(pdf_path))
 
             assert folder.exists()
@@ -53,7 +55,9 @@ class TestExamFolderManager:
             pdf_path = Path(tmpdir) / "test.pdf"
             pdf_path.write_bytes(b"%PDF-1.4\n")
 
-            with patch.object(manager, '_extract_total_questions_from_pdf', return_value=50):
+            with patch.object(
+                manager, "_extract_total_questions_from_pdf", return_value=50
+            ):
                 folder = manager.create_exam_folder("Structured Exam", str(pdf_path))
 
             # Verify metadata structure
@@ -71,7 +75,9 @@ class TestExamFolderManager:
             pdf_path = Path(tmpdir) / "test.pdf"
             pdf_path.write_bytes(b"%PDF-1.4\n")
 
-            with patch.object(manager, '_extract_total_questions_from_pdf', return_value=50):
+            with patch.object(
+                manager, "_extract_total_questions_from_pdf", return_value=50
+            ):
                 folder = manager.create_exam_folder("File Test", str(pdf_path))
 
             # Create mock answer files
@@ -151,7 +157,7 @@ class TestPDFUploadHandler:
             pdf_path.write_bytes(b"%PDF-1.4\n")
 
             # Mock pypdf.PdfReader to accept minimal PDF
-            with patch('pypdf.PdfReader') as mock_reader:
+            with patch("pypdf.PdfReader") as mock_reader:
                 mock_instance = MagicMock()
                 mock_instance.pages = [MagicMock()]  # At least one page
                 mock_reader.return_value = mock_instance
@@ -173,13 +179,13 @@ class TestPDFUploadHandler:
             txt_path.write_text("Not a PDF")
             assert not handler.validate_pdf(str(txt_path))
 
-    @patch('cissp_analyzer.pdf_upload_handler.PDFUploadHandler.prompt_exam_metadata')
+    @patch("cissp_analyzer.pdf_upload_handler.PDFUploadHandler.prompt_exam_metadata")
     def test_metadata_collection(self, mock_prompt):
         """Test exam metadata collection."""
         handler = PDFUploadHandler()
         mock_prompt.return_value = {
             "exam_name": "CISSP_June_2026",
-            "description": "Practice exam"
+            "description": "Practice exam",
         }
 
         metadata = handler.prompt_exam_metadata()
@@ -198,10 +204,7 @@ class TestProcessingValidator:
             import pandas as pd
 
             # Create valid answer sheet
-            df = pd.DataFrame({
-                "Question": [1, 2, 3],
-                "Answer": ["A", "B", "C"]
-            })
+            df = pd.DataFrame({"Question": [1, 2, 3], "Answer": ["A", "B", "C"]})
             excel_path = Path(tmpdir) / "answers.xlsx"
             df.to_excel(excel_path, index=False)
 
@@ -213,9 +216,7 @@ class TestProcessingValidator:
         validator = ProcessingValidator()
 
         answers = {1: "A", 2: "B", 3: "C"}
-        questions = [
-            {"number": 1}, {"number": 2}, {"number": 3}
-        ]
+        questions = [{"number": 1}, {"number": 2}, {"number": 3}]
 
         is_valid, mismatches = validator.validate_question_match(answers, questions)
         assert is_valid
@@ -240,10 +241,7 @@ class TestProcessingValidator:
 
             # Create required files
             (exam_folder / "exam.pdf").write_bytes(b"%PDF-1.4\n")
-            metadata = {
-                "exam_name": "Test",
-                "created_date": "2026-07-15"
-            }
+            metadata = {"exam_name": "Test", "created_date": "2026-07-15"}
             (exam_folder / ".exam_metadata.json").write_text(json.dumps(metadata))
 
             is_valid, msg = validator.validate_folder_structure(exam_folder)
@@ -258,7 +256,7 @@ class TestProcessingValidator:
             pdf_path.write_bytes(b"%PDF-1.4\n")
 
             # Mock pypdf.PdfReader to accept minimal PDF
-            with patch('pypdf.PdfReader') as mock_reader:
+            with patch("pypdf.PdfReader") as mock_reader:
                 mock_instance = MagicMock()
                 mock_instance.pages = [MagicMock()]  # At least one page
                 mock_reader.return_value = mock_instance
@@ -280,7 +278,7 @@ class TestExamProcessor:
             metadata = {
                 "exam_name": "Test Exam",
                 "pdf_path": str(exam_folder / "exam.pdf"),
-                "created_date": "2026-07-15"
+                "created_date": "2026-07-15",
             }
             (exam_folder / ".exam_metadata.json").write_text(json.dumps(metadata))
             (exam_folder / "reports").mkdir()
@@ -289,7 +287,7 @@ class TestExamProcessor:
             (exam_folder / "Alice.xlsx").touch()
             (exam_folder / "Bob.xlsx").touch()
 
-            with patch.object(ExamProcessor, '_load_questions', return_value=[]):
+            with patch.object(ExamProcessor, "_load_questions", return_value=[]):
                 processor = ExamProcessor(exam_folder)
                 new_files = processor.detect_new_answer_files()
 
@@ -306,7 +304,7 @@ class TestExamProcessor:
             metadata = {
                 "exam_name": "Test",
                 "pdf_path": str(exam_folder / "exam.pdf"),
-                "created_date": "2026-07-15"
+                "created_date": "2026-07-15",
             }
             (exam_folder / ".exam_metadata.json").write_text(json.dumps(metadata))
             (exam_folder / "reports").mkdir()
@@ -315,7 +313,7 @@ class TestExamProcessor:
             tracker = ProcessedFileTracker(exam_folder)
             tracker.mark_processed("Alice.xlsx", "reports/Alice.json")
 
-            with patch.object(ExamProcessor, '_load_questions', return_value=[]):
+            with patch.object(ExamProcessor, "_load_questions", return_value=[]):
                 processor = ExamProcessor(exam_folder)
                 skipped = processor.skip_already_processed()
 
@@ -339,22 +337,21 @@ class TestClassReportAggregator:
                     "exam": "Test Exam",
                     "total_questions": 100,
                     "answers_provided": 95,
-                    "answers": {j: "A" for j in range(1, 96)}
+                    "answers": {j: "A" for j in range(1, 96)},
                 }
                 report_path = reports_dir / f"Individual_Report_{name}.json"
                 report_path.write_text(json.dumps(report))
 
-            metadata = {
-                "exam_name": "Test Exam",
-                "created_date": "2026-07-15"
-            }
+            metadata = {"exam_name": "Test Exam", "created_date": "2026-07-15"}
             (exam_folder / ".exam_metadata.json").write_text(json.dumps(metadata))
 
             aggregator = ClassReportAggregator(exam_folder)
             reports = aggregator.get_all_student_reports()
 
             assert len(reports) == 3
-            assert all(r.get("student_name") in ["Alice", "Bob", "Charlie"] for r in reports)
+            assert all(
+                r.get("student_name") in ["Alice", "Bob", "Charlie"] for r in reports
+            )
 
     def test_generate_class_metrics(self):
         """Test generating class metrics."""
@@ -372,15 +369,12 @@ class TestClassReportAggregator:
                     "exam": "Test",
                     "total_questions": 100,
                     "answers_provided": correct,
-                    "answers": {j: "A" for j in range(1, correct + 1)}
+                    "answers": {j: "A" for j in range(1, correct + 1)},
                 }
                 report_path = reports_dir / f"Individual_Report_{name}.json"
                 report_path.write_text(json.dumps(report))
 
-            metadata = {
-                "exam_name": "Test Exam",
-                "created_date": "2026-07-15"
-            }
+            metadata = {"exam_name": "Test Exam", "created_date": "2026-07-15"}
             (exam_folder / ".exam_metadata.json").write_text(json.dumps(metadata))
 
             aggregator = ClassReportAggregator(exam_folder)
@@ -406,7 +400,7 @@ class TestClassReportAggregator:
                     "exam": "Test",
                     "total_questions": 100,
                     "answers_provided": 95,
-                    "answers": {}
+                    "answers": {},
                 }
                 report_path = reports_dir / f"Individual_Report_{name}.json"
                 report_path.write_text(json.dumps(report))
@@ -430,7 +424,7 @@ class TestMenuController:
             {
                 "exam_name": "CISSP June 2026",
                 "created_date": "2026-06-15",
-                "folder_id": "cissp_20260615"
+                "folder_id": "cissp_20260615",
             }
         ]
 
@@ -481,17 +475,15 @@ class TestEndToEndWorkflow:
                 "exam_name": "Test Exam",
                 "pdf_path": str(exam_folder / "exam.pdf"),
                 "created_date": "2026-07-15",
-                "total_questions": 100
+                "total_questions": 100,
             }
             (exam_folder / ".exam_metadata.json").write_text(json.dumps(metadata))
 
             # Create answer files
             import pandas as pd
+
             for name in ["Alice", "Bob", "Charlie"]:
-                df = pd.DataFrame({
-                    "Question": range(1, 101),
-                    "Answer": ["A"] * 100
-                })
+                df = pd.DataFrame({"Question": range(1, 101), "Answer": ["A"] * 100})
                 df.to_excel(exam_folder / f"{name}.xlsx", index=False)
 
             # Create reports (simulating processing)
@@ -501,7 +493,7 @@ class TestEndToEndWorkflow:
                     "exam": "Test Exam",
                     "total_questions": 100,
                     "answers_provided": 100,
-                    "answers": {i: "A" for i in range(1, 101)}
+                    "answers": {i: "A" for i in range(1, 101)},
                 }
                 (reports_dir / f"Individual_Report_{name}.json").write_text(
                     json.dumps(report)

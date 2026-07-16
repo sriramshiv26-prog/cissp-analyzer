@@ -63,14 +63,16 @@ class StreamingMetrics:
             self.passing_count += 1
 
         self.student_names.append(student_name)
-        self.student_details.append({
-            "student_name": student_name,
-            "correct": correct,
-            "incorrect": incorrect,
-            "blank": blank,
-            "total": total_questions,
-            "percentage": score_pct,
-        })
+        self.student_details.append(
+            {
+                "student_name": student_name,
+                "correct": correct,
+                "incorrect": incorrect,
+                "blank": blank,
+                "total": total_questions,
+                "percentage": score_pct,
+            }
+        )
 
         if not self.exam_name or self.exam_name == "Unknown":
             self.exam_name = report.get("exam", "Unknown")
@@ -82,10 +84,18 @@ class StreamingMetrics:
             return {}
 
         try:
-            avg_score = self.total_score_sum / self.total_students if self.total_students > 0 else 0
+            avg_score = (
+                self.total_score_sum / self.total_students
+                if self.total_students > 0
+                else 0
+            )
             median_score = statistics.median(self.scores)
             std_dev = statistics.stdev(self.scores) if len(self.scores) > 1 else 0
-            pass_rate = (self.passing_count / self.total_students * 100) if self.total_students > 0 else 0
+            pass_rate = (
+                (self.passing_count / self.total_students * 100)
+                if self.total_students > 0
+                else 0
+            )
 
             return {
                 "total_students": self.total_students,
@@ -109,8 +119,14 @@ class StreamingMetrics:
         if not self.scores:
             return {}
 
-        avg_score = self.total_score_sum / self.total_students if self.total_students > 0 else 0
-        pass_rate = (self.passing_count / self.total_students * 100) if self.total_students > 0 else 0
+        avg_score = (
+            self.total_score_sum / self.total_students if self.total_students > 0 else 0
+        )
+        pass_rate = (
+            (self.passing_count / self.total_students * 100)
+            if self.total_students > 0
+            else 0
+        )
 
         return {
             "total_students": self.total_students,
@@ -216,7 +232,9 @@ class StreamingReportAggregator:
                 errors.append("No valid scores to aggregate")
                 return False, {}, errors
 
-            logger.info(f"✓ Aggregation successful: {metrics['total_students']} students")
+            logger.info(
+                f"✓ Aggregation successful: {metrics['total_students']} students"
+            )
             return True, metrics, []
 
         except Exception as e:
@@ -237,21 +255,25 @@ class StreamingReportAggregator:
         import sys
 
         # Estimate sizes
-        avg_report_size = sys.getsizeof({
-            "student_name": "A" * 20,
-            "exam": "Test",
-            "answers": {i: "A" for i in range(1, 101)},
-            "grading": {
-                "total_correct": 0,
-                "total_incorrect": 0,
-                "total_blank": 0,
-                "score": 0.0,
+        avg_report_size = sys.getsizeof(
+            {
+                "student_name": "A" * 20,
+                "exam": "Test",
+                "answers": {i: "A" for i in range(1, 101)},
+                "grading": {
+                    "total_correct": 0,
+                    "total_incorrect": 0,
+                    "total_blank": 0,
+                    "score": 0.0,
+                },
             }
-        })
+        )
 
         # Current (load all) vs streaming
         current_usage_mb = (avg_report_size * num_students) / (1024 * 1024)
-        streaming_usage_mb = (avg_report_size * 10) / (1024 * 1024)  # Only keep batch in memory
+        streaming_usage_mb = (avg_report_size * 10) / (
+            1024 * 1024
+        )  # Only keep batch in memory
 
         return {
             "num_students": num_students,
@@ -259,7 +281,7 @@ class StreamingReportAggregator:
             "current_approach_mb": current_usage_mb,
             "streaming_approach_mb": streaming_usage_mb,
             "memory_savings_percent": (1 - streaming_usage_mb / current_usage_mb) * 100,
-            "recommendation": f"Streaming saves ~{(1 - streaming_usage_mb / current_usage_mb) * 100:.0f}% memory"
+            "recommendation": f"Streaming saves ~{(1 - streaming_usage_mb / current_usage_mb) * 100:.0f}% memory",
         }
 
     def save_aggregated_report(self, metrics: Dict) -> Optional[Path]:

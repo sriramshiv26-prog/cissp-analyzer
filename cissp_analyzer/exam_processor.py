@@ -131,7 +131,9 @@ class ExamProcessor:
         # Filter to only unprocessed
         new_files = self.state_tracker.get_unprocessed_files(all_files)
 
-        logger.info(f"Found {len(new_files)} new answer files out of {len(all_files)} total")
+        logger.info(
+            f"Found {len(new_files)} new answer files out of {len(all_files)} total"
+        )
         return new_files
 
     def skip_already_processed(self) -> List[str]:
@@ -173,7 +175,9 @@ class ExamProcessor:
                     summary["processed"].append(result)
                     logger.info(f"✓ Processed: {filename}")
                 else:
-                    summary["failed"].append({"filename": filename, "reason": "Analysis failed"})
+                    summary["failed"].append(
+                        {"filename": filename, "reason": "Analysis failed"}
+                    )
                     logger.warning(f"✗ Failed to process: {filename}")
             except Exception as e:
                 summary["failed"].append({"filename": filename, "reason": str(e)})
@@ -387,9 +391,7 @@ class ExamProcessor:
 
         return False
 
-    def _grade_answers(
-        self, answers: Dict[int, str]
-    ) -> Dict:
+    def _grade_answers(self, answers: Dict[int, str]) -> Dict:
         """
         Grade student answers using answer key.
 
@@ -416,9 +418,7 @@ class ExamProcessor:
 
         # Use answer key question numbers as source of truth
         answer_key_questions = sorted(self.answer_key.keys())
-        max_question = (
-            answer_key_questions[-1] if answer_key_questions else 0
-        )
+        max_question = answer_key_questions[-1] if answer_key_questions else 0
 
         # Iterate through all questions in answer key
         for q_num in answer_key_questions:
@@ -440,9 +440,7 @@ class ExamProcessor:
                 }
 
         total_answered = correct + incorrect
-        score = (
-            (correct / total_answered * 100) if total_answered > 0 else 0
-        )
+        score = (correct / total_answered * 100) if total_answered > 0 else 0
 
         return {
             "total_correct": correct,

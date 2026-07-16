@@ -57,7 +57,9 @@ class ProcessedFileTracker:
         """
         return any(record["filename"] == filename for record in self.processed_files)
 
-    def mark_processed(self, filename: str, report_path: str, timestamp: Optional[str] = None) -> None:
+    def mark_processed(
+        self, filename: str, report_path: str, timestamp: Optional[str] = None
+    ) -> None:
         """
         Mark a file as processed.
 

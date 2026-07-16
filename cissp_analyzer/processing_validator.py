@@ -72,10 +72,15 @@ class ProcessingValidator:
 
             # Check has required columns (case-insensitive)
             df_columns_lower = [col.lower() for col in df.columns]
-            missing_columns = [col for col in self.REQUIRED_COLUMNS if col not in df_columns_lower]
+            missing_columns = [
+                col for col in self.REQUIRED_COLUMNS if col not in df_columns_lower
+            ]
 
             if missing_columns:
-                msg = f"Missing required columns: {missing_columns}. " f"Found: {list(df.columns)}"
+                msg = (
+                    f"Missing required columns: {missing_columns}. "
+                    f"Found: {list(df.columns)}"
+                )
                 logger.error(msg)
                 return False, msg
 
@@ -147,9 +152,7 @@ class ProcessingValidator:
         # Check answer format (A-D or multi-part)
         for q_num, answer in answers.items():
             if not self._is_valid_answer_format(answer):
-                mismatch = (
-                    f"Invalid answer format for Q{q_num}: '{answer}' (expected A-D or multi-part)"
-                )
+                mismatch = f"Invalid answer format for Q{q_num}: '{answer}' (expected A-D or multi-part)"
                 mismatches.append(mismatch)
                 logger.warning(mismatch)
 

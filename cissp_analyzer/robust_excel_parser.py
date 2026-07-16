@@ -110,7 +110,9 @@ class RobustExcelParser:
         except Exception as e:
             raise ValueError(f"Invalid Excel file: {str(e)}")
 
-    def parse_with_fallback(self, student_name: Optional[str] = None) -> RobustExcelParserResult:
+    def parse_with_fallback(
+        self, student_name: Optional[str] = None
+    ) -> RobustExcelParserResult:
         """
         Parse Excel file with fallback strategies.
 
@@ -139,7 +141,9 @@ class RobustExcelParser:
             "student": student_col or "unknown",
         }
 
-        logger.info(f"✓ Columns detected: Q={question_col}, A={answer_col}, S={student_col}")
+        logger.info(
+            f"✓ Columns detected: Q={question_col}, A={answer_col}, S={student_col}"
+        )
 
         # Step 2: Extract student name
         if student_name:
@@ -165,7 +169,9 @@ class RobustExcelParser:
 
         return result
 
-    def _detect_columns(self, result: RobustExcelParserResult) -> Tuple[Optional[str], Optional[str], Optional[str]]:
+    def _detect_columns(
+        self, result: RobustExcelParserResult
+    ) -> Tuple[Optional[str], Optional[str], Optional[str]]:
         """
         Detect column names using fuzzy matching.
 
@@ -174,9 +180,7 @@ class RobustExcelParser:
         """
         columns_lower = {col.lower(): col for col in self.df.columns}
 
-        question_col = self._find_column(
-            columns_lower, self.QUESTION_COLUMN_NAMES
-        )
+        question_col = self._find_column(columns_lower, self.QUESTION_COLUMN_NAMES)
         answer_col = self._find_column(columns_lower, self.ANSWER_COLUMN_NAMES)
         student_col = self._find_column(columns_lower, self.STUDENT_COLUMN_NAMES)
 
@@ -230,7 +234,9 @@ class RobustExcelParser:
                 try:
                     q_num = int(q_num_raw)
                 except (ValueError, TypeError):
-                    result.warnings.append(f"Row {idx + 2}: Invalid question number '{q_num_raw}'")
+                    result.warnings.append(
+                        f"Row {idx + 2}: Invalid question number '{q_num_raw}'"
+                    )
                     result.skipped_answers += 1
                     continue
 
@@ -245,7 +251,9 @@ class RobustExcelParser:
                 normalized = self._normalize_answer(str(answer_raw).strip())
 
                 if not normalized:
-                    result.warnings.append(f"Q{q_num}: Invalid answer '{answer_raw}' (skipped)")
+                    result.warnings.append(
+                        f"Q{q_num}: Invalid answer '{answer_raw}' (skipped)"
+                    )
                     result.skipped_answers += 1
                     continue
 
@@ -253,7 +261,9 @@ class RobustExcelParser:
                 result.valid_answers += 1
 
             except Exception as e:
-                result.warnings.append(f"Row {idx + 2}: Error processing answer: {str(e)}")
+                result.warnings.append(
+                    f"Row {idx + 2}: Error processing answer: {str(e)}"
+                )
                 result.skipped_answers += 1
                 continue
 
@@ -326,8 +336,7 @@ class RobustExcelParser:
             expected_max = max(question_numbers)
             if expected_max <= total_questions:
                 missing = [
-                    i for i in range(1, expected_max + 1)
-                    if i not in self.answers
+                    i for i in range(1, expected_max + 1) if i not in self.answers
                 ]
                 if missing and len(missing) > total_questions * 0.3:
                     errors.append(f"Many missing questions: {missing[:5]}...")

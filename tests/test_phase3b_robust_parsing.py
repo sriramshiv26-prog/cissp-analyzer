@@ -13,7 +13,10 @@ import pytest
 import pandas as pd
 
 from cissp_analyzer.robust_pdf_parser import RobustPDFParser, RobustPDFParserResult
-from cissp_analyzer.robust_excel_parser import RobustExcelParser, RobustExcelParserResult
+from cissp_analyzer.robust_excel_parser import (
+    RobustExcelParser,
+    RobustExcelParserResult,
+)
 
 
 class TestRobustPDFParser:
@@ -84,11 +87,7 @@ class TestRobustPDFParser:
 
     def test_question_number_detection(self):
         """Test question number pattern detection."""
-        text = (
-            "1. First question\n"
-            "2. Second question\n"
-            "10. Tenth question\n"
-        )
+        text = "1. First question\n" "2. Second question\n" "10. Tenth question\n"
 
         # Would be detected by _find_question_starts
         import re
@@ -113,11 +112,13 @@ class TestRobustExcelParser:
         excel_path = Path(self.temp_dir) / "test.xlsx"
 
         # Create test Excel file
-        df = pd.DataFrame({
-            "Question": [1, 2, 3],
-            "Answer": ["A", "B", "C"],
-            "Student": ["Alice", "Alice", "Alice"],
-        })
+        df = pd.DataFrame(
+            {
+                "Question": [1, 2, 3],
+                "Answer": ["A", "B", "C"],
+                "Student": ["Alice", "Alice", "Alice"],
+            }
+        )
         df.to_excel(excel_path, index=False)
 
         parser = RobustExcelParser(str(excel_path))
@@ -133,11 +134,13 @@ class TestRobustExcelParser:
         """Test column detection with standard names."""
         excel_path = Path(self.temp_dir) / "standard.xlsx"
 
-        df = pd.DataFrame({
-            "Question": [1, 2, 3],
-            "Answer": ["A", "B", "C"],
-            "Student": ["Alice", "Alice", "Alice"],
-        })
+        df = pd.DataFrame(
+            {
+                "Question": [1, 2, 3],
+                "Answer": ["A", "B", "C"],
+                "Student": ["Alice", "Alice", "Alice"],
+            }
+        )
         df.to_excel(excel_path, index=False)
 
         parser = RobustExcelParser(str(excel_path))
@@ -151,11 +154,13 @@ class TestRobustExcelParser:
         """Test column detection with variation names."""
         excel_path = Path(self.temp_dir) / "variations.xlsx"
 
-        df = pd.DataFrame({
-            "Q#": [1, 2, 3],
-            "Ans": ["A", "B", "C"],
-            "Student Name": ["Bob", "Bob", "Bob"],
-        })
+        df = pd.DataFrame(
+            {
+                "Q#": [1, 2, 3],
+                "Ans": ["A", "B", "C"],
+                "Student Name": ["Bob", "Bob", "Bob"],
+            }
+        )
         df.to_excel(excel_path, index=False)
 
         parser = RobustExcelParser(str(excel_path))
@@ -169,10 +174,12 @@ class TestRobustExcelParser:
         """Test answer normalization."""
         excel_path = Path(self.temp_dir) / "normalize.xlsx"
 
-        df = pd.DataFrame({
-            "Question": [1, 2, 3, 4, 5],
-            "Answer": ["A", "a", "-B-", "3", "CHOICE_D"],
-        })
+        df = pd.DataFrame(
+            {
+                "Question": [1, 2, 3, 4, 5],
+                "Answer": ["A", "a", "-B-", "3", "CHOICE_D"],
+            }
+        )
         df.to_excel(excel_path, index=False)
 
         parser = RobustExcelParser(str(excel_path))
@@ -189,11 +196,13 @@ class TestRobustExcelParser:
         """Test parsing with fallback strategies."""
         excel_path = Path(self.temp_dir) / "fallback.xlsx"
 
-        df = pd.DataFrame({
-            "Question": [1, 2, 3, 4, 5],
-            "Answer": ["A", "B", "C", "D", "A"],
-            "Student": ["Charlie", "Charlie", "Charlie", "Charlie", "Charlie"],
-        })
+        df = pd.DataFrame(
+            {
+                "Question": [1, 2, 3, 4, 5],
+                "Answer": ["A", "B", "C", "D", "A"],
+                "Student": ["Charlie", "Charlie", "Charlie", "Charlie", "Charlie"],
+            }
+        )
         df.to_excel(excel_path, index=False)
 
         parser = RobustExcelParser(str(excel_path))
@@ -210,10 +219,12 @@ class TestRobustExcelParser:
         """Test parsing with blank answers."""
         excel_path = Path(self.temp_dir) / "blanks.xlsx"
 
-        df = pd.DataFrame({
-            "Question": [1, 2, 3, 4, 5],
-            "Answer": ["A", "", "C", "invalid", "D"],
-        })
+        df = pd.DataFrame(
+            {
+                "Question": [1, 2, 3, 4, 5],
+                "Answer": ["A", "", "C", "invalid", "D"],
+            }
+        )
         df.to_excel(excel_path, index=False)
 
         parser = RobustExcelParser(str(excel_path))
@@ -227,10 +238,12 @@ class TestRobustExcelParser:
         """Test answer validation."""
         excel_path = Path(self.temp_dir) / "validate.xlsx"
 
-        df = pd.DataFrame({
-            "Question": [1, 2, 3, 4, 5],
-            "Answer": ["A", "B", "C", "D", "A"],
-        })
+        df = pd.DataFrame(
+            {
+                "Question": [1, 2, 3, 4, 5],
+                "Answer": ["A", "B", "C", "D", "A"],
+            }
+        )
         df.to_excel(excel_path, index=False)
 
         parser = RobustExcelParser(str(excel_path))
@@ -256,11 +269,13 @@ class TestParsingIntegration:
             excel_path = Path(temp_dir) / "student_answers.xlsx"
 
             # Create realistic student answer sheet
-            df = pd.DataFrame({
-                "Q#": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                "Ans": ["A", "B", "C", "D", "A", "B", "C", "D", "A", "B"],
-                "Student Name": ["Diana"] * 10,
-            })
+            df = pd.DataFrame(
+                {
+                    "Q#": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                    "Ans": ["A", "B", "C", "D", "A", "B", "C", "D", "A", "B"],
+                    "Student Name": ["Diana"] * 10,
+                }
+            )
             df.to_excel(excel_path, index=False)
 
             parser = RobustExcelParser(str(excel_path))

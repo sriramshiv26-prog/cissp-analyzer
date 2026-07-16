@@ -136,7 +136,9 @@ class PDFUploadHandler:
             if count > 0:
                 self.menu.show_info_message(f"Extracted {count} questions from PDF")
             else:
-                self.menu.show_warning_message("Could not extract question count from PDF")
+                self.menu.show_warning_message(
+                    "Could not extract question count from PDF"
+                )
 
             return count
 

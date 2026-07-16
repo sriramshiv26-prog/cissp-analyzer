@@ -11,7 +11,10 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from cissp_analyzer.streaming_report_aggregator import StreamingReportAggregator, StreamingMetrics
+from cissp_analyzer.streaming_report_aggregator import (
+    StreamingReportAggregator,
+    StreamingMetrics,
+)
 from cissp_analyzer.safe_file_processor import SafeFileProcessor, FileLock
 
 
@@ -34,7 +37,7 @@ class TestStreamingMetrics:
                 "total_blank": 0,
                 "score": 80.0,
                 "grading_available": True,
-            }
+            },
         }
 
         self.metrics.add_report(report, grading_available=True)
@@ -56,7 +59,7 @@ class TestStreamingMetrics:
                     "total_blank": 0,
                     "score": float(i * 10),
                     "grading_available": True,
-                }
+                },
             }
             for i in range(1, 6)
         ]
@@ -80,7 +83,7 @@ class TestStreamingMetrics:
                 "grading": {
                     "score": float(score),
                     "grading_available": True,
-                }
+                },
             }
             self.metrics.add_report(report, grading_available=True)
 
@@ -102,7 +105,7 @@ class TestStreamingMetrics:
                 "grading": {
                     "score": 80.0,
                     "grading_available": True,
-                }
+                },
             }
             self.metrics.add_report(report, grading_available=True)
 
@@ -137,7 +140,7 @@ class TestStreamingReportAggregator:
                     "total_blank": 0,
                     "score": 80.0 + (i % 3) * 5,
                     "grading_available": True,
-                }
+                },
             }
 
             report_file = self.reports_dir / f"Individual_Report_Student{i}.json"
@@ -350,7 +353,7 @@ class TestPerformanceIntegration:
                         "total_blank": 0,
                         "score": 70.0 + (i % 30),
                         "grading_available": True,
-                    }
+                    },
                 }
 
                 report_file = reports_dir / f"Individual_Report_Student{i:03d}.json"
