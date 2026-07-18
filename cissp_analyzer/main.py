@@ -8,6 +8,7 @@ from cissp_analyzer.analysis_engine import AnalysisEngine
 from cissp_analyzer.individual_report_gen import IndividualReportGenerator
 from cissp_analyzer.class_report_gen import ClassReportGenerator
 from cissp_analyzer.history_loader import HistoryLoader
+from cissp_analyzer.answer_validator import AnswerValidator
 
 
 class CISSPAnalyzer:
@@ -104,10 +105,22 @@ class CISSPAnalyzer:
         return str(answer_key_path)
 
     def _extract_answer_key_from_pdf(self, pdf_parser: PDFParser) -> Dict[int, str]:
-        """Extract the correct answer for each question (if provided in PDF)"""
-        # TODO: Parse answer key from PDF if available
-        # For now, return empty dict (answer key can be set via set_answer_key_from_file)
-        return {}
+        """Extract the correct answer for each question from PDF using improved method."""
+        try:
+            # Use AnswerValidator for robust extraction that catches all questions
+            # including edge cases like Q104, Q107, Q114, Q147
+            pdf_path = pdf_parser.pdf_file if hasattr(pdf_parser, 'pdf_file') else None
+
+            if pdf_path:
+                validator = AnswerValidator(str(pdf_path))
+                return validator.answer_key
+            else:
+                # Fallback: return empty dict (answer key can be set via set_answer_key_from_file)
+                return {}
+        except Exception as e:
+            print(f"Note: Could not extract answer key from PDF: {str(e)}")
+            # Fallback: return empty dict (answer key can be set via set_answer_key_from_file)
+            return {}
 
     def set_answer_key_from_file(self, json_file: str):
         """Load answer key from JSON file
