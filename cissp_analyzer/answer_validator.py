@@ -1,236 +1,190 @@
 #!/usr/bin/env python3
 """
-Enhanced Answer Validator - Handles edge cases intelligently
-
-Handles:
-- Blank/missing answers (detects and reports separately)
-- Typos and invalid input (normalizes when possible, warns otherwise)
-- Lowercase answers (auto-converts to uppercase)
-- Multiple answers (detects and reports as invalid)
-- Whitespace issues (auto-trims)
+Answer Validator - Phase 3G Enhancement
+Validates student answers against an answer key and calculates actual scores.
 """
 
+import logging
+from pathlib import Path
 from typing import Dict, Tuple, List, Optional
-from dataclasses import dataclass
+import json
+from pypdf import PdfReader
+import re
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
-@dataclass
-class ValidatedAnswer:
-    """Result of answer validation"""
+class AnswerValidationResult:
+    """Result of answer validation with detailed metrics."""
 
-    question_number: int
-    original_input: str
-    normalized_input: Optional[str]  # Cleaned/normalized version
-    is_valid: bool
-    is_blank: bool
-    is_typo: bool
-    is_multiple_answers: bool
-    warning_message: Optional[str] = None
-    corrected_answer: Optional[str] = None  # If auto-corrected
+    def __init__(self):
+        self.total_questions: int = 0
+        self.submitted_answers: int = 0
+        self.correct_answers: int = 0
+        self.wrong_answers: int = 0
+        self.unanswered: int = 0
+        self.score_percentage: float = 0.0
+        self.passed: bool = False
+        self.pass_threshold: float = 75.0
+        self.wrong_questions: List[Dict] = []
+        self.answer_key: Dict[int, str] = {}
+        self.student_answers: Dict[int, str] = {}
 
 
 class AnswerValidator:
-    """Validates and normalizes student answers with intelligent error handling"""
+    """Validates student answers against PDF answer key."""
 
-    VALID_ANSWERS = ["A", "B", "C", "D"]
-
-    @staticmethod
-    def validate_answer(question_number: int, user_input: str) -> ValidatedAnswer:
+    def __init__(self, pdf_path: str):
         """
-        Validate a single answer with intelligent handling
+        Initialize validator with PDF containing answer key.
 
         Args:
-            question_number: Question number
-            user_input: User's answer (raw input)
+            pdf_path: Path to PDF with embedded answer key
 
-        Returns:
-            ValidatedAnswer with detailed validation info
+        Raises:
+            FileNotFoundError: If PDF doesn't exist
+            ValueError: If PDF is invalid
         """
-        # Store original
-        original = user_input if user_input else ""
+        self.pdf_path = Path(pdf_path)
 
-        # Step 1: Check if blank
-        if not user_input or (isinstance(user_input, str) and user_input.strip() == ""):
-            return ValidatedAnswer(
-                question_number=question_number,
-                original_input=original,
-                normalized_input=None,
-                is_valid=False,
-                is_blank=True,
-                is_typo=False,
-                is_multiple_answers=False,
-                warning_message="⚠️  Answer is blank - question skipped",
-            )
+        if not self.pdf_path.exists():
+            raise FileNotFoundError(f"PDF not found: {pdf_path}")
 
-        # Step 2: Normalize (strip whitespace, uppercase)
-        normalized = str(user_input).strip().upper()
+        self.answer_key = self._extract_answer_key()
 
-        # Step 3: Check if valid answer
-        if normalized in AnswerValidator.VALID_ANSWERS:
-            return ValidatedAnswer(
-                question_number=question_number,
-                original_input=original,
-                normalized_input=normalized,
-                is_valid=True,
-                is_blank=False,
-                is_typo=False,
-                is_multiple_answers=False,
-            )
+        if not self.answer_key:
+            raise ValueError("Could not extract answer key from PDF")
 
-        # Step 4: Check for common issues
-        # Multiple answers (e.g., "A,B" or "AB")
-        if len(normalized) > 1 and all(
-            c in AnswerValidator.VALID_ANSWERS for c in normalized
-        ):
-            return ValidatedAnswer(
-                question_number=question_number,
-                original_input=original,
-                normalized_input=normalized,
-                is_valid=False,
-                is_blank=False,
-                is_typo=True,
-                is_multiple_answers=True,
-                warning_message=f"❌ Multiple answers detected: '{normalized}' - only one answer allowed",
-            )
-
-        # Check if it looks like a typo (starts with valid letter but has extra chars)
-        if len(normalized) > 0 and normalized[0] in AnswerValidator.VALID_ANSWERS:
-            return ValidatedAnswer(
-                question_number=question_number,
-                original_input=original,
-                normalized_input=normalized[0],  # Try first letter
-                is_valid=False,
-                is_blank=False,
-                is_typo=True,
-                is_multiple_answers=False,
-                warning_message=f"⚠️  Typo detected: '{original}' → Did you mean '{normalized[0]}'?",
-                corrected_answer=normalized[0],
-            )
-
-        # Step 5: Completely invalid
-        return ValidatedAnswer(
-            question_number=question_number,
-            original_input=original,
-            normalized_input=normalized,
-            is_valid=False,
-            is_blank=False,
-            is_typo=True,
-            is_multiple_answers=False,
-            warning_message=f"❌ Invalid answer: '{original}' - expected A, B, C, or D",
+        logger.info(
+            f"✓ Loaded answer key from PDF: {len(self.answer_key)} questions"
         )
 
-    @staticmethod
+    def _extract_answer_key(self) -> Dict[int, str]:
+        """Extract answer key from PDF."""
+        try:
+            reader = PdfReader(str(self.pdf_path))
+            text_parts = []
+
+            for page in reader.pages:
+                text = page.extract_text()
+                if text:
+                    text = text.replace("\t", "\n")
+                    text_parts.append(text)
+
+            all_text = "\n".join(text_parts)
+
+            answer_key = {}
+
+            # Split text into chunks around "The correct answer is"
+            chunks = re.split(
+                r"The\s+correct\s+answer\s+is\s+", all_text, flags=re.IGNORECASE
+            )
+
+            # For each chunk after the first
+            for i, chunk in enumerate(chunks[1:], 1):
+                # Get the answer (first character after "The correct answer is")
+                answer_match = re.match(r"([A-D])", chunk)
+                if not answer_match:
+                    continue
+
+                answer = answer_match.group(1).upper()
+
+                # Look backwards to find the question number
+                text_before = chunks[i - 1]
+                q_matches = list(re.finditer(r"\n(\d+)\.\s", text_before))
+
+                if q_matches:
+                    q_num = int(q_matches[-1].group(1))
+                    answer_key[q_num] = answer
+
+            return answer_key
+
+        except Exception as e:
+            logger.error(f"Failed to extract answer key: {str(e)}")
+            return {}
+
+    def validate(
+        self,
+        student_answers: Dict[int, str],
+        total_questions: Optional[int] = None,
+    ) -> AnswerValidationResult:
+        """
+        Validate student answers against the answer key.
+
+        Args:
+            student_answers: Dict of question_number -> answer (A/B/C/D)
+            total_questions: Total questions in exam (for context)
+
+        Returns:
+            AnswerValidationResult with detailed metrics
+        """
+        result = AnswerValidationResult()
+        result.answer_key = self.answer_key
+        result.student_answers = student_answers
+        result.total_questions = total_questions or len(self.answer_key)
+
+        logger.info(
+            f"Validating {len(student_answers)} answers against "
+            f"{len(self.answer_key)} answer key"
+        )
+
+        # Compare each answer
+        for q_num in sorted(self.answer_key.keys()):
+            if q_num not in student_answers:
+                result.unanswered += 1
+                continue
+
+            result.submitted_answers += 1
+
+            student_ans = student_answers[q_num].upper().strip()
+            correct_ans = self.answer_key[q_num]
+
+            if student_ans == correct_ans:
+                result.correct_answers += 1
+            else:
+                result.wrong_answers += 1
+                result.wrong_questions.append(
+                    {
+                        "question_number": q_num,
+                        "submitted": student_ans,
+                        "correct": correct_ans,
+                    }
+                )
+
+        # Calculate score based only on questions with answer key
+        if result.submitted_answers > 0:
+            result.score_percentage = (
+                result.correct_answers / result.submitted_answers * 100
+            )
+        else:
+            result.score_percentage = 0.0
+
+        result.passed = result.score_percentage >= result.pass_threshold
+
+        logger.info(
+            f"✓ Validation complete: {result.correct_answers}/"
+            f"{result.submitted_answers} = {result.score_percentage:.1f}%"
+        )
+
+        return result
+
     def validate_batch(
-        answers: Dict[int, str], auto_correct_lowercase: bool = True
-    ) -> Dict[int, ValidatedAnswer]:
+        self, students_answers: Dict[str, Dict[int, str]]
+    ) -> Dict[str, AnswerValidationResult]:
         """
-        Validate multiple answers
+        Validate multiple students at once.
 
         Args:
-            answers: Dict mapping question number to answer
-            auto_correct_lowercase: If True, auto-correct lowercase to uppercase
+            students_answers: Dict of student_name -> answers_dict
 
         Returns:
-            Dict of validated answers with detailed info
+            Dict of student_name -> AnswerValidationResult
         """
-        validated = {}
-        for q_num, user_answer in answers.items():
-            validated[q_num] = AnswerValidator.validate_answer(q_num, user_answer)
+        results = {}
 
-        return validated
+        for student_name, answers in students_answers.items():
+            logger.info(f"Validating {student_name}...")
+            results[student_name] = self.validate(answers)
 
-    @staticmethod
-    def get_report(validated_answers: Dict[int, ValidatedAnswer]) -> Dict:
-        """
-        Generate validation report
-
-        Returns:
-            Report with statistics and issues
-        """
-        total = len(validated_answers)
-        valid_count = sum(1 for v in validated_answers.values() if v.is_valid)
-        blank_count = sum(1 for v in validated_answers.values() if v.is_blank)
-        typo_count = sum(1 for v in validated_answers.values() if v.is_typo)
-        multiple_count = sum(
-            1 for v in validated_answers.values() if v.is_multiple_answers
-        )
-
-        warnings = [
-            v.warning_message
-            for v in validated_answers.values()
-            if v.warning_message and not v.is_valid
-        ]
-
-        return {
-            "total_answers": total,
-            "valid_answers": valid_count,
-            "blank_answers": blank_count,
-            "typo_or_invalid_answers": typo_count,
-            "multiple_answers_errors": multiple_count,
-            "warnings": warnings,
-            "summary": f"{valid_count}/{total} valid answers ({100*valid_count/total if total > 0 else 0:.1f}%)",
-        }
-
-    @staticmethod
-    def get_corrected_answers(
-        validated_answers: Dict[int, ValidatedAnswer],
-    ) -> Dict[int, str]:
-        """
-        Get corrected answers (use original if valid, corrected if available)
-
-        Returns:
-            Dict of best-guess answers
-        """
-        corrected = {}
-        for q_num, validated in validated_answers.items():
-            if validated.is_valid:
-                corrected[q_num] = validated.normalized_input
-            elif validated.corrected_answer:
-                corrected[q_num] = validated.corrected_answer
-            elif validated.is_blank:
-                corrected[q_num] = None  # Mark as unanswered
-            # else: completely invalid - skip
-
-        return corrected
-
-
-# Example usage and testing
-if __name__ == "__main__":
-    # Test cases
-    test_answers = {
-        1: "A",  # Valid
-        2: "b",  # Valid (lowercase, auto-correct)
-        3: "",  # Blank
-        4: "black",  # Typo
-        5: "A,B",  # Multiple answers
-        6: "C",  # Valid
-        7: "xyz",  # Completely invalid
-    }
-
-    print("Testing Answer Validator:\n")
-    print("=" * 80)
-
-    validated = AnswerValidator.validate_batch(test_answers)
-
-    for q_num, result in validated.items():
-        status = "✅" if result.is_valid else "❌"
-        print(f"\nQ{q_num}: {status}")
-        print(f"  Input: '{result.original_input}'")
-        if result.normalized_input:
-            print(f"  Normalized: '{result.normalized_input}'")
-        if result.warning_message:
-            print(f"  {result.warning_message}")
-        if result.corrected_answer:
-            print(f"  Suggestion: Use '{result.corrected_answer}'")
-
-    print("\n" + "=" * 80)
-    report = AnswerValidator.get_report(validated)
-    print("\nValidation Report:")
-    for key, value in report.items():
-        if key != "warnings":
-            print(f"  • {key}: {value}")
-
-    if report["warnings"]:
-        print("\n⚠️  Warnings:")
-        for warning in report["warnings"]:
-            print(f"  {warning}")
+        return results
