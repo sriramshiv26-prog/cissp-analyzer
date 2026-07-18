@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """
-Answer Validator - Phase 3G Enhancement (Updated)
+Answer Validator - Phase 3G Enhancement (Updated v2)
 Validates student answers against an answer key and calculates actual scores.
 Includes quality checks to detect missing answer keys before evaluation.
+
+FIX v2: Improved answer extraction to catch all questions including Q104, Q107, Q114, Q147
 """
 
 import logging
@@ -65,7 +67,7 @@ class AnswerValidator:
         if not self.pdf_path.exists():
             raise FileNotFoundError(f"PDF not found: {pdf_path}")
 
-        self.answer_key = self._extract_answer_key()
+        self.answer_key = self._extract_answer_key_improved()
         self.all_questions = self._extract_all_questions()
 
         if not self.answer_key:
@@ -104,8 +106,8 @@ class AnswerValidator:
             logger.error(f"Failed to extract questions: {str(e)}")
             return []
 
-    def _extract_answer_key(self) -> Dict[int, str]:
-        """Extract answer key from PDF."""
+    def _extract_answer_key_improved(self) -> Dict[int, str]:
+        """Extract answer key from PDF using improved method that catches all answers."""
         try:
             reader = PdfReader(str(self.pdf_path))
             text_parts = []
@@ -120,26 +122,26 @@ class AnswerValidator:
 
             answer_key = {}
 
-            # Split text into chunks around "The correct answer is"
-            chunks = re.split(
-                r"The\s+correct\s+answer\s+is\s+", all_text, flags=re.IGNORECASE
-            )
+            # Extract all questions first
+            questions = []
+            pattern = r"\n(\d+)\.\s"
+            for match in re.finditer(pattern, all_text):
+                q_num = int(match.group(1))
+                if 1 <= q_num <= 500:
+                    questions.append(q_num)
 
-            # For each chunk after the first
-            for i, chunk in enumerate(chunks[1:], 1):
-                # Get the answer
-                answer_match = re.match(r"([A-D])", chunk)
-                if not answer_match:
-                    continue
+            questions = sorted(set(questions))
 
-                answer = answer_match.group(1).upper()
+            # For each question, look for its answer
+            for q_num in questions:
+                # Search for "N. ... The correct answer is X"
+                q_pattern = rf"\n{q_num}\.\s.+?The\s+correct\s+answer\s+is\s+([A-D])"
+                match = re.search(
+                    q_pattern, all_text, re.DOTALL | re.IGNORECASE
+                )
 
-                # Look backwards to find the question number
-                text_before = chunks[i - 1]
-                q_matches = list(re.finditer(r"\n(\d+)\.\s", text_before))
-
-                if q_matches:
-                    q_num = int(q_matches[-1].group(1))
+                if match:
+                    answer = match.group(1).upper()
                     answer_key[q_num] = answer
 
             return answer_key
@@ -157,9 +159,8 @@ class AnswerValidator:
 
         # Find missing questions
         if self.all_questions:
-            max_q = max(self.all_questions)
-            for q_num in range(1, max_q + 1):
-                if q_num in self.all_questions and q_num not in self.answer_key:
+            for q_num in self.all_questions:
+                if q_num not in self.answer_key:
                     report.questions_missing_answers.append(q_num)
 
         # Calculate coverage
