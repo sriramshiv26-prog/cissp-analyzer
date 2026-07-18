@@ -108,7 +108,7 @@ class CISSPAnalyzer:
         """Extract the correct answer for each question from PDF using improved method."""
         try:
             # Use AnswerValidator for robust extraction that catches all questions
-            # including edge cases like Q104, Q107, Q114, Q147
+            # including edge cases with non-standard formatting
             pdf_path = pdf_parser.pdf_file if hasattr(pdf_parser, 'pdf_file') else None
 
             if pdf_path:

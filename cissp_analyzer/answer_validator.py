@@ -4,7 +4,7 @@ Answer Validator - Phase 3G Enhancement (Updated v2)
 Validates student answers against an answer key and calculates actual scores.
 Includes quality checks to detect missing answer keys before evaluation.
 
-FIX v2: Improved answer extraction to catch all questions including Q104, Q107, Q114, Q147
+FIX v2: Improved answer extraction to catch all questions including edge cases
 """
 
 import logging
