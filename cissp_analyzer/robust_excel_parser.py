@@ -57,14 +57,14 @@ class RobustExcelParser:
 
     # Possible column name variations
     QUESTION_COLUMN_NAMES = [
-        ["Question", "QUESTION"],
+        ["Question", "QUESTION", "Questions", "QUESTIONS"],
         ["Q", "Q#", "Qnum", "QuestionNumber"],
-        ["Question Number", "Question_Number"],
+        ["Question Number", "Question_Number", "Question No", "QuestionNo"],
         ["Qno", "Q_No", "Qu"],
     ]
 
     ANSWER_COLUMN_NAMES = [
-        ["Answer", "ANSWER"],
+        ["Answer", "ANSWER", "Answers", "ANSWERS"],
         ["Ans", "ANS"],
         ["Student Answer", "StudentAnswer"],
         ["Student_Answer", "Response"],
@@ -130,10 +130,47 @@ class RobustExcelParser:
         logger.info("Step 1: Detecting columns...")
         question_col, answer_col, student_col = self._detect_columns(result)
 
-        if not question_col or not answer_col:
-            logger.error("✗ Could not detect question/answer columns")
-            result.errors.append("Could not detect question/answer columns in Excel")
+        # Handle answers-only format (no question column)
+        if not answer_col:
+            logger.error("✗ Could not detect answer column")
+            result.errors.append("Could not detect answer column in Excel")
             return result
+
+        if not question_col:
+            logger.info("⚠ No question column found - treating as answers-only format")
+            # For answers-only format, use first column as answer column
+            if answer_col:
+                result.column_mapping = {
+                    "question": "auto",
+                    "answer": answer_col,
+                    "student": student_col or "unknown",
+                }
+
+                logger.info(f"✓ Answers-only format detected: A={answer_col}")
+
+                # Extract student name
+                if student_name:
+                    result.student_name = student_name
+                elif student_col:
+                    result.student_name = self._extract_student_name(student_col)
+
+                if not result.student_name:
+                    result.student_name = self.excel_path.stem
+
+                # Parse answers with auto-generated question numbers
+                logger.info("Step 2: Parsing answers (auto-generating question numbers)...")
+                result = self._parse_answers_only(answer_col, result)
+
+                if result.valid_answers == 0:
+                    logger.error("✗ No valid answers found")
+                    result.errors.append("No valid answers extracted from file")
+                else:
+                    logger.info(
+                        f"✓ Parsed {result.valid_answers} answers "
+                        f"({result.skipped_answers} skipped)"
+                    )
+
+                return result
 
         result.column_mapping = {
             "question": question_col,
@@ -184,7 +221,24 @@ class RobustExcelParser:
         answer_col = self._find_column(columns_lower, self.ANSWER_COLUMN_NAMES)
         student_col = self._find_column(columns_lower, self.STUDENT_COLUMN_NAMES)
 
+        # Fallback: if no answer column found by name, look for column with answer values
+        if not answer_col:
+            answer_col = self._find_answer_column_by_content()
+
         return question_col, answer_col, student_col
+
+    def _find_answer_column_by_content(self) -> Optional[str]:
+        """Find answer column by scanning for A/B/C/D values."""
+        for col in self.df.columns:
+            values = self.df[col].dropna().astype(str).str.upper()
+            if len(values) > 0:
+                answer_chars = values.str.extract(r"^([A-D])")[0]
+                valid_answers = answer_chars.notna().sum()
+                if valid_answers > len(values) * 0.8:  # 80% valid answers
+                    logger.debug(f"  Detected answer column by content: '{col}'")
+                    return col
+
+        return None
 
     def _find_column(
         self,
@@ -265,6 +319,49 @@ class RobustExcelParser:
                     f"Row {idx + 2}: Error processing answer: {str(e)}"
                 )
                 result.skipped_answers += 1
+                continue
+
+        result.answers = answers
+        return result
+
+    def _parse_answers_only(
+        self, answer_col: str, result: RobustExcelParserResult
+    ) -> RobustExcelParserResult:
+        """Parse answers-only format (no question column, auto-generate question numbers)."""
+        answers = {}
+        result.total_rows = len(self.df)
+        q_num = 1
+
+        for idx, row in self.df.iterrows():
+            try:
+                # Get answer
+                answer_raw = row.get(answer_col)
+                if pd.isna(answer_raw):
+                    result.skipped_answers += 1
+                    q_num += 1
+                    continue
+
+                # Normalize answer
+                normalized = self._normalize_answer(str(answer_raw).strip())
+
+                if not normalized:
+                    result.warnings.append(
+                        f"Q{q_num}: Invalid answer '{answer_raw}' (skipped)"
+                    )
+                    result.skipped_answers += 1
+                    q_num += 1
+                    continue
+
+                answers[q_num] = normalized
+                result.valid_answers += 1
+                q_num += 1
+
+            except Exception as e:
+                result.warnings.append(
+                    f"Row {idx + 2}: Error processing answer: {str(e)}"
+                )
+                result.skipped_answers += 1
+                q_num += 1
                 continue
 
         result.answers = answers

@@ -173,10 +173,70 @@ class RobustPDFParser:
                 if question:
                     questions[q_num] = question
 
+            # If we found questions but success rate is low, try sequential fallback
+            if len(questions) < len(question_starts) * 0.5:
+                logger.info(
+                    f"Low extraction success rate ({len(questions)}/{len(question_starts)}), "
+                    f"trying sequential approach..."
+                )
+                sequential_questions = self._extract_sequential_questions(all_text)
+                if len(sequential_questions) > len(questions):
+                    questions = sequential_questions
+
             return questions
 
         except Exception as e:
             logger.error(f"Primary extraction failed: {str(e)}")
+            return {}
+
+    def _extract_sequential_questions(self, all_text: str) -> Dict[int, Dict]:
+        """
+        Extract questions assuming sequential numbering (1, 2, 3, ...).
+        Creates minimal question objects with just the question number.
+        Useful when full option extraction fails but question counting works.
+
+        Returns:
+            Dictionary of extracted questions
+        """
+        try:
+            questions = {}
+            current_q_num = 1
+
+            # Look for sequential question patterns
+            while current_q_num <= 500:
+                pattern = rf"\n{current_q_num}\. "
+                match = re.search(pattern, all_text)
+
+                if match:
+                    # Extract text until next question or end
+                    pattern_next = rf"\n{current_q_num + 1}\. "
+                    match_next = re.search(pattern_next, all_text[match.start() + 10 :])
+                    end_pos = (
+                        match.start() + 10 + match_next.start()
+                        if match_next
+                        else len(all_text)
+                    )
+
+                    q_text = all_text[match.start() + 1 : end_pos]
+                    q_text = q_text[q_text.find(".") + 1 :].strip()
+                    q_text = re.sub(r"\s+", " ", q_text)[:100]
+
+                    if q_text:
+                        questions[current_q_num] = {
+                            "question_number": current_q_num,
+                            "text": q_text,
+                            "options": {},
+                        }
+
+                    current_q_num += 1
+                else:
+                    # No more sequential questions
+                    break
+
+            return questions
+
+        except Exception as e:
+            logger.error(f"Sequential extraction failed: {str(e)}")
             return {}
 
     def _extract_alternative(self) -> Dict[int, Dict]:
@@ -232,6 +292,8 @@ class RobustPDFParser:
                 try:
                     text = page.extract_text()
                     if text:
+                        # Normalize text: replace tabs with newlines to improve parsing
+                        text = text.replace("\t", "\n")
                         text_parts.append(text)
                 except Exception as e:
                     logger.warning(f"Error extracting page {idx + 1}: {str(e)}")
@@ -324,16 +386,22 @@ class RobustPDFParser:
         # Check for complete questions
         valid_count = 0
         for q_num, question in result.questions.items():
-            if question.get("text") and len(question.get("options", {})) >= 3:
+            # Accept questions with text (options are not required for grading)
+            if question.get("text"):
                 valid_count += 1
 
         result.questions_valid = valid_count
 
-        # Confidence: mostly based on question count and option coverage
+        # Confidence: mostly based on question count
         base_confidence = min(valid_count / result.questions_found, 1.0)
 
-        # Penalize missing options
-        if result.questions_found > 0:
+        # Only penalize missing options if we have some questions with options
+        # (If all questions lack options, it's a sequential-only extraction which is valid)
+        has_any_options = any(
+            len(q.get("options", {})) > 0 for q in result.questions.values()
+        )
+
+        if has_any_options and result.questions_found > 0:
             avg_options = (
                 sum(len(q.get("options", {})) for q in result.questions.values())
                 / result.questions_found
