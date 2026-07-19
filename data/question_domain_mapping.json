@@ -1125,5 +1125,13 @@
     "difficulty": "Hard",
     "question_type": "Application",
     "exam_trick": "ALL"
+  },
+  "162": {
+    "domain": "Software Development Security",
+    "topic": "Buffer Overflow",
+    "subtopic": "Attack mechanisms",
+    "difficulty": "Hard",
+    "question_type": "Scenario",
+    "exam_trick": "None"
   }
 }

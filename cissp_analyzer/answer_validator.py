@@ -51,31 +51,34 @@ class AnswerValidationResult:
 class AnswerValidator:
     """Validates student answers against PDF answer key with quality checks."""
 
-    def __init__(self, pdf_path: str):
+    def __init__(self, pdf_path: str = None):
         """
         Initialize validator with PDF containing answer key.
 
         Args:
-            pdf_path: Path to PDF with embedded answer key
+            pdf_path: Path to PDF with embedded answer key (optional)
 
         Raises:
             FileNotFoundError: If PDF doesn't exist
             ValueError: If PDF is invalid
         """
-        self.pdf_path = Path(pdf_path)
+        self.pdf_path = Path(pdf_path) if pdf_path else None
+        self.answer_key = {}
+        self.all_questions = []
 
-        if not self.pdf_path.exists():
-            raise FileNotFoundError(f"PDF not found: {pdf_path}")
+        if pdf_path:
+            if not self.pdf_path.exists():
+                raise FileNotFoundError(f"PDF not found: {pdf_path}")
 
-        self.answer_key = self._extract_answer_key_improved()
-        self.all_questions = self._extract_all_questions()
+            self.answer_key = self._extract_answer_key_improved()
+            self.all_questions = self._extract_all_questions()
 
-        if not self.answer_key:
-            raise ValueError("Could not extract answer key from PDF")
+            if not self.answer_key:
+                raise ValueError("Could not extract answer key from PDF")
 
-        logger.info(
-            f"✓ Loaded answer key from PDF: {len(self.answer_key)} questions"
-        )
+            logger.info(
+                f"✓ Loaded answer key from PDF: {len(self.answer_key)} questions"
+            )
 
     def _extract_all_questions(self) -> List[int]:
         """Extract all question numbers from PDF (with or without answers)."""
