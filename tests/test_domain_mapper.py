@@ -46,3 +46,22 @@ def test_all_questions_have_metadata(domain_mapper):
 def test_invalid_question_returns_none(domain_mapper):
     """Test that invalid question numbers return None"""
     assert domain_mapper.get_question_metadata(999) is None
+
+
+def test_domain_mapper_default_no_exam_id():
+    """Test backward compat: DomainMapper() still works without exam_id"""
+    mapper = DomainMapper()
+    assert mapper is not None
+    assert len(mapper.mapping) > 0
+    meta = mapper.get_question_metadata(1)
+    assert meta is not None
+    assert "domain" in meta
+
+
+def test_domain_mapper_accepts_exam_id():
+    """Test new feature: DomainMapper accepts exam_id parameter"""
+    mapper = DomainMapper(exam_id="test_exam")
+    assert mapper.exam_id == "test_exam"
+    # Should have mapping (either from exam folder or fallback)
+    assert mapper.mapping is not None
+    assert len(mapper.mapping) > 0
