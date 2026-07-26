@@ -7,6 +7,62 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.1.0] - 2026-07-25
+
+### Added: Metadata Auto-Generator Feature (Tasks 1-11)
+
+#### New Modules
+- **`cissp_analyzer/metadata_reviewer.py`** — Terminal display and inline editing of metadata
+  - `MetadataReviewer.display_summary()`: formatted table (first 20 rows + totals)
+  - `MetadataReviewer.edit_question()`: update a single field, tracked in `self.edited`
+  - `MetadataReviewer.get_reviewed_metadata()`: returns metadata with all edits applied
+  - `MetadataReviewer.get_edit_summary()`: reports N questions edited + field breakdown
+
+- **`cissp_analyzer/ollama_analyzer.py`** — Optional Ollama enrichment with runtime detection
+  - Auto-detects if Ollama is running (GET /api/tags, 2s timeout)
+  - Classifies questions by domain, topic, difficulty, and question_type
+  - Batch analysis: `analyze_batch({q_num: q_text})` → `{q_num_str: metadata}`
+  - Graceful fallback: returns `None` / empty dict when Ollama is unavailable
+  - Default model: `qwen2.5-coder:7b`
+
+- **`cissp_analyzer/metadata_generator.py`** — Full pipeline orchestrator
+  - `MetadataGenerator(exam_id, pdf_path, output_dir)` wires all modules together
+  - `run(completion_method="auto")`: Extract → Complete → Review → Store
+  - Saves to `data/metadata/YYYY-MM-DD/{exam_id}/metadata.json`
+  - Returns coverage metrics, method used, and output path
+
+#### Modified Modules
+- **`cissp_analyzer/exam_processor.py`** — Added optional metadata generation
+  - `process_new_files(generate_metadata=False)`: new optional parameter
+  - When `True`, calls `MetadataGenerator` after processing answer sheets
+  - Fully backward compatible — existing callers unaffected
+  - `_run_metadata_generation()`: internal helper, graceful error handling
+
+- **`cissp_analyzer/menu_controller.py`** — New "Generate Metadata" menu option
+  - `show_generate_metadata_menu()`: interactive wizard (exam_id + PDF path)
+  - Displays result summary (coverage, method, output path) after generation
+  - `_build_metadata_generator()`: factory method for testability
+
+#### New Tests (Tasks 4-9)
+- `tests/test_metadata_reviewer.py` — 24 tests for MetadataReviewer
+- `tests/test_ollama_analyzer.py` — 16 tests for OllamaAnalyzer (all HTTP mocked)
+- `tests/test_metadata_generator.py` — 13 tests for MetadataGenerator
+- `tests/test_metadata_integration.py` — 8 end-to-end pipeline integration tests
+- `tests/test_exam_processor_metadata.py` — 6 tests for ExamProcessor hook
+- `tests/test_menu_controller_metadata.py` — 8 tests for MenuController menu option
+
+#### Documentation
+- `docs/METADATA_GENERATOR_GUIDE.md` — User guide for the full feature
+- `DOCUMENTATION_INDEX.md` — Updated with v2.1.0 Metadata Auto-Generator section
+- `CHANGELOG.md` — This entry
+
+### Previously Complete (Tasks 1-3)
+- `cissp_analyzer/domain_mapper.py` — exam_id parameter for per-exam metadata loading
+- `cissp_analyzer/pdf_metadata_extractor.py` — PDF tag extraction
+- `cissp_analyzer/metadata_completer.py` — Gap-filling via defaults, manual CSV, or Ollama
+
+---
+
 ## [1.0.1] - 2026-07-13
 
 ### ✨ Added (Major Features)

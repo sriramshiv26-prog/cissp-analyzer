@@ -262,3 +262,67 @@ class MenuController:
         """
         warning = "⚠" if sys.stdout.isatty() else "[!]"
         print(self._colorize(f"\n{warning} {message}\n", self.YELLOW))
+
+    def _build_metadata_generator(self, exam_id: str, pdf_path: str):
+        """
+        Factory method to create a MetadataGenerator.
+        Extracted for testability — can be patched in tests.
+
+        Args:
+            exam_id: Exam identifier
+            pdf_path: Path to exam PDF
+
+        Returns:
+            MetadataGenerator instance
+        """
+        from cissp_analyzer.metadata_generator import MetadataGenerator
+        return MetadataGenerator(exam_id=exam_id, pdf_path=pdf_path)
+
+    def show_generate_metadata_menu(self) -> Optional[Dict]:
+        """
+        Show the Generate Metadata menu option.
+
+        Prompts user for exam_id and PDF path, runs MetadataGenerator,
+        displays result summary. All existing menu options are unchanged.
+
+        Returns:
+            Result dict from MetadataGenerator.run(), or None if cancelled/failed
+        """
+        print("\n" + self._colorize("=" * 70, self.BLUE))
+        print(self._colorize("Generate Metadata for Question Bank", self.BOLD))
+        print(self._colorize("=" * 70, self.BLUE) + "\n")
+
+        exam_id = input(self._colorize("Enter Exam ID (e.g. cissp-2024-q1): ", self.YELLOW)).strip()
+        if not exam_id:
+            self.show_error_message("Exam ID cannot be empty.")
+            return None
+
+        pdf_path = input(self._colorize("Enter path to exam PDF: ", self.YELLOW)).strip()
+        if not pdf_path:
+            self.show_error_message("PDF path cannot be empty.")
+            return None
+
+        print(self._colorize(f"\nGenerating metadata for '{exam_id}'...\n", self.BLUE))
+
+        try:
+            gen = self._build_metadata_generator(exam_id=exam_id, pdf_path=pdf_path)
+            result = gen.run(completion_method="auto")
+
+            # Display result summary
+            print("\n" + self._colorize("=" * 70, self.BLUE))
+            print(self._colorize("Metadata Generation Complete", self.BOLD))
+            print(self._colorize("=" * 70, self.BLUE))
+            print(f"  Exam ID:         {result.get('exam_id', 'N/A')}")
+            print(f"  Total Questions: {result.get('total_questions', 0)}")
+            coverage_pct = int(result.get('coverage', 0) * 100)
+            print(f"  Coverage:        {coverage_pct}%")
+            print(f"  Method:          {result.get('method', 'N/A')}")
+            print(f"  Output:          {result.get('output_path', 'N/A')}")
+            print(self._colorize("=" * 70, self.BLUE) + "\n")
+
+            self.show_success_message(f"Metadata saved to: {result.get('output_path', 'N/A')}")
+            return result
+
+        except Exception as e:
+            self.show_error_message(f"Metadata generation failed: {e}")
+            return None

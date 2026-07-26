@@ -1,8 +1,8 @@
 # CISSP Analyzer - Documentation Index
 
-**Last Updated:** July 16, 2026  
-**Current Version:** 2.0.0  
-**Test Status:** 418/419 passing
+**Last Updated:** July 25, 2026  
+**Current Version:** 2.1.0  
+**Test Status:** 470+ passing
 
 ---
 
@@ -26,6 +26,25 @@
 | [PHASE2_VALIDATION_REPORT.md](PHASE2_VALIDATION_REPORT.md) | Real exam data validation results | ✅ Complete (July 16) |
 | [PHASE_2_USER_GUIDE.md](PHASE_2_USER_GUIDE.md) | How to use Phase 2 features | ✅ Complete |
 | [FULL_INTEGRATION_TEST_REPORT.md](FULL_INTEGRATION_TEST_REPORT.md) | End-to-end system integration (with Ollama) | ✅ Complete (July 16) |
+
+### Metadata Auto-Generator (✅ Complete - v2.1.0)
+
+| Module | Purpose | Status |
+|--------|---------|--------|
+| `cissp_analyzer/domain_mapper.py` | Load domain mappings with exam_id support | ✅ Complete (Task 1) |
+| `cissp_analyzer/pdf_metadata_extractor.py` | Extract metadata tags from PDF | ✅ Complete (Task 2) |
+| `cissp_analyzer/metadata_completer.py` | Fill gaps via defaults/manual/Ollama | ✅ Complete (Task 3) |
+| `cissp_analyzer/metadata_reviewer.py` | Terminal display and inline editing | ✅ Complete (Task 4) |
+| `cissp_analyzer/ollama_analyzer.py` | Optional Ollama enrichment with auto-detect | ✅ Complete (Task 5) |
+| `cissp_analyzer/metadata_generator.py` | Full pipeline orchestrator | ✅ Complete (Task 6) |
+| `tests/test_metadata_*.py` | Integration + unit tests | ✅ Complete (Tasks 4-7) |
+| `cissp_analyzer/exam_processor.py` | Hook: generate_metadata param added | ✅ Complete (Task 8) |
+| `cissp_analyzer/menu_controller.py` | New "Generate Metadata" menu option | ✅ Complete (Task 9) |
+| `docs/METADATA_GENERATOR_GUIDE.md` | User guide | ✅ Complete (Task 10) |
+
+See [docs/METADATA_GENERATOR_GUIDE.md](docs/METADATA_GENERATOR_GUIDE.md) for usage instructions.
+
+---
 
 ### Phase 3: Enhancements (📦 In Progress)
 
@@ -254,6 +273,9 @@ Root:
 
 | Date | What | Link |
 |------|------|------|
+| Jul 25 | Metadata Auto-Generator (v2.1.0) Tasks 4-11 | [docs/METADATA_GENERATOR_GUIDE.md](docs/METADATA_GENERATOR_GUIDE.md) |
+| Jul 25 | MetadataReviewer, OllamaAnalyzer, MetadataGenerator | `cissp_analyzer/` |
+| Jul 25 | ExamProcessor & MenuController hooks | `cissp_analyzer/` |
 | Jul 16 | Phase 2 Real Data Validation | [PHASE2_VALIDATION_REPORT.md](PHASE2_VALIDATION_REPORT.md) |
 | Jul 16 | Full Integration Test with Ollama | [FULL_INTEGRATION_TEST_REPORT.md](FULL_INTEGRATION_TEST_REPORT.md) |
 | Jul 16 | Updated README with v2.0.0 status | [README.md](README.md) |

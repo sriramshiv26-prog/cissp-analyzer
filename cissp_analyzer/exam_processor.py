@@ -7,7 +7,7 @@ Detects new files, validates them, and generates individual reports.
 import json
 import logging
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple, Any
 
 from cissp_analyzer.exam_folder_manager import ExamFolderManager
 from cissp_analyzer.state_tracker import ProcessedFileTracker
@@ -153,12 +153,17 @@ class ExamProcessor:
 
         return processed
 
-    def process_new_files(self) -> Dict:
+    def process_new_files(self, generate_metadata: bool = False) -> Dict:
         """
         Process all new answer files.
 
+        Args:
+            generate_metadata: If True, run MetadataGenerator pipeline after processing.
+                               Requires exam metadata to include pdf_path.
+                               Existing callers unaffected (defaults to False).
+
         Returns:
-            Summary: {processed: [], failed: [], skipped: []}
+            Summary: {processed: [], failed: [], skipped: [], metadata_result (optional)}
         """
         new_files = self.detect_new_answer_files()
 
@@ -183,7 +188,38 @@ class ExamProcessor:
                 summary["failed"].append({"filename": filename, "reason": str(e)})
                 logger.error(f"✗ Error processing {filename}: {str(e)}")
 
+        # Optional metadata generation step
+        if generate_metadata:
+            summary["metadata_result"] = self._run_metadata_generation()
+
         return summary
+
+    def _run_metadata_generation(self) -> Dict:
+        """
+        Run MetadataGenerator pipeline for this exam.
+
+        Returns:
+            Result dict from MetadataGenerator.run() or error dict on failure
+        """
+        try:
+            from cissp_analyzer.metadata_generator import MetadataGenerator
+
+            exam_id = self.exam_folder.name
+            pdf_path = self.metadata.get("pdf_path", "")
+
+            if not pdf_path:
+                logger.warning("Cannot run metadata generation: no pdf_path in exam metadata")
+                return {"error": "pdf_path not found in exam metadata"}
+
+            logger.info(f"Running MetadataGenerator for exam: {exam_id}")
+            gen = MetadataGenerator(exam_id=exam_id, pdf_path=pdf_path)
+            result = gen.run(completion_method="auto")
+            logger.info(f"Metadata generation complete: {result}")
+            return result
+
+        except Exception as e:
+            logger.error(f"Metadata generation failed: {e}")
+            return {"error": str(e)}
 
     def process_single_file(self, excel_filename: str) -> Optional[Dict]:
         """
