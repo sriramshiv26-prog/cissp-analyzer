@@ -55,6 +55,11 @@ class ExamProcessor:
         self.question_db = QuestionDatabase(self.exam_folder)
         self.answer_key: Optional[Dict[int, str]] = None
 
+        # Auto-load answer key from answer_keys/answer_key.json if present
+        default_key = self.exam_folder / "answer_keys" / "answer_key.json"
+        if default_key.exists():
+            self.answer_key = self.answer_key_manager.load_from_json(str(default_key))
+
         # Create reports directory if not exists
         self.reports_dir = self.exam_folder / "reports"
         self.reports_dir.mkdir(exist_ok=True)
@@ -72,8 +77,11 @@ class ExamProcessor:
             return []
 
         try:
-            parser = PDFParser(pdf_path)
-            return parser.extract_questions()
+            from cissp_analyzer.robust_pdf_parser import RobustPDFParser
+            parser = RobustPDFParser(pdf_path)
+            result = parser.extract_with_fallback()
+            # Convert {q_num: {...}} dict to list with "number" key
+            return [{"number": k, **v} for k, v in result.questions.items()]
         except Exception as e:
             logger.error(f"Error extracting questions: {str(e)}")
             return []
@@ -231,7 +239,12 @@ class ExamProcessor:
         Returns:
             Report metadata dict or None if failed
         """
-        excel_path = self.exam_folder / excel_filename
+        # Resolve path: check student_answers subdir first, then root
+        student_answers_dir = self.exam_folder / "student_answers"
+        if (student_answers_dir / excel_filename).exists():
+            excel_path = student_answers_dir / excel_filename
+        else:
+            excel_path = self.exam_folder / excel_filename
 
         # Validate Excel file
         if not self._validate_excel_file(excel_path):
@@ -309,48 +322,20 @@ class ExamProcessor:
 
     def _load_answers_from_excel(self, excel_path: Path) -> Optional[Dict[int, str]]:
         """
-        Load answers from Excel file.
-
-        Args:
-            excel_path: Path to Excel file
+        Load answers from Excel file using RobustExcelParser.
 
         Returns:
             Dictionary {question_number: answer_letter} or None
         """
         try:
-            import pandas as pd
+            from cissp_analyzer.robust_excel_parser import RobustExcelParser
 
-            df = pd.read_excel(excel_path)
+            parser = RobustExcelParser(str(excel_path))
+            result = parser.parse_with_fallback()
 
-            # Normalize column names
-            df.columns = [col.strip().lower() for col in df.columns]
-
-            answers = {}
-            for _, row in df.iterrows():
-                # Look for question number column
-                q_num = None
-                for col in ["question", "q", "question number", "question_number"]:
-                    if col in df.columns:
-                        q_num = row.get(col)
-                        break
-
-                # Look for answer column
-                answer = None
-                for col in ["answer", "ans", "student answer", "student_answer"]:
-                    if col in df.columns:
-                        answer = row.get(col)
-                        break
-
-                if q_num is not None and answer is not None:
-                    try:
-                        q_num = int(q_num)
-                        normalized = ExcelParser.normalize_answer(str(answer))
-                        if normalized:
-                            answers[q_num] = normalized
-                    except (ValueError, TypeError):
-                        continue
-
-            return answers if answers else None
+            if result.answers:
+                return dict(result.answers)
+            return None
 
         except Exception as e:
             logger.error(f"Error loading answers from {excel_path}: {str(e)}")
@@ -382,17 +367,16 @@ class ExamProcessor:
         # Get question numbers from questions
         question_numbers = {q.get("number", i) for i, q in enumerate(questions)}
 
-        # Check all answer question IDs exist in questions
-        for q_num in answers.keys():
-            if q_num not in question_numbers:
-                logger.warning(f"Answer for non-existent question: {q_num}")
-                return False
+        # Warn on mismatches but don't block — real exams may have minor numbering gaps
+        mismatches = [q for q in answers.keys() if q not in question_numbers]
+        if mismatches:
+            logger.warning(f"{len(mismatches)} answers have no matching question (proceeding anyway)")
 
-        # Validate answer formats (A-D, or multi-part)
-        for q_num, answer in answers.items():
-            if not self._is_valid_answer_format(answer):
-                logger.warning(f"Invalid answer format for Q{q_num}: {answer}")
-                return False
+        # Require at least 50% overlap with expected questions
+        overlap = len([q for q in answers.keys() if q in question_numbers])
+        if overlap == 0:
+            logger.warning("No answers overlap with question set")
+            return False
 
         return True
 

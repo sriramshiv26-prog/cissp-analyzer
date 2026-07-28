@@ -127,7 +127,11 @@ class ExamFolderManager:
         if not folder_path.exists():
             return answer_files
 
-        for filename in os.listdir(folder_path):
+        # Check student_answers subfolder first, fall back to root
+        student_answers_dir = folder_path / "student_answers"
+        scan_dir = student_answers_dir if student_answers_dir.exists() else folder_path
+
+        for filename in os.listdir(scan_dir):
             if filename.endswith(".xlsx") and not filename.startswith("~"):
                 answer_files.append(filename)
 
