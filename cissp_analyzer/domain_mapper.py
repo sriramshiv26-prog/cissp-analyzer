@@ -11,7 +11,11 @@ class DomainMapper:
     With exam_id: tries data/metadata/YYYY-MM-DD/exam_id/metadata.json, falls back to default
     """
 
-    def __init__(self, mapping_file: str = "data/question_domain_mapping.json", exam_id: Optional[str] = None):
+    def __init__(
+        self,
+        mapping_file: str = "data/question_domain_mapping.json",
+        exam_id: Optional[str] = None,
+    ):
         """
         Initialize DomainMapper.
 

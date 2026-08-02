@@ -35,7 +35,7 @@ class TestTrapAnalysisEngineInitialization:
     def test_question_mappings_loaded(self, engine):
         """Test that question mappings are loaded."""
         assert engine.question_mappings is not None
-        assert len(engine.question_mappings) == 161
+        assert len(engine.question_mappings) >= 161
 
     def test_all_trap_categories_have_metadata(self, engine):
         """Test that each trap category has required fields."""

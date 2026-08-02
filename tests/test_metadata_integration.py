@@ -15,7 +15,6 @@ from cissp_analyzer.metadata_reviewer import MetadataReviewer
 from cissp_analyzer.metadata_generator import MetadataGenerator
 from cissp_analyzer.domain_mapper import DomainMapper
 
-
 # ---- Fixtures ----
 
 SAMPLE_EXTRACTION_RESULTS = {
@@ -24,9 +23,27 @@ SAMPLE_EXTRACTION_RESULTS = {
     "confidence": 0.6,
     "gaps": [4, 5],
     "extracted_metadata": {
-        "1": {"domain": "IAM", "topic": "Auth", "difficulty": "Easy", "question_type": "Knowledge", "exam_trick": "None"},
-        "2": {"domain": "Crypto", "topic": "AES", "difficulty": "Medium", "question_type": "Knowledge", "exam_trick": "None"},
-        "3": {"domain": "Risk", "topic": "RA", "difficulty": "Hard", "question_type": "Analysis", "exam_trick": "None"},
+        "1": {
+            "domain": "IAM",
+            "topic": "Auth",
+            "difficulty": "Easy",
+            "question_type": "Knowledge",
+            "exam_trick": "None",
+        },
+        "2": {
+            "domain": "Crypto",
+            "topic": "AES",
+            "difficulty": "Medium",
+            "question_type": "Knowledge",
+            "exam_trick": "None",
+        },
+        "3": {
+            "domain": "Risk",
+            "topic": "RA",
+            "difficulty": "Hard",
+            "question_type": "Analysis",
+            "exam_trick": "None",
+        },
     },
     "extraction_note": "Extracted 3/5",
 }
@@ -51,19 +68,31 @@ def make_mock_ollama(available=False, batch_results=None):
     ollama = MagicMock()
     ollama.available = available
     ollama.get_status.return_value = (
-        "Ollama available (model: qwen2.5-coder:7b)" if available
+        "Ollama available (model: qwen2.5-coder:7b)"
+        if available
         else "Ollama unavailable (fallback mode)"
     )
     if batch_results is None:
         batch_results = {
-            "4": {"domain": "Crypto", "topic": "PKI", "difficulty": "Hard", "question_type": "Knowledge"},
-            "5": {"domain": "Risk", "topic": "BCP", "difficulty": "Medium", "question_type": "Application"},
+            "4": {
+                "domain": "Crypto",
+                "topic": "PKI",
+                "difficulty": "Hard",
+                "question_type": "Knowledge",
+            },
+            "5": {
+                "domain": "Risk",
+                "topic": "BCP",
+                "difficulty": "Medium",
+                "question_type": "Application",
+            },
         }
     ollama.analyze_batch.return_value = batch_results
     return ollama
 
 
 # ---- Test 1: Extract → Complete (defaults) → Review → metadata dict correct ----
+
 
 def test_extract_complete_defaults_review():
     """Full pipeline: Extract → Complete (defaults) → Review → metadata dict correct."""
@@ -92,12 +121,23 @@ def test_extract_complete_defaults_review():
 
 # ---- Test 2: Extract → Complete (manual CSV) → Review → edits applied ----
 
+
 def test_extract_complete_manual_review_edits(tmp_path):
     """Extract → Complete (manual CSV) → Review with edits applied."""
     # Create a manual CSV
     csv_data = {
-        "4": {"domain": "Cryptography", "topic": "PKI", "difficulty": "Hard", "question_type": "Knowledge"},
-        "5": {"domain": "Business Continuity", "topic": "BCP", "difficulty": "Medium", "question_type": "Application"},
+        "4": {
+            "domain": "Cryptography",
+            "topic": "PKI",
+            "difficulty": "Hard",
+            "question_type": "Knowledge",
+        },
+        "5": {
+            "domain": "Business Continuity",
+            "topic": "BCP",
+            "difficulty": "Medium",
+            "question_type": "Application",
+        },
     }
 
     # Step 2: Complete with manual data
@@ -118,10 +158,12 @@ def test_extract_complete_manual_review_edits(tmp_path):
 
 # ---- Test 3: OllamaAnalyzer unavailable → fallback to defaults seamlessly ----
 
+
 def test_ollama_unavailable_fallback_to_defaults(tmp_path):
     """OllamaAnalyzer unavailable → fallback to defaults seamlessly."""
-    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, \
-         patch("cissp_analyzer.metadata_generator.PDFMetadataExtractor") as MockExtractor:
+    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, patch(
+        "cissp_analyzer.metadata_generator.PDFMetadataExtractor"
+    ) as MockExtractor:
 
         mock_ollama = make_mock_ollama(available=False)
         MockOllama.return_value = mock_ollama
@@ -139,10 +181,12 @@ def test_ollama_unavailable_fallback_to_defaults(tmp_path):
 
 # ---- Test 4: MetadataGenerator.run() produces valid output file ----
 
+
 def test_generator_run_produces_valid_output_file(tmp_path):
     """MetadataGenerator.run() produces valid output file."""
-    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, \
-         patch("cissp_analyzer.metadata_generator.PDFMetadataExtractor") as MockExtractor:
+    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, patch(
+        "cissp_analyzer.metadata_generator.PDFMetadataExtractor"
+    ) as MockExtractor:
         MockOllama.return_value = make_mock_ollama(available=False)
         MockExtractor.return_value = make_mock_extractor()
 
@@ -162,6 +206,7 @@ def test_generator_run_produces_valid_output_file(tmp_path):
 
 # ---- Test 5: DomainMapper loads from generated metadata.json correctly ----
 
+
 def test_domain_mapper_loads_generated_metadata(tmp_path):
     """DomainMapper loads from generated metadata.json correctly."""
     # Simulate generated metadata
@@ -171,8 +216,18 @@ def test_domain_mapper_loads_generated_metadata(tmp_path):
     metadata_dir.mkdir(parents=True)
 
     metadata = {
-        "1": {"domain": "IAM", "topic": "Auth", "difficulty": "Easy", "question_type": "Knowledge"},
-        "2": {"domain": "Crypto", "topic": "AES", "difficulty": "Medium", "question_type": "Knowledge"},
+        "1": {
+            "domain": "IAM",
+            "topic": "Auth",
+            "difficulty": "Easy",
+            "question_type": "Knowledge",
+        },
+        "2": {
+            "domain": "Crypto",
+            "topic": "AES",
+            "difficulty": "Medium",
+            "question_type": "Knowledge",
+        },
     }
     metadata_file = metadata_dir / "metadata.json"
     with open(metadata_file, "w") as f:
@@ -184,7 +239,7 @@ def test_domain_mapper_loads_generated_metadata(tmp_path):
         json.dump({}, f)
 
     # DomainMapper with exam_id should find the generated metadata
-    with patch.object(DomainMapper, '_try_load_exam_mapping', return_value=metadata):
+    with patch.object(DomainMapper, "_try_load_exam_mapping", return_value=metadata):
         mapper = DomainMapper(
             mapping_file=str(default_mapping_file),
             exam_id=exam_id,
@@ -194,10 +249,12 @@ def test_domain_mapper_loads_generated_metadata(tmp_path):
 
 # ---- Test 6: Full pipeline: PDF → metadata.json → DomainMapper reads it back ----
 
+
 def test_full_pipeline_pdf_to_domain_mapper(tmp_path):
     """Full pipeline: PDF → metadata.json → DomainMapper reads it back."""
-    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, \
-         patch("cissp_analyzer.metadata_generator.PDFMetadataExtractor") as MockExtractor:
+    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, patch(
+        "cissp_analyzer.metadata_generator.PDFMetadataExtractor"
+    ) as MockExtractor:
         MockOllama.return_value = make_mock_ollama(available=False)
         MockExtractor.return_value = make_mock_extractor()
 
@@ -219,6 +276,7 @@ def test_full_pipeline_pdf_to_domain_mapper(tmp_path):
 
 # ---- Test 7: Coverage metric is accurate after completion ----
 
+
 def test_coverage_metric_accurate_after_completion():
     """Coverage metric is accurate after completion."""
     extraction_results = {
@@ -227,7 +285,13 @@ def test_coverage_metric_accurate_after_completion():
         "confidence": 0.6,
         "gaps": [7, 8, 9, 10],
         "extracted_metadata": {
-            str(i): {"domain": f"D{i}", "topic": "T", "difficulty": "Easy", "question_type": "Knowledge", "exam_trick": "None"}
+            str(i): {
+                "domain": f"D{i}",
+                "topic": "T",
+                "difficulty": "Easy",
+                "question_type": "Knowledge",
+                "exam_trick": "None",
+            }
             for i in range(1, 7)
         },
         "extraction_note": "6/10 extracted",
@@ -250,6 +314,7 @@ def test_coverage_metric_accurate_after_completion():
 
 
 # ---- Test 8: Edit tracking in MetadataReviewer after multiple edits ----
+
 
 def test_edit_tracking_multiple_edits():
     """Edit tracking in MetadataReviewer is correct after multiple edits."""

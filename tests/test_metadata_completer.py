@@ -17,7 +17,7 @@ def test_completer_initializes():
         "confidence": 0.4,
         "gaps": [21, 22, 23],
         "extracted_metadata": {"1": {"domain": "Security"}},
-        "extraction_note": "Extracted 40%"
+        "extraction_note": "Extracted 40%",
     }
 
     completer = MetadataCompleter(extraction_results)
@@ -35,7 +35,7 @@ def test_completer_apply_defaults():
         "confidence": 0.33,
         "gaps": [2, 3],
         "extracted_metadata": {"1": {"domain": "Security"}},
-        "extraction_note": "Extracted 33%"
+        "extraction_note": "Extracted 33%",
     }
 
     completer = MetadataCompleter(extraction_results)
@@ -58,13 +58,13 @@ def test_completer_apply_manual():
         "confidence": 0.33,
         "gaps": [2, 3],
         "extracted_metadata": {"1": {"domain": "Security"}},
-        "extraction_note": "Extracted 33%"
+        "extraction_note": "Extracted 33%",
     }
 
     completer = MetadataCompleter(extraction_results)
     manual_data = {
         "2": {"domain": "Access", "topic": "IAM"},
-        "3": {"domain": "Crypto", "topic": "PKI"}
+        "3": {"domain": "Crypto", "topic": "PKI"},
     }
     completer.apply_manual(manual_data)
     metadata = completer.get_combined_metadata()
@@ -83,7 +83,7 @@ def test_completer_get_options():
         "confidence": 0.4,
         "gaps": [21, 22, 23],
         "extracted_metadata": {},
-        "extraction_note": "Extracted 40%"
+        "extraction_note": "Extracted 40%",
     }
 
     completer = MetadataCompleter(extraction_results)
@@ -102,13 +102,13 @@ def test_completer_apply_ollama_results():
         "confidence": 0.33,
         "gaps": [2, 3],
         "extracted_metadata": {"1": {"domain": "Security"}},
-        "extraction_note": "Extracted 33%"
+        "extraction_note": "Extracted 33%",
     }
 
     completer = MetadataCompleter(extraction_results)
     ollama_data = {
         "2": {"domain": "Network", "topic": "TCP/IP"},
-        "3": {"domain": "Crypto", "topic": "Algorithms"}
+        "3": {"domain": "Crypto", "topic": "Algorithms"},
     }
     completer.apply_ollama_results(ollama_data)
     metadata = completer.get_combined_metadata()
@@ -126,7 +126,7 @@ def test_completer_get_summary():
         "confidence": 0.6,
         "gaps": [7, 8, 9, 10],
         "extracted_metadata": {str(i): {"domain": f"Domain{i}"} for i in range(1, 7)},
-        "extraction_note": "Extracted 60%"
+        "extraction_note": "Extracted 60%",
     }
 
     completer = MetadataCompleter(extraction_results)
@@ -147,15 +147,13 @@ def test_completer_combined_metadata_order():
         "gaps": [],
         "extracted_metadata": {
             "1": {"domain": "Security", "topic": "OldTopic"},
-            "2": {"domain": "Network"}
+            "2": {"domain": "Network"},
         },
-        "extraction_note": "Extracted 100%"
+        "extraction_note": "Extracted 100%",
     }
 
     completer = MetadataCompleter(extraction_results)
-    manual_data = {
-        "1": {"domain": "Security", "topic": "NewTopic"}  # Override topic
-    }
+    manual_data = {"1": {"domain": "Security", "topic": "NewTopic"}}  # Override topic
     completer.apply_manual(manual_data)
     metadata = completer.get_combined_metadata()
 
@@ -173,7 +171,7 @@ def test_completer_with_empty_extraction():
         "confidence": 0.0,
         "gaps": [1, 2, 3, 4, 5],
         "extracted_metadata": {},
-        "extraction_note": "Extracted 0%"
+        "extraction_note": "Extracted 0%",
     }
 
     completer = MetadataCompleter(extraction_results)
@@ -192,7 +190,7 @@ def test_completer_completion_method_tracking():
         "confidence": 0.5,
         "gaps": [2],
         "extracted_metadata": {"1": {"domain": "Security"}},
-        "extraction_note": "Extracted 50%"
+        "extraction_note": "Extracted 50%",
     }
 
     completer = MetadataCompleter(extraction_results)

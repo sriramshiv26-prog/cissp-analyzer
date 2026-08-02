@@ -33,6 +33,7 @@ def make_mock_gen_instance(result=None):
 
 # ---- Tests ----
 
+
 def test_show_generate_metadata_menu_empty_exam_id():
     """Should return None when user enters empty exam_id."""
     ctrl = make_controller()
@@ -55,7 +56,9 @@ def test_show_generate_metadata_menu_success():
     mock_gen_inst = make_mock_gen_instance()
 
     with patch("builtins.input", side_effect=["cissp-2024", "/path/to/exam.pdf"]):
-        with patch.object(ctrl, "_build_metadata_generator", return_value=mock_gen_inst):
+        with patch.object(
+            ctrl, "_build_metadata_generator", return_value=mock_gen_inst
+        ):
             result = ctrl.show_generate_metadata_menu()
 
     assert result is not None
@@ -69,7 +72,9 @@ def test_show_generate_metadata_menu_generator_called_with_correct_args():
     mock_gen_inst = make_mock_gen_instance()
 
     with patch("builtins.input", side_effect=["my-exam", "/data/exam.pdf"]):
-        with patch.object(ctrl, "_build_metadata_generator", return_value=mock_gen_inst) as mock_build:
+        with patch.object(
+            ctrl, "_build_metadata_generator", return_value=mock_gen_inst
+        ) as mock_build:
             ctrl.show_generate_metadata_menu()
 
     mock_build.assert_called_once_with(exam_id="my-exam", pdf_path="/data/exam.pdf")
@@ -80,7 +85,9 @@ def test_show_generate_metadata_menu_handles_exception():
     ctrl = make_controller()
 
     with patch("builtins.input", side_effect=["exam-1", "/bad/path.pdf"]):
-        with patch.object(ctrl, "_build_metadata_generator", side_effect=Exception("PDF not found")):
+        with patch.object(
+            ctrl, "_build_metadata_generator", side_effect=Exception("PDF not found")
+        ):
             result = ctrl.show_generate_metadata_menu()
 
     assert result is None
@@ -92,7 +99,9 @@ def test_show_generate_metadata_menu_run_called_with_auto():
     mock_gen_inst = make_mock_gen_instance()
 
     with patch("builtins.input", side_effect=["e1", "/p.pdf"]):
-        with patch.object(ctrl, "_build_metadata_generator", return_value=mock_gen_inst):
+        with patch.object(
+            ctrl, "_build_metadata_generator", return_value=mock_gen_inst
+        ):
             ctrl.show_generate_metadata_menu()
 
     mock_gen_inst.run.assert_called_once_with(completion_method="auto")
@@ -105,7 +114,9 @@ def test_show_generate_metadata_menu_returns_none_on_run_exception():
     mock_gen_inst.run.side_effect = RuntimeError("run failed")
 
     with patch("builtins.input", side_effect=["e1", "/p.pdf"]):
-        with patch.object(ctrl, "_build_metadata_generator", return_value=mock_gen_inst):
+        with patch.object(
+            ctrl, "_build_metadata_generator", return_value=mock_gen_inst
+        ):
             result = ctrl.show_generate_metadata_menu()
 
     assert result is None
@@ -115,7 +126,9 @@ def test_build_metadata_generator_returns_generator():
     """_build_metadata_generator should return a MetadataGenerator instance."""
     ctrl = make_controller()
 
-    with patch("cissp_analyzer.menu_controller.MenuController._build_metadata_generator") as mock_build:
+    with patch(
+        "cissp_analyzer.menu_controller.MenuController._build_metadata_generator"
+    ) as mock_build:
         mock_build.return_value = MagicMock()
         gen = ctrl._build_metadata_generator("exam-1", "/path.pdf")
 

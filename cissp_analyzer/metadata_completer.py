@@ -106,7 +106,9 @@ class MetadataCompleter:
     def get_summary(self) -> str:
         """Get summary of completion"""
         total_after = self.extracted_count + len(self.additional_metadata)
-        coverage_after = total_after / self.total_questions if self.total_questions > 0 else 0
+        coverage_after = (
+            total_after / self.total_questions if self.total_questions > 0 else 0
+        )
 
         return f"""
 Metadata Completion Summary

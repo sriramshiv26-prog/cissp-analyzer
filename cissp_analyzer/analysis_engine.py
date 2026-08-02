@@ -28,12 +28,16 @@ class AnalysisEngine:
         # Note: Basic answer validation - checking for blank answers
         validated_answers = {}
         for q_num, ans in answer_dict.items():
-            validated_answers[q_num] = type('ValidatedAnswer', (), {
-                'is_blank': ans is None or str(ans).strip() == '',
-                'is_typo': False,
-                'normalized_input': ans,
-                'corrected_answer': None
-            })()
+            validated_answers[q_num] = type(
+                "ValidatedAnswer",
+                (),
+                {
+                    "is_blank": ans is None or str(ans).strip() == "",
+                    "is_typo": False,
+                    "normalized_input": ans,
+                    "corrected_answer": None,
+                },
+            )()
 
         validation_report = {"warnings": []}
 

@@ -38,7 +38,9 @@ class MetadataReviewer:
         lines.append("-" * 80)
 
         # Sort by question number
-        sorted_keys = sorted(self.metadata.keys(), key=lambda x: int(x) if x.isdigit() else 0)
+        sorted_keys = sorted(
+            self.metadata.keys(), key=lambda x: int(x) if x.isdigit() else 0
+        )
         display_keys = sorted_keys[:20]
 
         for q_num_str in display_keys:
@@ -55,7 +57,9 @@ class MetadataReviewer:
         remaining = total - shown
 
         if remaining > 0:
-            lines.append(f"  ... and {remaining} more questions (showing first 20 of {total})")
+            lines.append(
+                f"  ... and {remaining} more questions (showing first 20 of {total})"
+            )
 
         # Totals
         domain_counts: Dict[str, int] = {}
@@ -126,7 +130,9 @@ class MetadataReviewer:
 
         # Collect all changed fields
         all_fields: Dict[str, int] = {}
-        for q_num_str, changes in sorted(self.edited.items(), key=lambda x: int(x[0]) if x[0].isdigit() else 0):
+        for q_num_str, changes in sorted(
+            self.edited.items(), key=lambda x: int(x[0]) if x[0].isdigit() else 0
+        ):
             field_list = ", ".join(f"{f}={v!r}" for f, v in changes.items())
             lines.append(f"  Q{q_num_str}: {field_list}")
             for field in changes:

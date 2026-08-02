@@ -131,3 +131,8 @@ VALIDATION_REPORT.json
 data/
 output/
 reports/
+
+# Runtime state files
+.processed.json
+.processing_state.json
+*.processing_state.json

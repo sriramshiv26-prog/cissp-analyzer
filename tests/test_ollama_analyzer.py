@@ -9,8 +9,8 @@ import pytest
 from unittest.mock import patch, MagicMock, call
 from cissp_analyzer.ollama_analyzer import OllamaAnalyzer
 
-
 # ---- Helpers ----
+
 
 def make_ollama_tags_response(status=200):
     """Create a mock /api/tags response."""
@@ -42,6 +42,7 @@ def make_ollama_generate_raw_response(raw_text: str):
 
 # ---- Init tests ----
 
+
 def test_init_default_model():
     with patch("urllib.request.urlopen", side_effect=Exception("no ollama")):
         analyzer = OllamaAnalyzer()
@@ -69,6 +70,7 @@ def test_init_unavailable_when_ollama_down():
 
 # ---- _check_ollama tests ----
 
+
 def test_check_ollama_returns_true_on_200():
     mock_resp = make_ollama_tags_response(200)
     with patch("urllib.request.urlopen", return_value=mock_resp):
@@ -88,14 +90,17 @@ def test_check_ollama_returns_false_on_exception():
 
 # ---- analyze_question tests ----
 
+
 def test_analyze_question_success():
     tags_resp = make_ollama_tags_response(200)
-    gen_resp = make_ollama_generate_response({
-        "domain": "Security and Risk Management",
-        "topic": "Risk assessment",
-        "difficulty": "Medium",
-        "question_type": "Analysis",
-    })
+    gen_resp = make_ollama_generate_response(
+        {
+            "domain": "Security and Risk Management",
+            "topic": "Risk assessment",
+            "difficulty": "Medium",
+            "question_type": "Analysis",
+        }
+    )
 
     def side_effect(req, timeout=None):
         if "tags" in req.full_url:
@@ -189,6 +194,7 @@ def test_analyze_question_handles_json_embedded_in_text():
 
 # ---- analyze_batch tests ----
 
+
 def test_analyze_batch_unavailable_returns_empty():
     with patch("urllib.request.urlopen", side_effect=Exception("no ollama")):
         analyzer = OllamaAnalyzer()
@@ -199,12 +205,14 @@ def test_analyze_batch_unavailable_returns_empty():
 
 def test_analyze_batch_success():
     tags_resp = make_ollama_tags_response(200)
-    gen_resp = make_ollama_generate_response({
-        "domain": "IAM",
-        "topic": "Authentication",
-        "difficulty": "Medium",
-        "question_type": "Knowledge",
-    })
+    gen_resp = make_ollama_generate_response(
+        {
+            "domain": "IAM",
+            "topic": "Authentication",
+            "difficulty": "Medium",
+            "question_type": "Knowledge",
+        }
+    )
 
     def side_effect(req, timeout=None):
         if "tags" in req.full_url:
@@ -225,12 +233,14 @@ def test_analyze_batch_success():
 
 def test_analyze_batch_uses_string_keys():
     tags_resp = make_ollama_tags_response(200)
-    gen_resp = make_ollama_generate_response({
-        "domain": "IAM",
-        "topic": "Auth",
-        "difficulty": "Easy",
-        "question_type": "Knowledge",
-    })
+    gen_resp = make_ollama_generate_response(
+        {
+            "domain": "IAM",
+            "topic": "Auth",
+            "difficulty": "Easy",
+            "question_type": "Knowledge",
+        }
+    )
 
     def side_effect(req, timeout=None):
         if "tags" in req.full_url:
@@ -248,6 +258,7 @@ def test_analyze_batch_uses_string_keys():
 
 
 # ---- get_status tests ----
+
 
 def test_get_status_available():
     mock_resp = make_ollama_tags_response(200)

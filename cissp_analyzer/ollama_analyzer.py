@@ -69,11 +69,13 @@ class OllamaAnalyzer:
 
         try:
             url = f"{self.OLLAMA_URL}/api/generate"
-            payload = json.dumps({
-                "model": self.model,
-                "prompt": prompt,
-                "stream": False,
-            }).encode("utf-8")
+            payload = json.dumps(
+                {
+                    "model": self.model,
+                    "prompt": prompt,
+                    "stream": False,
+                }
+            ).encode("utf-8")
 
             req = urllib.request.Request(
                 url,
@@ -130,7 +132,9 @@ class OllamaAnalyzer:
             # Validate required keys
             required = {"domain", "topic", "difficulty", "question_type"}
             if not required.issubset(parsed.keys()):
-                logger.warning(f"Missing keys in Ollama response for Q{q_num}: {parsed.keys()}")
+                logger.warning(
+                    f"Missing keys in Ollama response for Q{q_num}: {parsed.keys()}"
+                )
                 return None
 
             return {
@@ -163,7 +167,9 @@ class OllamaAnalyzer:
             else:
                 logger.debug(f"Skipping Q{q_num} (no result from Ollama)")
 
-        logger.info(f"Ollama batch: {len(results)}/{len(questions)} questions classified")
+        logger.info(
+            f"Ollama batch: {len(results)}/{len(questions)} questions classified"
+        )
         return results
 
     def get_status(self) -> str:

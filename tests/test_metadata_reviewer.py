@@ -7,8 +7,8 @@ At least 10 tests covering: init, display, edit, reviewed metadata, summary.
 import pytest
 from cissp_analyzer.metadata_reviewer import MetadataReviewer
 
-
 # --- Sample data helpers ---
+
 
 def make_metadata(n=5):
     """Return metadata dict with n questions."""
@@ -25,6 +25,7 @@ def make_metadata(n=5):
 
 
 # --- Initialization tests ---
+
 
 def test_init_stores_metadata():
     meta = make_metadata(3)
@@ -53,6 +54,7 @@ def test_init_empty_metadata():
 
 
 # --- Display tests ---
+
 
 def test_display_summary_returns_string():
     reviewer = MetadataReviewer(make_metadata(5))
@@ -96,6 +98,7 @@ def test_display_summary_shows_domains_count():
 
 
 # --- Edit tests ---
+
 
 def test_edit_question_updates_field():
     reviewer = MetadataReviewer(make_metadata(5))
@@ -145,6 +148,7 @@ def test_edit_question_adds_new_field():
 
 # --- get_reviewed_metadata tests ---
 
+
 def test_get_reviewed_metadata_returns_dict():
     reviewer = MetadataReviewer(make_metadata(3))
     result = reviewer.get_reviewed_metadata()
@@ -167,6 +171,7 @@ def test_get_reviewed_metadata_is_copy():
 
 
 # --- get_edit_summary tests ---
+
 
 def test_get_edit_summary_no_edits():
     reviewer = MetadataReviewer(make_metadata(3))

@@ -18,7 +18,10 @@ def make_mock_processor(tmp_path, pdf_path=None):
 
     proc.exam_folder = tmp_path / "exam-001"
     proc.exam_folder.mkdir(parents=True, exist_ok=True)
-    proc.metadata = {"exam_name": "Test Exam", "pdf_path": pdf_path or str(tmp_path / "exam.pdf")}
+    proc.metadata = {
+        "exam_name": "Test Exam",
+        "pdf_path": pdf_path or str(tmp_path / "exam.pdf"),
+    }
     proc.questions = []
     proc.answer_key = None
     proc.reports_dir = proc.exam_folder / "reports"
@@ -46,7 +49,9 @@ def test_process_new_files_generate_metadata_key_present(tmp_path):
     """process_new_files with generate_metadata=True includes metadata_result key."""
     proc = make_mock_processor(tmp_path)
 
-    with patch.object(proc, "_run_metadata_generation", return_value={"method": "default"}):
+    with patch.object(
+        proc, "_run_metadata_generation", return_value={"method": "default"}
+    ):
         result = proc.process_new_files(generate_metadata=True)
 
     assert "metadata_result" in result
@@ -98,7 +103,10 @@ def test_run_metadata_generation_handles_exception(tmp_path):
     proc.metadata = {"pdf_path": "/fake/exam.pdf"}
 
     # Patch where MetadataGenerator gets used (the cissp_analyzer.metadata_generator module)
-    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer", side_effect=Exception("boom")):
+    with patch(
+        "cissp_analyzer.metadata_generator.OllamaAnalyzer",
+        side_effect=Exception("boom"),
+    ):
         result = proc._run_metadata_generation()
 
     assert "error" in result

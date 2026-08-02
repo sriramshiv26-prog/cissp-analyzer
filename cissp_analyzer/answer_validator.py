@@ -139,9 +139,7 @@ class AnswerValidator:
             for q_num in questions:
                 # Search for "N. ... The correct answer is X"
                 q_pattern = rf"\n{q_num}\.\s.+?The\s+correct\s+answer\s+is\s+([A-D])"
-                match = re.search(
-                    q_pattern, all_text, re.DOTALL | re.IGNORECASE
-                )
+                match = re.search(q_pattern, all_text, re.DOTALL | re.IGNORECASE)
 
                 if match:
                     answer = match.group(1).upper()

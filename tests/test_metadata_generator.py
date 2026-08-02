@@ -10,7 +10,6 @@ from pathlib import Path
 from unittest.mock import patch, MagicMock, PropertyMock
 from cissp_analyzer.metadata_generator import MetadataGenerator
 
-
 # ---- Fixtures / Helpers ----
 
 SAMPLE_EXTRACTION_RESULTS = {
@@ -19,9 +18,27 @@ SAMPLE_EXTRACTION_RESULTS = {
     "confidence": 0.6,
     "gaps": [4, 5],
     "extracted_metadata": {
-        "1": {"domain": "IAM", "topic": "Auth", "difficulty": "Easy", "question_type": "Knowledge", "exam_trick": "None"},
-        "2": {"domain": "Crypto", "topic": "AES", "difficulty": "Medium", "question_type": "Knowledge", "exam_trick": "None"},
-        "3": {"domain": "Risk", "topic": "RA", "difficulty": "Hard", "question_type": "Analysis", "exam_trick": "None"},
+        "1": {
+            "domain": "IAM",
+            "topic": "Auth",
+            "difficulty": "Easy",
+            "question_type": "Knowledge",
+            "exam_trick": "None",
+        },
+        "2": {
+            "domain": "Crypto",
+            "topic": "AES",
+            "difficulty": "Medium",
+            "question_type": "Knowledge",
+            "exam_trick": "None",
+        },
+        "3": {
+            "domain": "Risk",
+            "topic": "RA",
+            "difficulty": "Hard",
+            "question_type": "Analysis",
+            "exam_trick": "None",
+        },
     },
     "extraction_note": "Extracted 3/5",
 }
@@ -46,19 +63,31 @@ def make_mock_ollama(available=False, batch_results=None):
     ollama = MagicMock()
     ollama.available = available
     ollama.get_status.return_value = (
-        "Ollama available (model: qwen2.5-coder:7b)" if available
+        "Ollama available (model: qwen2.5-coder:7b)"
+        if available
         else "Ollama unavailable (fallback mode)"
     )
     if batch_results is None:
         batch_results = {
-            "4": {"domain": "Crypto", "topic": "PKI", "difficulty": "Hard", "question_type": "Knowledge"},
-            "5": {"domain": "Risk", "topic": "BCP", "difficulty": "Medium", "question_type": "Application"},
+            "4": {
+                "domain": "Crypto",
+                "topic": "PKI",
+                "difficulty": "Hard",
+                "question_type": "Knowledge",
+            },
+            "5": {
+                "domain": "Risk",
+                "topic": "BCP",
+                "difficulty": "Medium",
+                "question_type": "Application",
+            },
         }
     ollama.analyze_batch.return_value = batch_results
     return ollama
 
 
 # ---- Init tests ----
+
 
 def test_init_sets_exam_id(tmp_path):
     with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama:
@@ -90,9 +119,11 @@ def test_init_creates_ollama_instance(tmp_path):
 
 # ---- run() tests ----
 
+
 def test_run_defaults_returns_dict(tmp_path):
-    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, \
-         patch("cissp_analyzer.metadata_generator.PDFMetadataExtractor") as MockExtractor:
+    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, patch(
+        "cissp_analyzer.metadata_generator.PDFMetadataExtractor"
+    ) as MockExtractor:
         MockOllama.return_value = make_mock_ollama(available=False)
         MockExtractor.return_value = make_mock_extractor()
 
@@ -108,8 +139,9 @@ def test_run_defaults_returns_dict(tmp_path):
 
 
 def test_run_defaults_uses_defaults_method(tmp_path):
-    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, \
-         patch("cissp_analyzer.metadata_generator.PDFMetadataExtractor") as MockExtractor:
+    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, patch(
+        "cissp_analyzer.metadata_generator.PDFMetadataExtractor"
+    ) as MockExtractor:
         MockOllama.return_value = make_mock_ollama(available=False)
         MockExtractor.return_value = make_mock_extractor()
 
@@ -120,8 +152,9 @@ def test_run_defaults_uses_defaults_method(tmp_path):
 
 
 def test_run_auto_with_ollama_available(tmp_path):
-    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, \
-         patch("cissp_analyzer.metadata_generator.PDFMetadataExtractor") as MockExtractor:
+    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, patch(
+        "cissp_analyzer.metadata_generator.PDFMetadataExtractor"
+    ) as MockExtractor:
         mock_ollama = make_mock_ollama(available=True)
         MockOllama.return_value = mock_ollama
         MockExtractor.return_value = make_mock_extractor()
@@ -134,8 +167,9 @@ def test_run_auto_with_ollama_available(tmp_path):
 
 
 def test_run_auto_without_ollama_falls_back_to_default(tmp_path):
-    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, \
-         patch("cissp_analyzer.metadata_generator.PDFMetadataExtractor") as MockExtractor:
+    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, patch(
+        "cissp_analyzer.metadata_generator.PDFMetadataExtractor"
+    ) as MockExtractor:
         MockOllama.return_value = make_mock_ollama(available=False)
         MockExtractor.return_value = make_mock_extractor()
 
@@ -146,8 +180,9 @@ def test_run_auto_without_ollama_falls_back_to_default(tmp_path):
 
 
 def test_run_saves_json_file(tmp_path):
-    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, \
-         patch("cissp_analyzer.metadata_generator.PDFMetadataExtractor") as MockExtractor:
+    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, patch(
+        "cissp_analyzer.metadata_generator.PDFMetadataExtractor"
+    ) as MockExtractor:
         MockOllama.return_value = make_mock_ollama(available=False)
         MockExtractor.return_value = make_mock_extractor()
 
@@ -160,8 +195,9 @@ def test_run_saves_json_file(tmp_path):
 
 
 def test_run_json_is_valid(tmp_path):
-    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, \
-         patch("cissp_analyzer.metadata_generator.PDFMetadataExtractor") as MockExtractor:
+    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, patch(
+        "cissp_analyzer.metadata_generator.PDFMetadataExtractor"
+    ) as MockExtractor:
         MockOllama.return_value = make_mock_ollama(available=False)
         MockExtractor.return_value = make_mock_extractor()
 
@@ -177,8 +213,9 @@ def test_run_json_is_valid(tmp_path):
 
 def test_run_output_path_structure(tmp_path):
     """Output path should be output_dir/YYYY-MM-DD/exam_id/metadata.json"""
-    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, \
-         patch("cissp_analyzer.metadata_generator.PDFMetadataExtractor") as MockExtractor:
+    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, patch(
+        "cissp_analyzer.metadata_generator.PDFMetadataExtractor"
+    ) as MockExtractor:
         MockOllama.return_value = make_mock_ollama(available=False)
         MockExtractor.return_value = make_mock_extractor()
 
@@ -196,8 +233,9 @@ def test_run_output_path_structure(tmp_path):
 
 
 def test_run_coverage_metric(tmp_path):
-    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, \
-         patch("cissp_analyzer.metadata_generator.PDFMetadataExtractor") as MockExtractor:
+    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, patch(
+        "cissp_analyzer.metadata_generator.PDFMetadataExtractor"
+    ) as MockExtractor:
         MockOllama.return_value = make_mock_ollama(available=False)
         MockExtractor.return_value = make_mock_extractor()
 
@@ -210,8 +248,9 @@ def test_run_coverage_metric(tmp_path):
 
 
 def test_run_returns_exam_id(tmp_path):
-    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, \
-         patch("cissp_analyzer.metadata_generator.PDFMetadataExtractor") as MockExtractor:
+    with patch("cissp_analyzer.metadata_generator.OllamaAnalyzer") as MockOllama, patch(
+        "cissp_analyzer.metadata_generator.PDFMetadataExtractor"
+    ) as MockExtractor:
         MockOllama.return_value = make_mock_ollama(available=False)
         MockExtractor.return_value = make_mock_extractor()
 

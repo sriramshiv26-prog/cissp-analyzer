@@ -78,6 +78,7 @@ class ExamProcessor:
 
         try:
             from cissp_analyzer.robust_pdf_parser import RobustPDFParser
+
             parser = RobustPDFParser(pdf_path)
             result = parser.extract_with_fallback()
             # Convert {q_num: {...}} dict to list with "number" key
@@ -216,7 +217,9 @@ class ExamProcessor:
             pdf_path = self.metadata.get("pdf_path", "")
 
             if not pdf_path:
-                logger.warning("Cannot run metadata generation: no pdf_path in exam metadata")
+                logger.warning(
+                    "Cannot run metadata generation: no pdf_path in exam metadata"
+                )
                 return {"error": "pdf_path not found in exam metadata"}
 
             logger.info(f"Running MetadataGenerator for exam: {exam_id}")
@@ -370,7 +373,9 @@ class ExamProcessor:
         # Warn on mismatches but don't block — real exams may have minor numbering gaps
         mismatches = [q for q in answers.keys() if q not in question_numbers]
         if mismatches:
-            logger.warning(f"{len(mismatches)} answers have no matching question (proceeding anyway)")
+            logger.warning(
+                f"{len(mismatches)} answers have no matching question (proceeding anyway)"
+            )
 
         # Require at least 50% overlap with expected questions
         overlap = len([q for q in answers.keys() if q in question_numbers])

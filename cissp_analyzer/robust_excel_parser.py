@@ -158,7 +158,9 @@ class RobustExcelParser:
                     result.student_name = self.excel_path.stem
 
                 # Parse answers with auto-generated question numbers
-                logger.info("Step 2: Parsing answers (auto-generating question numbers)...")
+                logger.info(
+                    "Step 2: Parsing answers (auto-generating question numbers)..."
+                )
                 result = self._parse_answers_only(answer_col, result)
 
                 if result.valid_answers == 0:

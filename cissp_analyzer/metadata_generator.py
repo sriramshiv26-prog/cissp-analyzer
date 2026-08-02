@@ -66,7 +66,9 @@ class MetadataGenerator:
 
         if completion_method == "auto":
             if self.ollama.available:
-                logger.info(f"Ollama available — using AI completion ({self.ollama.get_status()})")
+                logger.info(
+                    f"Ollama available — using AI completion ({self.ollama.get_status()})"
+                )
                 # Get question texts for gaps
                 questions_for_ollama = self._get_questions_for_gaps(
                     extractor, completer.gaps
@@ -76,7 +78,9 @@ class MetadataGenerator:
                     completer.apply_ollama_results(ollama_results)
                     method_used = "ai"
                 else:
-                    logger.warning("Ollama returned no results, falling back to defaults")
+                    logger.warning(
+                        "Ollama returned no results, falling back to defaults"
+                    )
                     completer.apply_defaults()
                     method_used = "default"
             else:

@@ -109,7 +109,7 @@ class CISSPAnalyzer:
         try:
             # Use AnswerValidator for robust extraction that catches all questions
             # including edge cases with non-standard formatting
-            pdf_path = pdf_parser.pdf_file if hasattr(pdf_parser, 'pdf_file') else None
+            pdf_path = pdf_parser.pdf_file if hasattr(pdf_parser, "pdf_file") else None
 
             if pdf_path:
                 validator = AnswerValidator(str(pdf_path))

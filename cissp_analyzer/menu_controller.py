@@ -276,6 +276,7 @@ class MenuController:
             MetadataGenerator instance
         """
         from cissp_analyzer.metadata_generator import MetadataGenerator
+
         return MetadataGenerator(exam_id=exam_id, pdf_path=pdf_path)
 
     def show_generate_metadata_menu(self) -> Optional[Dict]:
@@ -292,12 +293,16 @@ class MenuController:
         print(self._colorize("Generate Metadata for Question Bank", self.BOLD))
         print(self._colorize("=" * 70, self.BLUE) + "\n")
 
-        exam_id = input(self._colorize("Enter Exam ID (e.g. cissp-2024-q1): ", self.YELLOW)).strip()
+        exam_id = input(
+            self._colorize("Enter Exam ID (e.g. cissp-2024-q1): ", self.YELLOW)
+        ).strip()
         if not exam_id:
             self.show_error_message("Exam ID cannot be empty.")
             return None
 
-        pdf_path = input(self._colorize("Enter path to exam PDF: ", self.YELLOW)).strip()
+        pdf_path = input(
+            self._colorize("Enter path to exam PDF: ", self.YELLOW)
+        ).strip()
         if not pdf_path:
             self.show_error_message("PDF path cannot be empty.")
             return None
@@ -314,13 +319,15 @@ class MenuController:
             print(self._colorize("=" * 70, self.BLUE))
             print(f"  Exam ID:         {result.get('exam_id', 'N/A')}")
             print(f"  Total Questions: {result.get('total_questions', 0)}")
-            coverage_pct = int(result.get('coverage', 0) * 100)
+            coverage_pct = int(result.get("coverage", 0) * 100)
             print(f"  Coverage:        {coverage_pct}%")
             print(f"  Method:          {result.get('method', 'N/A')}")
             print(f"  Output:          {result.get('output_path', 'N/A')}")
             print(self._colorize("=" * 70, self.BLUE) + "\n")
 
-            self.show_success_message(f"Metadata saved to: {result.get('output_path', 'N/A')}")
+            self.show_success_message(
+                f"Metadata saved to: {result.get('output_path', 'N/A')}"
+            )
             return result
 
         except Exception as e:
